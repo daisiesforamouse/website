@@ -1,0 +1,18 @@
+
+We have four properties to characterize the Brownian motion:
+
+1. \(\P(W_0 = 0) = 1\)
+2. For any \(0 \leq s < t < \infty\), the random variable \(W_t - W_s \sim N(0, \sigma^2(t-s)\)
+3. The increments \(\{W_{t_i} - W_{t_j}\}\) are indpendent
+4. \(t \mapsto W_t(\omega)\) is continuous with probability 1
+
+Usually we take \(\sigma = 1\) and call the process "standard".
+
+We can actually construct Brownian motion as a random trigonometric series:
+\[
+    W_t(w) = \frac{t}{\sqrt{\pi}}Z_0(w) + \sum_{n \in \N}\sum_{k=2^{n-1}}^{2^n-1}\sqrt{\frac{2}{\pi}}\frac{sin(kt)}{k}Z_k(w)
+\]
+for standard independent Gaussians \(Z_0, Z_1, \dots\). We also have a modulus of continuity for the Brownian motion,
+\[
+    \P\left(\limsup_{d \rightarrow 0} \frac{1}{g(\delta)}\max|W_t(w) - W_s(w)| = 1\right) = 1
+\]

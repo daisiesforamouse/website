@@ -3,6 +3,7 @@ MathJax = {
         packages: ['base'],
         inlineMath: [
             ['$', '$']
+            ['\\(', '\\)']
         ],
         displayMath: [
             ['$$', '$$'],
