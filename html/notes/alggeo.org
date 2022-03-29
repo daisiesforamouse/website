@@ -6,6 +6,31 @@
 
 #+TITLE: Algebraic Geometry Spring 2022
 
+\(
+    \newcommand{\contra}{\Rightarrow\!\Leftarrow}
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\F}{\mathbb{F}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+    \newcommand{\Zg}{\mathbb{Z}_{>0}}
+    \newcommand{\Req}{\mathbb{R}_{\geq 0}}
+    \newcommand{\Rg}{\mathbb{R}_{>0}}
+    \newcommand{\N}{\mathbb{N}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\O}{\mathcal{O}}
+    \newcommand{\C}{\mathbb{C}}
+    \newcommand{\A}{\mathbb{A}}
+    \newcommand{\P}{\mathbb{P}}
+    \DeclareMathOperator{\Spec}{Spec}
+    \DeclareMathOperator{\Proj}{Proj}
+    \DeclareMathOperator{\Ob}{Ob}
+    \DeclareMathOperator{\Mor}{Mor}
+    \DeclareMathOperator{\Hom}{Hom}
+    \DeclareMathOperator{\colim}{colim}
+    \DeclareMathOperator{\length}{length}
+    \DeclareMathOperator{\Pic}{Pic}
+\)
+
 * Very short introduction on schemes
 We start with the notion of schemes.
 
@@ -299,6 +324,292 @@ Theorem: \(\P^n_R \rightarrow  \Spec(R)\) is universally closed.
 * Moduli
 * Coherent cohomology
 * Rational points and heights
+
+Let \(K\) be a field, and suppose that given a set \(M = M_K\) and for each \(v \in M\) an absolute value
+\[
+\| \cdot \| : K \rightarrow \R_{\geq 0}
+\]
+such that for all \(c \in K^*\) we have
+1. For all but finite many \(v \in M\), \(\| c \| _v = 1\)
+1. \(\prod_{v \in M} \| c\| _v = 1\)
+and for only finitely many \(v \in M\) is \(\| \cdot \|_v\) archmedian.
+
+A few more properties of heights will be discussed, pertaining to:
+1. Aboslute value
+1. Positivity
+1. Bounded
+1. Abelian varities
+
+An absolute value here is just something satisfying the axioms of a norm.
+
+Then, we get fucntions \(h_n: \P^n(K) \rightarrow \R \) satisfying our height axioms, by setting
+\[
+    h_n(x_0 : \cdots : x_n) = \log \left( \prod_{v \in M} \max_{i=0,\dots,n} \| x_i  \|_v\right)
+\]
+
+The key example here is \(K = \Q\) with \(M = \{\infty, 2, 3, 5, \dots\}\), with
+\[
+    \| p \|_p = p^{-1}, \| n \|_\infty = n
+\]
+and \(1\) for every other case 1.
+
+We can check this: it is clear that the functions coincide, and we see that
+\[
+    h_{nm + n + m}(x \otimes y) = h_n(x) + h_n(y)
+\]
+reduces to
+\[
+    \max_{i, j}\| x_i y_j \|_v = (\max_i \|x_i\|_v)(\max_j \|y_j\|_v)
+\]
+which holds, and so the first axiom holds. For the second axiom, we need to show that
+\[
+    \log \left( \prod_v \max ( \| x_0 \|_v, \dots, \|x_n\|_v)\right) - \log \left( \prod_v \max ( \| x_0 \|_v, \dots, \| \lambda x_i \|, \dots, \|x_n\|_v) \right)
+\]
+is bounded. But on inspection, this difference is at most \(\log ( \| \lambda \|_v)\). So we are good. The second part is more annoying, however, and we'll only do it for \(n = 1\). In this case, this reduces to for \(\P^1 \rightarrow  \P^1\), \((x_0 : x_1) \mapsto (x_0 : x_1 + x_0)\) (which is equivalent to \((1 :a) \mapsto (1 : a + 1\)), so we have to bound
+\[
+    \log \left( \prod_v \max (1, \| a\|_v)\right) - \log \left( \prod_v \max (1, \|1 + a\|_v) \right)
+\]
+But since we have that the absolute value satisfies the triangle inequality,
+\[
+    \| 1 + a \|_v \leq 1 + \| a \|_v \leq 2 \max(1, \|a \|_v)
+\]
+for when \(\| \cdot \|_v\) is archimedian, and so we have that
+\[
+    \log \left( \prod_v \max(1, \| 1 + a\|_v) \right) \leq \log \left( 2^N \prod_v \max(1, \| a\|_v) \right)
+\]
+so the difference is bounded by \(\log(2^N)\).
+
+So why is this interesting? As an example, let \(K\) be the function field of a smooth projective variety \(V\) over a ground field \(k\), ad \(M\) the set of prime divisors of \(V\), a.k.a. the set
+\[
+    \{Y \subset V, \ Y \text{ is a codimension 1 subvariety}\}
+\]
+Then, for \(Y \in M\), you may take
+\[
+    \| f \|_Y = q_Y^{-\text{ord}_Y(f)}
+\]
+for some \(q_Y > 0\) a real number, chosen to make the product formula hold. In some sense, this means that \(Y \mapsto \log(q_Y)\) lives on the Weil divisor class group!
+
+Now we want to talk about positivity for a little bit: over \(\Q\) and \(k(t)\) out functions \(h_n\) have the following positivity properties:
+\[
+    X, \mathcal L \rightarrow h_{\mathcal L} : X(K) \rightarrow  \R
+\]
+Let \(B\) be the base locus of \(\mathcal L\), the common vanishing locus if all gloval sections of \(\mathcal L\). Then
+\[
+    h_{\mathcal L}|_{X(K) - B(K)}
+\]
+is bounded below. You "need" the specific facts of the constructions to see this.
+
+As for boundedness, we just state a fact: for \(K = \Q\) or \(K = k(t)\) with \(k\) finite the sets
+\[
+    S_{n, C} = \{x \in \P^n(K) : h_n(x) \leq C\}
+\]
+are finite.
+
+\(X / K\) is an abelian variety means that we are given a rational point \(0 \in X(K\) ad a morphism of varieties
+\[
+    m: X \times X \rightarrow X
+\]
+such that \((X, m , 0)\) is an abelian group. Example: elliptic curves.
+
+Fact: if \((X, m , 0)\) is an abelian variety, and \(\mathcal L\) in \(\Pic(X)\),
+\[
+    \mathcal O_{X \times X \times X} \cong m_{123}^*(\mathcal L) \otimes m_{12}^*(\mathcal L)^-1 \otimes m_{13}^*(\mathcal L)^-1 \otimes m_{23}^*(\mathcal L)^-1 \otimes p_{1}^*(\mathcal L) \otimes p_{2}^*(\mathcal L) \otimes p_{3}^*(\mathcal L)
+\]
+is trivial (where \(m_{123}: (x, y, z) \mapsto x + y + z\) and so on). Then, this means that
+\[
+    \vert \ h_{\mathcal L}(x + y + z) - h_\mathcal{L}(x + y) - h_\mathcal{L}(x + z) - h_\mathcal{L}(y + z) + h_{\mathcal L}(x) + h_{\mathcal L}(y)+ h_{\mathcal L}(z) \vert
+\]
+And substituting \((x, x, -x)\) shows that this function is almost quadratic!
+
 * Intersection theory
-* Group schemes
-* Mordell-Weil (time permitting)
+
+Fix \(k\) a field. Let \(V \subset \P^n\) a closed subvariety, irreducible and reduced. Further, let \(I_V\) be the homogenous prime ideal corresponding to \(V\), namely
+\[
+    \langle F \in k[T_0, \dots, T_n] \text{ homogenous } \mid V \subset V_+(F) \rangle
+\]
+and \(S_V = S/I_V\) is the homogenous coordinate ring of \(V\).
+
+We also have the Hilbert poynomial of \(V\), say \(P_V(t\), which is the Hilbert polynomial of \(S_V\) (that is, for \(e \gg 0\)),
+\[
+    P_V(e) = \dim_k(S_V)_e
+\]
+
+A few facts about the Hilbert polynomial are that
+1. \(P_V(e) = X(V, \mathcal O_V(e))\)  for all \(e \in \Z\)
+2. The degree of \(P_V\) in \(t\) is \(\dim(V)\)
+
+Furthermore, the degree of \(V\) in \(\P^n\) is the integer \(\deg(V) > 0\) such that
+\[
+    P_V(t) = \frac{\deg(V)}{\dim(V)!}t^{\dim(V)} + \text{ lower order terms }
+\]
+so it is the normalized leading coefficient of \(P_V\).
+
+Example: Let \(V\) be a hypersurface defined by \(F \in k[T_0, \dots, T_n]\) of degree \(d > 0\). Then, \(I_V = (F)\) and we get a resolution by graded \(S\)-modules,
+\[
+    0 \rightarrow S(-d) \rightarrow  S \rightarrow  S_V \rightarrow 0
+\]
+and
+\[
+    \dim(S_V)_e = \dim(S_e)  - \dim(S(-d)_e) = \binom{e+n}{n} - \binom{e - d + n}{n}
+\]
+and if you compute, this becomes
+\[
+    \frac{d}{(n-1)!}e^{n-1} + \text{ lower order timers }
+\]
+so the degree of \(V\) is \(d\).
+
+** Intersecting with a (linear) hypersurface
+
+Fix \(V \subset \P^n\) as above, \(H \subset \P^n\), given by \(\ell = 0\) for \(\ell \in k[T_0, \dots, T_n]_1\).
+
+Assume now that \(V \not\subset H\), and set theoretically we have a decomposition
+\[
+    \P^n \supset V \cap H = W_1 \cup \dots \cup W_T
+\]
+where \(W_i\) are irreducible components; by the Krull Hauptidealsatz, eahc \(W_i \subset V\) has codimension 1. Now set \(m_i\) to be the multiplicity of \(W_i\) as a component of the scheme theoretic intersection \(V \cap H\):
+\[
+    \text{length}(\mathcal O_{V \cap H, \xi_i})
+\]
+where \(\xi_i \in W_i\) is a generic point.
+
+Recall that if \(Z_1 \rightarrow S\), \(Z_2 \rightarrow S\) are two closed subschemes of a scheme, then there is a scheme theoretic intersection \(Z_1 \cap Z_2 \rightarrow S\), which is made by, affine locally, setting
+\[
+    S = \Spec(A), \ Z_1 = \Spec(A/I_1), \ Z_2 = \Spec(A/I_2) \implies Z_1 \cap Z_2 = \Spec(A/(I_1 + I_2))
+\]
+
+Example: Let \(V = V_+(T_0T_1 - T_2^2) \subset \P^2\), and \(H = V_+(T_1) \subset \P^2\). Then, set theoretically,
+\[
+    V \cap H = \{(1: 0 : 0)\} \subset D_+(T_0) = \A^2\}
+\]
+and similarly, \(V \cap \A^2 \) is \(x - y^2 = 0\), \(V \cap H\) is \(x = 0\). Then, we have that
+\[
+    V \cap H \cap A^2 = (x - y^2, x) \subset k[x,y]
+\]
+and so
+\[
+    m = \text{length}\left(\frac{k[x,y]}{(x, x-y^2)}\right)_{(x,y)} = 2
+\]
+And in general, since \(\xi_i \in W_i \subset V \cap H\) is a generic point of an irreducible component of the Neotherian scheme \(V \cap H\) we have
+\[
+    \mathcal O_{V \cap H, \xi_i} \text{ is Artinian } \implies m_i \geq 1, m_i < \infty
+\]
+Then Bezout gives us that (\dim(V) > 0),
+\[
+    \deg(V) = \sum_{i=1}^r m_i \deg(W_i)
+\]
+if \(H\) is linear.
+
+The sketch of the proof goes as follows: \(V \cap H\) is defined by \((I_V, \ell) \subset S = k[T_0, \dots, T_n]\) and we get
+\[
+    0 \rightarrow S_V(-1) \rightarrow S_V \rightarrow    S/(I_V, \ell) \rightarrow   0
+\]
+and so we check that \(\deg(V)\) is the normalzied leading coefficient of the Hilbert polynomial of \(S/(I_V, \ell)\), and then you check that there is a correspondence
+\[
+    W_1, \dots, W_r \text{ irreducible components of } V \cap H \leftrightarrow I_{W_1}, \dots, I_{W_r}  \text{ minimal primes of } S
+\]
+and further
+\[
+    I_{W_1}, \dots, I_{W_r}  \text{ minimal primes of } S \leftrightarrow I_{W_1}, \dots, I_{W_r}  \text{ generic points of } \text{Supp}(S/(I_V, \ell))
+\]
+The last thing to check is that
+\[
+    m_i = \text{length}(S/(I_V, \ell))_{I_{W_i}}
+\]
+where the last ting is Artinian local.
+
+The last thing we need is a commutative algebra fact, namely that given a finite graded \(S\)-module \(M\) we ca find a filtration
+\[
+    0 \subset M_1 \subset \dots \subset M_t = M
+\]
+by graded submodules, such that for all \(i\), \(M_i / M_{i-1} \cong (S / \mathfrak p_i)(f_i)\) and moreover of \(\mathfrak p \in \text{Supp}(M)\) is a generic point of \(\text{Supp}(M)\). Then,
+\[
+    \# \{i \mid \mathfrak p_i = \mathfrak p\} = \text{length}(M_{\mathfrak p})
+\]
+
+Putting everything together, if we apply this to \(M = S/(I_V, \ell)\), we see that the Hilbert polynomial of \(M\) is just
+\[
+    \sum  \text{ Hilbert polynomials of } (S / \mathfrak p_i)(f_i)
+\]
+And once we compare leading coefficients, we see that this shows
+\[
+\frac{\deg(V)}{(\dim(V) - 1)!}t^{\dim(V)-1} = \sum m_i \frac{\deg(W_i)}{(\dim W_i)!}t^{\dim W_i}
+\]
+
+Fact: Given \(V \subset \P^n\) a subvariety, \(\dim V \geq 1\) and for and \(d\) we can always pick \(H\) such that \(m_i = 1\)  for all \(i\) (if \(k = \overline{k}\)). This is a Bertini theorem! And if we do this for \(d = 1\) we get a hyperplane \(H\) such that
+\[
+    \deg(V) = \sum \deg(W_i)
+\]
+and if \(\dim(V) = 1\), we see that \(\deg(V) = \#(V \cap H)\) for such an \(H\).
+
+For \(\dim(V) = 2\), we can do it again so that
+\[
+    \deg(W_i) = \# (W_i \cap H')
+\]
+so
+\[
+    \deg(V) = \sum \deg(W_i) = \#(V \cap H \cap H')
+\]
+
+Thm: What happens when you intersect \(V\) with 2 hypersurfaces \(H_1, H_2\) of degrees \(d_1, d_2\) where we assume the dimensions are OK? In general, intersecting things can give you wonky things; this is called a proper intersection. That is,
+1. \(\dim(V) \geq 2\)
+1. \(\dim(V \cap H_1 \cap H_2) =  \bigcup_{i=1}^t Z_j\) (set theoretically) is the decomposition into irreducible components.
+
+Then, we have that
+\[
+    d_1 d_2 \deg(V) = \sum_{j=1}^t \mu_j \deg(Z_j)
+\]
+for some integers \(m_j \geq 1\).
+
+Proof: Let \(V \cap H_1 = W_1 \cup \dots \cup W_r\) be the irreducible components, and the irreducible components of \(W_i \cap H_2\) are a subset of \(\{Z_1, \dots, Z_t\}\). Further, it must be true that every \(Z_j\) occurs as an irreducible component of \(W_i \cap H_2\) for some \(i\). Now,
+\[
+    d_1 \deg(V) = \sum_{i=1}^r m_i \deg(W_i)
+\]
+and so
+\[
+    d_2 \deg(W_i) =\sum_{j, \ Z_j \subset W_i} m_{i, j} \deg(Z_j)
+\]
+and combining the two gives us what we need. But what are the \(\mu_j\)? Consider \(\xi_j \in Z_j\) a gneeric point, so that \(\mathcal O_{V, \xi_j} = R\) is a Noetherian local domain of dimension 2. Then, if \(f_1, f_2 \in \mathcal m\) are the local equations of \(H_1, H_2\). Say that \(Z_j \subset W_1, \dots, W_s\) and nothing else after renumbering; then the geenric points \(\xi_i \in W_i\) for \(1 \leq i \leq s\) correspond  to prime ideals \(\mathfrak p_i \subset R\).
+
+Algebraically, we have that if \((f_1) \subset \mathfrak p_1 \dots, \mathfrak p_s\), minimal over \((f_1)\), then
+\[
+    m_i = \text{length}((R/f_1R)_{\mathfrak p_i})
+\]
+and
+\[
+    m_{i,j} = \text{length}((R/ \mathfrak p_i) / f_2(R / \mathfrak p_i)) = \text{length})(R / (\mathfrak p_i + f_2R))
+\]
+
+So there is a question, which is
+\[
+    \length(R/(f_1, f_2)) = \sum_{f_1 \subset \mathfrak p \subset R} \length((R / f_1)\mathfrak p) \length(R/\mathfrak p + f_2)
+\]
+But unfortunately this is true iff \(R\) is Cohen-Macaulay.
+
+Algebraically, consider the exact sequence
+\[
+    R/f_1 R \rightarrow R/f_1R \rightarrow R/(f_1, f_2) \rightarrow 0
+\]
+and if multiplication by \(f_2\) is injective in \(R/ f_1 R\), then it is also true for \(f_2^n\) as well. But then, it is a fact that
+\[
+    \length((R/f_1 R)/(f_2^n(R/f_1 R))) = n \length (R/(f_1, f_2))
+\]
+so now \(R/ f_1 R\) has a filtration whose successive quotients are
+1. \(R / \mathfrak p_i\) each \(m_i\) times
+1. \(R / \mathfrak m\) a finite amount of times
+and we see
+\[
+    \length((R/f_1R)/f_2^n) = \sum_{i=1}^s \length((R/ \mathfrak p_i)/f_2^n) + C
+\]
+and so considering the s.e.s.
+\[
+    0 \rightarrow R/\mathfrak p_i \rightarrow R/\mathfrak p_2 \rightarrow (R/\mathfrak p_2)/f_2^n \rightarrow 0
+\]
+we see that
+\[
+    \length((R/\mathfrak p_i)/f_2^n) = n \length(R/(\mathfrak p_2, f_2)) = nm_{i,j}
+\]
+ANd we can show that \(R\) is CM iff \(f_2: R/f_1R \rightarrow R/f_1R\) is injective. Overall, we have that
+\[
+    \length(\mathcal O_{V \cap H_1 \cap H_2, \xi_j}) \geq \mu_j \geq 1
+\]
+where equality holds in the first inequality iff \(\mathcal O_{V, \xi_j}\) is CM.

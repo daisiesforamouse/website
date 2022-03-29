@@ -1,18 +1,219 @@
+#+STARTUP: nolatexpreview
 
-We have four properties to characterize the Brownian motion:
+#+HTML_HEAD: <link rel="stylesheet" href="../../css/math.css" />
+#+HTML_HEAD: <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.min.js" integrity="sha512-9DkJEmXbL/Tdj8b1SxJ4H2p3RCAXKsu8RqbznEjhFYw0cFIWlII+PnGDU2FX3keyE9Ev6eFaDPyEAyAL2cEX0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+#+HTML_HEAD: <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/input/tex/extensions/ams.min.js" integrity="sha512-hYQ7XXWTcxv2ZqLKj/ZLf+iDlS6UDfMqGZBYViCaAEfLNVtmThtbS0HKzR1PnjMCi3N5SGEpOmEdYXInWlwqqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-1. \(\P(W_0 = 0) = 1\)
-2. For any \(0 \leq s < t < \infty\), the random variable \(W_t - W_s \sim N(0, \sigma^2(t-s)\)
-3. The increments \(\{W_{t_i} - W_{t_j}\}\) are indpendent
-4. \(t \mapsto W_t(\omega)\) is continuous with probability 1
+#+TITLE: Probability Spring 2022
 
-Usually we take \(\sigma = 1\) and call the process "standard".
+# We have four properties to characterize the Brownian motion:
 
-We can actually construct Brownian motion as a random trigonometric series:
+# 1. \(\P(W_0 = 0) = 1\)
+# 2. For any \(0 \leq s < t < \infty\), the random variable \(W_t - W_s \sim N(0, \sigma^2(t-s)\)
+# 3. The increments \(\{W_{t_i} - W_{t_j}\}\) are indpendent
+# 4. \(t \mapsto W_t(\omega)\) is continuous with probability 1
+
+# Usually we take \(\sigma = 1\) and call the process "standard".
+
+# We can actually construct Brownian motion as a random trigonometric series:
+# \[
+#     W_t(w) = \frac{t}{\sqrt{\pi}}Z_0(w) + \sum_{n \in \N}\sum_{k=2^{n-1}}^{2^n-1}\sqrt{\frac{2}{\pi}}\frac{sin(kt)}{k}Z_k(w)
+# \]
+# for standard independent Gaussians \(Z_0, Z_1, \dots\). We also have a modulus of continuity for the Brownian motion,
+# \[
+#     \P\left(\limsup_{d \rightarrow 0} \frac{1}{g(\delta)}\max|W_t(w) - W_s(w)| = 1\right) = 1
+# \]
+
+\(
+    \newcommand{\contra}{\Rightarrow\!\Leftarrow}
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\F}{\mathbb{F}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+    \newcommand{\Zg}{\mathbb{Z}_{>0}}
+    \newcommand{\Req}{\mathbb{R}_{\geq 0}}
+    \newcommand{\Rg}{\mathbb{R}_{>0}}
+    \newcommand{\N}{\mathbb{N}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\O}{\mathcal{O}}
+    \newcommand{\C}{\mathbb{C}}
+    \newcommand{\A}{\mathbb{A}}
+    \renewcommand{\P}{\mathbb{P}}
+    \renewcommand{\mod}{\text{ mod }}
+    \DeclareMathOperator{\Spec}{Spec}
+    \DeclareMathOperator{\Proj}{Proj}
+    \DeclareMathOperator{\Ob}{Ob}
+    \DeclareMathOperator{\Mor}{Mor}
+    \DeclareMathOperator{\Hom}{Hom}
+    \DeclareMathOperator{\sgn}{sgn}
+\)
+
+* Skorokhod Embedding
+
+Consider a probability measure \(\mu\) on \(\mathcal B\) with
 \[
-    W_t(w) = \frac{t}{\sqrt{\pi}}Z_0(w) + \sum_{n \in \N}\sum_{k=2^{n-1}}^{2^n-1}\sqrt{\frac{2}{\pi}}\frac{sin(kt)}{k}Z_k(w)
+    0 < \int_\R x^2 \mu(dx) = \sigma^2 < \infty
 \]
-for standard independent Gaussians \(Z_0, Z_1, \dots\). We also have a modulus of continuity for the Brownian motion,
+and
 \[
-    \P\left(\limsup_{d \rightarrow 0} \frac{1}{g(\delta)}\max|W_t(w) - W_s(w)| = 1\right) = 1
+    \int_\R x \mu(dx) = 0
+\].
+and Brownian motion \(W_t\) on a filtration \(\F^W\). Then, there exists a stopping time \(T\) of \(\F^W\) with \(E[T] = \sigma^2 < \infty\), and such that
+\[
+    \P(W_T \in A) = \mu(A), \forall A \in \mathcal B(\R)
 \]
+
+Proof (Chacon-Walsh): Let us first start with \(\mu\) a measure on \(\mathcal B(\mu)\), which satisfies that \(\int_R (1 + |y|)\mu(dy) < \infty\). Then, let us define, as a potential,
+\[
+    \mathcal P_\mu(x) = \int_\R \vert \ x -y \vert \ \mu(dy) \ (= E[\vert \ x - Y \vert \ ])
+\]
+where the parentheses are for a probability measure \(\mu\). In particular, if \(\mu = \delta_0\), the Dirac mass at 0, we have that
+\[
+    \mathcal P_{\delta_0}(x) = \vert \ x \vert
+\]
+and furthermore, for any \(\mu\),
+\[
+    \mathcal P_\mu \geq \mathcal P_{\delta_0}
+\]
+and \(\mathcal P_\mu(x) - \mathcal P_{\delta_0}(x) \rightarrow 0\) as \(\vert \ x \vert \ \rightarrow \infty\). More suprisingly,
+\[
+    \int_\R (\mathcal P_\mu - \mathcal P_{\delta_0})(x)dx = \int_\R y^2 \mu(dy)
+\]
+
+But now, we notice that potentials kind of look like characteristic functions! And in fact, if \(\mu_1, \mu_2, \dots\) are probability measures, and
+\[
+    \mathcal P_{\mu_n}(x) \rightarrow \mathcal P_{\mu}(x)
+\]
+pointwise, then the measures converge vaguely to \(\mu\) as well.
+
+Now consider a random variable \(Z\) with distribution \(\nu\), and an independent Brownian motion \(W_t\). Furthermore, consider the stopping time
+\[
+    T_{ab} = \inf \{t \geq 0 \mid Z + W_t \leq a \lor Z + W_t \geq b \}
+\]
+Let \(Z + W_{T_{ab}}\) have distribution \(\nu'\). So what does the potential of \(\nu'\) look like? It is the potential of \(\nu\)  outside of \((a,b)\) and a straight line interpolation inbetween!
+
+Now, start with \(T_0 = 0, \mu_0 = \delta_0\). Then, approximate the potential by a series of tangent straight lines above \(\mathcal P_{\delta_0}\), and take these to be \(T_n\) via the "sweeping" or "balayage" argument above. This then converges pointwise, so the measures, the distributions of \(W_{T_n}\), converge vaguely to the chosen \(\mu\).
+
+And by continuity of \(W_t\), it must be true that \(W_{T_n} \rightarrow W_T\) almost everywhere, so in fact \(\mu\) is the distribution of \(W_T\). Now, we need to find the right butler, which is going to be \(W_t^2 - t\); in fact,
+\[
+    E[t \land T_n] = E[W_{t \land T_n}^2] \implies E[T_n] = E[W_{T_n}^2]
+\]
+But we already know this is the difference in area between the two potentials! Which must converge to \(\sigma^2\) by our earlier statement about potentials.
+
+* Zero sets of Brownian motion
+
+Take \(Z_w = \{t \in [ \ 0, \infty) \mid W_t(w) = 0\}\). This is the preimage of a singleton under a continuous function, so it is almost surely closed. First of all, the Law of the Iterated Logarithm, for \(t \rightarrow \infty\), shows that \(Z_w\) is unbounded, and furthermore as \(t \rightarrow 0\) has an accumulation point at the origin.
+
+Furthermore, it must be that \(Z_w\) has zero Lebesgue measure, and has no isolated point. To see the latter claim, consider
+\[
+    \{w \in \Omega \mid Z_w \text{ has an isolated point}\} = \bigcup_{0 \leq a < b < \infty, a, b \in \Q} \Lambda_{a, b}
+\]
+where
+\[
+    \Lambda_{ab} = \{w \in \Omega \mid \text{ there is exactly one zero in } (a, b) \} \subset \{ w \in \Omega \mid \beta_a(w) < b < \beta_{\beta_a}(w)\}
+\]
+But by the Strong Markov property, \(\beta_{\beta_t} = \beta_t\) with probability 1.
+
+Now, consider for positive \(\epsilon\) the limit
+\[
+    L^W_t = \lim_{\epsilon \rightarrow  0} \frac{1}{2 \epsilon} \int_0^t \mathbb 1_{\vert \ W_s \vert \ \leq \epsilon} ds
+\]
+This limit exists, and if \(M^W_t = \max_{0 \leq s \leq t} W_s\), then \(L^W_t = M^W_t\) (in distribution) as processes. And incredibly,
+\[
+    \vert \ W_t \vert \ - L^W_t
+\]
+is Brownian motion!
+
+* BDG Inequality
+
+Let \(F: [\  0,  \infty) \rightarrow [ \ 0, \infty ) \), \(F(0) = 0\), \(F(x) > 0, x > 0\), and there is some \(\alpha > 0\) such that
+\[
+    \sup_{x > 0}  \frac{F(\alpha x)}{F(x)} < \infty
+\]
+
+Now, the BDG inequality is then related to the following fact: given \(F\), there exist universal constants \(0 < c_F < C_F < \infty\) such that
+\[
+    c_F E(F(\langle M \rangle^{1/2}_T)) \leq E[F(M^{*}_T)] \leq C_F E[F(\langle M \rangle^{1/2}_T)]
+\]
+And the proof only uses DDS!
+
+* Local Time
+
+Let
+\[
+    [\ 0, \infty ) \times \Omega \times \mathcal B(\R) \ni (t, \omega, B) \mapsto \Gamma_t(B, \omega) = \int_0^t 1_B(W_s(\omega))ds = \int_B 2L_t(b, \omega)db  \ (*)
+\]
+
+We call a mapping \([ \ 0, \infty ) \times \Omega \times \R \ni (t, \omega, b) \mapsto L_t(\omega, b) \in [\ 0, \infty]\) local time for \(W\) if the following conditions are met.
+1. \(\omega \mapsto L_t(\omega, b)\) is \(\mathcal F_t\)-measureable
+1. \(\exists \Omega^*, \P(\Omega^*) = 1\) such that \((t, b) \mapsto L_t(b, \omega)\) is continuous, and the earlier \(*\) condition holds on \(\Omega^*\).
+
+Note that since we have this for indicators, we can actually exntend this to general functions, and we call these occupation density formulas.
+
+These exist! Intuitively, consider the fact that if we take \(\epsilon \rightarrow 0\) in
+\[
+    L_t(a) = \lim_{\epsilon \rightarrow 0}\frac{1}{2\epsilon}\int_{a - \epsilon}^{a + \epsilon}L_t(b) db = \lim_{\epsilon \rightarrow  0} \frac{1}{4 \epsilon} \int_0^t 1_{[ \ a - \epsilon, a + \epsilon]}(W_s(\omega))ds
+\]
+
+If you think closely enough about the /illegal/ intuition that
+\[
+    2L_t(a) = \int_0^t \delta(W_s - a)ds
+\]
+and apply Ito's rule to \(x \mapsto (x - a)^+\), you get that it /should/ be
+\[
+    L_t(a) = (W_t - a)^+ - (W_0 - a)^+ - \int_0^t 1_{(a, \infty)}(W_s)dW_s
+\]
+and also
+\[
+    L_t(a) = (W_t - a)^- - (W_0 - a)^- - \int_0^t 1_{(-\infty, a]}(W_s)dW_s
+\]
+so
+\[
+    2L_t(a) = | \ W_t - a| \  + | \ W_0 - a| \ - \int_0^t \sgn(W_s - a)dW_s
+\]
+The above are called the Tanaka formulas, and they rely on the result of Trotter that local time exctually exists. It is clear that \(L_t(a)\), as defined above is \(\mathcal F_t\) measurable.
+
+We need to check the continuity and \(*\) conditions. To do this, first assume the continuity condition and consider the following:
+\begin{align*}
+    F''(x) &= f(x) \\
+    F'(x) &= \int_{\R}f(u) 1_{(u, \infty)}(x)du \\
+    F(x) &= \int_\R f(u)(x-u)^+ du
+\end{align*}
+And applying Ito's rule yields that
+\[
+    \frac{1}{2}\int_0^t f(W_s)ds = F(W_t) - F(W_0) - \int_0^t F'(W_s)dW_s
+\]
+and evetually after we simplify (and invoke nontrivial results between the Lebesgue and Ito integrals), we have that this reduces to
+\[
+    \int_R f(u)L_t(u)du
+\]
+
+So all that is left is the continuity of the martingale part, \(\int_0^t 1_{(a, \infty)}(W_s)dW_s\). To do this, we invoke Kolmogorov-Centsov to reduces this question to the condition that
+\[
+    E[(M_t(a) - M_s(a))^{2n}] \leq C[(t-s)^n + (b-a)^n]
+\]
+To prove this, invoke BDG inequality and do the trick of removing the exponent by writing iterated integrals.
+
+* Convex Functions
+
+Let \(f: \R \rightarrow  \R\) be convex; the set \(\{D^{-}f \neq D^+ f\}\) is at most countable. Furthermore, it must be true that
+\[
+    D^- f(x) \leq D^+ f(x) \leq D^- f(y) \leq D^+ f(y)
+\]
+and we can define
+\[
+    \mu([x, y)) = D^- f(y) - D^- f(x)
+\]
+Then, we have a generalized Tanaka formula, namely,
+\[
+    f(W_t) = f(W_0) + \int_0^t D^- f(W_s)dW_s + \int_\R L_t(x) \mu(dx)
+\]
+which is a Doob-Meyer decomposition! In fact, letting \(f(x) = (x - a)^+, \ (x-a)^-, \ | \ x - a| \ \) gives the previous Tanaka formulas.
+
+Furthermore, if we have 2 different convex functions, \(f_1, f_2\), then we may write the above for the difference as well; thus \(f(W_t)\) is a a local semimartingale. It even turns out this is actually not only sufficient but also necessary!
+
+The most shocking thing let: if \(M_T = \sup_{0 \leq n \leq t}W_n\),
+\[
+(M_T - W_T, M_t) = (|\ W_t| \ , 2L_t)
+\]
+have the same distribution /as processes/!
