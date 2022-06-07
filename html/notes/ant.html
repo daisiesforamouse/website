@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-03-24 Thu 12:50 -->
+<!-- 2022-04-19 Tue 11:42 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Analytic Number Theory Spring 2022</title>
@@ -269,12 +269,19 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org012c99a">1. Dirichlet Characters</a>
+<li><a href="#org6168ff5">1. Dirichlet Characters</a>
 <ul>
-<li><a href="#org46d947c">1.1. Functional Equation and Analytic Continuations of \(L(s, \chi)\)</a></li>
+<li><a href="#orgb5fd4ac">1.1. Functional Equation and Analytic Continuations of \(L(s, \chi)\)</a></li>
 </ul>
 </li>
-<li><a href="#org39531bd">2. The Infinitude of Primes in Arithmetic Progression</a></li>
+<li><a href="#orgd215fa5">2. The Infinitude of Primes in Arithmetic Progression</a></li>
+<li><a href="#orgc1b37a1">3. Modular Forms</a>
+<ul>
+<li><a href="#orgf12fc91">3.1. Eisenstein Series</a></li>
+<li><a href="#orge94b4a8">3.2. Ramanujan Tau</a></li>
+</ul>
+</li>
+<li><a href="#orgbdd896b">4. \(L\)-functions and Modular Forms</a></li>
 </ul>
 </div>
 </div>
@@ -293,6 +300,7 @@
     \newcommand{\O}{\mathcal{O}}
     \newcommand{\C}{\mathbb{C}}
     \newcommand{\A}{\mathbb{A}}
+    \newcommand{\H}{\mathcal{H}}
     \renewcommand{\P}{\mathbb{P}}
     \renewcommand{\mod}{\text{ mod }}
     \DeclareMathOperator{\Spec}{Spec}
@@ -304,8 +312,8 @@
 </p>
 
 
-<div id="outline-container-org012c99a" class="outline-2">
-<h2 id="org012c99a"><span class="section-number-2">1.</span> Dirichlet Characters</h2>
+<div id="outline-container-org6168ff5" class="outline-2">
+<h2 id="org6168ff5"><span class="section-number-2">1.</span> Dirichlet Characters</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 We have shown: if \(\chi \text{ mod } q\) is primitive, then
@@ -340,8 +348,8 @@ So we get what we want.
 </p>
 </div>
 
-<div id="outline-container-org46d947c" class="outline-3">
-<h3 id="org46d947c"><span class="section-number-3">1.1.</span> Functional Equation and Analytic Continuations of \(L(s, \chi)\)</h3>
+<div id="outline-container-orgb5fd4ac" class="outline-3">
+<h3 id="orgb5fd4ac"><span class="section-number-3">1.1.</span> Functional Equation and Analytic Continuations of \(L(s, \chi)\)</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Recall that \(L(s, \chi) = \sum_{n=1}^\infty \frac{\chi(n)}{n^s}\). We need to handle the case when \(\chi\) is even and odd seperately.
@@ -402,8 +410,8 @@ To handle the odd case, we need to do a little bit more work. We have to chance 
 </div>
 </div>
 
-<div id="outline-container-org39531bd" class="outline-2">
-<h2 id="org39531bd"><span class="section-number-2">2.</span> The Infinitude of Primes in Arithmetic Progression</h2>
+<div id="outline-container-orgd215fa5" class="outline-2">
+<h2 id="orgd215fa5"><span class="section-number-2">2.</span> The Infinitude of Primes in Arithmetic Progression</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Fix \(\chi\) a character mod \(q\). Then,
@@ -453,10 +461,170 @@ and so
 </p>
 </div>
 </div>
+
+<div id="outline-container-orgc1b37a1" class="outline-2">
+<h2 id="orgc1b37a1"><span class="section-number-2">3.</span> Modular Forms</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Def: Let \(G\) act on \(X\). An automorphic function \(f: X \rightarrow \C\) satisfies that \(f(g  x) = f(x)\) for all \(g \in G, x \in X\).
+</p>
+
+<p>
+In particular, we want to consider the action of \(SL(2, \Z)\) on the upper half plane \(\H = \{z \mid \Im(z) > 0 \ \}\), defined by
+\[
+    \begin{bmatrix}a & b \\ c & d\end{bmatrix}  g = \frac{az + b}{cz + d}
+\]
+Note that this is well-defined, since we can compute that
+\[
+    \Im \left(\frac{az + b}{cz + d}\right) = \frac{y}{| \ c z + d| \ ^2} > 0
+\]
+</p>
+
+<p>
+Def: We say that \(G\) acts discretely on \(X\) if for every pair of compact sets \(A, B\), there are only finitely many \(g \in G\) such that \((g  A) \cap B \neq \emptyset\).
+</p>
+
+<p>
+That \(SL(2, \Z)\) acts discretely on \(\H\) follows immedaitely from the previous lemma.
+</p>
+
+<p>
+Def: A modular form of weight \(k\) is a holomorphic function \(f: \H \rightarrow \C\); which satisfies for any \(M \in SL(2, \Z)\),
+\[
+    f \left(\begin{bmatrix}a & b \\ c & d\end{bmatrix}  z\right) = (cz + d)^kf(z)
+\]
+</p>
+
+<p>
+We also want to consider \(PSL(2, \Z)\), which is \(SL(2, \Z) / \pm 1\), which also acts on \(\H\).
+</p>
+
+<p>
+Def: Let \(G\) act on \(X\). We say that \(x, x' \in X\) are congruent mod \(G\) if there is some \(g \in G\) such that \(x' = gx\).
+</p>
+
+<p>
+Def: Let \(G\) act on \(X\). Then a fundamental domain \(D \subset X\) satisfies the following conditions:
+</p>
+<ol class="org-ol">
+<li>For every \(x \in X\) there exists \(g \in G\) such that \(gx \in D\)</li>
+<li>Every \(x \neq x'\) with \(x, x' \in D\) are inequivalent mod \(G\).</li>
+</ol>
+
+<p>
+Let \(D\) be a connected fundamental domain for \(PSL(2, \Z)\) acting on \(\H\). Then we can choose it to be the following shaded region:
+</p>
+<p align="center">
+<img src="ant1.png" style="width:60%">
+</p>
+
+<p>
+Now consider the most general case of automorphic forms:
+\[
+    f(gx) = j(g,x) \cdot f(x), \ \forall g\in G, x \in X
+\]
+It must be true that \(j(e, x) = 1\), and \(j(g, g'x) = j(g, g'x) \cdot j(g', x)\) (whenever \(f\) is not identically zero). The latter condition is called the cocycle condition. It is easy to check that \(j(g, z) = cz + d\) and its powers satisfies both conditions.
+</p>
+</div>
+
+<div id="outline-container-orgf12fc91" class="outline-3">
+<h3 id="orgf12fc91"><span class="section-number-3">3.1.</span> Eisenstein Series</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Consider
+\[
+    E_k(z) = \sum_{\substack{c,d \in \Z \\ (c,d) = 1}} \frac{1}{(cz + d)^k}
+\]
+which converges for \(k > 2\), and is nontrivial for \(k \neq 0 \mod 2\). This should be a modular form of weight \(k\). Let \(\Gamma_\infty = \left\{ \begin{bmatrix} 1 & m \\ 0 & 1 \end{bmatrix} \mid m \in \Z \right\}\). Then, I claim that
+\[
+    E_k(z) = \sum_{\gamma \in \Gamma_\infty \backslash SL(2, \Z)}j(\gamma, z)^{-k}
+\]
+which is not hard to see; then it becomes also clear that \(E_k\) is an automorphic form via the cocycle condition.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge94b4a8" class="outline-3">
+<h3 id="orge94b4a8"><span class="section-number-3">3.2.</span> Ramanujan Tau</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+If we let
+\[
+    G_k(z) = 2 \zeta(k) + 2 \frac{(2\pi i)^k}{(k-1)!} \sum_{n=1}^\infty \sigma_{k-1}(n)e^{2\pi i nz} = 2 \zeta(k)E_k(z)
+\]
+where \(\sigma_k(n) = \sum_{d \mid n}d^k\).
+</p>
+
+<p>
+We call
+\[
+    \Delta(z) = \frac{2^6}{3^3}(E_4^3(z) - E_6^2(z)) = \sum_{n=1}^\infty \tau(n)e^{2\pi i nz}
+ \]
+ the Ramanujan \(\Delta\).
+</p>
+
+<p>
+Now, he made some conjectures about the \(\tau\) function:
+</p>
+<ol class="org-ol">
+<li>\(\tau(mn) = \tau(m) \tau(n)\), if \((m, n) = 1\)</li>
+<li>\(\tau(p^{k+1}) = \tau(p) \tau(p^k) - p^{11}\tau(p^{k-1})\)</li>
+<li>\(| \ \tau(p) | \ \leq 2p^{11/2}\)</li>
+</ol>
+
+<p>
+Now, assuming the above, then \(\sum_{n=1}^\infty \frac{\tau(n)}{n^s}\) converges for \(\Re(s) > \frac{13}{2}\), and this has a Euler product
+\[
+    \prod_{p} (1 - \tau(p)p^{-s} + p^{11-2s})^{-1} = \prod_{p} \left(1 - \frac{\alpha(p)}{p}\right)^{-1}\left(1 - \frac{\beta(p)}{p}\right)^{-1}
+\]
+where \(\tau(p) = \alpha(p) + \beta(p)\) and \(\alpha(p)\beta(p) = p^{11}\). The above conjectures are all true (but (3) is really hard, involving the Weil conjectures).
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbdd896b" class="outline-2">
+<h2 id="orgbdd896b"><span class="section-number-2">4.</span> \(L\)-functions and Modular Forms</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Let \(f(z)\) be a modular form of weight \(k\) for \(SL(2, \Z)\). Then it is periodic, and has a Fourier expansion \(f(z) = \sum_{n=0}^\infty a_ne^{2\pi i n z}\). Then we may define the \(L\)-function associated to \(f\) as
+\[
+    L(s, f) = \sum_{n=1}^\infty \frac{a_n}{n^s}
+\]
+Now, Deligne proved with the Weil conjectures that \(| \ a_p | \ < 2p^{\frac{k-1}{2}}\), but it is a much easier result that \(| \ a_p | \ \ll p^{k/2}\), which is good enough for convergence.
+</p>
+
+<p>
+Thm: \(L(s, f)\) has a meromorphic continuation to all \(s \in \C\), and for cusp forms \(L(s, f)\) is entire.
+</p>
+
+<p>
+To see this, consider
+\[
+    f(iy) = \sum_{n = 0}^\infty a_ne^{2\pi n y}
+\]
+and choose \(\begin{bmatrix}0 & -1 \\ 1 & 0\end{bmatrix} \in SL(2, \Z)\) such that
+\[
+    f(iy^{-1}) = (iy)^kf(iy) \implies f(iy^{-1}) = i^k y^k f(iy)
+\]
+</p>
+
+<p>
+Then, we just follow Riemann, and consider the Mellin transform
+\[
+    \int_0^\infty (f(iy) - a_0)y^{s+\frac{k}{2}-1}dy = \sum_{n=1}^\infty a_n \int_0^\infty e^{2\pi n y}y^{s + \frac{k}{2} - 1}dy = (2\pi)^{-s}\Gamma(s)L(s, f) = \Lambda(s,f)
+\]
+Then you split the integral as usual can do some more work and arrive at
+\[
+    \Lambda(s,f) = i^k \Lambda(k-s, f)
+\]
+which has poles with residue \(a_0\) at \(s = \pm \frac{k}{2}\).</p>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: David Chen</p>
-<p class="date">Created: 2022-03-24 Thu 12:50</p>
+<p class="date">Created: 2022-04-19 Tue 11:42</p>
 </div>
 </body>
 </html>

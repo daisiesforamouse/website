@@ -57,7 +57,7 @@ Consider a probability measure \(\mu\) on \(\mathcal B\) with
 and
 \[
     \int_\R x \mu(dx) = 0
-\].
+\]
 and Brownian motion \(W_t\) on a filtration \(\F^W\). Then, there exists a stopping time \(T\) of \(\F^W\) with \(E[T] = \sigma^2 < \infty\), and such that
 \[
     \P(W_T \in A) = \mu(A), \forall A \in \mathcal B(\R)
@@ -148,7 +148,7 @@ We call a mapping \([ \ 0, \infty ) \times \Omega \times \R \ni (t, \omega, b) \
 1. \(\omega \mapsto L_t(\omega, b)\) is \(\mathcal F_t\)-measureable
 1. \(\exists \Omega^*, \P(\Omega^*) = 1\) such that \((t, b) \mapsto L_t(b, \omega)\) is continuous, and the earlier \(*\) condition holds on \(\Omega^*\).
 
-Note that since we have this for indicators, we can actually exntend this to general functions, and we call these occupation density formulas.
+Note that since we have this for indicators, we can actually extend this to general functions, and we call these occupation density formulas.
 
 These exist! Intuitively, consider the fact that if we take \(\epsilon \rightarrow 0\) in
 \[
@@ -169,7 +169,7 @@ and also
 \]
 so
 \[
-    2L_t(a) = | \ W_t - a| \  + | \ W_0 - a| \ - \int_0^t \sgn(W_s - a)dW_s
+    2L_t(a) = | \ W_t - a| \  - | \ W_0 - a| \ - \int_0^t \sgn(W_s - a)dW_s
 \]
 The above are called the Tanaka formulas, and they rely on the result of Trotter that local time exctually exists. It is clear that \(L_t(a)\), as defined above is \(\mathcal F_t\) measurable.
 
@@ -194,7 +194,7 @@ So all that is left is the continuity of the martingale part, \(\int_0^t 1_{(a, 
 \]
 To prove this, invoke BDG inequality and do the trick of removing the exponent by writing iterated integrals.
 
-* Convex Functions
+** Convex Functions
 
 Let \(f: \R \rightarrow  \R\) be convex; the set \(\{D^{-}f \neq D^+ f\}\) is at most countable. Furthermore, it must be true that
 \[
@@ -214,6 +214,161 @@ Furthermore, if we have 2 different convex functions, \(f_1, f_2\), then we may 
 
 The most shocking thing let: if \(M_T = \sup_{0 \leq n \leq t}W_n\),
 \[
-(M_T - W_T, M_t) = (|\ W_t| \ , 2L_t)
+    (M_T - W_T, M_t) = (|\ W_t| \ , 2L_t)
 \]
 have the same distribution /as processes/!
+
+** Return to Local Time
+
+ The local time only increases on \(\mathcal Z_\omega^{(a)} = \{t \geq 0 \mid W_t(\omega) = a \ \}\). To see this, consider that we want to show that
+ \[
+    \int_0^\infty | \ W_t - a| \ dL_t(a) = 0
+ \]
+
+ Now consider the following situation: some \(x(t) = z + y(t) + k(t) \geq 0\), \(y(t)\) continuous, \(k(t)\) continuous and increasing, \(y(0) = k(0) = 0\), and
+ \[
+    \int_0^\infty 1_{(0, \infty)}(x(t))dk(t) = 0
+ \]
+ Now we note that
+ \[
+    k(t) \geq k(s) \geq -(z + y(s)) \implies k(t) \geq \max(0, \max_{0 \leq s \leq t}(-z - y(s)))
+ \]
+ It is a theorem of Skorokhod, called Skorokhod reflection, that the latter inequality is actually equality on the nose (if you think hard enough, this is really obvious).
+
+ But if you pick \(z = 0\), \(y(t) = -W_t(\omega)\), the Tanaka formula gives you
+ \[
+    \vert \ W_t(\omega)  \vert \ = -B_t(\omega) + 2L_t^W(0, \omega)
+ \]
+ where \(B_t = -\int_0^t \sgn(W_s)dW_s\); note that this is a Brownian motion because it is a continuous semimartingale with quadratic variation \(t\). But then we can apply Skorokhod reflection to see that
+ \[
+    2L_t^W(0, \omega) = \max(0, \max_{0 \leq s \leq t} B_s(\omega)) = \max_{0 \leq s \leq t}B_s(\omega) = M^B_t(\omega)
+ \]
+ and in particular,
+ \[
+    \vert \ W_t(\omega) \vert \ = M_t^B(\omega) - B_t(\omega)
+ \]
+ But this shows that
+\[
+    (M_T - W_T, M_t) = (|\ W_t| \ , 2L_t)
+\]
+in distribution, as processes!
+
+As a remark, note that \(B_t, W_t\) are both Brownian motions, but they generate vastly different filtrations. In particular, \( | \ W_t | \ = \max_{s \leq t} B_s - B_t\) is \(\mathcal F^B_t\)-measurable; so it is true that \( \mathcal F_t^\{| \ W| \ \} \subset \mathcal F^B_t\). But note that since \(B_t = 2L_t^W(0) - | \ W_t| \ \), it must be true that \( \mathcal F_t^\{| \ W| \ \} = \mathcal F^B_t\). So overall,
+\[
+    \mathcal F^B_t = \mathcal F_t^{| \ W| \ } \subsetneq \mathcal F^W_t
+\]
+
+* Brownian functions
+
+Fix some \(x \in (a, b)\). Then, we already know that \(P^x(T_a < T_b) = \frac{b-x}{b-a}, P^x(T_a > T_b) = (\frac{x-a}{b-a})\); now let us put
+\[
+    (b-x)(x-a) = E^x(T_a \land T_b) = 2\int_a^b G_{a,b}(x,y)dy
+\]
+where
+\[
+    G_{a,b}(x,y) = \frac{(x \land y - a)(b - x \lor y)}{b-a}
+\]
+But we can actually generalize, with the occupation density formula:
+\[
+    2\int_a^b f(y)E^x(L_{T_a \land T_b}(y))dy = E^x \left[ \int _0^{T_a \land T_b} f(W_t)dt \right] = 2 \int_a^bf(y)G_{a,b}(x,y)dy
+\]
+But then, this suggests that
+\[
+    G_{a,b}(x,y) = E^x[L_{T_a \land T_b}(y)]
+\]
+Pick some \(f \geq 0\) measureable, so that
+\[
+    \int_0^\infty f(W_t)dt = 2 \int_\R f(y) L_\infty(y)dy
+\]
+but since \(L_\infty = \infty\) with probability 1, it must be that for any \(f\) which is not zero almost surely, \(\int_0^\infty f(W_t)dt = \infty\). Furthemore, if \(f\) has compact support,
+\[
+    \frac{1}{T^{1/2}} \int_0^Tf(W_t)dt \rightarrow 2 \| f \|_1 \cdot L_1^B(0)
+\]
+where \(B\) is a Brownian motion.
+
+We also have a 0-1 law: for a measureable \(f: \R \rightarrow  [ \ 0, \infty )\), the following are equivalent:
+1. \(P( \int_0^T f(W_t)dt < \infty, \forall T \in (0, \infty)) > 0\)
+1. \(P( \int_0^T f(W_t)dt < \infty, \forall T \in (0, \infty)) = 1\)
+1. \(\int_K f(y)dy < \infty \forall K \subset \R\) compact
+
+The quick and dirty argument is to note that
+\[
+    \int_0^T f(W_t(\omega))dt = 2\int_\R f(y)L_T(y,\omega)dy = \int_{[m_T(\omega), M_T(\omega)]} f(y)L_T(y,\omega)dy \leq 2 \Lambda_T \int_{K(\omega)}f(y)dy < \infty
+\]
+
+* Heat Equations
+
+Consider the differential equation
+\[
+    \frac{\partial u}{\partial t} =  \frac{1}{2} \frac{\partial ^2 u}{dx^2}, \ \lim_{t \rightarrow 0, y \rightarrow x}u(0, x) = f(x)
+\]
+Now, if we let \(f: \R \rightarrow   \R\) be continuous and \(\int_\R e^{-\alpha x^2} | \ f(x)| \ dx < \infty \) for all \(\alpha > 0\), we may consider
+\[
+    u(t,x) = E^{x}[f(W_t)] = E[f(W_t + x)] = \int_\R p(t, x, y)f(y)dy
+\]
+where \(p\) is the correct Gaussian density.
+
+Now, we can alter the equation to add cooling and a source:
+\[
+    \frac{\partial u}{\partial t} =  \frac{1}{2} \frac{\partial ^2 u}{dx^2} - \alpha u + g
+\]
+where \(g: \R \rightarrow \R\) does not vary with time.
+
+In this case, we may intuitively expect that we may discount, so that the solution ought be
+\[
+    u(t,x) = E \left[ f(x + W_t)e^{-\alpha t} + \int_0^t g(x + W_s)e^{-\alpha s}ds \right]
+\]
+
+Then, we apply Ito's rule to get
+\[
+    e^{-\alpha T}f(x + W_T) + \int_0^T e^{-\alpha t}g(x + W_t)dt - u(T, x) = \int_0^Te^{-\alpha t}\frac{\partial u}{\partial x}(T- t, x + W_t)dW_t
+\]
+But it turns out that the expectation of the RHS is 0, so we see that the intution is justified. And more importantly we can replace \(\alpha\) with some varying piecewise continuous function \(\beta(x) \geq \alpha > 0\) and see
+\[
+    u(t,x) = E \left[ f(x + W_t)e^{-\int_0^t(x + W_s)ds t} + \int_0^t g(x + W_s)e^{-\int_0^t(x + W_\theta)d\theta s}ds \right]
+\]
+
+But what is the steady state? That is, where \(\frac{\partial u}{\partial t} = 0\)? It should be
+\[
+    u(x) = E \left[ \int_0^\infty e^{-\int_0^t \beta(x + W_\theta)d\theta} g(x + W_t)dt \right]
+\]
+And it is. This result is known as Feynman-Katz.
+
+* Diffusion
+
+Suppose that we are given \(b: [ \ 0, \infty ) \times \R \rightarrow \R \) and \(\sigma: [ \ 0, \infty ) \times \R \rightarrow \R \), alongside a probability space \((\Omega, \mathcal F, \P)\), alongside a filtration \(\F = \{ \mathcal F(t)\}\). Then,
+\[
+    X(t) + \int_0^t b(s, X(s))ds + \int_0^t \sigma(s, X(s))dW(s) \ \ \ \ (*)
+\]
+is a stochastic integral equation, or in the style of stochastic differential equations,
+\[
+    dX(t) = b(s, X(s))ds + \sigma(s, X(s))dW_t, \ X(0) = x \ \ \ \ (*)
+\]
+Then, we have some approximations, namely
+\begin{align*}
+    X^{(0)}(t) &= x \\
+X^{(n-1)}(t) &= x + \int_0^tb(s, X^{n-1}(s))ds + \int_0^t \sigma(s, X^{n-1}(s))dW_s
+\end{align*}
+Note that the above processes are all adapted to \(\F^W\). So the question becomes, first of all, then if the limit \(X = \lim_{n \rightarrow  \infty}X^{(n)}\) exists, and if so, does it solve the differential equation?
+
+Suppose that \(\sup_{0 \leq t \leq T}| \ b(x,t) - b(y,t) | \ \leq K | \ x -  y| \ \), and that \(\sup_{0 \leq t \leq T} | \ b(t,x) | \ \leq K(1 + | \ x | \ )\) (namely, \(b\) is Lipschitz and of linear growth), and that these hypotheses apply also to \(\sigma\). If these conditions hold, then eveything we dream of is true, and we call this a strong solution: an \(\F^W\)-adapted \(X\) that satisfies \((*)\), once \((\Omega, \mathcal F, \mathbb P), W, \F^W\) are fixed.
+
+Furthermore, strong solutions are pathwise unique, in the sense that if there is another \(\F^W\)-adapted \(\widetilde X\) that solves the equation, then \(\P(\widetilde X_t = X_t, \forall 0 \leq t < \infty) = 1\).
+
+So what are weak solutions? They are \((\Omega, \mathcal F, \P), \F = (\mathcal F_t), W_t, X_t\), where we are free to choose the filtration and the Brownian motion such that \((*)\) is satisfied, and \(W_t, X_t\) are both adapted to \(\F\).
+
+Weak solutions are only unique in distribution; if \((\Omega, \mathcal F, \P), \F = (\mathcal F_t), W_t, X_t\) and \(( \widetilde\Omega,  \widetilde {\mathcal F},  \widetilde \P), \widetilde \F = ( \widetilde {\mathcal F}_t), \widetilde W_t, \widetilde X_t\) then the finite dimensional distributions are the same.
+
+Let \(X(t) = \int_0^t \text{sgn}(X(s))dW_s\); this is actually a Brownian motion, since it is a local martingale with quadratic variation \(t\). But if start with \(X\) adapted to \(\mathcal F\), then
+\[
+    W(t) = \int_0^t \sgn(X_s)dX_s, \ \int_0^t\sgn(X_s)dW_s = \int_0^t \sgn(X_s) \sgn(X_s)dX_s = X(t)
+\]
+so everything works! But this definitely isn't a strong solution. Furthermore,
+\[
+    W(t) = \int_0^t \sgn(X_s)dX_s = | \ X_t | \ - 2 \mathcal L^X_t
+\]
+so \(\mathcal F^W_t \subset \mathcal F^{| \ X | \ }_t \subsetneq \mathcal F^X_t\)
+
+Thm: Pathwise uniqueness \(\implies\) uniqueness in distribution, and if we also have weak existence, then we have a strong solution as well.
+
+Thm: If \((\Omega, \mathcal F, \P), \F = (\mathcal F_t), W_t, X_t\) is a weak solution of \((*\), and is unique in distribution, then \(X\) has the strong Markov property; this follows from the fact that the solution is constructed strongly from the Brownian increments.

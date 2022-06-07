@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-03-29 Tue 11:14 -->
+<!-- 2022-04-07 Thu 11:23 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Algebraic Geometry Spring 2022</title>
@@ -269,18 +269,22 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org933584a">1. Very short introduction on schemes</a>
+<li><a href="#org586cbf4">1. Very short introduction on schemes</a>
 <ul>
-<li><a href="#org71459f7">1.1. The Spectrum of a ring as a locally ringed space.</a></li>
-<li><a href="#orga0804fd">1.2. Fiber Products</a></li>
+<li><a href="#orga7aac35">1.1. The Spectrum of a ring as a locally ringed space.</a></li>
 </ul>
 </li>
-<li><a href="#org13ef0f3">2. Moduli</a></li>
-<li><a href="#org3e75863">3. Coherent cohomology</a></li>
-<li><a href="#org3ba5733">4. Rational points and heights</a></li>
-<li><a href="#orgfcccccc">5. Intersection theory</a>
+<li><a href="#orgc1a5465">2. Rational points and heights</a></li>
+<li><a href="#orgd1d2807">3. Intersection theory</a>
 <ul>
-<li><a href="#orgd4c0186">5.1. Intersecting with a (linear) hypersurface</a></li>
+<li><a href="#org6133def">3.1. Intersecting with a (linear) hypersurface</a></li>
+<li><a href="#org08122ee">3.2. Joins</a></li>
+</ul>
+</li>
+<li><a href="#org169dbfd">4. Group Schemes</a>
+<ul>
+<li><a href="#org15cce2f">4.1. Group Actions</a></li>
+<li><a href="#orge448939">4.2. Quotients</a></li>
 </ul>
 </li>
 </ul>
@@ -303,6 +307,7 @@
     \newcommand{\A}{\mathbb{A}}
     \newcommand{\P}{\mathbb{P}}
     \DeclareMathOperator{\Spec}{Spec}
+    \DeclareMathOperator{\id}{id}
     \DeclareMathOperator{\Proj}{Proj}
     \DeclareMathOperator{\Ob}{Ob}
     \DeclareMathOperator{\Mor}{Mor}
@@ -313,8 +318,8 @@
 \)
 </p>
 
-<div id="outline-container-org933584a" class="outline-2">
-<h2 id="org933584a"><span class="section-number-2">1.</span> Very short introduction on schemes</h2>
+<div id="outline-container-org586cbf4" class="outline-2">
+<h2 id="org586cbf4"><span class="section-number-2">1.</span> Very short introduction on schemes</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 We start with the notion of schemes.
@@ -326,8 +331,8 @@ Topological Spaces \(\leftarrow\) Ringed Spaces\((X, \mathcal O_X)\) \(\leftarro
 </p>
 </div>
 
-<div id="outline-container-org71459f7" class="outline-3">
-<h3 id="org71459f7"><span class="section-number-3">1.1.</span> The Spectrum of a ring as a locally ringed space.</h3>
+<div id="outline-container-orga7aac35" class="outline-3">
+<h3 id="orga7aac35"><span class="section-number-3">1.1.</span> The Spectrum of a ring as a locally ringed space.</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 We have some association \(A\) some ring \(\rightarrow \Spec(A)\) with some features:
@@ -639,175 +644,10 @@ Note: the above holds for locally of finite presentation, locally quasi-finite, 
 </p>
 </div>
 </div>
-
-<div id="outline-container-orga0804fd" class="outline-3">
-<h3 id="orga0804fd"><span class="section-number-3">1.2.</span> Fiber Products</h3>
-<div class="outline-text-3" id="text-1-2">
-<p>
-Let \(e\) be a category. Consider a diagram in \(e\):
-</p>
-
-<p>
-The fiber product of \(f\) and \(g\) is an object \(Y \times_S X\) of \(e\) together with morphisms \(Y \times_S X \rightarrow  Y\), \(Y \times_S X \rightarrow X\) &#x2026; TODO
-</p>
-
-<p>
-Thm: The category of schemes has fiber products.
-</p>
-
-<p>
-Proof: Omitted, but you can sort of turn the following remarks around!
-</p>
-
-<p>
-Rmk: The category of schemes also has a final object, namely \(\Spec(\Z)\); it follows that all finite limits of schemes exist.
-</p>
-
-<p>
-If we have affine schemes, \(X, Y, S\) then \(X \times_S Y\) is the spectrum of the tensor product:
-</p>
-<p align="center">
-<img src="ag7.png" style="width:50%">
-</p>
-
-<p>
-Furthermore, suppose that we have opens \(U, V, W\) in the same situation:
-</p>
-<p align="center">
-<img src="ag8.png" style="width:40%">
-</p>
-<p>
-Then, we have that \(V \times_W U = q^{-1}(V) \cap p^{-1}(U)\) as schemes! See Hartshorne for more details.
-</p>
-
-<p>
-Warning! The topological space of \(Y \times_S X\) is not the fiber product of the topological spaces of \(X, Y, S\).
-</p>
-
-<p>
-Example: \(S \in \Spec(R)\), \(\A^n_S = \A^n_R = \Spec(R[x_1, \dots, x_n])\). Then, \(\A^{n+m}_S = \A^n_S \times_S \A^m_S = \Spec(R[x_1, \dots, x_n] \otimes_R R[y_1, \dots, y_m])\)
-</p>
-
-<p>
-We move on to the base change functor. Let \(\mathcal C\) be a category with finite products. The base change functor takes
-\[
-    \mathcal C / S \rightarrow \mathcal C / S', (X/S) \mapsto X \times_S S' / S'
-\]
-</p>
-
-<p>
-Base change allows us to do things over a lot of different fields! You can take schemes over \(\Z\) to schemes over \(\C\), \(\Q\), \(\overline{F}_p\), etc, so we can do number theory or geometry or whatever.
-</p>
-
-<p>
-Now we talk about scheme theoretic fibers in particular. Suppose that we have \(X\) a scheme over a ring \(R\), and we have a prime ideal \(\mathfrak p \subset R\) corresponding to \(s \in S \in \Spec(R)\).
-</p>
-<p align="center">
-<img src="ag9.png" style="width:40%">
-</p>
-<p>
-Then, \(X_s\) is called the scheme theoretic fiber, and this construct can be generalized to a general scheme if we&rsquo;d like.
-</p>
-
-<p>
-Lemma: The map \(X_s \rightarrow X\) maps the topological space \(X_s\) homeomorphically onto the fiber \(f^{-1}(\{s\}) \subset X\)
-</p>
-
-<p>
-Proof: On affince pieces we saw this with algebraic techniques. For general schemes take affine covers.
-</p>
-
-<p>
-Separation axioms:
-</p>
-
-<p>
-We say a morphism \(f: X \rightarrow S\) of schemes is separated iff the diagonal
-\[
-    \Delta_f: X \rightarrow X \times_S X
-\]
-is a closed immersion.
-</p>
-
-<p>
-Lemma: A morphism between affines is separated.
-</p>
-
-<p>
-Proof: Suppose you have \(A \rightarrow B\) giving \(X = \Spec(B) \rightarrow S = \Spec(A)\). Then, we have that \(X \rightarrow X \times_S X\) corresponds to \(\Spec(B) \rightarrow  \Spec(B \otimes_A B\), which induces a map \(B \otimes_A B \rightarrow B\) which is surjective, so we get a closed immersion.
-</p>
-
-<p>
-We now have access to a fun fact: if \(S\) is affine and separated, then the intersecion of affine opens of \(X\) is also separated.
-</p>
-
-<p>
-Proof: Let \(U, U' \subset X\) be affine open. Then,
-\[
-    U \cap U' = \Delta^{-1}(pr_1^{-1}(U) \cap pr_2^{-1}(U')) = \Delta^{-1}(U \times_S U')
-\]
-</p>
-
-<p>
-Example: \(\P^n_R\) is separated over \(R\).
-</p>
-
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-left" />
-</colgroup>
-<tbody>
-<tr>
-<td class="org-left">\(\P^1_\C\)</td>
-<td class="org-left">\(\P^1_\C\)</td>
-</tr>
-
-<tr>
-<td class="org-left">U<sub>0</sub> = &Delta;<sup>-1</sup>(U<sub>0</sub> &times; U<sub>0</sub>)</td>
-<td class="org-left">U<sub>0</sub> &times; U<sub>0</sub></td>
-</tr>
-
-<tr>
-<td class="org-left">U<sub>0</sub> &cap; U<sub>1</sub>= &Delta;<sup>-1</sup>(U<sub>0</sub> &times; U<sub>1</sub>)</td>
-<td class="org-left">U<sub>0</sub> &times; U<sub>0</sub></td>
-</tr>
-
-<tr>
-<td class="org-left">U<sub>0</sub> &cap; U<sub>1</sub> = &Delta;<sup>-1</sup>(U<sub>1</sub> &times; U<sub>0</sub>)</td>
-<td class="org-left">U<sub>0</sub> &times; U<sub>0</sub></td>
-</tr>
-
-<tr>
-<td class="org-left">U<sub>1</sub> = &Delta;<sup>-1</sup>(U<sub>10</sub> &times; U<sub>1</sub>)</td>
-<td class="org-left">U<sub>0</sub> &times; U<sub>0</sub></td>
-</tr>
-</tbody>
-</table>
-
-<p>
-Def: A morphism \(f: X \rightarrow  S\) of schemes is universally closed iff for TPDP
-</p>
-
-<p>
-Theorem: \(\P^n_R \rightarrow  \Spec(R)\) is universally closed.
-</p>
 </div>
-</div>
-</div>
-
-<div id="outline-container-org13ef0f3" class="outline-2">
-<h2 id="org13ef0f3"><span class="section-number-2">2.</span> Moduli</h2>
-</div>
-<div id="outline-container-org3e75863" class="outline-2">
-<h2 id="org3e75863"><span class="section-number-2">3.</span> Coherent cohomology</h2>
-</div>
-<div id="outline-container-org3ba5733" class="outline-2">
-<h2 id="org3ba5733"><span class="section-number-2">4.</span> Rational points and heights</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgc1a5465" class="outline-2">
+<h2 id="orgc1a5465"><span class="section-number-2">2.</span> Rational points and heights</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 Let \(K\) be a field, and suppose that given a set \(M = M_K\) and for each \(v \in M\) an absolute value
 \[
@@ -934,9 +774,9 @@ And substituting \((x, x, -x)\) shows that this function is almost quadratic!
 </div>
 </div>
 
-<div id="outline-container-orgfcccccc" class="outline-2">
-<h2 id="orgfcccccc"><span class="section-number-2">5.</span> Intersection theory</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-orgd1d2807" class="outline-2">
+<h2 id="orgd1d2807"><span class="section-number-2">3.</span> Intersection theory</h2>
+<div class="outline-text-2" id="text-3">
 <p>
 Fix \(k\) a field. Let \(V \subset \P^n\) a closed subvariety, irreducible and reduced. Further, let \(I_V\) be the homogenous prime ideal corresponding to \(V\), namely
 \[
@@ -985,9 +825,9 @@ so the degree of \(V\) is \(d\).
 </p>
 </div>
 
-<div id="outline-container-orgd4c0186" class="outline-3">
-<h3 id="orgd4c0186"><span class="section-number-3">5.1.</span> Intersecting with a (linear) hypersurface</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-org6133def" class="outline-3">
+<h3 id="org6133def"><span class="section-number-3">3.1.</span> Intersecting with a (linear) hypersurface</h3>
+<div class="outline-text-3" id="text-3-1">
 <p>
 Fix \(V \subset \P^n\) as above, \(H \subset \P^n\), given by \(\ell = 0\) for \(\ell \in k[T_0, \dots, T_n]_1\).
 </p>
@@ -1171,7 +1011,7 @@ we see that
 \[
     \length((R/\mathfrak p_i)/f_2^n) = n \length(R/(\mathfrak p_2, f_2)) = nm_{i,j}
 \]
-ANd we can show that \(R\) is CM iff \(f_2: R/f_1R \rightarrow R/f_1R\) is injective. Overall, we have that
+And we can show that \(R\) is CM iff \(f_2: R/f_1R \rightarrow R/f_1R\) is injective. Overall, we have that
 \[
     \length(\mathcal O_{V \cap H_1 \cap H_2, \xi_j}) \geq \mu_j \geq 1
 \]
@@ -1179,11 +1019,267 @@ where equality holds in the first inequality iff \(\mathcal O_{V, \xi_j}\) is CM
 </p>
 </div>
 </div>
+
+<div id="outline-container-org08122ee" class="outline-3">
+<h3 id="org08122ee"><span class="section-number-3">3.2.</span> Joins</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+For a reference, see Fulton, Intersection Teory, 8.4.5.
+</p>
+
+<p>
+Def: The (ruled) join \(J(V, W) \subset \P^{2n + 1}\), where
+</p>
+\begin{gather*}
+    V \leftrightarrow \mathcal P \subset k[T_0, \dots, T_n] \\
+    W \leftrightarrow \mathcal Q \subset k[T_0, \dots, T_n] \\
+\end{gather*}
+<p>
+is the closed subscheme cut out by the ideal
+\[
+    \mathcal A = \langle f(X), f \in \mathcal P, g(Y), g \in \mathcal Q \rangle \subset k[x_0, \dots, x_n, y_0, \dots y_n]
+\]
+</p>
+
+<p>
+Set theoretically, on \(k\)-rational points, \(J(V, W) = \{[x_0 : \dots : x_n : y_0 : \dots : y_n] \in \P^{2n + 1}\}\) such that \((x_0 : \dots : x_n) \in V\) or \(x_0 = \dots = x_n = 0\) and \((y_0 : \dots : y_n) \in W\) or \(y_0 = \dots = y_n = 0\).
+</p>
+
+<p>
+Morally, this is some linear interpolation between points of \(V\) and points of \(W\)!
+</p>
+
+<p>
+Furthermore, there is another &ldquo;diagonal&rdquo; copy of \(\P^n\) in \(\P^{2n + 1}\)
+</p>
+\begin{align*}
+    \delta : \P^n &\rightarrow  \P^{2n + 1}\\
+(t_0 : \dots : t_n) &\mapsto (t_0 : \dots : t_n : t_0 : \dots : t_n)
+\end{align*}
+<p>
+which is cut out by the equations \(X_i - Y_i = 0\) (that is, \(\delta(\P^n) = V(X_i - Y_i)\)).
+</p>
+
+<p>
+Lemma: As schemes, we have that
+\[
+    V \cap W = \delta(\P^n) \cap J(V, W) = J(V, W) = J(V, W) \cap H_0 \cap \dots \cap H_n
+\]
+where \(H_i = V(X_i - Y_i)\). So we can understand the general intersection theory of two subvarieties by reducing to the hyperplane case!
+</p>
+
+<p>
+Lemma: Further, the degree of \(J(V, W)\) is \(\deg(V) \cdot \deg(W)\). But it is clear that
+\[
+    k[x_0, \dots, x_n, y_0, \dots, y_n] / \mathcal A \cong k[x_0, \dots, x_n] / \mathcal P \otimes k[y_0, \dots, y_n] / \mathcal Q
+\]
+By the fact that the RHS is a tensor product of domains, we can conclude that \(J(V, W)\) is a subvariety and that \(\mathcal A\) is its homogeneous prime ideal. Then if \(P\) is the Hilbert polynomial of \(J(V, W)\), and \(P_1, P_2\) the Hilbert polynomials of \(V, W\). Then,
+\[
+    P(d) = \sum_{i=0}^d P_1(i)P_2(d-i)
+\]
+and we can just find the leading coefficient.
+</p>
+
+<p>
+Thm: Let \(Z_1, \dots, Z_i\) be the irreducible components of \(V \cap W\), which we identify using \(\delta: \P^n \rightarrow  \P^{2n + 1}\) with the irreducible components of \(J(V, W) \cap H_0 \cap \dots \cap H_n\). Then,
+</p>
+<ol class="org-ol">
+<li>\(\deg(V) \cdot \deg(W) \geq \sum_{i=1}^r \deg(Z_i)\)</li>
+<li>If each \(Z_i\) has the &ldquo;correct&rdquo; dimension, i.e. \(\dim(Z_i) = \dim(V) + \dim(W) - n > 0\), then there exist integers \(m_i \geq 1\) such that \(\sum_{i=1}^r m_i \deg(Z_i) = \deg(V) \cdot \deg(W)\).</li>
+</ol>
+
+<p>
+Proof: Since \(Z_1, \dots, Z_r\) are the irreducible components of \(J(V, W) \cap H_0 \cap \dots \cap H_n\) with \(\deg(H_i) = 1\), (1) follows from the following lemma: for a subvariety \(V \subset \P^n\), and \(H_1, \dots, H_r\) hyperplanes in \(\P^n\), we always have that \(\deg(V) \geq \sum \deg(Z)\) where \(Z\) ranges over the irreducible components of \(V \cap H_1 \cap \dots \cap H_r\).
+</p>
+
+<p>
+We show this by induction on \(r\); if \(r = 1\), either \(V \subset H_1\), and this is trivially true, or \(V \not\subset H_1\), and we know that \(\deg(V) = \sum m_i Z_i \geq \sum Z_i\).
+</p>
+
+<p>
+If \(r > 1\), by induction \(\deg(V) \geq \sum \deg(Z')\) where \(Z' \subset V \cap H_1 \cap \dots \cap H_n\) is an irreducible component, and furthermore each irreducible component \(Z_i\) of \(V \cap H_1 \cap \dots \cap H_n\) is an irreducible component of \(Z' \cap H_r\) for some \(Z'\). But by \(r = 1\), we know that \(\deg(Z') \geq \sum \deg(Z'')\), where the sum spans irreducible components of \(Z'\).
+</p>
+
+<p>
+The proof of (2) is similar, but you can make everything strict; further each \(m_i\) is the &ldquo;Samuel multiplicity&rdquo; of the ideal generated by \(\mathcal O_{J(V, W), \delta(\xi)}\), where \(\xi \in Z_i\) is a generic point.
+</p>
+
+<p>
+Application: if \(C_1, C_2 \subset \P^n\) are curves of degrees \(d_1, d_2, C_1 \neq C_2\), then \(\#(C_1 \cap C_2) \leq d_1d_2\). And this is strict, since you can just pick two lines that meet.
+</p>
+
+<p>
+Another application: \(V \subset \P^n\) subvariety, \(d = \deg(V)\), not contained in a hyperplane, satisfies that
+\[
+    \dim(V) + d \geq n + 1
+\]
+and the quick argument is to reduce to the case of a curve. Then we just need to show that \(d \geq n\).
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org169dbfd" class="outline-2">
+<h2 id="org169dbfd"><span class="section-number-2">4.</span> Group Schemes</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Let \(S\) be a scheme; a group scheme over \(S\) is a pair \((G, m)\) where \(G\) is a scheme over \(S\) and \(m: G \times_S G \rightarrow  G\) is a morphism of schemes over \(S)\) such that for all schemes \(T\) over \(S\) the pair \((G(T), m)\) is a group.
+</p>
+
+<p>
+In the above, \(G(T) = \Mor_S(T, G)\), and \((G \times_S G)(T) = \Mor_S(T, G \times_S G) = G(T) \times G(T)\); in particular we can see that \(h_G( \cdot ) = \Mor_S( \cdot, G)\)
+</p>
+
+<p align="center">
+<img src="ag10.png" style="width:40%">
+</p>
+
+<p>
+Given our group scheme \((G, m)\) over \(S\) we automatically put \(e: S \rightarrow G\) to be the identity, and \(i: G \rightarrow   G\) to be the inverse, such that
+</p>
+\begin{gather*}
+    T \rightarrow S \xrightarrow{e} G \\
+G(T) \xrightarrow{i}     G(T) \\
+\end{gather*}
+
+<p>
+You can also define a group scheme as a quadruple \((G, m, e, i)\) where you have the axioms
+</p>
+<p align="center">
+<img src="ag11.png" style="width:80%">
+</p>
+
+<p>
+If \(\Gamma\) is an abstract group, then we may set \(G = \sqcup_{\gamma \in \Gamma} S\) a group scheme over \(S)\); this is called the constant group scheme. Further, for \(T\) connected, then \(G(T) = \Gamma\).
+</p>
+
+<p>
+Further, if \((G, m)\) is a group scheme over \(S\), and \(S' \rightarrow S\) is a morphism of schemes, then \(G \times_S S', m \times \id_{S'}\) is a group scheme over \(S'\), so in some sense it is good enough to consider about group schemes over \(\Z\).
+</p>
+
+<p>
+Example: \(\mathbb G _{m, \Z} = \Spec(\Z[t, t^{-1}])\) with \(m: (t, t') \mapsto tt'\) and \(t \mapsto t \otimes t\) at the level of rings. Then, it becomes true that
+\[
+    \mathbb G_{m, \Z}(T) = \Mor(T, \mathbb G_{m, \Z}) = \Mor(\Z[t, t^{-1}], \Gamma(T, \mathcal O_T)) = \Gamma(T, \mathcal O_T^*)
+\]
+and \(\mathbb G_{a, \Z} = \Spec(\Z[T])\) will give \(\mathbb G_{a, \Z}(T) = \Gamma(T, \mathcal O_T)\) with usual addition.
+</p>
+</div>
+
+<div id="outline-container-org15cce2f" class="outline-3">
+<h3 id="org15cce2f"><span class="section-number-3">4.1.</span> Group Actions</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+An action of \(G\) on \(X\) over \(S)\) is a morphism \(\alpha: G \times_S X \rightarrow X\) such that
+</p>
+<p align="center">
+<img src="ag13.png" style="width:40%">
+</p>
+
+<p>
+Example: \(X = \A^n_S\), \(w_1, \dots, w_n \in \Z^n\) weights. Then
+\[
+    \mathbb G_{m, S} \times_S \A^n_S \rightarrow   \A^n_S, (t, (x_1, \dots, x_n)) \rightarrow  (t^{w_1}x_1, \dots, t^{w_n}x_n)
+\]
+</p>
+
+<p>
+We define equivariant modules \(\mathcal F\) quasi-coherent on \(X\) together with \(\alpha: a^*\mathcal F \rightarrow  pr_2^*\mathcal F\) an isomorphism of \(\mathcal O_{G \times_S X}\)-modules such that the cocycle condition holds.
+</p>
+
+<p>
+We have some facts in the affine case: let \(S = \Spec(R), X = \Spec(A), G = \mathbb G_{m, S}\) and in this case the category of \(\mathbb G_m\)-equivalence quasi-coherent  \(\mathcal O_X\)-modules is equivalent to the category of \(Z\)-graded \(A = \oplus A_n\)-modules, and \(M = \oplus M_n\). Thus \(G\) actions on \(X\) just correspond to \(\Z\)-gradings \(A = \oplus_{n \in \Z}A_n\) on \(A)\) as an \(R\)-algebra.
+</p>
+
+<p>
+Now, if \(\mathcal L \in \Pic(X)\) when is \(\mathcal L\) \(G\)-equivariant; that is,
+</p>
+<ol class="org-ol">
+<li>When is \(a^* \mathcal A\) isomorphic to \(pr_2^* \mathcal L\) on \(G \times X_S X\)?</li>
+<li>And if yes, when can we pick \(\alpha\) such that the cocycle condition holds?</li>
+</ol>
+
+<p>
+(1) is always OK if \(X\) is Noetherian integral normal; but (2) is more unclear. But this is OK if (for example) \(S = \Spec(k), H^0(X, \mathcal O_X) = k\), and \(X\) has a \(k\)-rational \(G\)-fixed point, and \(G\) is affine. But (2) usually isn&rsquo;t a problem anyway, so it should be OK.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge448939" class="outline-3">
+<h3 id="orge448939"><span class="section-number-3">4.2.</span> Quotients</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+Given an action \(a: G \times_S X \rightarrow X\) an invariant morphism (of schemes over \(S\)) is a morphism \(f: X \rightarrow  Y\) such that the following diagram commutes:
+</p>
+<p align="center">
+<img src="ag14.png" style="width:30%">
+</p>
+
+<p>
+So we&rsquo;re trying to understand what it would mean that \(Y\) is a quotient of \(X\) by \(G\); there are a few possible options:
+</p>
+<ol class="org-ol">
+<li>\(f: X \rightarrow Y\) is a categorical quotient.</li>
+<li>\(Y\) is an orbit space.</li>
+<li>\(\mathcal O_Y = (f_* \mathcal O_X)^G\), the \(G\)-invariants.</li>
+<li>\(f\) is surjective.</li>
+<li>\(f\) is submersive (\(f\) surjective and \(T \subset Y\) closed iff \(f^{-1}(T) \subset X\) closed).</li>
+<li>If \(Z \subset X\) is closed and \(G\)-invariant, then \(f(Z)\) is closed.</li>
+<li>The last condition, but also \(f(Z_1 \cap Z_2) = f(Z_1) \cap f(Z_2)\).</li>
+</ol>
+
+<p>
+We say a condition \(P\) like above holds universally if for any
+</p>
+<p align="center">
+<img src="ag15.png" style="width:30%">
+</p>
+<p>
+we have \(P\) for \(f'\); \(P\) holds uniformly if the same, but \(g\) is flat.
+</p>
+
+<p>
+People also use the term good quotients to mean affine, (4), (3) universally, and (2) universally; a geometric quotient is (2), (5) universally, (3).
+</p>
+
+<p>
+The main idea here is that quotients in algebraic geometry should be taking the spectrum of invariants.
+</p>
+
+<p>
+In particular, we will consider \(S = \Spec(k), G = \mathbb G_{m,S}, X = \Spec(A)\), \(A = \oplus_{n \in \Z} A_n\), and \(Y = \Spec(A_0) = X / \mathbb G_m\).
+</p>
+
+<p>
+Example: \(X = \mathbb G_{m, k}\); \(A = \Gamma(X, \mathcal O_X) = k[t, t^{-1}] \supset k = A_0\). Then \(Y = \Spec(k) \xleftarrow{f} X\).
+</p>
+
+<p>
+Example: \(X = \Spec(k[x,y]) \cong \A^2\), with the grading \(wt(x) = 1, wt(y) = -1\), and \(t \cdot (x,y) = (tx, t^{-1}y)\). So \(Y = \Spec(k[xy]) \cong \A^1\).
+</p>
+
+<p>
+So what about the properties?
+</p>
+<ol class="org-ol">
+<li>Yes.</li>
+<li>No (see last example).</li>
+<li>Yes.</li>
+<li>Yes. Certainly in the examples, but we need to check that \(\Spec(A) \rightarrow \Spec(A_0)\) is surjective, but take any \(\mathfrak p \subset A_0\) prime, and look at \(A_0 \cap \mathfrak p A = \mathfrak p\), so that \(A_0 / \mathfrak p \rightarrow A/\mathfrak p A\), which is true iff dominant on \(\Spec\), so \(\mathfrak p\) is in the image.</li>
+<li>Yes. Implied by (5) + (4).</li>
+<li>Yes. Say \(Z \subset X = \Spec(A)\) is \(G\)-invariant closed; then \(Z = \Spec(B)\) with \(A \rightarrow B\) surjective, and do some annoying diagram chasing or something.</li>
+<li>Yes.</li>
+</ol>
+
+<p>
+Also, everything above holds universally.</p>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: David Chen</p>
-<p class="date">Created: 2022-03-29 Tue 11:14</p>
+<p class="date">Created: 2022-04-07 Thu 11:23</p>
 </div>
 </body>
 </html>
