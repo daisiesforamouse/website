@@ -1,0 +1,114 @@
+#+STARTUP: nolatexpreview
+
+#+HTML_HEAD: <link rel="stylesheet" href="../../css/math.css" />
+#+HTML_HEAD: <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.min.js" integrity="sha512-9DkJEmXbL/Tdj8b1SxJ4H2p3RCAXKsu8RqbznEjhFYw0cFIWlII+PnGDU2FX3keyE9Ev6eFaDPyEAyAL2cEX0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+#+HTML_HEAD: <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/input/tex/extensions/ams.min.js" integrity="sha512-hYQ7XXWTcxv2ZqLKj/ZLf+iDlS6UDfMqGZBYViCaAEfLNVtmThtbS0HKzR1PnjMCi3N5SGEpOmEdYXInWlwqqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+#+TITLE: Undergraduate Research 2022
+
+\(
+    \newcommand{\contra}{\Rightarrow\!\Leftarrow}
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\F}{\mathbb{F}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+    \newcommand{\Zg}{\mathbb{Z}_{>0}}
+    \newcommand{\Req}{\mathbb{R}_{\geq 0}}
+    \newcommand{\Rg}{\mathbb{R}_{>0}}
+    \newcommand{\N}{\mathbb{N}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\O}{\mathcal{O}}
+    \newcommand{\C}{\mathbb{C}}
+    \newcommand{\A}{\mathbb{A}}
+    \newcommand{\P}{\mathbb{P}}
+    \DeclareMathOperator{\Spec}{Spec}
+    \DeclareMathOperator{\Inv}{Inv}
+    \DeclareMathOperator{\Alt}{Alt}
+    \DeclareMathOperator{\Sym}{Sym}
+    \DeclareMathOperator{\Vec}{Vec}
+    \DeclareMathOperator{\id}{id}
+    \DeclareMathOperator{\Proj}{Proj}
+    \DeclareMathOperator{\ker}{Ker}
+    \DeclareMathOperator{\Aut}{Aut}
+    \DeclareMathOperator{\Ob}{Ob}
+    \DeclareMathOperator{\Mor}{Mor}
+    \DeclareMathOperator{\Hom}{Hom}
+    \DeclareMathOperator{\colim}{colim}
+    \DeclareMathOperator{\length}{length}
+    \DeclareMathOperator{\Pic}{Pic}
+\)
+
+* Introduction
+** Stability
+
+Given some objects \(G_n \rightarrow  G_{n+1} \rightarrow \dots\), we want to find some invariant, \(G \mapsto \text{Inv}(G)\), satisfying /stability/: that for sufficiently large \(n\), \(\text{Inv}(G_n) \cong \Inv(G_{n+1})\).
+
+As an example, we can take \(\Inv(G) = G^{ab}\), the abelianization, and if for example \(G_n = GL_n(k)\), then we have stbility for \(n \geq 2\), and similar for the symplectic groups, the special linear groups, etc.
+
+A special case we will discuss in more detail will be the symmetric groups, \(S_n\), the group of bijections from a set of \(n\) objects to itself. In particular, the abelianization sends, for \(n \geq 2\), \(S_n \mapsto \Z/2\Z\); this is appararent from the group representation
+\[
+    S_n \cong \left\langle (\sigma_i)^n_{i=1} \mid \sigma_i^2 = 1, \sigma_i\sigma_j = \sigma_i\sigma_i \text{ for } | \ i - j| > 2, \sigma_i\sigma_j\sigma_i = \sigma_j\sigma_i\sigma_j \text{ for } | \ i - j| = 1\right\rangle
+\]
+Similarly, we can look at the braid groups \(B_n\), which are given by
+\[
+    B_n \cong \left\langle (\sigma_i)^n_{i=1} \mid \sigma_i\sigma_j = \sigma_i\sigma_i \text{ for } | \ i - j| > 2, \sigma_i\sigma_j\sigma_i = \sigma_j\sigma_i\sigma_j \text{ for } | \ i - j| = 1\right\rangle
+\]
+as well as the "pure braid groups", given by \(\ker(B_n -> S_n)\); it is clear that the abelianization of \(B_n\) is just \(\Z\).
+
+Furthermore, it will turn out that the abelianization of a group is the same as the first homology group, \(H_1(G)\); the second homology group will be more complication, and will be characterized by
+\[
+    H_2(G) = \frac{R \cap [F, F]}{[R, R]}
+\]
+where \(G = F/R\), and \(F\) is free.
+
+*Theorem* (Nakaoka, 1960's): For \(n \geq 2q\), \(H_q(S_n) \cong H_q(G_{n+1})\); this result was generalized to homological stability, which gives it for a lot of other sequences of groups.
+
+A /non-example/ will be the pure braid groups; we have already
+\begin{align*}
+    B_n &\rightarrow \Aut(P_n) \\
+    t &\mapsto (p \mapsto tpt^{-1}) \\
+    S_n &\cong B_n / P_n \rightarrow \Aut(H_q(P_n))
+\end{align*}
+so \(H_q(P_n\) should be an abelian group with some \(S_n\)-action. More explicitly, let \(\sigma_{ij} \in B_n\) be the lift of the transposition \((i, j)\), and take
+\[
+    P_n = \left\langle  (a_{ij})_{i < j} \mid [a_{ij}, -] = 1 \right\rangle
+\]
+with the map \(a_{ij} \mapsto \sigma_{ij}^2\). It also becomes clear from this representation that the abelianization of \(P_n\) will be \(\Z^{\oplus \frac{n(n-1)}{2}}\). Furthermore, we have that
+\[
+    H_1(P_n) \otimes_\Z \Q \cong \Sym^2(St_n)
+\]
+where \(St_n\) is the standard representation.
+
+** Representational Stability
+
+This is our first example of representational stability!
+
+In particular, we define \(\Q-\text{characters of } S_n\) to be the set of class functions of \(S_n\), or all maps to \(Q\) invariant by conjugation.
+
+Then, we can see that
+\[
+    \chi_{St_n}(\sigma) = \chi_1(\sigma) - 1
+\]
+and so we conclude that since \(\chi_{\Sym^2}(\sigma) = \frac{1}{2}(\chi(\sigma^2) + \chi(\sigma)^2)\),
+\[
+    \chi_{H_1(P_n)} = -\chi_2 + \binom{\chi_1}{2}
+\]
+
+*Theorem* (Church-Farb): For \(n\) sufficiently large, \((H_q(P_n))_\Q\) is a polynomial sequence of characters of \((S_n)_n\).
+
+** FI Modules
+
+The category \(FI\) will have objects indexed by \(m \geq 0\), with \(\Hom_{FI}(m, n)\) to be injective maps \([m] \rightarrow [n]\).
+
+In fact, \(H_q(P_n)\) are really functions \(FI \rightarrow  Ab\); \(FI\)-modules will be functors \(FI \rightarrow \Vec_\Q\); equivalently, finitely generated \(FI\)-modules will be the same as polynomial sqeuences of representations of \(S_n\).
+
+The thing to care about is the Neotherianity of such categories. We will also consider a little bit of topology, in the sense that we may have some \(FI\)-spaces, which map \(n \mapsto \text{Conf}_n(X)\), the space of injective maps \([n] \rightarrow X\).
+
+For example, \(\text{Conf}_n \C = \{(z_i)\_{i=1}^n \mid z_i \neq z_j\}\), and the fundamental group will be \(P_n\).
+
+*Theorem* (Church-Eilenberg-Farb): For \(n\) sufficiently large, then \((H_q(\text{Conf}_n(X)))_n\) is a polynomial sequence of \(G_n\)-representations.
+
+Note that for \(n = q = 1\), we have the correspondence
+\[
+    H_1(X) = \pi_1^{ab} = H_1(\pi_1)
+\]

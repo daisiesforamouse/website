@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-06-07 Tue 10:15 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Undergraduate Research 2022</title>
+<meta name="author" content="David Chen" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" href="../../css/math.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.min.js" integrity="sha512-9DkJEmXbL/Tdj8b1SxJ4H2p3RCAXKsu8RqbznEjhFYw0cFIWlII+PnGDU2FX3keyE9Ev6eFaDPyEAyAL2cEX0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/input/tex/extensions/ams.min.js" integrity="sha512-hYQ7XXWTcxv2ZqLKj/ZLf+iDlS6UDfMqGZBYViCaAEfLNVtmThtbS0HKzR1PnjMCi3N5SGEpOmEdYXInWlwqqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+    <!--/*--><![CDATA[/*><!--*/
+  MathJax.Hub.Config({
+      jax: ["input/TeX", "output/HTML-CSS"],
+      extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                   "TeX/noUndefined.js", "[Contrib]/siunitx/siunitx.js", "[Contrib]/mhchem/mhchem.js"],
+      tex2jax: {
+          inlineMath: [ ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+          skipTags: ["script","noscript","style","textarea","pre","code"],
+          ignoreClass: "tex2jax_ignore",
+          processEscapes: false,
+          processEnvironments: true,
+          preview: "TeX"
+      },
+      TeX: {extensions: ["AMSmath.js","AMSsymbols.js",
+                         "[Contrib]/siunitx/siunitx.js", "[Contrib]/mhchem/mhchem.js"]},
+      showProcessingMessages: true,
+      displayAlign: "center",
+      displayIndent: "2em",
+
+      "HTML-CSS": {
+          scale: 100,
+          availableFonts: ["STIX","TeX"],
+          preferredFont: "TeX",
+          webFont: "TeX",
+          imageFont: "TeX",
+          showMathMenu: true,
+      },
+      MMLorHTML: {
+          prefer: {
+              MSIE:    "MML",
+              Firefox: "MML",
+              Opera:   "HTML",
+              other:   "HTML"
+          }
+      }
+  });
+  /*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Undergraduate Research 2022</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgd2bd0e7">1. Introduction</a>
+<ul>
+<li><a href="#org25a447e">1.1. Stability</a></li>
+<li><a href="#org2ddd878">1.2. Representational Stability</a></li>
+<li><a href="#org54afd9f">1.3. FI Modules</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+\(
+    \newcommand{\contra}{\Rightarrow\!\Leftarrow}
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\F}{\mathbb{F}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+    \newcommand{\Zg}{\mathbb{Z}_{>0}}
+    \newcommand{\Req}{\mathbb{R}_{\geq 0}}
+    \newcommand{\Rg}{\mathbb{R}_{>0}}
+    \newcommand{\N}{\mathbb{N}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\O}{\mathcal{O}}
+    \newcommand{\C}{\mathbb{C}}
+    \newcommand{\A}{\mathbb{A}}
+    \newcommand{\P}{\mathbb{P}}
+    \DeclareMathOperator{\Spec}{Spec}
+    \DeclareMathOperator{\Inv}{Inv}
+    \DeclareMathOperator{\Alt}{Alt}
+    \DeclareMathOperator{\Sym}{Sym}
+    \DeclareMathOperator{\Vec}{Vec}
+    \DeclareMathOperator{\id}{id}
+    \DeclareMathOperator{\Proj}{Proj}
+    \DeclareMathOperator{\ker}{Ker}
+    \DeclareMathOperator{\Aut}{Aut}
+    \DeclareMathOperator{\Ob}{Ob}
+    \DeclareMathOperator{\Mor}{Mor}
+    \DeclareMathOperator{\Hom}{Hom}
+    \DeclareMathOperator{\colim}{colim}
+    \DeclareMathOperator{\length}{length}
+    \DeclareMathOperator{\Pic}{Pic}
+\)
+</p>
+
+<div id="outline-container-orgd2bd0e7" class="outline-2">
+<h2 id="orgd2bd0e7"><span class="section-number-2">1.</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org25a447e" class="outline-3">
+<h3 id="org25a447e"><span class="section-number-3">1.1.</span> Stability</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Given some objects \(G_n \rightarrow  G_{n+1} \rightarrow \dots\), we want to find some invariant, \(G \mapsto \text{Inv}(G)\), satisfying <i>stability</i>: that for sufficiently large \(n\), \(\text{Inv}(G_n) \cong \Inv(G_{n+1})\).
+</p>
+
+<p>
+As an example, we can take \(\Inv(G) = G^{ab}\), the abelianization, and if for example \(G_n = GL_n(k)\), then we have stbility for \(n \geq 2\), and similar for the symplectic groups, the special linear groups, etc.
+</p>
+
+<p>
+A special case we will discuss in more detail will be the symmetric groups, \(S_n\), the group of bijections from a set of \(n\) objects to itself. In particular, the abelianization sends, for \(n \geq 2\), \(S_n \mapsto \Z/2\Z\); this is appararent from the group representation
+\[
+    S_n \cong \left\langle (\sigma_i)^n_{i=1} \mid \sigma_i^2 = 1, \sigma_i\sigma_j = \sigma_i\sigma_i \text{ for } | \ i - j| > 2, \sigma_i\sigma_j\sigma_i = \sigma_j\sigma_i\sigma_j \text{ for } | \ i - j| = 1\right\rangle
+\]
+Similarly, we can look at the braid groups \(B_n\), which are given by
+\[
+    B_n \cong \left\langle (\sigma_i)^n_{i=1} \mid \sigma_i\sigma_j = \sigma_i\sigma_i \text{ for } | \ i - j| > 2, \sigma_i\sigma_j\sigma_i = \sigma_j\sigma_i\sigma_j \text{ for } | \ i - j| = 1\right\rangle
+\]
+as well as the &ldquo;pure braid groups&rdquo;, given by \(\ker(B_n -> S_n)\); it is clear that the abelianization of \(B_n\) is just \(\Z\).
+</p>
+
+<p>
+Furthermore, it will turn out that the abelianization of a group is the same as the first homology group, \(H_1(G)\); the second homology group will be more complication, and will be characterized by
+\[
+    H_2(G) = \frac{R \cap [F, F]}{[R, R]}
+\]
+where \(G = F/R\), and \(F\) is free.
+</p>
+
+<p>
+<b>Theorem</b> (Nakaoka, 1960&rsquo;s): For \(n \geq 2q\), \(H_q(S_n) \cong H_q(G_{n+1})\); this result was generalized to homological stability, which gives it for a lot of other sequences of groups.
+</p>
+
+<p>
+A <i>non-example</i> will be the pure braid groups; we have already
+</p>
+\begin{align*}
+    B_n &\rightarrow \Aut(P_n) \\
+    t &\mapsto (p \mapsto tpt^{-1}) \\
+    S_n &\cong B_n / P_n \rightarrow \Aut(H_q(P_n))
+\end{align*}
+<p>
+so \(H_q(P_n\) should be an abelian group with some \(S_n\)-action. More explicitly, let \(\sigma_{ij} \in B_n\) be the lift of the transposition \((i, j)\), and take
+\[
+    P_n = \left\langle  (a_{ij})_{i < j} \mid [a_{ij}, -] = 1 \right\rangle
+\]
+with the map \(a_{ij} \mapsto \sigma_{ij}^2\). It also becomes clear from this representation that the abelianization of \(P_n\) will be \(\Z^{\oplus \frac{n(n-1)}{2}}\). Furthermore, we have that
+\[
+    H_1(P_n) \otimes_\Z \Q \cong \Sym^2(St_n)
+\]
+where \(St_n\) is the standard representation.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2ddd878" class="outline-3">
+<h3 id="org2ddd878"><span class="section-number-3">1.2.</span> Representational Stability</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+This is our first example of representational stability!
+</p>
+
+<p>
+In particular, we define \(\Q-\text{characters of } S_n\) to be the set of class functions of \(S_n\), or all maps to \(Q\) invariant by conjugation.
+</p>
+
+<p>
+Then, we can see that
+\[
+    \chi_{St_n}(\sigma) = \chi_1(\sigma) - 1
+\]
+and so we conclude that since \(\chi_{\Sym^2}(\sigma) = \frac{1}{2}(\chi(\sigma^2) + \chi(\sigma)^2)\),
+\[
+    \chi_{H_1(P_n)} = -\chi_2 + \binom{\chi_1}{2}
+\]
+</p>
+
+<p>
+<b>Theorem</b> (Church-Farb): For \(n\) sufficiently large, \((H_q(P_n))_\Q\) is a polynomial sequence of characters of \((S_n)_n\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org54afd9f" class="outline-3">
+<h3 id="org54afd9f"><span class="section-number-3">1.3.</span> FI Modules</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+The category \(FI\) will have objects indexed by \(m \geq 0\), with \(\Hom_{FI}(m, n)\) to be injective maps \([m] \rightarrow [n]\).
+</p>
+
+<p>
+In fact, \(H_q(P_n)\) are really functions \(FI \rightarrow  Ab\); \(FI\)-modules will be functors \(FI \rightarrow \Vec_\Q\); equivalently, finitely generated \(FI\)-modules will be the same as polynomial sqeuences of representations of \(S_n\).
+</p>
+
+<p>
+The thing to care about is the Neotherianity of such categories. We will also consider a little bit of topology, in the sense that we may have some \(FI\)-spaces, which map \(n \mapsto \text{Conf}_n(X)\), the space of injective maps \([n] \rightarrow X\).
+</p>
+
+<p>
+For example, \(\text{Conf}_n \C = \{(z_i)\_{i=1}^n \mid z_i \neq z_j\}\), and the fundamental group will be \(P_n\).
+</p>
+
+<p>
+<b>Theorem</b> (Church-Eilenberg-Farb): For \(n\) sufficiently large, then \((H_q(\text{Conf}_n(X)))_n\) is a polynomial sequence of \(G_n\)-representations.
+</p>
+
+<p>
+Note that for \(n = q = 1\), we have the correspondence
+\[
+    H_1(X) = \pi_1^{ab} = H_1(\pi_1)
+\]</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: David Chen</p>
+<p class="date">Created: 2022-06-07 Tue 10:15</p>
+</div>
+</body>
+</html>
