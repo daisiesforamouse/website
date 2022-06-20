@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-16 Thu 15:47 -->
+<!-- 2022-06-20 Mon 16:02 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Undergraduate Research 2022</title>
@@ -246,36 +246,37 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org22a7261">1. Introduction</a>
+<li><a href="#orga2843ef">1. Introduction</a>
 <ul>
-<li><a href="#org186b97a">1.1. Stability</a></li>
-<li><a href="#org8e3c8ec">1.2. Representational Stability</a></li>
-<li><a href="#orgfdbe26e">1.3. FI Modules</a></li>
+<li><a href="#orgc83e41e">1.1. Stability</a></li>
+<li><a href="#orga197dc1">1.2. Representational Stability</a></li>
+<li><a href="#org57d22a6">1.3. FI Modules</a></li>
 </ul>
 </li>
-<li><a href="#orgeb8b5ce">2. Categories</a>
+<li><a href="#org395a594">2. Categories</a>
 <ul>
-<li><a href="#orgbd6d491">2.1. Finiteness Conditions</a></li>
-<li><a href="#org805c796">2.2. Limits/Colimits</a></li>
-<li><a href="#org7287192">2.3. Abelian Categories</a></li>
+<li><a href="#org201ac21">2.1. Finiteness Conditions</a></li>
+<li><a href="#orgcba03c7">2.2. Limits/Colimits</a></li>
+<li><a href="#orga14c4ee">2.3. Abelian Categories</a></li>
 </ul>
 </li>
-<li><a href="#orgaabd2b2">3. Homological Algebra</a>
+<li><a href="#org67ccd92">3. Homological Algebra</a>
 <ul>
-<li><a href="#org59247e0">3.1. Projective Modules</a></li>
-<li><a href="#orgceb2d27">3.2. Injective Modules</a></li>
-<li><a href="#org3b096a6">3.3. Chain Complexes</a></li>
+<li><a href="#orgd5fe203">3.1. Projective Modules</a></li>
+<li><a href="#org0b9acec">3.2. Injective Modules</a></li>
+<li><a href="#org3475fad">3.3. Chain Complexes</a></li>
 </ul>
 </li>
-<li><a href="#orge3b65a0">4. Group Homology</a>
+<li><a href="#org458614b">4. Group Homology</a>
 <ul>
-<li><a href="#orgecea20c">4.1. Induced Modules</a></li>
-<li><a href="#orgf4d3907">4.2. Explicit Resolutions</a></li>
+<li><a href="#org6157576">4.1. Induced Modules</a></li>
+<li><a href="#org0d6a453">4.2. Explicit Resolutions</a></li>
 </ul>
 </li>
-<li><a href="#org8973ba3">5. Simplicial Sets</a>
+<li><a href="#org3d0e943">5. Simplicial Sets</a>
 <ul>
-<li><a href="#org05af352">5.1. Classifying Spaces</a></li>
+<li><a href="#orgda7e8c9">5.1. Classifying Spaces</a></li>
+<li><a href="#orgf8ad361">5.2. Homotopy Groups</a></li>
 </ul>
 </li>
 </ul>
@@ -298,6 +299,7 @@
     \newcommand{\A}{\mathbb{A}}
     \newcommand{\P}{\mathbb{P}}
     \DeclareMathOperator{\Spec}{Spec}
+    \DeclareMathOperator{\Conf}{Conf}
     \DeclareMathOperator{\Inv}{Inv}
     \DeclareMathOperator{\Alt}{Alt}
     \DeclareMathOperator{\Sym}{Sym}
@@ -319,12 +321,12 @@
 \)
 </p>
 
-<div id="outline-container-org22a7261" class="outline-2">
-<h2 id="org22a7261"><span class="section-number-2">1.</span> Introduction</h2>
+<div id="outline-container-orga2843ef" class="outline-2">
+<h2 id="orga2843ef"><span class="section-number-2">1.</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org186b97a" class="outline-3">
-<h3 id="org186b97a"><span class="section-number-3">1.1.</span> Stability</h3>
+<div id="outline-container-orgc83e41e" class="outline-3">
+<h3 id="orgc83e41e"><span class="section-number-3">1.1.</span> Stability</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Given some objects \(G_n \rightarrow  G_{n+1} \rightarrow \dots\), we want to find some invariant, \(G \mapsto \text{Inv}(G)\), satisfying <i>stability</i>: that for sufficiently large \(n\), \(\text{Inv}(G_n) \cong \Inv(G_{n+1})\).
@@ -341,7 +343,7 @@ A special case we will discuss in more detail will be the symmetric groups, \(S_
 \]
 Similarly, we can look at the braid groups \(B_n\), which are given by
 \[
-    B_n \cong \left\langle (\sigma_i)^n_{i=1} \mid \sigma_i\sigma_j = \sigma_i\sigma_i \text{ for }  |i - j| > 2, \sigma_i\sigma_j\sigma_i = \sigma_j\sigma_i\sigma_j \text{ for } |i - j| = 1\right\rangle
+    B_n \cong \left\langle (\sigma_i)^{n-1}_{i=1} \mid \sigma_i\sigma_j = \sigma_i\sigma_i \text{ for }  |i - j| > 2, \sigma_i\sigma_j\sigma_i = \sigma_j\sigma_i\sigma_j \text{ for } |i - j| = 1\right\rangle
 \]
 as well as the &ldquo;pure braid groups&rdquo;, given by \(\Ker(B_n -> S_n)\); it is clear that the abelianization of \(B_n\) is just \(\Z\).
 </p>
@@ -380,8 +382,8 @@ where \(St_n\) is the standard representation.
 </div>
 </div>
 
-<div id="outline-container-org8e3c8ec" class="outline-3">
-<h3 id="org8e3c8ec"><span class="section-number-3">1.2.</span> Representational Stability</h3>
+<div id="outline-container-orga197dc1" class="outline-3">
+<h3 id="orga197dc1"><span class="section-number-3">1.2.</span> Representational Stability</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 This is our first example of representational stability!
@@ -408,8 +410,8 @@ and so we conclude that since \(\chi_{\Sym^2}(\sigma) = \frac{1}{2}(\chi(\sigma^
 </div>
 </div>
 
-<div id="outline-container-orgfdbe26e" class="outline-3">
-<h3 id="orgfdbe26e"><span class="section-number-3">1.3.</span> FI Modules</h3>
+<div id="outline-container-org57d22a6" class="outline-3">
+<h3 id="org57d22a6"><span class="section-number-3">1.3.</span> FI Modules</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 The category \(FI\) will have objects indexed by \(m \geq 0\), with \(\Hom_{FI}(m, n)\) to be injective maps \([m] \rightarrow [n]\).
@@ -424,7 +426,7 @@ The thing to care about is the Noetherianity of such categories. We will also co
 </p>
 
 <p>
-For example, \(\text{Conf}_n \C = \{(z_i)\_{i=1}^n \mid z_i \neq z_j\}\), and the fundamental group will be \(P_n\).
+For example, \(\text{Conf}_n \C = \{(z_i)_{i=1}^n \mid z_i \neq z_j\}\), and the fundamental group will be \(P_n\).
 </p>
 
 <p>
@@ -441,8 +443,8 @@ Note that for \(n = q = 1\), we have the correspondence
 </div>
 </div>
 
-<div id="outline-container-orgeb8b5ce" class="outline-2">
-<h2 id="orgeb8b5ce"><span class="section-number-2">2.</span> Categories</h2>
+<div id="outline-container-org395a594" class="outline-2">
+<h2 id="org395a594"><span class="section-number-2">2.</span> Categories</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 <b>Definition</b>: A category \(C\) is the data of a class \(\Ob(C)\) of objects and
@@ -502,8 +504,8 @@ OK blah blah blah a bunch of the usual category stuff that I&rsquo;m not typing 
 </p>
 </div>
 
-<div id="outline-container-orgbd6d491" class="outline-3">
-<h3 id="orgbd6d491"><span class="section-number-3">2.1.</span> Finiteness Conditions</h3>
+<div id="outline-container-org201ac21" class="outline-3">
+<h3 id="org201ac21"><span class="section-number-3">2.1.</span> Finiteness Conditions</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 <b>Definition</b>: \(C\) is a small category if its objects are a set, and essentially small if it admits a small skeleton.
@@ -519,8 +521,8 @@ OK blah blah blah a bunch of the usual category stuff that I&rsquo;m not typing 
 </div>
 </div>
 
-<div id="outline-container-org805c796" class="outline-3">
-<h3 id="org805c796"><span class="section-number-3">2.2.</span> Limits/Colimits</h3>
+<div id="outline-container-orgcba03c7" class="outline-3">
+<h3 id="orgcba03c7"><span class="section-number-3">2.2.</span> Limits/Colimits</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 <b>Definition</b>: Let \(I\) be a (partially) ordered set; an \(I\)-diagram on \(C\) is a functor \(F: I \rightarrow C\) when \(I\) is considered as a category; a limit of \(F\) is an object of \(C\) that represents the functor \(C \rightarrow Set\), \(X \mapsto \Hom_{\Func(I, C)}((i \mapsto X), F)\); a colimit is the same, but the \(\Hom\) arguments are reversed.
@@ -592,8 +594,8 @@ that \(\lim F\) exists, and is the equalizer.
 </div>
 </div>
 
-<div id="outline-container-org7287192" class="outline-3">
-<h3 id="org7287192"><span class="section-number-3">2.3.</span> Abelian Categories</h3>
+<div id="outline-container-orga14c4ee" class="outline-3">
+<h3 id="orga14c4ee"><span class="section-number-3">2.3.</span> Abelian Categories</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 <b>Definition</b>: A category \(C\) is preadditive when it has the structures of abelian groups of \(\Hom_C(-, -)\), such that composition is bilinear; e.g. in torsion free abelian groups, or in \(Ab\) itself. Further, it is additive if it also has finite products and coproducts.
@@ -657,8 +659,8 @@ Disclaimer! We actually need the assumptions; consider \(R = A[x,y]\), and \(A =
 </div>
 </div>
 
-<div id="outline-container-orgaabd2b2" class="outline-2">
-<h2 id="orgaabd2b2"><span class="section-number-2">3.</span> Homological Algebra</h2>
+<div id="outline-container-org67ccd92" class="outline-2">
+<h2 id="org67ccd92"><span class="section-number-2">3.</span> Homological Algebra</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 <b>Definition</b>: A sequence \(X_1 \xrightarrow{f}  X_2 \xrightarrow{g}  X_3\) is said to be exact (at \(X_2\)) if \(X_1 \rightarrow   \Ker(g)\) is an epi.
@@ -685,8 +687,8 @@ Disclaimer! We actually need the assumptions; consider \(R = A[x,y]\), and \(A =
 </p>
 </div>
 
-<div id="outline-container-org59247e0" class="outline-3">
-<h3 id="org59247e0"><span class="section-number-3">3.1.</span> Projective Modules</h3>
+<div id="outline-container-orgd5fe203" class="outline-3">
+<h3 id="orgd5fe203"><span class="section-number-3">3.1.</span> Projective Modules</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 <b>Definition</b>: An object \(X\) of \(A\) is said to be projective if \(\Hom(X, -)\) is exact, and dually it is injective if the contravariant Hom is exact. See Stacks Tag 013A for more details.
@@ -758,8 +760,8 @@ Look carefully: this shows that \(Mod_R \cong Mod_{R^{\oplus M}}\) (ref: see Mor
 </div>
 </div>
 
-<div id="outline-container-orgceb2d27" class="outline-3">
-<h3 id="orgceb2d27"><span class="section-number-3">3.2.</span> Injective Modules</h3>
+<div id="outline-container-org0b9acec" class="outline-3">
+<h3 id="org0b9acec"><span class="section-number-3">3.2.</span> Injective Modules</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 <b>Definition</b>: \(I \in A\) is injective if \(\Hom(-, I)\) is left exact; similarly, \(A\) has enough injectives if there is always some monic \(X \rightarrow  I\) into an injective object.
@@ -771,8 +773,8 @@ For modules, see Baer&rsquo;s criterion, Stacks Tag 05NU.
 </div>
 </div>
 
-<div id="outline-container-org3b096a6" class="outline-3">
-<h3 id="org3b096a6"><span class="section-number-3">3.3.</span> Chain Complexes</h3>
+<div id="outline-container-org3475fad" class="outline-3">
+<h3 id="org3475fad"><span class="section-number-3">3.3.</span> Chain Complexes</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 <b>Definition</b>: \(Ch(A)\), the category of chain complexes of objects of an abelian category \(A\), has objects functors \(\Z \xrightarrow{C_\bullet} A\)
@@ -793,8 +795,8 @@ OK I was sleepy so a topic list: derived categories, derived functors as factori
 </div>
 </div>
 
-<div id="outline-container-orge3b65a0" class="outline-2">
-<h2 id="orge3b65a0"><span class="section-number-2">4.</span> Group Homology</h2>
+<div id="outline-container-org458614b" class="outline-2">
+<h2 id="org458614b"><span class="section-number-2">4.</span> Group Homology</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 <b>Definition</b>: An abelian group \(A\) is a \(G\)-module if it is a \(\Z[G]\)-module. Note that the category of \(G\)-modules is the same as the functor category from \(G\) to \(Ab\), where the first thing is \(G\) regarded as a groupoid with one element.
@@ -824,8 +826,8 @@ Similar for cohomology.
 </p>
 </div>
 
-<div id="outline-container-orgecea20c" class="outline-3">
-<h3 id="orgecea20c"><span class="section-number-3">4.1.</span> Induced Modules</h3>
+<div id="outline-container-org6157576" class="outline-3">
+<h3 id="org6157576"><span class="section-number-3">4.1.</span> Induced Modules</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 <b>Definition</b>: Let \(H \subset G\), with finite index, and \(M\) an \(H\)-module, and define
@@ -897,8 +899,8 @@ and the opposite maps, as above.
 </div>
 </div>
 
-<div id="outline-container-orgf4d3907" class="outline-3">
-<h3 id="orgf4d3907"><span class="section-number-3">4.2.</span> Explicit Resolutions</h3>
+<div id="outline-container-org0d6a453" class="outline-3">
+<h3 id="org0d6a453"><span class="section-number-3">4.2.</span> Explicit Resolutions</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 We want to just take a resolution of \(\Z\) that will let us compute arbitrary homology/cohomology. We take
@@ -919,8 +921,8 @@ and this sequence will have the cohomology we want. In particular, note that the
 </div>
 </div>
 
-<div id="outline-container-org8973ba3" class="outline-2">
-<h2 id="org8973ba3"><span class="section-number-2">5.</span> Simplicial Sets</h2>
+<div id="outline-container-org3d0e943" class="outline-2">
+<h2 id="org3d0e943"><span class="section-number-2">5.</span> Simplicial Sets</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 <b>Definition</b>: Let \(\Delta\) be the category of nonempty finite totally ordered sets with nondecreasing maps as morphisms.
@@ -988,8 +990,8 @@ actually represents a category, with \(E_1\) maps, \(E_0\) objects, and \(E_2\) 
 </p>
 </div>
 
-<div id="outline-container-org05af352" class="outline-3">
-<h3 id="org05af352"><span class="section-number-3">5.1.</span> Classifying Spaces</h3>
+<div id="outline-container-orgda7e8c9" class="outline-3">
+<h3 id="orgda7e8c9"><span class="section-number-3">5.1.</span> Classifying Spaces</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 Let \(S\) be a nonempty set, and \(\underline{S}_n\) the maps \([n] \rightarrow  S\), which is now a simplicial set. But its geometric realization is homotopic to a point, so it is not that interesting; but if we consider \(G\) a group, then \(\underline{G}\) has a right \(G\) action, which takes \(fg \mapsto (x \mapsto f(x)g\).
@@ -1028,7 +1030,7 @@ Let \(S\) be a nonempty set, and \(\underline{S}_n\) the maps \([n] \rightarrow 
 </p>
 
 <p>
-<b>Theorem</b> The inclusions \(\lambda_0, \lambda_1: X \rightarrow X[0, 1]\), given by \(\lambda_i: x \mapsto (x, i\) induce the same homomotphism \(H_n(X, R) \rightarrow   H_n(X \times [0, 1], R)\).
+<b>Theorem</b> The inclusions \(\lambda_0, \lambda_1: X \rightarrow X[0, 1]\), given by \(\lambda_i: x \mapsto (x, i)\) induce the same homomorphism \(H_n(X, R) \rightarrow   H_n(X \times [0, 1], R)\).
 </p>
 
 <p>
@@ -1103,14 +1105,100 @@ Then, we have, since \(Z_1(C(S(X))) / B_1 \cong H_1\) is abelian, we have a map 
 </p>
 
 <p>
-<b>Theorem</b>: Let \(G\) be a group; then the \(H_n(G, R) \cong H_n(BG, R) \cong H_n(|BG|, R)\). In fact, \(\pi_1(BG) = G, \pi_k(BG) = 0\) otherwise; that is, it is a \(K(G,1)\) space.</p>
+<b>Theorem</b>: Let \(G\) be a group; then the \(H_n(G, R) \cong H_n(BG, R) \cong H_n(|BG|, R)\). In fact, \(\pi_1(BG) = G, \pi_k(BG) = 0\) otherwise; that is, it is a \(K(G,1)\) space.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf8ad361" class="outline-3">
+<h3 id="orgf8ad361"><span class="section-number-3">5.2.</span> Homotopy Groups</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+Let \(X\) be a topological space, and set \(\pi_k(X)\) the fundamental group in degree \(k\), e.g. all maps \(S^k \rightarrow  X\) identified up to homotopy. Note that in general, \(\pi_0\) is just a set, \(pi_1\) is a group, and \(\pi_k\) is an abelian group for higher \(k\).
+</p>
+
+<p>
+<b>Theorem</b>: The group homology of \(G\) is the same as the singular homology of a \(K(G, 1)\) space.
+</p>
+
+<p>
+We will also take
+\[
+    \Conf_n(\C) = \{(z_1, \dots, z_n) \in \C^n \mid z_i \neq z_j \text{ for } i \neq j\}
+\]
+and show that it is path connected and has \(\pi_1\) the pure braid group.
+</p>
+
+<p>
+<b>Definition</b>: A continuous map \(p: E \rightarrow  B\) is a fiber bundle with typical fiber \(F\) if \(\forall b \in B\), there is \(U\) open containing \(b\) such that
+</p>
+<p align="center">
+<img src="fiber.png" style="width:30%">
+</p>
+<p>
+conmmutes.
+</p>
+
+<p>
+Note that if \(p: E \rightarrow B\) is a fibration with fiber \(F\) path-connected, we can make a long exact sequence
+\[
+    \cdots \rightarrow    \pi_2 B \rightarrow   \pi_1 F \rightarrow    \pi_1 E \rightarrow  \pi_1 B \rightarrow  0
+\]
+</p>
+
+<p>
+<b>Theorem</b>: \(\pi_1(\Conf_n(\C)\) is the pure braid group, and every other homotopy class is trivial.
+</p>
+
+<p>
+Let \(O_n = \Conf_n(\C_n)\) be the covering space of \(U_n\) so that it is a fiber bundle with fiber \(S_n\). In this case, we have a s.e.s.
+\[
+    1 \rightarrow  \pi_1 (O_n) \rightarrow   \pi_1 (U_n) \rightarrow S_n \rightarrow  1
+\]
+</p>
+
+<p>
+<i>Proof</i>: Consider \(n = 2\);  then, \(\C^2\setminus \Delta \cong S^1\), so \(\pi_1(O_2) \cong \pi_1 (S^1) \cong \Z\). Then, \(U_2 = \{(s_1, s_2) \mid s_1^2 \neq s_2\}\). Then we see that
+\[
+    U_2 \rightarrow  \C^2 \setminus \C \times \{0\} \cong S^1
+\]
+and the s.e.s. must be
+\[
+     0 \rightarrow   \Z \rightarrow  \Z \rightarrow  \Z/2 \rightarrow    0
+\]
+</p>
+
+<p>
+If you think a little, then \(\pi_1(U_n)\) must be the (geometric) braid group, and \(\pi_1(O_n)\) must be the (geometric) pure braid group; in fact we will take this by fiat and make this our definitions for these groups.
+</p>
+
+<p>
+Furthermore, the higher homotopy groups must be 0, since we have that the fiber bundle \(O_n \rightarrow  O_{n-1}\) via forgetting the last coordinate has fiber \(\C \setminus \{z_1, \dots, z_n-1\}\), and so we must have that for \(k \geq 2\), we have the l.e.s.
+\[
+    \cdots \rightarrow   \pi_k F = 0 \rightarrow  \pi_k O_n \rightarrow   \pi_k O_{n-1} = 0 \rightarrow \cdots
+\]
+</p>
+
+<p>
+The last thing to do is to check that our geometric groups line up with the group representations
+\[
+    \widetilde{B}_n \cong \left\langle (\sigma_i)^{n-1}_{i=1} \mid \sigma_i\sigma_j = \sigma_i\sigma_i \text{ for }  |i - j| > 2, \sigma_i\sigma_j\sigma_i = \sigma_j\sigma_i\sigma_j \text{ for } |i - j| = 1\right\rangle
+\]
+The entire thing is kind of long and annoying! So I will just make the remark that it&rsquo;s really clear if you take \(\sigma_i\) to be the braid that crosses the threads connecting \(i\) and \(i + 1\) once. In fact, it is good enough to check the pure braid group lines up with the representation (I am <b>not</b> typing this)
+</p>
+<p align="center">
+<img src="purebraid.png" style="width:60%">
+</p>
+<p>
+But we can just check this for \(S_{ij}\) the commutator of \(\sigma_i, \sigma_j\), and we win.
+</p>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: David Chen</p>
-<p class="date">Created: 2022-06-16 Thu 15:47</p>
+<p class="date">Created: 2022-06-20 Mon 16:02</p>
 </div>
 </body>
 </html>

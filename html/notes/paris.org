@@ -22,6 +22,7 @@
     \newcommand{\A}{\mathbb{A}}
     \newcommand{\P}{\mathbb{P}}
     \DeclareMathOperator{\Spec}{Spec}
+    \DeclareMathOperator{\Conf}{Conf}
     \DeclareMathOperator{\Inv}{Inv}
     \DeclareMathOperator{\Alt}{Alt}
     \DeclareMathOperator{\Sym}{Sym}
@@ -55,7 +56,7 @@ A special case we will discuss in more detail will be the symmetric groups, \(S_
 \]
 Similarly, we can look at the braid groups \(B_n\), which are given by
 \[
-    B_n \cong \left\langle (\sigma_i)^n_{i=1} \mid \sigma_i\sigma_j = \sigma_i\sigma_i \text{ for }  |i - j| > 2, \sigma_i\sigma_j\sigma_i = \sigma_j\sigma_i\sigma_j \text{ for } |i - j| = 1\right\rangle
+    B_n \cong \left\langle (\sigma_i)^{n-1}_{i=1} \mid \sigma_i\sigma_j = \sigma_i\sigma_i \text{ for }  |i - j| > 2, \sigma_i\sigma_j\sigma_i = \sigma_j\sigma_i\sigma_j \text{ for } |i - j| = 1\right\rangle
 \]
 as well as the "pure braid groups", given by \(\Ker(B_n -> S_n)\); it is clear that the abelianization of \(B_n\) is just \(\Z\).
 
@@ -108,7 +109,7 @@ In fact, \(H_q(P_n)\) are really functions \(FI \rightarrow  Ab\); \(FI\)-module
 
 The thing to care about is the Noetherianity of such categories. We will also consider a little bit of topology, in the sense that we may have some \(FI\)-spaces, which map \(n \mapsto \text{Conf}_n(X)\), the space of injective maps \([n] \rightarrow X\).
 
-For example, \(\text{Conf}_n \C = \{(z_i)\_{i=1}^n \mid z_i \neq z_j\}\), and the fundamental group will be \(P_n\).
+For example, \(\text{Conf}_n \C = \{(z_i)_{i=1}^n \mid z_i \neq z_j\}\), and the fundamental group will be \(P_n\).
 
 *Theorem (Church-Eilenberg-Farb)*: For \(n\) sufficiently large, then \((H_q(\text{Conf}_n(X)))_n\) is a polynomial sequence of \(G_n\)-representations.
 
@@ -450,7 +451,7 @@ Let \(S\) be a nonempty set, and \(\underline{S}_n\) the maps \([n] \rightarrow 
 
 *Definition*: We set for \(X \in Simp(Sets)\), \(H_n(X, R) = H_n(R^{\oplus X})\), and if \(X \in Top\), then \(H_n(X, R) = H_n(S(X), R)\), where the homology is taken with coefficients in \(R\), a ring.
 
-*Theorem* The inclusions \(\lambda_0, \lambda_1: X \rightarrow X[0, 1]\), given by \(\lambda_i: x \mapsto (x, i\) induce the same homomotphism \(H_n(X, R) \rightarrow   H_n(X \times [0, 1], R)\).
+*Theorem* The inclusions \(\lambda_0, \lambda_1: X \rightarrow X[0, 1]\), given by \(\lambda_i: x \mapsto (x, i)\) induce the same homomorphism \(H_n(X, R) \rightarrow   H_n(X \times [0, 1], R)\).
 
 *Corollary*: If \(f, g: X \rightarrow Y\) are homotopic, then \(H_n(f, R) = H_n(g, R)\); further, if \(f: X \rightarrow  Y\) is a homotopy equivlance then \(H_n(f, R)\) is ana isomorphism.
 
@@ -504,3 +505,62 @@ so it must be \(H_0\) is the set of free \(R\)-modules on \(X / (f(0) \sim f(\la
 Then, we have, since \(Z_1(C(S(X))) / B_1 \cong H_1\) is abelian, we have a map that factors \(\pi_1^{ab} \rightarrow H_1\). Then, just check injective/surjective.
 
 *Theorem*: Let \(G\) be a group; then the \(H_n(G, R) \cong H_n(BG, R) \cong H_n(|BG|, R)\). In fact, \(\pi_1(BG) = G, \pi_k(BG) = 0\) otherwise; that is, it is a \(K(G,1)\) space.
+
+** Homotopy Groups
+Let \(X\) be a topological space, and set \(\pi_k(X)\) the fundamental group in degree \(k\), e.g. all maps \(S^k \rightarrow  X\) identified up to homotopy. Note that in general, \(\pi_0\) is just a set, \(pi_1\) is a group, and \(\pi_k\) is an abelian group for higher \(k\).
+
+*Theorem*: The group homology of \(G\) is the same as the singular homology of a \(K(G, 1)\) space.
+
+We will also take
+\[
+    \Conf_n(\C) = \{(z_1, \dots, z_n) \in \C^n \mid z_i \neq z_j \text{ for } i \neq j\}
+\]
+and show that it is path connected and has \(\pi_1\) the pure braid group.
+
+*Definition*: A continuous map \(p: E \rightarrow  B\) is a fiber bundle with typical fiber \(F\) if \(\forall b \in B\), there is \(U\) open containing \(b\) such that
+#+BEGIN_EXPORT html
+<p align="center">
+<img src="fiber.png" style="width:30%">
+</p>
+#+END_EXPORT
+conmmutes.
+
+Note that if \(p: E \rightarrow B\) is a fibration with fiber \(F\) path-connected, we can make a long exact sequence
+\[
+    \cdots \rightarrow    \pi_2 B \rightarrow   \pi_1 F \rightarrow    \pi_1 E \rightarrow  \pi_1 B \rightarrow  0
+\]
+
+*Theorem*: \(\pi_1(\Conf_n(\C)\) is the pure braid group, and every other homotopy class is trivial.
+
+Let \(O_n = \Conf_n(\C_n)\) be the covering space of \(U_n\) so that it is a fiber bundle with fiber \(S_n\). In this case, we have a s.e.s.
+\[
+    1 \rightarrow  \pi_1 (O_n) \rightarrow   \pi_1 (U_n) \rightarrow S_n \rightarrow  1
+\]
+
+/Proof/: Consider \(n = 2\);  then, \(\C^2\setminus \Delta \cong S^1\), so \(\pi_1(O_2) \cong \pi_1 (S^1) \cong \Z\). Then, \(U_2 = \{(s_1, s_2) \mid s_1^2 \neq s_2\}\). Then we see that
+\[
+    U_2 \rightarrow  \C^2 \setminus \C \times \{0\} \cong S^1
+\]
+and the s.e.s. must be
+\[
+     0 \rightarrow   \Z \rightarrow  \Z \rightarrow  \Z/2 \rightarrow    0
+\]
+
+If you think a little, then \(\pi_1(U_n)\) must be the (geometric) braid group, and \(\pi_1(O_n)\) must be the (geometric) pure braid group; in fact we will take this by fiat and make this our definitions for these groups.
+
+Furthermore, the higher homotopy groups must be 0, since we have that the fiber bundle \(O_n \rightarrow  O_{n-1}\) via forgetting the last coordinate has fiber \(\C \setminus \{z_1, \dots, z_n-1\}\), and so we must have that for \(k \geq 2\), we have the l.e.s.
+\[
+    \cdots \rightarrow   \pi_k F = 0 \rightarrow  \pi_k O_n \rightarrow   \pi_k O_{n-1} = 0 \rightarrow \cdots
+\]
+
+The last thing to do is to check that our geometric groups line up with the group representations
+\[
+    \widetilde{B}_n \cong \left\langle (\sigma_i)^{n-1}_{i=1} \mid \sigma_i\sigma_j = \sigma_i\sigma_i \text{ for }  |i - j| > 2, \sigma_i\sigma_j\sigma_i = \sigma_j\sigma_i\sigma_j \text{ for } |i - j| = 1\right\rangle
+\]
+The entire thing is kind of long and annoying! So I will just make the remark that it's really clear if you take \(\sigma_i\) to be the braid that crosses the threads connecting \(i\) and \(i + 1\) once. In fact, it is good enough to check the pure braid group lines up with the representation (I am *not* typing this)
+#+BEGIN_EXPORT html
+<p align="center">
+<img src="purebraid.png" style="width:60%">
+</p>
+#+END_EXPORT
+But we can just check this for \(S_{ij}\) the commutator of \(\sigma_i, \sigma_j\), and we win.
