@@ -507,7 +507,7 @@ Then, we have, since \(Z_1(C(S(X))) / B_1 \cong H_1\) is abelian, we have a map 
 *Theorem*: Let \(G\) be a group; then the \(H_n(G, R) \cong H_n(BG, R) \cong H_n(|BG|, R)\). In fact, \(\pi_1(BG) = G, \pi_k(BG) = 0\) otherwise; that is, it is a \(K(G,1)\) space.
 
 ** Homotopy Groups
-Let \(X\) be a topological space, and set \(\pi_k(X)\) the fundamental group in degree \(k\), e.g. all maps \(S^k \rightarrow  X\) identified up to homotopy. Note that in general, \(\pi_0\) is just a set, \(pi_1\) is a group, and \(\pi_k\) is an abelian group for higher \(k\).
+Let \(X\) be a topological space, and set \(\pi_k(X)\) the fundamental group in degree \(k\), e.g. all maps \(S^k \rightarrow  X\) identified up to homotopy. Note that in general, \(\pi_0\) is just a set, \(\pi_1\) is a group, and \(\pi_k\) is an abelian group for higher \(k\).
 
 *Theorem*: The group homology of \(G\) is the same as the singular homology of a \(K(G, 1)\) space.
 
@@ -527,10 +527,10 @@ conmmutes.
 
 Note that if \(p: E \rightarrow B\) is a fibration with fiber \(F\) path-connected, we can make a long exact sequence
 \[
-    \cdots \rightarrow    \pi_2 B \rightarrow   \pi_1 F \rightarrow    \pi_1 E \rightarrow  \pi_1 B \rightarrow  0
+    \cdots \rightarrow    \pi_2 (B) \rightarrow   \pi_1 (F) \rightarrow    \pi_1 (E) \rightarrow  \pi_1 (B) \rightarrow  0
 \]
 
-*Theorem*: \(\pi_1(\Conf_n(\C)\) is the pure braid group, and every other homotopy class is trivial.
+*Theorem*: \(\pi_1(\Conf_n(\C))\) is the pure braid group, and every other homotopy class is trivial.
 
 Let \(O_n = \Conf_n(\C_n)\) be the covering space of \(U_n\) so that it is a fiber bundle with fiber \(S_n\). In this case, we have a s.e.s.
 \[
@@ -548,9 +548,9 @@ and the s.e.s. must be
 
 If you think a little, then \(\pi_1(U_n)\) must be the (geometric) braid group, and \(\pi_1(O_n)\) must be the (geometric) pure braid group; in fact we will take this by fiat and make this our definitions for these groups.
 
-Furthermore, the higher homotopy groups must be 0, since we have that the fiber bundle \(O_n \rightarrow  O_{n-1}\) via forgetting the last coordinate has fiber \(\C \setminus \{z_1, \dots, z_n-1\}\), and so we must have that for \(k \geq 2\), we have the l.e.s.
+Furthermore, the higher homotopy groups must be 0, since we have that \(O_n \rightarrow  O_{n-1}\) via forgetting the last coordinate has fiber \(\C \setminus \{z_1, \dots, z_{n-1}\}\), and so we must have that for \(k \geq 2\), we have the l.e.s.
 \[
-    \cdots \rightarrow   \pi_k F = 0 \rightarrow  \pi_k O_n \rightarrow   \pi_k O_{n-1} = 0 \rightarrow \cdots
+    \cdots \rightarrow   \pi_k (F) = 0 \rightarrow  \pi_k(O_n) \rightarrow   \pi_k (O_{n-1}) = 0 \rightarrow \cdots
 \]
 
 The last thing to do is to check that our geometric groups line up with the group representations
