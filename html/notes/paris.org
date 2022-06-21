@@ -66,7 +66,7 @@ Furthermore, it will turn out that the abelianization of a group is the same as 
 \]
 where \(G = F/R\), and \(F\) is free.
 
-*Theorem (Nakaoka, 1960's)*: For \(n \geq 2q\), \(H_q(S_n) \cong H_q(G_{n+1})\); this result was generalized to homological stability, which gives it for a lot of other sequences of groups.
+*Theorem (Nakaoka, 1960's)*: For \(n \geq 2q\), \(H_q(S_n) \cong H_q(S_{n+1})\); this result was generalized to homological stability, which gives it for a lot of other sequences of groups.
 
 A /non-example/ will be the pure braid groups; we have already
 \begin{align*}
@@ -563,4 +563,17 @@ The entire thing is kind of long and annoying! So I will just make the remark th
 <img src="purebraid.png" style="width:60%">
 </p>
 #+END_EXPORT
-But we can just check this for \(S_{ij}\) the commutator of \(\sigma_i, \sigma_j\), and we win.
+But we can just check this for \(S_{ij}\) to be (draw a picture, and don't look at this!)
+\[
+    S_{ij} = \sigma_{j-1}^{-1}\sigma_{j-2}^{-1}\cdots\sigma_{i+1}^{-1}\sigma_{i^2}\sigma_{i+1}\cdots\sigma_{j-2}\sigma_{j-1}
+\]
+for \(i < j\).
+
+* Spectral Sequences
+If we have some s.e.s.
+\[
+    1 \rightarrow    G \rightarrow   G' \rightarrow  G'' \rightarrow    1
+\]
+how do we relate \(H_p(G')\) and \(H_p(G'', H_q(G))\)?
+
+Let \(F: A \rightarrow  B\) a left exact functor between abelian categories with enough injectives; and \(G: B \rightarrow  C\) also left exact. For \(X \in \Ob(A)\), we want to compute \(R(G \circ F)(X)\), the right dervied functor of the compositions; in particular if we take an injective resultion \(X \rightarrow I^\bullet\), then \(R(G \circ F)(X)\) is quasiisomorphic to \((G \circ F)(I^\bullet)\), and \(RF(X)\) is quasiisomorphic to \(F(I^\bullet)\).
