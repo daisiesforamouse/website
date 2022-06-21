@@ -23,6 +23,9 @@
     \newcommand{\P}{\mathbb{P}}
     \DeclareMathOperator{\Spec}{Spec}
     \DeclareMathOperator{\Conf}{Conf}
+    \DeclareMathOperator{\Tot}{Tot}
+    \DeclareMathOperator{\Fil}{Fil}
+    \DeclareMathOperator{\Gr}{Gr}
     \DeclareMathOperator{\Inv}{Inv}
     \DeclareMathOperator{\Alt}{Alt}
     \DeclareMathOperator{\Sym}{Sym}
@@ -31,6 +34,7 @@
     \DeclareMathOperator{\Proj}{Proj}
     \DeclareMathOperator{\Func}{Func}
     \DeclareMathOperator{\Ker}{Ker}
+    \DeclareMathOperator{\Im}{Im}
     \DeclareMathOperator{\Aut}{Aut}
     \DeclareMathOperator{\Ob}{Ob}
     \DeclareMathOperator{\Mor}{Mor}
@@ -451,7 +455,7 @@ Let \(S\) be a nonempty set, and \(\underline{S}_n\) the maps \([n] \rightarrow 
 
 *Definition*: We set for \(X \in Simp(Sets)\), \(H_n(X, R) = H_n(R^{\oplus X})\), and if \(X \in Top\), then \(H_n(X, R) = H_n(S(X), R)\), where the homology is taken with coefficients in \(R\), a ring.
 
-*Theorem* The inclusions \(\lambda_0, \lambda_1: X \rightarrow X[0, 1]\), given by \(\lambda_i: x \mapsto (x, i)\) induce the same homomorphism \(H_n(X, R) \rightarrow   H_n(X \times [0, 1], R)\).
+*Theorem*: The inclusions \(\lambda_0, \lambda_1: X \rightarrow X[0, 1]\), given by \(\lambda_i: x \mapsto (x, i)\) induce the same homomorphism \(H_n(X, R) \rightarrow   H_n(X \times [0, 1], R)\).
 
 *Corollary*: If \(f, g: X \rightarrow Y\) are homotopic, then \(H_n(f, R) = H_n(g, R)\); further, if \(f: X \rightarrow  Y\) is a homotopy equivlance then \(H_n(f, R)\) is ana isomorphism.
 
@@ -577,3 +581,121 @@ If we have some s.e.s.
 how do we relate \(H_p(G')\) and \(H_p(G'', H_q(G))\)?
 
 Let \(F: A \rightarrow  B\) a left exact functor between abelian categories with enough injectives; and \(G: B \rightarrow  C\) also left exact. For \(X \in \Ob(A)\), we want to compute \(R(G \circ F)(X)\), the right dervied functor of the compositions; in particular if we take an injective resultion \(X \rightarrow I^\bullet\), then \(R(G \circ F)(X)\) is quasiisomorphic to \((G \circ F)(I^\bullet)\), and \(RF(X)\) is quasiisomorphic to \(F(I^\bullet)\).
+
+*Lemma*: If \(0 \rightarrow X \rightarrow Y \rightarrow Z \rightarrow   0\) in \(B\) and if \(X \rightarrow  I^\bullet_X, Z \rightarrow I^\bullet_Z\) are injective resolutions, then there is an exact sequence
+\[
+    0 \rightarrow    I_X^\bullet \rightarrow     I_Y^\bullet \rightarrow     I_Z^\bullet \rightarrow     0
+\]
+and we may write \(Y \rightarrow   I_Y^\bullet\) an injective resolution.
+
+*Lemma (Cartan-Eilenberg Resolution)*:  Let \(B\) be an abelian category with enough injectives, and \(C^\bullet\) a bounded below complex. Then, there is a sequence such that
+1. For all \(q\),
+    \[
+        C^{q} \rightarrow   I^{q,0} \rightarrow I^{q,1}
+    \]
+    is an injective resolution.
+1. For all \(q\),
+    \[
+        Z^q(C^\bullet) \rightarrow  Z^q(I^{\bullet, c}) \rightarrow Z^q(I^{\bullet, I})
+    \]
+    is an injective resolution.
+2. Same for \(B^q = \Im(d^{q-1}) \subset Z^q\)
+3. Same for \(H^q\)
+
+/Proof/: Take s.e.s.
+\[
+    0 \rightarrow    B^q(C^\bullet) \rightarrow Z^q(C^\bullet) \rightarrow  H^q(C^\bullet) \rightarrow  0
+\]
+and
+\[
+    0 \rightarrow    Z^q(C^\bullet) \rightarrow C^q \rightarrow  B^{q+1}(C^\bullet) \rightarrow 0
+\]
+Now let \(H^{q, \bullet}\) be an injective resolution of \(H^q(C^\bullet)\), and \(B^{q, \bullet}\) be an injective resolution of \(B^q(C^\bullet)\). From the earlier lemma, let \(Z^{q, \bullet}\) be an injective resolution of \(Z^{q}(C^\bullet)\) fitting into a diagram
+#+BEGIN_EXPORT html
+<p align="center">
+<img src="cartan-eil-res1.png" style="width:50%">
+</p>
+#+END_EXPORT
+Again by the lemma, there is an injective resolution \(C^q \rightarrow  I^{q, \bullet}\) fitting into the diagram
+#+BEGIN_EXPORT html
+<p align="center">
+<img src="cartan-eil-res2.png" style="width:50%">
+</p>
+#+END_EXPORT
+We have \(C^\bullet \rightarrow I^\bullet\) by construction, and we define a differential \(I^{q, \bullet} \rightarrow  I^{q+1,\bullet}\) as the composition given by \(\iota' \circ \iota \circ \pi'\), where \(\iota: B^{q+1, \bullet} \rightarrow    Z^{q+1, \bullet}\) is the inclusion.
+
+Then, we have
+\[
+    \Ker(d^q) \cong Z^{q,\bullet}, \ \Im(d^q) \cong B^{q+1, \bullet}
+\]
+which gives use everything we want. See Stacks Tag 015G for more details.
+
+Now, let \(A \xrightarrow{F} B \xrightarrow{G} \rightarrow  C\) and \(X \rightarrow I^\bullet\) be as earlier (we technically need \(B\) with small coproducts), and let \(F(I^\bullet) \rightarrow   I^{\bullet, \bullet}\) be a Cartan-Eilenberg resolution.
+
+*Definition*: We put
+\[
+    \Tot^n(I^{\bullet,\bullet}) = \bigoplus_{p+q = n}I^{p,q}
+\]
+with differential \(d: \Tot^m \rightarrow   \Tot^{m+1}\), given by \(d^{n}|_{I^{p,q}} = d_{\uparrow} + (-1)^p()d_{\rightarrow}\).
+
+We have \(F(I^q) \xrightarrow{\iota} I^{0, q} \subset Tot^q(I^{\bullet, \bullet})\); similarly, let \(x \in F(I^q)\); then we have
+\[
+    d^q_{\Tot}\iota x = d_{\uparrow}\iota x + d_{\rightarrow}^0 \iota x = d_{\uparrow} \iota x = \iota \delta^q x
+\]
+
+We have a few questions:
+ 1. Is \(F(I^\bullet) \rightarrow \Tot^\bullet(I^{\bullet,\bullet})\) is a quasiisomorphism? If so, then \(RGRF X^\bullet\) is quasiisomorphic to \(\Tot^\bullet(G(I^{\bullet, \bullet})\).
+ 2. How do we compute the cohomology of \(\Tot^\bullet\)?
+
+We can do this more generally.
+
+*Definition*: A filtered complex is a complex \(D^\bullet\) alongside \(\Fil^q(D^\bullet)\), such that
+1. \(\Fil^q(D^\bullet) \hookrightarrow D^\bullet\) is an inclusion of a subcomplex.
+2. We have \(\Fil^q(D^\bullet) \hookleftarrow \Fil^{q+1}(D^\bullet)\).
+3.
+    \[
+        \bigcup_q \Fil^q(D^\bullet) = D^\bullet
+    \]
+4.
+    \[
+        \bigcap_q \Fil^q(D^\bullet) = 0^\bullet
+    \]
+
+In particular, notice that the complex \(D^\bullet = \Tot^\bullet(I^{\bullet, \bullet})\) is equipped with a filtration
+\[
+    \Fil^q(I^n) = \bigoplus_{p' + q' = n, q' \geq q}I^{p', q'}
+\]
+and we note that \(\Fil^q / \Fil^{q+1} \cong I^{n-q, q}\). Similarly, we have the analogy that \(I^{p,q}\) should be
+\[
+    \Gr^q (D^{p+q}) = \Fil^q (D^{p+q}) / \Fil^{q+1}(D^{p+q})
+\]
+
+We want to understand the cohomology of a filtered complex \(D^\bullet\) in terms of \(\Gr^q(D^\bullet)\). Let's work in a module category for now.
+
+Warning! Indicies are /probably/ wrong. Check them!
+
+We have then that
+\[
+    H^q(C^\bullet) = \frac{\{x \in C^q \mid dx = 0\}}{\{dy \mid y \in C^{q-1}\}}
+\]
+as well as
+\[
+    \{x \in C^q \mid dx = 0\} = \bigcap_{r \geq 0} \{ x \in \Fil^p(C^q) \mid dx \in \Fil^{p+r}(C^q)\} = \bigcap_{r \geq 0}F_{r}^{p,q}
+\]
+and
+\[
+    \{dy \mid y \in C^{q-1}\} = \bigcup_{r \geq 0} \{ y \in \Fil^{p-r}(C^q) \mid dy \in \Fil^{p}(C^q)\}
+\]
+Now let
+\[
+    Z_{r}^{p,q} = \frac{F^{p,q}_r}{F^{P+1,q-1}_{r-1}}
+\]
+and
+\[
+    B^{p,q}_r = \frac{d F^{p+1-r,q+r-2}_{r-1} + \Fil^{p+1}C^{p+q}}{d \Fil^{p+1}(C^{p+q})} = \frac{dF_{r-1}^{p+1-r, q+n-2}}{dF_r^{p+1-r, q+r-2}}
+\]
+
+Let us define
+\[
+    E_r^{p,q} = \frac{Z_r^{p,q}}{B^{p,q}_n}
+\]
