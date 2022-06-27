@@ -695,7 +695,153 @@ and
     B^{p,q}_r = \frac{d F^{p+1-r,q+r-2}_{r-1} + \Fil^{p+1}C^{p+q}}{d \Fil^{p+1}(C^{p+q})} = \frac{dF_{r-1}^{p+1-r, q+n-2}}{dF_r^{p+1-r, q+r-2}}
 \]
 
-Let us define
+Let us finally define
 \[
     E_r^{p,q} = \frac{Z_r^{p,q}}{B^{p,q}_n}
+\]
+But now, we have a mapping
+\[
+    F_r^{p,q} \xrightarrow{d} F_r^{p+r,q+1-r}
+\]
+so we have, for example,
+\begin{align*}
+    E_0^{p,q} &= \Gr^p(C^{p+q}) = I^{p,q} \\
+    E_1^{p,q} &= \frac{\Ker(\Gr^p(C^{p+1}) \rightarrow  \Gr^{p+1}(C^{p+q}))}{d \Gr^{p}(C^{p+q-1})} = H^{p+q}(\Gr^p(C^\bullet)) \\
+\end{align*}
+and so on.
+
+We examine the differential more closely now; in particular we have a map \(F_n^{p,q} \xrightarrow{d_n} E^{p+r, q+1-r}_r\), sending \([x] \mapsto [dx]\). Cruicially, this is well-defined (check!) and factors through \(Z_n^{p,q}\); if \(x \in F_{r-1}^{p+1,q-1}\) we have \(x \in F^{p+r+1-r,q+1-r+r-2}_{r-1}\), hence \([dx] \in B_r^{p+r, q+1-r}\) which is killed in the quotient. And so it must factor through \(E_r^{p,q}\) as well, since \(d^2 = 0\).
+
+*Definition*: We call \(E_r^{p,q}\) the \(r^{th}\) page of the spectral sequence associated to the origiinal filtered complex.
+
+*Theorem*: We have a natural isomorphism
+\[
+    E_{r+1}^{p,q} \cong \frac{\Ker(d_2: E_r^{p,q} \rightarrow  E_{r}^{p+r,q-r+1})}{\Im(d_r: E_r^{p-r,q+r-1} \rightarrow E_r^{p,q})}
+\]
+given just by inclusion; we may call this map \(\iota\). In other words, we go to the next page of the spectral sequence by taking (co)homology.
+
+/Proof/: Let \(x \in F_r^{p,q}\) with \(dx = 0\) in \(E_r^{p+r,q+1-r}\); thus \(dx = dy + z\) for \(y \in F_{r-1}^{p+1,q-1}\) and \(z \in F_{r-1}^{p+r+1, q-r}\). Thus, \(d(x-y) = z\), so \([x] = [x-y] \in Z_n^{p,q}\); thus \(x - y \in F_{n+1}^{p,q}\), and \([x]  = \iota [x-y]\). So the
+
+So \(\iota\) is surjective; to check injectivity, let \(x \in F_{r+1}^{p,q}\) such that \(\iota [x] = 0\), i.e. such that \([x] = [dy]\) in \(E_{r}^{p,q}\), where \(y \in F_r^{p-r, q+r-1}\). Thus, we have \(x - dy = dz + t\), where \(z \in F_{r-1}^{p+1-r, q+r-2}\) and \(t \in F_{r-1}^{p+1,q-1}\), so \(x  = d(y+z) + t\). Now note that \(dt = dx \in \Fil^{p+r+1}(C^{p+q+1})\), so it must be that \(t \in F_r^{p+1,q-1}\) in fact. So we win, since \(d(y+z) = x-t \implies y + z \in F_{r}^{p-r, q+r-1}\), and we conclude that \([x] = 0\).
+
+*Definition*: We say that the spectral sequence degenerates on page \(r\), if for all \(r' \geq r\),  we have that \(d_{r'} = 0\).
+
+*Prop*: If \(E_r^{p,q}\) degenerates at \(r\), the filtration on \(H^\bullet(C)\) indueced by \(H^n(\Fil^p)\) has \(p^{th}\) graded terms isomorphic to \(E_r^{p, n-p}\), and we put \(E_n^{p,q} \implies H^{p,q}(C)\).
+
+/Example/: We take the following diagram, where the rows are exact and the left and right columns are exact.
+#+BEGIN_EXPORT html
+<p align="center">
+<img src="9lemma1.png" style="width:40%">
+</p>
+#+END_EXPORT
+We may take the spectral sequence with \(0^{th}\) page \(d_{ \rightarrow  }\), and we obtain by exactness \(E_1^{p,q} = 0\); so it stabilizes at \(r = 1\), so \(H^n(\Tot) = 0\).  However, if we take the spectral sequence with \(0^{th}\) page \(d_{\uparrow}\), we have that the \(E_1\) page looks like this
+#+BEGIN_EXPORT html
+<p align="center">
+<img src="9lemma2.png" style="width:30%">
+</p>
+#+END_EXPORT
+but since either the target or the source of each morphism is 0, we see that the sequence degenerates. So it must be that \(H^1(\Tot) = \Ker(\iota) = 0\), \(H^2(\Tot) = \frac{\Ker(\pi)}{\Im(\iota)} = 0\), and \(H^3(\Tot) = \text{Coker}(\pi) = 0\). This proves the Nine Lemma.
+
+** Grothendieck Spectral Sequences
+*Theorem*: Let \(F: A \rightarrow   B\) be left exact between abelian categories with enough injectives, and let \(G: B \rightarrow C\) be left exact, such that for all injective \(I \in \Ob(A)\), \(F(I)\) is \(G\)-acyclic; that is, \(R^qG(F(I)) = 0\) for \(q > 0\). Then, there is a natural exact sequence such that
+\[
+    E^{p,q}_2 = R^pG(R^qFX) \implies R^{p+q}(G \circ F)(X)
+\]
+for \(X \in \Ob(A)\). In particular, we have that \(R(GF)(X)\) is quasiisomorphic to \(RG \circ RF (X)\).
+
+/Proof/: Let \(X \rightarrow    I^\bullet\) be an injective resolution, and let \(F(I^\bullet) \rightarrow I^{\bullet, \bullet}\) be a Cartan-Eilenberg Resolution. Then, there is an induced homomorphism \(F(I^\bullet) \rightarrow  \Tot(I^{\bullet, \bullet})\) of complexes, and it is a quasiisomorphism.
+
+To see this, we note that by construction,
+\[
+    E^{p,q}_{1,\rightarrow} = \begin{cases}
+        F(I^q)  & p = 0 \\
+        0 & p \neq 0
+    \end{cases}
+\]
+so it must be that this spectral sequence degenerates at the \(E_1\) page, so \(F(I^q) \cong H^q(\Tot(I^{\bullet, \bullet}))\). We apply \(G(I^{\bullet, \bullet})\), and see that
+\begin{align*}
+    E^{p,q}_{1, \rightarrow} &= R^qG(F(I^q)) \\
+    E^{p,q}_{1, \uparrow} &= G(H^{p,q})
+\end{align*}
+since the sequences
+\[
+    0 \rightarrow B^{p-1,q} \rightarrow Z^{p,q} \rightarrow H^{p,q} \rightarrow 0
+\]
+and
+\[
+    0 \rightarrow Z^{p,q} \rightarrow I^{p,q} \rightarrow B^{p+1,q} \rightarrow 0
+\]
+split since everything in sight is injective, so they remain exact after applying \(G\). Then, we have that \((H^{p,q})_{p \in \Z}\) is an injective resolution of \(H^{p}(F(I^\bullet)) = R^pF(X)\). Therefore, we have that \(E_{2, \uparrow}^{p,q} = R^qG(R^pFX)\). Furthermore, since \(\Tot^\bullet(G(I^{\bullet, \bullet})) = G(\Tot^\bullet(I{^\bullet,\bullet}))\), and since from before \(\Tot^\bullet(I^{\bullet, \bullet})\) is quasiisomorphic to \(F(I^\bullet)\), we must have
+\[
+    \Tot\bullet(I^{\bullet, \bullet}) \cong RG(F(I^\bullet)) \cong RG \circ RF(X)
+\]
+
+Now note that by assumption \(R^qG(F(I^q)) = 0\) for \(q > 0\), so then
+\[
+    E^{p,q}_{1, \rightarrow} = \begin{cases}
+        GF(I^p) & q = 0 \\
+        0 & q \neq 0
+    \end{cases}
+\]
+Thus we have that this spectral sequence degenerates at \(E_1\), and thus \(GF(I^\bullet)\) is quasiisomorphic to \(\Tot(G(I^{\bullet,\bullet}))\).
+
+
+** Application to Group Homology
+Let \(G\) be a group, and \(H^q(G, -)\) the right derived functor of the left exact functor \(Mod_{R[G]} \rightarrow    Mod_R\) sending \(M \mapsto M^G\), and \(H_q(G, -)\) the left dervied functors of \(M \mapsto M_G\).
+
+Let us consider an exact sequence
+\[
+    1 \rightarrow   P \rightarrow    G \rightarrow    Q \rightarrow   1
+\]
+Then for \(M\) a \(G\)-module, we have that \(M^G = (M^P)^Q\), i.e. we have
+#+BEGIN_EXPORT html
+<p align="center">
+<img src="compgrphom.png" style="width:60%">
+</p>
+#+END_EXPORT
+Then, if \((-)^P\) sends \(R[G]\)-injectives to \(H^\bullet_r(P, -)\) acyclic then we obtain a natural spectral sequence
+\[
+    E_2^{p,q} = H^q(Q, H^p(P, M)) \implies H^{p+q}(G, M)
+\]
+
+*Lemma (Five-term exact sequence)*: Let \(M^{p,q}\) be a double complex in the first quadrant, \(A\) its total complex, and \(E^{p,q}_2 \implies H^n(A)\) be the second page of its spectral sequence. Then there is an exact sequence
+\[
+    0 \rightarrow E_2^{1,0} \rightarrow H^1(A) \rightarrow  E_2^{0,1} \rightarrow   E_2^{2,0} \rightarrow   H^2(A)
+\]
+
+* Symmetry Groups
+Look at the following table of homology:
+#+BEGIN_EXPORT html
+<p align="center">
+<img src="symmhomo.png" style="width:80%">
+</p>
+#+END_EXPORT
+Then we have a few conjectures:
+ 1. \(\forall n \geq 2q\), \(H_qS_n \rightarrow H_qS_{n+1}\) is an isomorphism
+ 2. \(\forall n\), \(H_qS_{n-1} \rightarrow H_qS_n\)  is an injection
+ 3. \(\forall n\), \(H_qS_n / H_qS_{n-1}\) is killed by \(n\).
+
+The last one is actually easy to prove; just use restriction/corestriction.
+
+Recall that simplicial sets are contravariant functors \(\Delta \rightarrow Set\), semisimplicial sets are contravariant functors \(FI \rightarrow  Sets\).
+
+Let \(W_p = C_\bullet (\Hom_{FI}(-, [p-1])) \in Ch(Mod_{\Z[S_p]})\).
+
+*Theorem*: \(H_0W_p \cong \Z\). Furthermore, if \(0 < q < p/2\), we have \(H_qW_p = 0\).
+
+The strategy goes as follows: let \(P_\bullet\) be a projective resolution of \(\Z\) as an \(\Z[S_n]\) module (for example, the bar complex is a free resolution). Then, we look at the double complex \(E^{0}_{p,q} = P_p \otimes_{\Z[S_n]} (W_n)_q\). Then, we see that
+1. \(E^{1,\uparrow}_{p,q} = H_p(S_n, (W_n)_q)\)
+2. \(E^{1,\rightarrow}_{p,q} = P \otimes H_qW_n\)
+3. \(E^{2, \rightarrow}_{p,q} = H_p(S_n, H_qW_n)\)
+
+Then, use the last theorem and look at the \(E^{2}\) page and win.
+
+Let us examine \((W_n)_q\) as a \(\Z[S_n]\) module more closely. In particular, we have that \((W_n)_q \cong \Z[\Hom([q], [n-1])]\), so if \(p \leq q\), it is \(0\), and if \(p \geq q +1\), we have that it must be
+\[
+    \bigoplus_{f \in \Hom([q, [n-1]]) / S_n}\Z[S_n / \{\sigma \in S_n \mid \sigma|_{\Im(f)} = \id\}]
+\]
+Note that the summand is also just \(\Ind^{S_n}_{S_{n-p-1}} \Z\).
+But by Schapiro's lemma, we see that
+\[
+    H_p(S_n, (W_n)_q) \cong \bigoplus_{f \in \Hom([p],[n-1]) / S_n} H_p(S_{n-q-1}, \Z)
 \]
