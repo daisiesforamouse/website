@@ -823,9 +823,9 @@ Then we have a few conjectures:
 
 The last one is actually easy to prove; just use restriction/corestriction.
 
-Recall that simplicial sets are contravariant functors \(\Delta \rightarrow Set\), semisimplicial sets are contravariant functors \(FI \rightarrow  Sets\).
+Remember the ealier discussion of contravariant functors \(FI \rightarrow  Sets\).
 
-Let \(W_p = C_\bullet (\Hom_{FI}(-, [p-1])) \in Ch(Mod_{\Z[S_p]})\).
+Let \(W_p = C_\bullet (\Hom_{FI}(-, [1, p])) \in Ch(Mod_{\Z[S_p]})\).
 
 *Theorem*: \(H_0W_p \cong \Z\). Furthermore, if \(0 < q < p/2\), we have \(H_qW_p = 0\).
 
@@ -836,12 +836,165 @@ The strategy goes as follows: let \(P_\bullet\) be a projective resolution of \(
 
 Then, use the last theorem and look at the \(E^{2}\) page and win.
 
-Let us examine \((W_n)_q\) as a \(\Z[S_n]\) module more closely. In particular, we have that \((W_n)_q \cong \Z[\Hom([q], [n-1])]\), so if \(p \leq q\), it is \(0\), and if \(p \geq q +1\), we have that it must be
+Let us examine \((W_n)_q\) as a \(\Z[S_n]\) module more closely. In particular, we have that \((W_n)_q \cong \Z[\Hom([q], [1,n])]\), so if \(p \leq q\), it is \(0\), and if \(p \geq q +1\), we have that it must be
 \[
-    \bigoplus_{f \in \Hom([q, [n-1]]) / S_n}\Z[S_n / \{\sigma \in S_n \mid \sigma|_{\Im(f)} = \id\}]
+    \bigoplus_{f \in \Hom([q, [1,n]]) / S_n}\Z[S_n / \{\sigma \in S_n \mid \sigma|_{\Im(f)} = \id\}]
 \]
 Note that the summand is also just \(\Ind^{S_n}_{S_{n-p-1}} \Z\).
 But by Schapiro's lemma, we see that
 \[
-    H_p(S_n, (W_n)_q) \cong \bigoplus_{f \in \Hom([p],[n-1]) / S_n} H_p(S_{n-q-1}, \Z)
+    H_p(S_n, (W_n)_q) \cong \bigoplus_{f \in \Hom([p],[1,n]) / S_n} H_p(S_{n-q-1}, \Z)
 \]
+
+Note that we have the differential mapping
+\[
+    d[f] = \sum_{i=0}^q(-1)^i[f \circ e_i]
+\]
+where each \(e_j\) is a non-decreasing injection that misses \(j\).
+
+We can endow \(W_n\) with the increasing filtration
+\[
+    \Fil_p W_n =  \begin{cases} W_p & p \leq n \\ W_n & p > n \end{cases}
+\]
+with graded parts
+\[
+    (\Gr_p W_n)_q = \begin{cases}
+        0 & p > n \text{ or p < 0 } \\
+        \bigoplus_{\substack{f: [q] \rightarrow [1,p] \\ p-1 \in \Im(f)}} & \Z[f]
+    \end{cases}
+\]
+We may also rewrite this to be
+\[
+    (\Gr_p W_n)_q = \bigoplus_{j=0}^q D_j(W_{p-1})_{q-1}
+\]
+where
+\[
+D_j[f] = \left[ i \mapsto \begin{cases} f(i) & i < j \\ p & i = j \\ f(i-1) & i > j\end{cases} \right]
+\]
+
+But does this preserve the differential? We compute that
+\begin{align*}
+    dD_j[f] &= \sum_{i=0}^q(-1)^i(D_j[f])e_i  \\
+            &= \sum_{i=0}^{j-1} (-1)^i(D_{j-1}[f \circ e_i]) + \sum_{i=j+1}^{q} (-1)^i(D_{j}[f \circ e_{i-1}])\\
+            &= \sum_{0 \leq i < j}(-1)^uD_{j-1}([f \circ e_i]) - \sum_{j \leq i \leq q - 1}(-1)^{i}D_j([f \circ e_i])
+\end{align*}
+Note that since \(f\) misses \(p\), the \(i=j\) term vanishes. So unfortunately the \(D_j\) symbols don't form a subcomplex. But we do have that \(dD_0[f] = - D_0d[f]\)! And everything gets messy afterwards pretty quickly. Further, we do have that for all \(k\), \(\bigoplus_{j \leq k}D_jW_{p-1}\) is a subcomplex of \(\Gr_pW_n\).
+
+We can also talk about the homology of \(W_n\). In particular, we see that
+\begin{align*}
+    W_0 &= 0 \\
+    W_1 &= \Z[0] \\
+    W_2 &= [\Z[\id] \oplus \Z[\tau] \rightarrow \Z[i_0] \oplus \Z[\iota_1]] \\
+    H_0W_2 &= \Z^{\oplus 2}/\Z(-1, 1) \cong \Z \\
+    H_1W_2 &= \Z([\id] + [\tau]) \cong \Z
+\end{align*}
+And so on.
+
+Now, note the spectral sequence associated to the filtration, which is
+\begin{align*}
+    E_{p,q}^0 &= (\Gr_pW_n)_{p+q} \\
+    E_{p,q}^{1} &= H_{p+q}(\Gr_p W_n) \\
+\end{align*}
+We still need to compute the second page.
+
+We consider the filtration
+\[
+    \widetilde{\Fil}_k(\Gr_pW_n) = \bigoplus_{i \leq k}(\Gr_p W_n)_{q+1}e_i
+\]
+with graded parts
+\[
+    \widetilde{\Gr}_j(\Gr_pW_n) \cong W_{p-1}[1]
+\]
+noting that \(W_{p-1}[1]\) (the shifted complex) is the same as \((W_{p-1})_{q-1}\) in degree \(q\), with a negative differential. We should have \(H_0 \cong \Z\), \(H_i \cong 0\) for \(i \neq 0, p-1\), and \(H_{p-1}\) is something probably nonzero. Then, in particular we see that the spectral sequence degenerates at the \(E_2\) page.
+
+And then you do some stuff; I was sick, so forgive me for missing the rest.
+
+* \(FI\)-Modules
+Again, let \(FI\) be the category of finite sets with injective maps. First, we fix a ring \(k\), and let a \(FI\)-module (over \(k\)) be a functor \(FI \rightarrow Mod_k\). For example, we may take
+\[
+    F^{(d)}: S \mapsto k[\Hom_{FI}(d, S)]
+\]
+In particular, we have for \(V\) any \(FI\)-module, we have that
+\[
+    \Hom_{Mod_{FI}}(F^{(d)}, V) = \Hom(\Hom_{FI}(d, -), V) = V_d
+\]
+In particular, any \(FI\)-module is a quotient of a direct sum of copies of \(F^{(d)}\): if \(M_d \rightarrow  V_d\) is surjective with \(M_d\) free, then
+\[
+    \bigoplus_{d \geq 0} M_d \otimes_k F^{(d)} \rightarrow V
+\]
+is surjective.
+
+*Definition*: A \(FI\)-module \(V\) is a finitely generated (in degrees \(\leq D\)) if for all \(d \leq D\), \(V_d\) is a finitely generated \(k\)-module, and if
+\[
+    \bigoplus_{d \leq D}V_d \otimes_k F^{(d)} \rightarrow V
+\]
+is surjective.
+
+*Theorem*: If \(k\) is Noetherian commutative, then the category of finitely generated \(FI\)-modules over \(k\) is Noetherian.
+
+For \(\lambda\) = \((\lambda_j)_j\) with \(\lambda_j \geq \lambda_{j+1}\), we may define
+\[
+    V_n(\lambda) = \begin{cases}
+        V_{(n - \sum \lambda_j, \lambda_1, \lambda_2, \dots)} & n \geq \lambda_1 + \sum_{j \geq 1} \lambda_j \\
+        0 & \text{otherwise}
+       \end{cases}
+\]
+For example, we see that \(V_n(0)\) is the trivial representation of \(k\), \(V_n(1)\) is the standard representation, and so on. (In this case we need \(k\) a field.)
+
+*Prop*: There is a f.g. \(FI\)-module \(V_\bullet(\lambda)\) such that in degree \(d\) it is simply \(V_d(\lambda)\).
+
+/Proof/: Take
+\[
+    V(\lambda)_d = \colim_{T} k[S_d]c_T
+\]
+where the colimit is in the category with objects Young tabelaus and the indexing set is tabelaus with shape \((d - |\lambda|, \lambda)\).
+
+# Now let \(f: d_1 \rightarrow   d_2\) be injective, so that we may define \(V(\lambda)_{d_1} \rightarrow  V(\lambda)_{d_2}\)
+
+*Theorem*: Let \(k\) be a field of characteristic \(0\). Then, a \(FI\)-module \(W\) is finitely generated if and only if
+1. For all \(d \rightarrow d+1\), the induced map \(W_d \rightarrow W_{d+1} = \text{Res}^{G_{d+1}}_{G_d}W_{d+1}\) is (eventually) injective.
+2. For all \(d \rightarrow d+1\), the induced map \(\text{Ind}^{G_{d+1}}_{G_d}W_d \rightarrow W_{d+1}\) is (eventually) surjective.
+3. \(c_{\lambda, n}\), a multiple of \(W_n(\lambda)\) in \(W_n\) is independent of \(n\) for \(n > N\) (uniform representation stability).
+
+When combined with the Noetherianity conditions, it becomes really easy to show representational stability!
+
+/Proof/: We start with the easier direction, which is \(\impliedby\). Let \(N\) such that for all \(d \geq N\), \(k[S_{d+1}] \otimes_{k[S_d]} W_d \rightarrow W_{d+1}\) is surjective. Then, \(k[S_{d}] \otimes_{k[S_N]} W_N \rightarrow W_{d+1}\). Thus \(F^{(N)} \otimes W_N \rightarrow  W\) is surjective in degree \(\geq N\), and so \(W\) is f.g. in degree \(\leq N\).
+
+To do the other direction, we need more setup.
+
+*Definition*: The injectivity degree (resp. surjectivity degree) is the smallest \(s \geq 0\) (if it exists), such that \((W_n)_{S_{n-r}} \rightarrow    (W_{n+1})_{S_{n+1-r}}\)  is injective (resp. surjective) for \(n \geq s + r\).
+
+*Lemma*: If \(V \rightarrow  W\) is surjective, then the surjectivity degree of \(W\) is at most the surjectivity degree of \(V\). The opposite result holds for the injectivity degree.
+
+*Lemma*: The \(FI\)-module \(F^{(d)} = k[\Hom_{FI}(d, -)]\) has injectivity degree 0 and surjectivity degree \(d\).
+
+Now let \(W\) be a finitely generated \(FI\)-module in degree \(\leq N\); let \(F\) be a finite direct sum of \(F^{(d)}\) with \(d \leq N\) such that \(F \rightarrow W\) is a surjection; we have that \(\text{surj deg}(W) \leq \text{surj deg}(F) \leq N\).
+
+Let
+\[
+    0 \rightarrow    K \rightarrow  F \rightarrow   W \rightarrow   0
+\]
+be exact; then \(K\) is a submodule of \(F\) and is thus finitely generated. Then, in particular we have from the snake lemma in the diagram
+#+BEGIN_EXPORT html
+<p align="center">
+<img src="firepstab.png" style="width:60%">
+</p>
+#+END_EXPORT
+that \(\text{inj deg}(W) \leq \text{inj deg}(K) \leq M\).
+
+*Prop*: Let \(W)\) be a \(FI\)-module over \(k\) with characteristic \(0\); then \((W_n)_n\) is uniformly representation stable with stable range \(n \geq \max\{\text{inj deg}(W) , \text{surj deg}(W)  \} + \text{weight}(W)\), where
+\[
+    \text{weight}(V) = \max \{ |\lambda| \mid V_n(\lambda) \text {appears in some } W_n\}
+\]
+
+*Theorem*: The \(FI\)-module \(n \mapsto H^q(P_n, \Q)\) is uniformly representation stable for \(n \geq 4q\).
+
+In particular, we may compute that
+\[
+    H^1(P_n, \Q) \cong V_n(0) \oplus V_n(1) \oplus V_n(2)
+\]
+for \(n \geq 4\) and
+\[
+    H^2(P_n, \Q) \cong V_n(1)^{\oplus 2} \oplus V_n(1, 1)^{\oplus 2} \oplus V_n(2)^{\oplus 2} \oplus V(2, 1)^{\oplus 2} \oplus V(3) \oplus V(3, 1)
+\]
+for \(n \geq 7\) (so the bound is not /always/ sharp).

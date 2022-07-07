@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-06-27 Mon 10:58 -->
+<!-- 2022-07-07 Thu 11:02 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Undergraduate Research 2022</title>
@@ -246,46 +246,47 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org58f13ac">1. Introduction</a>
+<li><a href="#org40673ea">1. Introduction</a>
 <ul>
-<li><a href="#org6998a24">1.1. Stability</a></li>
-<li><a href="#org5689e8c">1.2. Representational Stability</a></li>
-<li><a href="#org8f574aa">1.3. FI Modules</a></li>
+<li><a href="#org168f292">1.1. Stability</a></li>
+<li><a href="#org5a0c68c">1.2. Representational Stability</a></li>
+<li><a href="#orge3b41f0">1.3. FI Modules</a></li>
 </ul>
 </li>
-<li><a href="#org899a248">2. Categories</a>
+<li><a href="#org4103e27">2. Categories</a>
 <ul>
-<li><a href="#orgddd9c87">2.1. Finiteness Conditions</a></li>
-<li><a href="#org428b8e5">2.2. Limits/Colimits</a></li>
-<li><a href="#org7e71d02">2.3. Abelian Categories</a></li>
+<li><a href="#orgade554d">2.1. Finiteness Conditions</a></li>
+<li><a href="#org75e2bec">2.2. Limits/Colimits</a></li>
+<li><a href="#orgabbf059">2.3. Abelian Categories</a></li>
 </ul>
 </li>
-<li><a href="#orgfeed33c">3. Homological Algebra</a>
+<li><a href="#org23b3ff8">3. Homological Algebra</a>
 <ul>
-<li><a href="#org2860392">3.1. Projective Modules</a></li>
-<li><a href="#org3fb55f2">3.2. Injective Modules</a></li>
-<li><a href="#orgf670beb">3.3. Chain Complexes</a></li>
+<li><a href="#orgf828099">3.1. Projective Modules</a></li>
+<li><a href="#orgcf015dd">3.2. Injective Modules</a></li>
+<li><a href="#org54420f3">3.3. Chain Complexes</a></li>
 </ul>
 </li>
-<li><a href="#orgdea22cd">4. Group Homology</a>
+<li><a href="#orgcd35fab">4. Group Homology</a>
 <ul>
-<li><a href="#org6fbf8ea">4.1. Induced Modules</a></li>
-<li><a href="#org20b47aa">4.2. Explicit Resolutions</a></li>
+<li><a href="#orgfbcab1e">4.1. Induced Modules</a></li>
+<li><a href="#org604bd0a">4.2. Explicit Resolutions</a></li>
 </ul>
 </li>
-<li><a href="#org7c72680">5. Simplicial Sets</a>
+<li><a href="#org4e1fd81">5. Simplicial Sets</a>
 <ul>
-<li><a href="#orgec5564a">5.1. Classifying Spaces</a></li>
-<li><a href="#org0737351">5.2. Homotopy Groups</a></li>
+<li><a href="#org322f23d">5.1. Classifying Spaces</a></li>
+<li><a href="#org4c01ffb">5.2. Homotopy Groups</a></li>
 </ul>
 </li>
-<li><a href="#org69c8892">6. Spectral Sequences</a>
+<li><a href="#org524b7fa">6. Spectral Sequences</a>
 <ul>
-<li><a href="#orga4cf153">6.1. Grothendieck Spectral Sequences</a></li>
-<li><a href="#org4b940c7">6.2. Application to Group Homology</a></li>
+<li><a href="#orgc6d6e59">6.1. Grothendieck Spectral Sequences</a></li>
+<li><a href="#org4c318d4">6.2. Application to Group Homology</a></li>
 </ul>
 </li>
-<li><a href="#orgfa54125">7. Symmetry Groups</a></li>
+<li><a href="#orge58c1dd">7. Symmetry Groups</a></li>
+<li><a href="#org90ca7c8">8. \(FI\)-Modules</a></li>
 </ul>
 </div>
 </div>
@@ -332,12 +333,12 @@
 \)
 </p>
 
-<div id="outline-container-org58f13ac" class="outline-2">
-<h2 id="org58f13ac"><span class="section-number-2">1.</span> Introduction</h2>
+<div id="outline-container-org40673ea" class="outline-2">
+<h2 id="org40673ea"><span class="section-number-2">1.</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org6998a24" class="outline-3">
-<h3 id="org6998a24"><span class="section-number-3">1.1.</span> Stability</h3>
+<div id="outline-container-org168f292" class="outline-3">
+<h3 id="org168f292"><span class="section-number-3">1.1.</span> Stability</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Given some objects \(G_n \rightarrow  G_{n+1} \rightarrow \dots\), we want to find some invariant, \(G \mapsto \text{Inv}(G)\), satisfying <i>stability</i>: that for sufficiently large \(n\), \(\text{Inv}(G_n) \cong \Inv(G_{n+1})\).
@@ -393,8 +394,8 @@ where \(St_n\) is the standard representation.
 </div>
 </div>
 
-<div id="outline-container-org5689e8c" class="outline-3">
-<h3 id="org5689e8c"><span class="section-number-3">1.2.</span> Representational Stability</h3>
+<div id="outline-container-org5a0c68c" class="outline-3">
+<h3 id="org5a0c68c"><span class="section-number-3">1.2.</span> Representational Stability</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 This is our first example of representational stability!
@@ -421,8 +422,8 @@ and so we conclude that since \(\chi_{\Sym^2}(\sigma) = \frac{1}{2}(\chi(\sigma^
 </div>
 </div>
 
-<div id="outline-container-org8f574aa" class="outline-3">
-<h3 id="org8f574aa"><span class="section-number-3">1.3.</span> FI Modules</h3>
+<div id="outline-container-orge3b41f0" class="outline-3">
+<h3 id="orge3b41f0"><span class="section-number-3">1.3.</span> FI Modules</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 The category \(FI\) will have objects indexed by \(m \geq 0\), with \(\Hom_{FI}(m, n)\) to be injective maps \([m] \rightarrow [n]\).
@@ -454,8 +455,8 @@ Note that for \(n = q = 1\), we have the correspondence
 </div>
 </div>
 
-<div id="outline-container-org899a248" class="outline-2">
-<h2 id="org899a248"><span class="section-number-2">2.</span> Categories</h2>
+<div id="outline-container-org4103e27" class="outline-2">
+<h2 id="org4103e27"><span class="section-number-2">2.</span> Categories</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 <b>Definition</b>: A category \(C\) is the data of a class \(\Ob(C)\) of objects and
@@ -515,8 +516,8 @@ OK blah blah blah a bunch of the usual category stuff that I&rsquo;m not typing 
 </p>
 </div>
 
-<div id="outline-container-orgddd9c87" class="outline-3">
-<h3 id="orgddd9c87"><span class="section-number-3">2.1.</span> Finiteness Conditions</h3>
+<div id="outline-container-orgade554d" class="outline-3">
+<h3 id="orgade554d"><span class="section-number-3">2.1.</span> Finiteness Conditions</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 <b>Definition</b>: \(C\) is a small category if its objects are a set, and essentially small if it admits a small skeleton.
@@ -532,8 +533,8 @@ OK blah blah blah a bunch of the usual category stuff that I&rsquo;m not typing 
 </div>
 </div>
 
-<div id="outline-container-org428b8e5" class="outline-3">
-<h3 id="org428b8e5"><span class="section-number-3">2.2.</span> Limits/Colimits</h3>
+<div id="outline-container-org75e2bec" class="outline-3">
+<h3 id="org75e2bec"><span class="section-number-3">2.2.</span> Limits/Colimits</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 <b>Definition</b>: Let \(I\) be a (partially) ordered set; an \(I\)-diagram on \(C\) is a functor \(F: I \rightarrow C\) when \(I\) is considered as a category; a limit of \(F\) is an object of \(C\) that represents the functor \(C \rightarrow Set\), \(X \mapsto \Hom_{\Func(I, C)}((i \mapsto X), F)\); a colimit is the same, but the \(\Hom\) arguments are reversed.
@@ -605,8 +606,8 @@ that \(\lim F\) exists, and is the equalizer.
 </div>
 </div>
 
-<div id="outline-container-org7e71d02" class="outline-3">
-<h3 id="org7e71d02"><span class="section-number-3">2.3.</span> Abelian Categories</h3>
+<div id="outline-container-orgabbf059" class="outline-3">
+<h3 id="orgabbf059"><span class="section-number-3">2.3.</span> Abelian Categories</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 <b>Definition</b>: A category \(C\) is preadditive when it has the structures of abelian groups of \(\Hom_C(-, -)\), such that composition is bilinear; e.g. in torsion free abelian groups, or in \(Ab\) itself. Further, it is additive if it also has finite products and coproducts.
@@ -670,8 +671,8 @@ Disclaimer! We actually need the assumptions; consider \(R = A[x,y]\), and \(A =
 </div>
 </div>
 
-<div id="outline-container-orgfeed33c" class="outline-2">
-<h2 id="orgfeed33c"><span class="section-number-2">3.</span> Homological Algebra</h2>
+<div id="outline-container-org23b3ff8" class="outline-2">
+<h2 id="org23b3ff8"><span class="section-number-2">3.</span> Homological Algebra</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 <b>Definition</b>: A sequence \(X_1 \xrightarrow{f}  X_2 \xrightarrow{g}  X_3\) is said to be exact (at \(X_2\)) if \(X_1 \rightarrow   \Ker(g)\) is an epi.
@@ -698,8 +699,8 @@ Disclaimer! We actually need the assumptions; consider \(R = A[x,y]\), and \(A =
 </p>
 </div>
 
-<div id="outline-container-org2860392" class="outline-3">
-<h3 id="org2860392"><span class="section-number-3">3.1.</span> Projective Modules</h3>
+<div id="outline-container-orgf828099" class="outline-3">
+<h3 id="orgf828099"><span class="section-number-3">3.1.</span> Projective Modules</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 <b>Definition</b>: An object \(X\) of \(A\) is said to be projective if \(\Hom(X, -)\) is exact, and dually it is injective if the contravariant Hom is exact. See Stacks Tag 013A for more details.
@@ -771,8 +772,8 @@ Look carefully: this shows that \(Mod_R \cong Mod_{R^{\oplus M}}\) (ref: see Mor
 </div>
 </div>
 
-<div id="outline-container-org3fb55f2" class="outline-3">
-<h3 id="org3fb55f2"><span class="section-number-3">3.2.</span> Injective Modules</h3>
+<div id="outline-container-orgcf015dd" class="outline-3">
+<h3 id="orgcf015dd"><span class="section-number-3">3.2.</span> Injective Modules</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 <b>Definition</b>: \(I \in A\) is injective if \(\Hom(-, I)\) is left exact; similarly, \(A\) has enough injectives if there is always some monic \(X \rightarrow  I\) into an injective object.
@@ -784,8 +785,8 @@ For modules, see Baer&rsquo;s criterion, Stacks Tag 05NU.
 </div>
 </div>
 
-<div id="outline-container-orgf670beb" class="outline-3">
-<h3 id="orgf670beb"><span class="section-number-3">3.3.</span> Chain Complexes</h3>
+<div id="outline-container-org54420f3" class="outline-3">
+<h3 id="org54420f3"><span class="section-number-3">3.3.</span> Chain Complexes</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 <b>Definition</b>: \(Ch(A)\), the category of chain complexes of objects of an abelian category \(A\), has objects functors \(\Z \xrightarrow{C_\bullet} A\)
@@ -806,8 +807,8 @@ OK I was sleepy so a topic list: derived categories, derived functors as factori
 </div>
 </div>
 
-<div id="outline-container-orgdea22cd" class="outline-2">
-<h2 id="orgdea22cd"><span class="section-number-2">4.</span> Group Homology</h2>
+<div id="outline-container-orgcd35fab" class="outline-2">
+<h2 id="orgcd35fab"><span class="section-number-2">4.</span> Group Homology</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 <b>Definition</b>: An abelian group \(A\) is a \(G\)-module if it is a \(\Z[G]\)-module. Note that the category of \(G\)-modules is the same as the functor category from \(G\) to \(Ab\), where the first thing is \(G\) regarded as a groupoid with one element.
@@ -837,8 +838,8 @@ Similar for cohomology.
 </p>
 </div>
 
-<div id="outline-container-org6fbf8ea" class="outline-3">
-<h3 id="org6fbf8ea"><span class="section-number-3">4.1.</span> Induced Modules</h3>
+<div id="outline-container-orgfbcab1e" class="outline-3">
+<h3 id="orgfbcab1e"><span class="section-number-3">4.1.</span> Induced Modules</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 <b>Definition</b>: Let \(H \subset G\), with finite index, and \(M\) an \(H\)-module, and define
@@ -910,8 +911,8 @@ and the opposite maps, as above.
 </div>
 </div>
 
-<div id="outline-container-org20b47aa" class="outline-3">
-<h3 id="org20b47aa"><span class="section-number-3">4.2.</span> Explicit Resolutions</h3>
+<div id="outline-container-org604bd0a" class="outline-3">
+<h3 id="org604bd0a"><span class="section-number-3">4.2.</span> Explicit Resolutions</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 We want to just take a resolution of \(\Z\) that will let us compute arbitrary homology/cohomology. We take
@@ -932,8 +933,8 @@ and this sequence will have the cohomology we want. In particular, note that the
 </div>
 </div>
 
-<div id="outline-container-org7c72680" class="outline-2">
-<h2 id="org7c72680"><span class="section-number-2">5.</span> Simplicial Sets</h2>
+<div id="outline-container-org4e1fd81" class="outline-2">
+<h2 id="org4e1fd81"><span class="section-number-2">5.</span> Simplicial Sets</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 <b>Definition</b>: Let \(\Delta\) be the category of nonempty finite totally ordered sets with nondecreasing maps as morphisms.
@@ -1001,8 +1002,8 @@ actually represents a category, with \(E_1\) maps, \(E_0\) objects, and \(E_2\) 
 </p>
 </div>
 
-<div id="outline-container-orgec5564a" class="outline-3">
-<h3 id="orgec5564a"><span class="section-number-3">5.1.</span> Classifying Spaces</h3>
+<div id="outline-container-org322f23d" class="outline-3">
+<h3 id="org322f23d"><span class="section-number-3">5.1.</span> Classifying Spaces</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 Let \(S\) be a nonempty set, and \(\underline{S}_n\) the maps \([n] \rightarrow  S\), which is now a simplicial set. But its geometric realization is homotopic to a point, so it is not that interesting; but if we consider \(G\) a group, then \(\underline{G}\) has a right \(G\) action, which takes \(fg \mapsto (x \mapsto f(x)g\).
@@ -1121,8 +1122,8 @@ Then, we have, since \(Z_1(C(S(X))) / B_1 \cong H_1\) is abelian, we have a map 
 </div>
 </div>
 
-<div id="outline-container-org0737351" class="outline-3">
-<h3 id="org0737351"><span class="section-number-3">5.2.</span> Homotopy Groups</h3>
+<div id="outline-container-org4c01ffb" class="outline-3">
+<h3 id="org4c01ffb"><span class="section-number-3">5.2.</span> Homotopy Groups</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 Let \(X\) be a topological space, and set \(\pi_k(X)\) the fundamental group in degree \(k\), e.g. all maps \(S^k \rightarrow  X\) identified up to homotopy. Note that in general, \(\pi_0\) is just a set, \(\pi_1\) is a group, and \(\pi_k\) is an abelian group for higher \(k\).
@@ -1211,8 +1212,8 @@ for \(i < j\).
 </div>
 </div>
 
-<div id="outline-container-org69c8892" class="outline-2">
-<h2 id="org69c8892"><span class="section-number-2">6.</span> Spectral Sequences</h2>
+<div id="outline-container-org524b7fa" class="outline-2">
+<h2 id="org524b7fa"><span class="section-number-2">6.</span> Spectral Sequences</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 If we have some s.e.s.
@@ -1439,8 +1440,8 @@ but since either the target or the source of each morphism is 0, we see that the
 </p>
 </div>
 
-<div id="outline-container-orga4cf153" class="outline-3">
-<h3 id="orga4cf153"><span class="section-number-3">6.1.</span> Grothendieck Spectral Sequences</h3>
+<div id="outline-container-orgc6d6e59" class="outline-3">
+<h3 id="orgc6d6e59"><span class="section-number-3">6.1.</span> Grothendieck Spectral Sequences</h3>
 <div class="outline-text-3" id="text-6-1">
 <p>
 <b>Theorem</b>: Let \(F: A \rightarrow   B\) be left exact between abelian categories with enough injectives, and let \(G: B \rightarrow C\) be left exact, such that for all injective \(I \in \Ob(A)\), \(F(I)\) is \(G\)-acyclic; that is, \(R^qG(F(I)) = 0\) for \(q > 0\). Then, there is a natural exact sequence such that
@@ -1497,8 +1498,8 @@ Thus we have that this spectral sequence degenerates at \(E_1\), and thus \(GF(I
 </div>
 
 
-<div id="outline-container-org4b940c7" class="outline-3">
-<h3 id="org4b940c7"><span class="section-number-3">6.2.</span> Application to Group Homology</h3>
+<div id="outline-container-org4c318d4" class="outline-3">
+<h3 id="org4c318d4"><span class="section-number-3">6.2.</span> Application to Group Homology</h3>
 <div class="outline-text-3" id="text-6-2">
 <p>
 Let \(G\) be a group, and \(H^q(G, -)\) the right derived functor of the left exact functor \(Mod_{R[G]} \rightarrow    Mod_R\) sending \(M \mapsto M^G\), and \(H_q(G, -)\) the left dervied functors of \(M \mapsto M_G\).
@@ -1531,8 +1532,8 @@ Then, if \((-)^P\) sends \(R[G]\)-injectives to \(H^\bullet_r(P, -)\) acyclic th
 </div>
 </div>
 
-<div id="outline-container-orgfa54125" class="outline-2">
-<h2 id="orgfa54125"><span class="section-number-2">7.</span> Symmetry Groups</h2>
+<div id="outline-container-orge58c1dd" class="outline-2">
+<h2 id="orge58c1dd"><span class="section-number-2">7.</span> Symmetry Groups</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 Look at the following table of homology:
@@ -1554,11 +1555,11 @@ The last one is actually easy to prove; just use restriction/corestriction.
 </p>
 
 <p>
-Recall that simplicial sets are contravariant functors \(\Delta \rightarrow Set\), semisimplicial sets are contravariant functors \(FI \rightarrow  Sets\).
+Remember the ealier discussion of contravariant functors \(FI \rightarrow  Sets\).
 </p>
 
 <p>
-Let \(W_p = C_\bullet (\Hom_{FI}(-, [p-1])) \in Ch(Mod_{\Z[S_p]})\).
+Let \(W_p = C_\bullet (\Hom_{FI}(-, [1, p])) \in Ch(Mod_{\Z[S_p]})\).
 </p>
 
 <p>
@@ -1579,22 +1580,235 @@ Then, use the last theorem and look at the \(E^{2}\) page and win.
 </p>
 
 <p>
-Let us examine \((W_n)_q\) as a \(\Z[S_n]\) module more closely. In particular, we have that \((W_n)_q \cong \Z[\Hom([q], [n-1])]\), so if \(p \leq q\), it is \(0\), and if \(p \geq q +1\), we have that it must be
+Let us examine \((W_n)_q\) as a \(\Z[S_n]\) module more closely. In particular, we have that \((W_n)_q \cong \Z[\Hom([q], [1,n])]\), so if \(p \leq q\), it is \(0\), and if \(p \geq q +1\), we have that it must be
 \[
-    \bigoplus_{f \in \Hom([q, [n-1]]) / S_n}\Z[S_n / \{\sigma \in S_n \mid \sigma|_{\Im(f)} = \id\}]
+    \bigoplus_{f \in \Hom([q, [1,n]]) / S_n}\Z[S_n / \{\sigma \in S_n \mid \sigma|_{\Im(f)} = \id\}]
 \]
 Note that the summand is also just \(\Ind^{S_n}_{S_{n-p-1}} \Z\).
 But by Schapiro&rsquo;s lemma, we see that
 \[
-    H_p(S_n, (W_n)_q) \cong \bigoplus_{f \in \Hom([p],[n-1]) / S_n} H_p(S_{n-q-1}, \Z)
+    H_p(S_n, (W_n)_q) \cong \bigoplus_{f \in \Hom([p],[1,n]) / S_n} H_p(S_{n-q-1}, \Z)
 \]
+</p>
+
+<p>
+Note that we have the differential mapping
+\[
+    d[f] = \sum_{i=0}^q(-1)^i[f \circ e_i]
+\]
+where each \(e_j\) is a non-decreasing injection that misses \(j\).
+</p>
+
+<p>
+We can endow \(W_n\) with the increasing filtration
+\[
+    \Fil_p W_n =  \begin{cases} W_p & p \leq n \\ W_n & p > n \end{cases}
+\]
+with graded parts
+\[
+    (\Gr_p W_n)_q = \begin{cases}
+        0 & p > n \text{ or p < 0 } \\
+        \bigoplus_{\substack{f: [q] \rightarrow [1,p] \\ p-1 \in \Im(f)}} & \Z[f]
+    \end{cases}
+\]
+We may also rewrite this to be
+\[
+    (\Gr_p W_n)_q = \bigoplus_{j=0}^q D_j(W_{p-1})_{q-1}
+\]
+where
+\[
+D_j[f] = \left[ i \mapsto \begin{cases} f(i) & i < j \\ p & i = j \\ f(i-1) & i > j\end{cases} \right]
+\]
+</p>
+
+<p>
+But does this preserve the differential? We compute that
+</p>
+\begin{align*}
+    dD_j[f] &= \sum_{i=0}^q(-1)^i(D_j[f])e_i  \\
+            &= \sum_{i=0}^{j-1} (-1)^i(D_{j-1}[f \circ e_i]) + \sum_{i=j+1}^{q} (-1)^i(D_{j}[f \circ e_{i-1}])\\
+            &= \sum_{0 \leq i < j}(-1)^uD_{j-1}([f \circ e_i]) - \sum_{j \leq i \leq q - 1}(-1)^{i}D_j([f \circ e_i])
+\end{align*}
+<p>
+Note that since \(f\) misses \(p\), the \(i=j\) term vanishes. So unfortunately the \(D_j\) symbols don&rsquo;t form a subcomplex. But we do have that \(dD_0[f] = - D_0d[f]\)! And everything gets messy afterwards pretty quickly. Further, we do have that for all \(k\), \(\bigoplus_{j \leq k}D_jW_{p-1}\) is a subcomplex of \(\Gr_pW_n\).
+</p>
+
+<p>
+We can also talk about the homology of \(W_n\). In particular, we see that
+</p>
+\begin{align*}
+    W_0 &= 0 \\
+    W_1 &= \Z[0] \\
+    W_2 &= [\Z[\id] \oplus \Z[\tau] \rightarrow \Z[i_0] \oplus \Z[\iota_1]] \\
+    H_0W_2 &= \Z^{\oplus 2}/\Z(-1, 1) \cong \Z \\
+    H_1W_2 &= \Z([\id] + [\tau]) \cong \Z
+\end{align*}
+<p>
+And so on.
+</p>
+
+<p>
+Now, note the spectral sequence associated to the filtration, which is
+</p>
+\begin{align*}
+    E_{p,q}^0 &= (\Gr_pW_n)_{p+q} \\
+    E_{p,q}^{1} &= H_{p+q}(\Gr_p W_n) \\
+\end{align*}
+<p>
+We still need to compute the second page.
+</p>
+
+<p>
+We consider the filtration
+\[
+    \widetilde{\Fil}_k(\Gr_pW_n) = \bigoplus_{i \leq k}(\Gr_p W_n)_{q+1}e_i
+\]
+with graded parts
+\[
+    \widetilde{\Gr}_j(\Gr_pW_n) \cong W_{p-1}[1]
+\]
+noting that \(W_{p-1}[1]\) (the shifted complex) is the same as \((W_{p-1})_{q-1}\) in degree \(q\), with a negative differential. We should have \(H_0 \cong \Z\), \(H_i \cong 0\) for \(i \neq 0, p-1\), and \(H_{p-1}\) is something probably nonzero. Then, in particular we see that the spectral sequence degenerates at the \(E_2\) page.
+</p>
+
+<p>
+And then you do some stuff; I was sick, so forgive me for missing the rest.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org90ca7c8" class="outline-2">
+<h2 id="org90ca7c8"><span class="section-number-2">8.</span> \(FI\)-Modules</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+Again, let \(FI\) be the category of finite sets with injective maps. First, we fix a ring \(k\), and let a \(FI\)-module (over \(k\)) be a functor \(FI \rightarrow Mod_k\). For example, we may take
+\[
+    F^{(d)}: S \mapsto k[\Hom_{FI}(d, S)]
+\]
+In particular, we have for \(V\) any \(FI\)-module, we have that
+\[
+    \Hom_{Mod_{FI}}(F^{(d)}, V) = \Hom(\Hom_{FI}(d, -), V) = V_d
+\]
+In particular, any \(FI\)-module is a quotient of a direct sum of copies of \(F^{(d)}\): if \(M_d \rightarrow  V_d\) is surjective with \(M_d\) free, then
+\[
+    \bigoplus_{d \geq 0} M_d \otimes_k F^{(d)} \rightarrow V
+\]
+is surjective.
+</p>
+
+<p>
+<b>Definition</b>: A \(FI\)-module \(V\) is a finitely generated (in degrees \(\leq D\)) if for all \(d \leq D\), \(V_d\) is a finitely generated \(k\)-module, and if
+\[
+    \bigoplus_{d \leq D}V_d \otimes_k F^{(d)} \rightarrow V
+\]
+is surjective.
+</p>
+
+<p>
+<b>Theorem</b>: If \(k\) is Noetherian commutative, then the category of finitely generated \(FI\)-modules over \(k\) is Noetherian.
+</p>
+
+<p>
+For \(\lambda\) = \((\lambda_j)_j\) with \(\lambda_j \geq \lambda_{j+1}\), we may define
+\[
+    V_n(\lambda) = \begin{cases}
+        V_{(n - \sum \lambda_j, \lambda_1, \lambda_2, \dots)} & n \geq \lambda_1 + \sum_{j \geq 1} \lambda_j \\
+        0 & \text{otherwise}
+       \end{cases}
+\]
+For example, we see that \(V_n(0)\) is the trivial representation of \(k\), \(V_n(1)\) is the standard representation, and so on. (In this case we need \(k\) a field.)
+</p>
+
+<p>
+<b>Prop</b>: There is a f.g. \(FI\)-module \(V_\bullet(\lambda)\) such that in degree \(d\) it is simply \(V_d(\lambda)\).
+</p>
+
+<p>
+<i>Proof</i>: Take
+\[
+    V(\lambda)_d = \colim_{T} k[S_d]c_T
+\]
+where the colimit is in the category with objects Young tabelaus and the indexing set is tabelaus with shape \((d - |\lambda|, \lambda)\).
+</p>
+
+<p>
+<b>Theorem</b>: Let \(k\) be a field of characteristic \(0\). Then, a \(FI\)-module \(W\) is finitely generated if and only if
+</p>
+<ol class="org-ol">
+<li>For all \(d \rightarrow d+1\), the induced map \(W_d \rightarrow W_{d+1} = \text{Res}^{G_{d+1}}_{G_d}W_{d+1}\) is (eventually) injective.</li>
+<li>For all \(d \rightarrow d+1\), the induced map \(\text{Ind}^{G_{d+1}}_{G_d}W_d \rightarrow W_{d+1}\) is (eventually) surjective.</li>
+<li>\(c_{\lambda, n}\), a multiple of \(W_n(\lambda)\) in \(W_n\) is independent of \(n\) for \(n > N\) (uniform representation stability).</li>
+</ol>
+
+<p>
+When combined with the Noetherianity conditions, it becomes really easy to show representational stability!
+</p>
+
+<p>
+<i>Proof</i>: We start with the easier direction, which is \(\impliedby\). Let \(N\) such that for all \(d \geq N\), \(k[S_{d+1}] \otimes_{k[S_d]} W_d \rightarrow W_{d+1}\) is surjective. Then, \(k[S_{d}] \otimes_{k[S_N]} W_N \rightarrow W_{d+1}\). Thus \(F^{(N)} \otimes W_N \rightarrow  W\) is surjective in degree \(\geq N\), and so \(W\) is f.g. in degree \(\leq N\).
+</p>
+
+<p>
+To do the other direction, we need more setup.
+</p>
+
+<p>
+<b>Definition</b>: The injectivity degree (resp. surjectivity degree) is the smallest \(s \geq 0\) (if it exists), such that \((W_n)_{S_{n-r}} \rightarrow    (W_{n+1})_{S_{n+1-r}}\)  is injective (resp. surjective) for \(n \geq s + r\).
+</p>
+
+<p>
+<b>Lemma</b>: If \(V \rightarrow  W\) is surjective, then the surjectivity degree of \(W\) is at most the surjectivity degree of \(V\). The opposite result holds for the injectivity degree.
+</p>
+
+<p>
+<b>Lemma</b>: The \(FI\)-module \(F^{(d)} = k[\Hom_{FI}(d, -)]\) has injectivity degree 0 and surjectivity degree \(d\).
+</p>
+
+<p>
+Now let \(W\) be a finitely generated \(FI\)-module in degree \(\leq N\); let \(F\) be a finite direct sum of \(F^{(d)}\) with \(d \leq N\) such that \(F \rightarrow W\) is a surjection; we have that \(\text{surj deg}(W) \leq \text{surj deg}(F) \leq N\).
+</p>
+
+<p>
+Let
+\[
+    0 \rightarrow    K \rightarrow  F \rightarrow   W \rightarrow   0
+\]
+be exact; then \(K\) is a submodule of \(F\) and is thus finitely generated. Then, in particular we have from the snake lemma in the diagram
+</p>
+<p align="center">
+<img src="firepstab.png" style="width:60%">
+</p>
+<p>
+that \(\text{inj deg}(W) \leq \text{inj deg}(K) \leq M\).
+</p>
+
+<p>
+<b>Prop</b>: Let \(W)\) be a \(FI\)-module over \(k\) with characteristic \(0\); then \((W_n)_n\) is uniformly representation stable with stable range \(n \geq \max\{\text{inj deg}(W) , \text{surj deg}(W)  \} + \text{weight}(W)\), where
+\[
+    \text{weight}(V) = \max \{ |\lambda| \mid V_n(\lambda) \text {appears in some } W_n\}
+\]
+</p>
+
+<p>
+<b>Theorem</b>: The \(FI\)-module \(n \mapsto H^q(P_n, \Q)\) is uniformly representation stable for \(n \geq 4q\).
+</p>
+
+<p>
+In particular, we may compute that
+\[
+    H^1(P_n, \Q) \cong V_n(0) \oplus V_n(1) \oplus V_n(2)
+\]
+for \(n \geq 4\) and
+\[
+    H^2(P_n, \Q) \cong V_n(1)^{\oplus 2} \oplus V_n(1, 1)^{\oplus 2} \oplus V_n(2)^{\oplus 2} \oplus V(2, 1)^{\oplus 2} \oplus V(3) \oplus V(3, 1)
+\]
+for \(n \geq 7\) (so the bound is not <i>always</i> sharp).
 </p>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: David Chen</p>
-<p class="date">Created: 2022-06-27 Mon 10:58</p>
+<p class="date">Created: 2022-07-07 Thu 11:02</p>
 </div>
 </body>
 </html>
