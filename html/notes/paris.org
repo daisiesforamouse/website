@@ -975,6 +975,7 @@ Let
     0 \rightarrow    K \rightarrow  F \rightarrow   W \rightarrow   0
 \]
 be exact; then \(K\) is a submodule of \(F\) and is thus finitely generated. Then, in particular we have from the snake lemma in the diagram
+
 #+BEGIN_EXPORT html
 <p align="center">
 <img src="firepstab.png" style="width:60%">
@@ -982,9 +983,9 @@ be exact; then \(K\) is a submodule of \(F\) and is thus finitely generated. The
 #+END_EXPORT
 that \(\text{inj deg}(W) \leq \text{inj deg}(K) \leq M\).
 
-*Prop*: Let \(W)\) be a \(FI\)-module over \(k\) with characteristic \(0\); then \((W_n)_n\) is uniformly representation stable with stable range \(n \geq \max\{\text{inj deg}(W) , \text{surj deg}(W)  \} + \text{weight}(W)\), where
+*Prop*: Let \(W\) be a \(FI\)-module over \(k\) with characteristic \(0\); then \((W_n)_n\) is uniformly representation stable with stable range \(n \geq \max\{\text{inj deg}(W) , \text{surj deg}(W)  \} + \text{weight}(W)\), where
 \[
-    \text{weight}(V) = \max \{ |\lambda| \mid V_n(\lambda) \text {appears in some } W_n\}
+    \text{weight}(V) = \max \{ |\lambda| \mid V_n(\lambda) \text { appears in some } W_n\}
 \]
 
 *Theorem*: The \(FI\)-module \(n \mapsto H^q(P_n, \Q)\) is uniformly representation stable for \(n \geq 4q\).
@@ -998,3 +999,54 @@ for \(n \geq 4\) and
     H^2(P_n, \Q) \cong V_n(1)^{\oplus 2} \oplus V_n(1, 1)^{\oplus 2} \oplus V_n(2)^{\oplus 2} \oplus V(2, 1)^{\oplus 2} \oplus V(3) \oplus V(3, 1)
 \]
 for \(n \geq 7\) (so the bound is not /always/ sharp).
+
+It remains to prove the noetherianity proposition. In spirit, it will be similar to the Hilbert basis thoerem.
+
+Consider now the category of \(FI-Mod_R\); if \(W\) is such a \(FI\)-module, consider the grading of \(W\) given by
+\[
+    R(W) = \bigoplus_{n \geq 0} (W_n)_{S_n}
+\]
+where \((W_n)_{S_n} \xrightarrow{T} (W_{n+1})_{S_{n+1}}\), where \(T\) is induced by the cannonical injection. In particular, we already require \(R\) to be a \(\Q\)-algebra since we need left exactness of coinvariants. If \(W \subset F^{(d)}\), then \(R(W) \subset R(F^{(d)})\); then, \(R(W)\) is f.g. as a \(R[T]\) module. Next, we also have that
+\[
+    W_n \cong \bigoplus_{\lambda}(W_n \otimes V_n(\lambda)^*) \otimes V_n(\lambda)
+\]
+
+Then, if \(W \subset F^{(d)}\), then we have a bound \(m\), namely the weight and each \(R(W \otimes V(\lambda))\) is finitely generated; hence, \(W\) is finitely generated.
+\[
+\]
+
+*Prop*: Let \(R\) be noetherian, \(W)\)   a sub \(FI-Mod_R\) of \(F^{(d)}\). Then \(W\) is f.g.
+
+/Proof/: Recall that
+\[
+    F^{(d)} = S \mapsto R[\Hom_{FI}(d, S)]
+\]
+We may induct on \(d)\), starting with \(d = -1\), \(F^{(-1)} = 0\); as mimick the proof of the Hilbert basis theorem.
+
+Let \(A\) be a finite set; we consider the shift
+\[
+    W[A]: S \in FI \mapsto W_{S \sqcup A}
+\]
+
+In particular, we can map \((F^d[A])_s \rightarrow (F^{(d)})_s\) surjectively, just by taking
+\[
+    [f: d \rightarrow    S \sqcup A] \mapsto \begin{cases} [f] & \Im(f) \subset S \\ 0 & \text{otherwise} \end{cases}
+\]
+and so we discover a s.e.s
+\[
+0 \rightarrow \bigoplus_{\substack{A' \subset A \\ A' \neq \emptyset \\ \text{bij } d\setminus (d - |A'|) \rightarrow   A'}} (F^{d-|A'|})_s\rightarrow    (F^d[A])_s \rightarrow (F^{(d)})_s \rightarrow  0
+\]
+Correspondingly,
+\[
+    0 \rightarrow    K \cap W[A] \rightarrow    W[A] \rightarrow    W^{(A)} \rightarrow  0
+\]
+By induction, \(K \cap W[A]\) is finitely generated, and \(W\) is finitely generated \(\iff W[a]\) is finitely generated, and we can prove that \(W^{(A)}\) is finitely generated. (Skipped)
+
+*Theorem*: Fix \(R\) nootherian, and let \(N \subset M\) \(FI\)-modules, with \(M\) f.g. Then \(N\) is f.g. as well.
+
+/Proof/: Induct on the number of nonzero graded pieces in \(M\).
+
+*Theorem*: Let \(k\) be a field, and let \(W\) be a f.g. \(FI-Mod_R\); then \(\dim_k(W_n)\) is eventually polynomial in \(n\).
+
+
+# In our case, we will consider shifts of graded complexes (?), namely \((W[a])_n = W_{n+a}\). 
