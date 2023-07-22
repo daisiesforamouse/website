@@ -1,3 +1,0 @@
-#+STARTUP: latexpreview
-
-#+LATEX_HEADER: \usepackage{}
