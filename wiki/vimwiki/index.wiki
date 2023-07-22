@@ -1,0 +1,3 @@
+= Welcome! =
+
+This is a personal wiki aimed at organizing whatever meagre shades of knowledge I've managed to pick up in a semi-organized, Zettelkasten-esque format.

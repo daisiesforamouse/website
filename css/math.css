@@ -1,20 +1,17 @@
 body {
-    margin: 40px auto;
-    max-width: 800px;
-    line-height: 1.6;
-    font-size: 16px;
-    color: #444;
-    padding: 0 10px
+  font-family:  Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+  margin: 40px auto;
+  max-width: 800px;
+  line-height: 1.6;
+  font-size: 16px;
+  color: #444;
+  padding: 0 10px
 }
 
 a {
-    color: #444
+  color: #444
 }
 
-h1,h2,h3 {
-    line-height: 1.2
-}
-
-body {
-    font-family:  Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2
 }
