@@ -1,0 +1,1883 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-07-11 Mon 10:33 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Undergraduate Research 2022</title>
+<meta name="author" content="David Chen" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" href="https://daisiesforamouse.net/math.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.min.js" integrity="sha512-9DkJEmXbL/Tdj8b1SxJ4H2p3RCAXKsu8RqbznEjhFYw0cFIWlII+PnGDU2FX3keyE9Ev6eFaDPyEAyAL2cEX0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/input/tex/extensions/ams.min.js" integrity="sha512-hYQ7XXWTcxv2ZqLKj/ZLf+iDlS6UDfMqGZBYViCaAEfLNVtmThtbS0HKzR1PnjMCi3N5SGEpOmEdYXInWlwqqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+    <!--/*--><![CDATA[/*><!--*/
+  MathJax.Hub.Config({
+      jax: ["input/TeX", "output/HTML-CSS"],
+      extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                   "TeX/noUndefined.js", "[Contrib]/siunitx/siunitx.js", "[Contrib]/mhchem/mhchem.js"],
+      tex2jax: {
+          inlineMath: [ ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+          skipTags: ["script","noscript","style","textarea","pre","code"],
+          ignoreClass: "tex2jax_ignore",
+          processEscapes: false,
+          processEnvironments: true,
+          preview: "TeX"
+      },
+      TeX: {extensions: ["AMSmath.js","AMSsymbols.js",
+                         "[Contrib]/siunitx/siunitx.js", "[Contrib]/mhchem/mhchem.js"]},
+      showProcessingMessages: true,
+      displayAlign: "center",
+      displayIndent: "2em",
+
+      "HTML-CSS": {
+          scale: 100,
+          availableFonts: ["STIX","TeX"],
+          preferredFont: "TeX",
+          webFont: "TeX",
+          imageFont: "TeX",
+          showMathMenu: true,
+      },
+      MMLorHTML: {
+          prefer: {
+              MSIE:    "MML",
+              Firefox: "MML",
+              Opera:   "HTML",
+              other:   "HTML"
+          }
+      }
+  });
+  /*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">CMUSRP 2022</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgf501653">1. Introduction</a>
+<ul>
+<li><a href="#orge32542e">1.1. Stability</a></li>
+<li><a href="#org6de8719">1.2. Representational Stability</a></li>
+<li><a href="#org717d406">1.3. FI Modules</a></li>
+</ul>
+</li>
+<li><a href="#org9a038c4">2. Categories</a>
+<ul>
+<li><a href="#org73a2ecb">2.1. Finiteness Conditions</a></li>
+<li><a href="#orgbcfb15a">2.2. Limits/Colimits</a></li>
+<li><a href="#org9cbdaff">2.3. Abelian Categories</a></li>
+</ul>
+</li>
+<li><a href="#org38a15fe">3. Homological Algebra</a>
+<ul>
+<li><a href="#orgefd216c">3.1. Projective Modules</a></li>
+<li><a href="#org385a00f">3.2. Injective Modules</a></li>
+<li><a href="#org67d2eff">3.3. Chain Complexes</a></li>
+</ul>
+</li>
+<li><a href="#org412fce3">4. Group Homology</a>
+<ul>
+<li><a href="#orgdd5dc82">4.1. Induced Modules</a></li>
+<li><a href="#org17751b0">4.2. Explicit Resolutions</a></li>
+</ul>
+</li>
+<li><a href="#org624048f">5. Simplicial Sets</a>
+<ul>
+<li><a href="#orgbd38a27">5.1. Classifying Spaces</a></li>
+<li><a href="#orgcab57a4">5.2. Homotopy Groups</a></li>
+</ul>
+</li>
+<li><a href="#org3837d12">6. Spectral Sequences</a>
+<ul>
+<li><a href="#orgb063db5">6.1. Grothendieck Spectral Sequences</a></li>
+<li><a href="#org138bf1d">6.2. Application to Group Homology</a></li>
+</ul>
+</li>
+<li><a href="#org5e38db9">7. Symmetry Groups</a></li>
+<li><a href="#orgb31d7e2">8. \(FI\)-Modules</a></li>
+</ul>
+</div>
+</div>
+<p>
+\(
+    \newcommand{\contra}{\Rightarrow\!\Leftarrow}
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\F}{\mathbb{F}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+    \newcommand{\Zg}{\mathbb{Z}_{>0}}
+    \newcommand{\Req}{\mathbb{R}_{\geq 0}}
+    \newcommand{\Rg}{\mathbb{R}_{>0}}
+    \newcommand{\N}{\mathbb{N}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\O}{\mathcal{O}}
+    \newcommand{\C}{\mathbb{C}}
+    \newcommand{\A}{\mathbb{A}}
+    \newcommand{\P}{\mathbb{P}}
+    \DeclareMathOperator{\Spec}{Spec}
+    \DeclareMathOperator{\Conf}{Conf}
+    \DeclareMathOperator{\Tot}{Tot}
+    \DeclareMathOperator{\Fil}{Fil}
+    \DeclareMathOperator{\Gr}{Gr}
+    \DeclareMathOperator{\Inv}{Inv}
+    \DeclareMathOperator{\Alt}{Alt}
+    \DeclareMathOperator{\Sym}{Sym}
+    \DeclareMathOperator{\Vec}{Vec}
+    \DeclareMathOperator{\id}{id}
+    \DeclareMathOperator{\Proj}{Proj}
+    \DeclareMathOperator{\Func}{Func}
+    \DeclareMathOperator{\Ker}{Ker}
+    \DeclareMathOperator{\Im}{Im}
+    \DeclareMathOperator{\Aut}{Aut}
+    \DeclareMathOperator{\Ob}{Ob}
+    \DeclareMathOperator{\Mor}{Mor}
+    \DeclareMathOperator{\Hom}{Hom}
+    \DeclareMathOperator{\End}{End}
+    \DeclareMathOperator{\Ind}{Ind}
+    \DeclareMathOperator{\Coind}{Coind}
+    \DeclareMathOperator{\colim}{colim}
+    \DeclareMathOperator{\length}{length}
+    \DeclareMathOperator{\Pic}{Pic}
+\)
+</p>
+
+<div id="outline-container-orgf501653" class="outline-2">
+<h2 id="orgf501653"><span class="section-number-2">1.</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-orge32542e" class="outline-3">
+<h3 id="orge32542e"><span class="section-number-3">1.1.</span> Stability</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Given some objects \(G_n \rightarrow  G_{n+1} \rightarrow \dots\), we want to find some invariant, \(G \mapsto \text{Inv}(G)\), satisfying <i>stability</i>: that for sufficiently large \(n\), \(\text{Inv}(G_n) \cong \Inv(G_{n+1})\).
+</p>
+
+<p>
+As an example, we can take \(\Inv(G) = G^{ab}\), the abelianization, and if for example \(G_n = GL_n(k)\), then we have stbility for \(n \geq 2\), and similar for the symplectic groups, the special linear groups, etc.
+</p>
+
+<p>
+A special case we will discuss in more detail will be the symmetric groups, \(S_n\), the group of bijections from a set of \(n\) objects to itself. In particular, the abelianization sends, for \(n \geq 2\), \(S_n \mapsto \Z/2\Z\); this is appararent from the group representation
+\[
+    S_n \cong \left\langle (\sigma_i)^n_{i=1} \mid \sigma_i^2 = 1, \sigma_i\sigma_j = \sigma_i\sigma_i \text{ for } |i - j| > 2, \sigma_i\sigma_j\sigma_i = \sigma_j\sigma_i\sigma_j \text{ for } | i - j| = 1\right\rangle
+\]
+Similarly, we can look at the braid groups \(B_n\), which are given by
+\[
+    B_n \cong \left\langle (\sigma_i)^{n-1}_{i=1} \mid \sigma_i\sigma_j = \sigma_i\sigma_i \text{ for }  |i - j| > 2, \sigma_i\sigma_j\sigma_i = \sigma_j\sigma_i\sigma_j \text{ for } |i - j| = 1\right\rangle
+\]
+as well as the &ldquo;pure braid groups&rdquo;, given by \(\Ker(B_n -> S_n)\); it is clear that the abelianization of \(B_n\) is just \(\Z\).
+</p>
+
+<p>
+Furthermore, it will turn out that the abelianization of a group is the same as the first homology group, \(H_1(G)\); the second homology group will be more complication, and will be characterized by
+\[
+    H_2(G) = \frac{R \cap [F, F]}{[R, R]}
+\]
+where \(G = F/R\), and \(F\) is free.
+</p>
+
+<p>
+<b>Theorem (Nakaoka, 1960&rsquo;s)</b>: For \(n \geq 2q\), \(H_q(S_n) \cong H_q(S_{n+1})\); this result was generalized to homological stability, which gives it for a lot of other sequences of groups.
+</p>
+
+<p>
+A <i>non-example</i> will be the pure braid groups; we have already
+</p>
+\begin{align*}
+    B_n &\rightarrow \Aut(P_n) \\
+    t &\mapsto (p \mapsto tpt^{-1}) \\
+    S_n &\cong B_n / P_n \rightarrow \Aut(H_q(P_n))
+\end{align*}
+<p>
+so \(H_q(P_n\) should be an abelian group with some \(S_n\)-action. More explicitly, let \(\sigma_{ij} \in B_n\) be the lift of the transposition \((i, j)\), and take
+\[
+    P_n = \left\langle  (a_{ij})_{i < j} \mid [a_{ij}, -] = 1 \right\rangle
+\]
+with the map \(a_{ij} \mapsto \sigma_{ij}^2\). It also becomes clear from this representation that the abelianization of \(P_n\) will be \(\Z^{\oplus \frac{n(n-1)}{2}}\). Furthermore, we have that
+\[
+    H_1(P_n) \otimes_\Z \Q \cong \Sym^2(St_n)
+\]
+where \(St_n\) is the standard representation.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6de8719" class="outline-3">
+<h3 id="org6de8719"><span class="section-number-3">1.2.</span> Representational Stability</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+This is our first example of representational stability!
+</p>
+
+<p>
+In particular, we define \(\Q-\text{characters of } S_n\) to be the set of class functions of \(S_n\), or all maps to \(Q\) invariant by conjugation.
+</p>
+
+<p>
+Then, we can see that
+\[
+    \chi_{St_n}(\sigma) = \chi_1(\sigma) - 1
+\]
+and so we conclude that since \(\chi_{\Sym^2}(\sigma) = \frac{1}{2}(\chi(\sigma^2) + \chi(\sigma)^2)\),
+\[
+    \chi_{H_1(P_n)} = -\chi_2 + \binom{\chi_1}{2}
+\]
+</p>
+
+<p>
+<b>Theorem (Church-Farb)</b>: For \(n\) sufficiently large, \((H_q(P_n))_\Q\) is a polynomial sequence of characters of \((S_n)_n\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org717d406" class="outline-3">
+<h3 id="org717d406"><span class="section-number-3">1.3.</span> FI Modules</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+The category \(FI\) will have objects indexed by \(m \geq 0\), with \(\Hom_{FI}(m, n)\) to be injective maps \([m] \rightarrow [n]\).
+</p>
+
+<p>
+In fact, \(H_q(P_n)\) are really functions \(FI \rightarrow  Ab\); \(FI\)-modules will be functors \(FI \rightarrow \Vec_\Q\); equivalently, finitely generated \(FI\)-modules will be the same as polynomial sqeuences of representations of \(S_n\).
+</p>
+
+<p>
+The thing to care about is the Noetherianity of such categories. We will also consider a little bit of topology, in the sense that we may have some \(FI\)-spaces, which map \(n \mapsto \text{Conf}_n(X)\), the space of injective maps \([n] \rightarrow X\).
+</p>
+
+<p>
+For example, \(\text{Conf}_n \C = \{(z_i)_{i=1}^n \mid z_i \neq z_j\}\), and the fundamental group will be \(P_n\).
+</p>
+
+<p>
+<b>Theorem (Church-Eilenberg-Farb)</b>: For \(n\) sufficiently large, then \((H_q(\text{Conf}_n(X)))_n\) is a polynomial sequence of \(G_n\)-representations.
+</p>
+
+<p>
+Note that for \(n = q = 1\), we have the correspondence
+\[
+    H_1(X) = \pi_1^{ab} = H_1(\pi_1)
+\]
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9a038c4" class="outline-2">
+<h2 id="org9a038c4"><span class="section-number-2">2.</span> Categories</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+<b>Definition</b>: A category \(C\) is the data of a class \(\Ob(C)\) of objects and
+</p>
+<ol class="org-ol">
+<li>For each \(X, Y \in \Ob(C)\) a <span class="underline">set</span> \(\Hom_C(X,Y)\)</li>
+<li>For each \(X, Y, Z\) a map \(\Hom_C(X,Y) \times \Hom_C(Y,Z) \mapsto \Hom_C(X, Z)\)</li>
+<li>For all \(X \in \Ob(C)\), some identity element \(\id_X\) in \(\Hom_C(X,X)\)</li>
+</ol>
+<p>
+where the morphisms satisfy associativity.
+</p>
+
+<p>
+<i>Examples</i>:
+</p>
+<ul class="org-ul">
+<li>\(Set\)</li>
+<li>\(Gp\)</li>
+<li>For a fixed (associative, unital) ring \(R\), the category of (right) modules over \(R\), \(Mod_R\)</li>
+</ul>
+
+<p>
+To be more prescise, we make the following definitions:
+</p>
+
+<p>
+<b>Definition</b>: A morphism in \(Mod_R\) from \(M \rightarrow N\) is a group homomorphism \(f: M \rightarrow N\) satisfying that \(f(m \lambda) = f(m) \cdot \lambda\).
+</p>
+
+<p>
+<i>Example</i>: \(R \cong \Hom_{Mod_R}(R,R)\), where \(a \mapsto (x \mapsto ax)\).
+</p>
+
+<p>
+<b>Definition</b> Functors \(C \rightarrow D\) are a collection of data, containing
+</p>
+<ol class="org-ol">
+<li>For each \(X \in \Ob(C)\), an object \(F(X) \in \Ob(D)\)</li>
+<li>For each \(f \in \Hom_C(X,Y)\), some \(F(f) \in \Hom_D(F(X), F(Y))\), which satisfy
+<ol class="org-ol">
+<li>\(F(fg) = F(f) F(g)\)</li>
+<li>\(F(\id_X) = \id_{F(X)}\)</li>
+</ol></li>
+</ol>
+
+<p>
+We can also form now a category of categories, i.e. a 2-category, and so on onto \(n\)-categories.
+</p>
+
+<p>
+OK blah blah blah a bunch of the usual category stuff that I&rsquo;m not typing - adjoints, equivalences, functor categories, etc.
+</p>
+
+<p>
+<i>Example</i>: We call the functor category \(\Func(FI, Ab)\), to be the category of \(FI\)-modules.
+</p>
+</div>
+
+<div id="outline-container-org73a2ecb" class="outline-3">
+<h3 id="org73a2ecb"><span class="section-number-3">2.1.</span> Finiteness Conditions</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+<b>Definition</b>: \(C\) is a small category if its objects are a set, and essentially small if it admits a small skeleton.
+</p>
+
+<p>
+<b>Definition</b>: A subcategory \(C'\) of \(C\) is a category with objects a subclass of \(\Ob(C)\) and morphisms a subset of \(\Hom_C(\cdot, \cdot)\). It is called a full subcategory if the inclusion functor \(C' \rightarrow C\) is fully faithful, or equivalently, if \(\Hom_C' = \Hom_C\).
+</p>
+
+<p>
+<b>Definition</b>: Finite presentation: See Stacks Project, Tag 00F3.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbcfb15a" class="outline-3">
+<h3 id="orgbcfb15a"><span class="section-number-3">2.2.</span> Limits/Colimits</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+<b>Definition</b>: Let \(I\) be a (partially) ordered set; an \(I\)-diagram on \(C\) is a functor \(F: I \rightarrow C\) when \(I\) is considered as a category; a limit of \(F\) is an object of \(C\) that represents the functor \(C \rightarrow Set\), \(X \mapsto \Hom_{\Func(I, C)}((i \mapsto X), F)\); a colimit is the same, but the \(\Hom\) arguments are reversed.
+</p>
+
+<p>
+<b>Definition</b> A colimit is filted if \(I\) has finite supremum.
+</p>
+
+<p>
+<b>Definition</b> An object \(X\) of \(C\) is compact if \(\Hom(X, -)\) commites with filtered colimit.
+</p>
+
+<p>
+<i>Example</i>: In the categories of \(CRing, CAlg, Mod_R, Sets\), etc, compact is the same as finitely presented.
+</p>
+
+<p>
+<i>Proof</i>: Let \(B\) be a compact object of \(CAlg\), and let \(I\) the category where the objects \(S \subset B\) finite sets and \(I \subset A[(x_s)]_{s \in S}\) is a finitely generalted ideal of \(A[(x_s)] \rightarrow B\). Then, we let the morphisms be \((S, J) \rightarrow (S', J')\) where \(S \subset S'\), \(J \subset J'\); then,
+\[
+    \colim_{(S,J) \in I} A[(\alpha_s)_{s \in S}] / J \cong B
+\]
+where we use Yoneda; then use uniervsal property of the colimit and compactness to lift out a finite presentation of \(B\).
+</p>
+
+<p>
+<b>Definition</b> Subobject: see nLab, <a href="https://ncatlab.org/nlab/show/subobject">https://ncatlab.org/nlab/show/subobject</a>
+</p>
+
+<p>
+<b>Definition</b> Noetherian object: see nLab, <a href="https://ncatlab.org/nlab/show/noetherian+object">https://ncatlab.org/nlab/show/noetherian+object</a>
+</p>
+
+<p>
+<b>Definition</b> We say that a category \(C\) is finite if \(\Ob(C)\) is finite and the \(\Hom\)-sets are also finite; similarly, a finite diagram is a functor \(D \rightarrow C\) where \(D\) is finite.
+</p>
+
+<p>
+Above, we have a functor from \(C \rightarrow  Sets\), which takes \(X \mapsto \Hom_{\Func}(F, (d \mapsto X))\), which is representable iff \(F\) has a colimit.
+</p>
+
+<p>
+<i>Example</i>: Equalizers: <a href="https://ncatlab.org/nlab/show/equalizer">https://ncatlab.org/nlab/show/equalizer</a>
+</p>
+
+<p>
+<b>Lemma</b>: If a category has all equalizers and finite products, then it has all finite limits.
+</p>
+
+<p>
+<i>Proof</i>: Let \(F: D \rightarrow  C\) be a finite diagram, \(D_0\) the finite set of objects of \(D\), and \(D_1\) the finite set of arrows of \(D\); then we should have \(t, s: D_1 \rightarrow D_0\) that associate each arrow to their target and source.
+</p>
+
+<p>
+We want to classify all such \(\lambda_d: X \rightarrow F_d\), for all \(d \in D_0\), such that for all \(f \in D_1\), such that the following commutes:
+</p>
+<p align="center">
+<img src="finlim.png" style="width:30%">
+</p>
+<p>
+Then, we claim that by looking at the following diagram,
+</p>
+<p align="center">
+<img src="finlim2.png" style="width:40%">
+</p>
+<p>
+that \(\lim F\) exists, and is the equalizer.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9cbdaff" class="outline-3">
+<h3 id="org9cbdaff"><span class="section-number-3">2.3.</span> Abelian Categories</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+<b>Definition</b>: A category \(C\) is preadditive when it has the structures of abelian groups of \(\Hom_C(-, -)\), such that composition is bilinear; e.g. in torsion free abelian groups, or in \(Ab\) itself. Further, it is additive if it also has finite products and coproducts.
+</p>
+
+<p>
+Note that this implies immediately that an additive category has initial and terminal objects.
+</p>
+
+<p>
+<b>Lemma</b>: Let \(C\) be an additive cateogry; then for any \(X_1, X_2\), we have \(X_1 \sqcup X_2 \cong X_1 \times X_2\) functorially in \(X_1, X_2\).
+</p>
+
+<p>
+<i>Proof</i>: Let us consider
+</p>
+<p align="center">
+<img src="coprodprod.png" style="width:50%">
+</p>
+<p>
+and
+</p>
+<p align="center">
+<img src="coprodprod3.png" style="width:40%">
+</p>
+<p>
+So by reversing arrows we get a map \(q: X_1 \times X_2 \rightarrow  X_1 \sqcup X_2\), \(q = \iota_1\pi_1 + \iota_2\pi_2\), where \(\iota, \pi\) are inclusions and projections; then the following diagram can be made to commute:
+</p>
+<p align="center">
+<img src="coprodprod4.png" style="width:40%">
+</p>
+
+<p>
+<b>Definition</b>: The kernel of \(f: X_1 \rightarrow  X_2\) in an additive category is the equalizer of \(f_1\) and 0, if it exists; the cokernel is the coequalizer.
+</p>
+
+<p>
+<b>Lemma</b>: If \(\iota: K \rightarrow X_1\) is a kernel, then \(\iota\) is a monomorphism.
+</p>
+
+<p>
+<b>Definition</b>: An abelian category is an additive category such that all (co)kernels exist (or equivalently, all equalizers and colimits, and therefore the same as all finite limits + colimits), and all epi/monomorphisms are such (co)kernels.
+</p>
+
+<p>
+<b>Lemma</b>: If \(A\) is an abelian category amd \(D\) is a small category, then \(\Func(D, A)\) is an abelian category, where the operation is \(F_1 \oplus F_2 = (d \mapsto F_1(d) \oplus F_2(d))\).
+</p>
+
+<p>
+<i>Example</i>: \(\Func(FI, Mod_R)\) is an abelian category.
+</p>
+
+<p>
+<b>Lemma</b>: Full subcategories of abelian categories are themselves abelian, so long as it contains a zero object, is stable by \(\oplus\), and contains (co)kernels; further, \(B\) preserves (co)kernels.
+</p>
+
+<p>
+Disclaimer! We actually need the assumptions; consider \(R = A[x,y]\), and \(A = Mod_R\), and \(B\) the full subcategory of objects \(M\) such that \(M \cong \Ker(M \oplus M \rightarrow  M)\), there the first arrow sends \(m \mapsto (mx, my)\) and the second \((a, b) \mapsto am - bm\).
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org38a15fe" class="outline-2">
+<h2 id="org38a15fe"><span class="section-number-2">3.</span> Homological Algebra</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+<b>Definition</b>: A sequence \(X_1 \xrightarrow{f}  X_2 \xrightarrow{g}  X_3\) is said to be exact (at \(X_2\)) if \(X_1 \rightarrow   \Ker(g)\) is an epi.
+</p>
+
+<p>
+<b>Definition</b>: We say a functor \(F: A \rightarrow  B\) is additive if \(F\) is \(\Z\)-linear on \(\Hom\)-sets and exact if it preserves exact sequences; it also needs to preserve finite products and coproducts, which means that it is equivalent to preserving finite limits and colimits.
+</p>
+
+<p>
+<b>Definition</b>: Left/right exact, see Stacks Project Tag 003.
+</p>
+
+<p>
+<b>Lemma</b>: If \(F\) is a left adjoint of \(G\), and \(F, G\) are additive, \(F\) commutes with colimits.
+</p>
+
+<p>
+<i>Proof</i>: Use Yoneda.
+</p>
+
+<p>
+<b>Lemma</b>: Let \(X \in \Ob(A)\), \(A\) an abelian category; then \(\Hom(X, -)\) is a functor \(A \rightarrow Ab\), and it is left exact.
+</p>
+</div>
+
+<div id="outline-container-orgefd216c" class="outline-3">
+<h3 id="orgefd216c"><span class="section-number-3">3.1.</span> Projective Modules</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+<b>Definition</b>: An object \(X\) of \(A\) is said to be projective if \(\Hom(X, -)\) is exact, and dually it is injective if the contravariant Hom is exact. See Stacks Tag 013A for more details.
+</p>
+
+<p>
+<b>Lemma</b>: TFAE for \(P \in Mod_R\) projective:
+</p>
+<ol class="org-ol">
+<li>\(P\) is compact ni \(Mod_R\)</li>
+<li>\(\Hom(P, -)\) commutes with direct sums</li>
+<li>\(P\) is finitely presented</li>
+<li>\(P\) is finitely generated</li>
+<li>\(P\) is a direct summand of a finite free module</li>
+</ol>
+
+<p>
+<b>Theorem (Quillen)</b>: If \(R\) is commutative Noetherian and any projective \(R\)-module is stably free, then the same is true for \(R[t]\).
+</p>
+
+<p>
+<b>Theorem (Quillen-Suslind)</b>: Any finite projective module over \(k[x_1, \dots, x_n]\) is free (also true over PID).
+</p>
+
+<p>
+<b>Lemma</b>: \(k[x]\) is a PID, and for any commutative PID \(R\), TFAE for \(M\) a \(R\)-module:
+</p>
+<ol class="org-ol">
+<li>\(M\) is a submodule of a free module</li>
+<li>\(M\) is free</li>
+<li>\(M\) is projective</li>
+</ol>
+
+<p>
+<b>Theorem</b>: Same over local rings, without finiteness conditions.
+</p>
+
+<p>
+<i>Proof</i>: See new Matsumura, chapter 2.
+</p>
+
+<p>
+<b>Lemma</b>: For \(R\) commutative, TFAE:
+</p>
+<ol class="org-ol">
+<li>Any stably free \(R\)-module is free</li>
+<li>For all \(m\) and any \(r_1, \dots, r_n\) generating the unit ideal, there is some \(A \in GL_n(R)\) such that \(r_1, \dots, r_n\) form the first column.</li>
+</ol>
+
+<p>
+For reference, see <a href="https://kconrad.math.uconn.edu/blurbs/linmultialg/stablyfree.pdf">https://kconrad.math.uconn.edu/blurbs/linmultialg/stablyfree.pdf</a>.
+</p>
+
+<p>
+<b>Definition</b> We say that an abelian category \(A\) has enough projectives, if for all \(X \in A\) there is a projective \(P\) which surjects onto \(X\).
+</p>
+
+<p>
+For example, \(Mod_R\) certainly has enough injectives, since you can just take a really big free module.
+</p>
+
+<p>
+<b>Lemma</b>: Let \(A\) be abelian with small colimits and an object \(P\) which is compact, projective, and a generator; then we have an exact functor \(A \rightarrow  Mod_R\), and \(X \mapsto \Hom(P, X)\), where \(R = \End_A(P)\).
+</p>
+
+<p>
+Look carefully: this shows that \(Mod_R \cong Mod_{R^{\oplus M}}\) (ref: see Morita equivalence).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org385a00f" class="outline-3">
+<h3 id="org385a00f"><span class="section-number-3">3.2.</span> Injective Modules</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+<b>Definition</b>: \(I \in A\) is injective if \(\Hom(-, I)\) is left exact; similarly, \(A\) has enough injectives if there is always some monic \(X \rightarrow  I\) into an injective object.
+</p>
+
+<p>
+For modules, see Baer&rsquo;s criterion, Stacks Tag 05NU.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org67d2eff" class="outline-3">
+<h3 id="org67d2eff"><span class="section-number-3">3.3.</span> Chain Complexes</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+<b>Definition</b>: \(Ch(A)\), the category of chain complexes of objects of an abelian category \(A\), has objects functors \(\Z \xrightarrow{C_\bullet} A\)
+\[
+    \cdots \rightarrow C_{n+1} \xrightarrow{d_n} C_n  \xrightarrow{d_{n-1}} C_{n+1} \rightarrow \cdots
+\]
+such that \(d_n \circ d_{n+1} = 0\). Furthermore, a morphism of chain complexes is a natural transformation of functors that commutes with the boundary maps. Cochains are chains with the arrows reversed.
+</p>
+
+<p>
+<b>Theorem</b>: Let \(A\) abelian and let \(C\) a full subcategory generated by finitely many elements; then there exists a fully faithful functor \(C \rightarrow Mod_R\) for some \(R\).
+</p>
+
+<p>
+OK I was sleepy so a topic list: derived categories, derived functors as factoring through the derived category, homotopy, etc.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org412fce3" class="outline-2">
+<h2 id="org412fce3"><span class="section-number-2">4.</span> Group Homology</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+<b>Definition</b>: An abelian group \(A\) is a \(G\)-module if it is a \(\Z[G]\)-module. Note that the category of \(G\)-modules is the same as the functor category from \(G\) to \(Ab\), where the first thing is \(G\) regarded as a groupoid with one element.
+</p>
+
+<p>
+<b>Definition</b>: We put:
+\[
+    A^G = \{ga =  a \mid g \in G, a \in A\}
+\]
+and
+\[
+    A_G = A / \{ga - a \mid g \in G, a \in A\}
+\]
+as functors from \(G\)-mod to \(Ab\).
+</p>
+
+<p>
+<b>Lemma</b>: \(A_G \cong \Z \otimes_{\Z[G]}A\), and \(A^G \cong \Hom_G(\Z, A)\), and therefore we have left/right derived functors, which are homology and cohomology functors!
+</p>
+
+<p>
+\[
+    H_0(G, A) = \Z \otimes_{\Z[G]}A = \Z[G]/I_G \otimes{\Z[G]} A = (N\Z[G]) \otimes_{\Z[G]} A \cong NA
+\]
+Similar for cohomology.
+</p>
+</div>
+
+<div id="outline-container-orgdd5dc82" class="outline-3">
+<h3 id="orgdd5dc82"><span class="section-number-3">4.1.</span> Induced Modules</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+<b>Definition</b>: Let \(H \subset G\), with finite index, and \(M\) an \(H\)-module, and define
+\[
+    \Ind^G_H(N) = \Z[H] \otimes_{\Z[H]} M = \{ g \otimes m \mid h \otimes m = 1 \otimes hm \} = \amalg_{s \in G/H} s \otimes M
+\]
+and similarly,
+\[
+    \Coind^G_H = \Hom_{\Z[H]}(\Z[G], M) = \{f: G \rightarrow     M \mid f(hg) = hf(g)\} = \{f(s)\}_{s \in G/H}
+\]
+If the index is finite, these are isomorphic.
+</p>
+
+<p>
+We define the augmentation ideal to be \(I_G = \Ker(\Z[G] \xrightarrow{\epsilon}   \Z)\), under \([g] \mapsto 1\). Then, we know that \(N \rightarrow   \Z[G] \rightarrow   \Z[G]\) has image \(N \Z[G]\), and kernel \(I_G\). Then, consider that
+</p>
+
+<p>
+<b>Lemma</b>: \(\Coind^G_H(-)\) preserves injectives; \(\Ind^G_H(-)\) preserves projectives.
+</p>
+
+<p>
+<i>Proof</i>: Use Tensor-Hom adjunction.
+</p>
+
+<p>
+<b>Lemma</b>: For \(H \subset G\), \(M\) an \(H\)-module, then there are canonical isomorphisms
+\[
+    H^r(G, \Coind^G_H M) \cong H_r(G, M)
+\]
+\[
+    H_r(G, \Ind^G_H M) \cong H_r(G, M)
+\]
+</p>
+
+<p>
+<i>Proof</i>: Take injective/projective resolutions of \(M\), and take coinduced/induced modules.
+</p>
+
+<p>
+<b>Definition</b>: We have two different restrictions, which take \(M \rightarrow \Coind^G_HM\) (where \(m \mapsto (g \mapsto gm\)) or \(M \rightarrow   \Ind^G_HM\) (where, under \([G:H] < \infty\), sends \(m \mapsto \sum_{s \in G/H}s \otimes s^{-1}m\)), and two different corestrictions, which take \(\Coind^G_HM \rightarrow  M\) (where, under \([G:H] < \infty\), sends \(\varphi^H \mapsto \sum_{s \in G/H}s \varphi(s^{-1})\)) and \(\Ind^G_HM \rightarrow  M\) (where \(g \otimes m \mapsto gm\)).
+</p>
+
+<p>
+Now consider the following,
+</p>
+<p align="center">
+<img src="shapirolemma.png" style="width:80%">
+</p>
+<p>
+and the opposite maps, as above.
+</p>
+
+<p>
+<b>Lemma</b>: If \([G:H] = r < \infty\) then the composition \(\text{Cores} \circ \text{Res}\) is just multiplication by \(r\).
+</p>
+
+<p>
+<i>Proof</i>: Check in degree 0, and then it follows for (co)homology.
+</p>
+
+<p>
+<b>Theorem</b>: Assume that \(G\) is finite, with order \(m\); further, suppose we have \(m: A \rightarrow  A\) is an isomorphism. Then, all higher (co)homology groups vanish, and if \(N = \sum_{g \in G}[g]\), then \(H_0(G,A) = H^0(G,A) = NA\).
+</p>
+
+<p>
+<i>Proof</i>: Take \(H\) trivial and call it a day.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org17751b0" class="outline-3">
+<h3 id="org17751b0"><span class="section-number-3">4.2.</span> Explicit Resolutions</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+We want to just take a resolution of \(\Z\) that will let us compute arbitrary homology/cohomology. We take
+\[
+    \cdots \rightarrow  \Z[G \times G \times G] \xrightarrow{\delta}  \Z[G \times G] \xrightarrow{\delta}  \Z[G] \xrightarrow{\epsilon}  \Z \rightarrow  0
+\]
+where
+\[
+    \delta([g_0, \dots, g_r]) = \sum_{i=0}^r(-1)^i[g_0, \dots, \widehat{g_i}, \dots, g_r]
+\]
+Then, I claim that once we apply \(\Hom(-, M)\), we get
+\[
+    \cdots \rightarrow  \Hom_G(\Z[G^{n-1}], M) \rightarrow  \Hom_G(\Z[G^n], M) \rightarrow  \Hom_G(\Z[G^{n+1}], M) \rightarrow   \cdots
+\]
+and this sequence will have the cohomology we want. In particular, note that these \(\Hom\) groups are just all map \(G^r \rightarrow    M\), which we willl call \(C^r(G, M)\).
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org624048f" class="outline-2">
+<h2 id="org624048f"><span class="section-number-2">5.</span> Simplicial Sets</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+<b>Definition</b>: Let \(\Delta\) be the category of nonempty finite totally ordered sets with nondecreasing maps as morphisms.
+</p>
+
+<p>
+<b>Definition</b>: Let \(C\) be a category, and \(Simp(C)\) of \(C\) simplicial objects is the functor category \(\Func(\Delta^{op}, C)\), and \(Cosimp(C)\) is \(\Func(\Delta, C)\).
+</p>
+
+<p>
+<i>Example</i>: Let \(C = Top\), so that \(\Delta^n = \Delta([m]) = \{f: [m] \rightarrow \R_+ \mid \sum_{i=0}^mf(i) = 1\}\). Then, let \(\alpha: [n] \rightarrow [m]\), and set
+\[
+    \Delta(\alpha)(f) = \left(j \in [m] \mapsto \sum_{i \in \alpha^{-1}(j)}f(i)\right)
+\]
+So we obtain \(\Delta^\bullet \in Cosimp(Top)\).
+</p>
+
+<p>
+<b>Definition</b>: The singular simplicial set \(S(X)\) attached ti \(X \in Top\) is defined as
+\[
+    S(X) = \Hom_{Top}(\Delta^\bullet, \underline{X}) \in Simp(Set)
+\]
+</p>
+
+<p>
+<b>Lemma</b>: \(X \mapsto S(X)\) has a left adjoint, denoted \(E \mapsto | E|\), the &ldquo;geometric realization.&rdquo;
+</p>
+
+<p>
+<i>Proof</i>: Note that \(\Hom_{Simp(Sets)}(E, S(X))\) is just the collection of (continuous) maps \(f: E_n \rightarrow  \Hom_{Top}(\Delta^n, X)\) satisfying the appropriate naturality condition, but this is again just the maps \(f: E_n \times \Delta^n \rightarrow X\), again satisfying the appropriate naturality condition; but lastly, this must be all maps \(f: \bigsqcup_{n \in \N}E_n \times \Delta^n \rightarrow X\) satisfying that \(\forall x \in E_n\) and \(\forall s \in \Delta^m\) and \(\forall \alpha : [m] \rightarrow  [n]\), we have that \(f(E(\alpha)x, s) = f(x, \Delta(\alpha)s)\).
+</p>
+
+<p>
+But since \(|E| = \bigsqcup_{n \in \N}E_n \times \Delta^n / \sim\), where \(\sim\) is generated by \((E(\alpha)x, s) \sim (x, \Delta(\alpha)s)\),  these are exactly the same.
+</p>
+
+<p>
+<b>Theorem</b>: For \(X \in Top\), TFAE:
+</p>
+<ol class="org-ol">
+<li>\(X\) is homotopically equivalent to some \(|E|\)</li>
+<li>The adjunction \(|S(X)| \rightarrow X\) is a homotopy equivalence</li>
+<li>\(X\) is Hausdorff and there is some partition \(X = \bigsqcup_n \bigsqcup_{i \in C_n} X_i\) into subsets, such that
+<ol class="org-ol">
+<li>A subset \(F \subset X\) is closed iff \(\forall i, F \cap \overline{X_i}\) is closed in \(\overline{X_i}\).</li>
+<li>\(\forall i \in C_n\), there is a \(\Delta^n \xrightarrow{f} X\) continuous such that \(f|_{(\Delta^n)^\circ}\) is a homomorphism onto \(X_i\), and \(f({\delta \Delta^n}) \subset\) a finite union of all cells of degree \(< n\).</li>
+</ol></li>
+</ol>
+<p>
+And if any of the above hold, then \(X\) is a CW complex.
+</p>
+
+<p>
+<b>Theorem</b>: There is a notion of homotopy for simplicial sets, such that it is equivalent to the homotopy category of CW complexes, where one map is given by \(| \cdot |\) and the other by \(S(\cdot)\).
+</p>
+
+<p>
+Under the idea of simplicial sets, we have that
+</p>
+<p align="center">
+<img src="ssimcat.png" style="width:55%">
+</p>
+<p>
+actually represents a category, with \(E_1\) maps, \(E_0\) objects, and \(E_2\) composition! And \(n\) categories are just tacking on \(E_3, \dots, E_n\) onto this diagram!
+</p>
+</div>
+
+<div id="outline-container-orgbd38a27" class="outline-3">
+<h3 id="orgbd38a27"><span class="section-number-3">5.1.</span> Classifying Spaces</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Let \(S\) be a nonempty set, and \(\underline{S}_n\) the maps \([n] \rightarrow  S\), which is now a simplicial set. But its geometric realization is homotopic to a point, so it is not that interesting; but if we consider \(G\) a group, then \(\underline{G}\) has a right \(G\) action, which takes \(fg \mapsto (x \mapsto f(x)g\).
+</p>
+
+<p>
+<b>Definition</b>: We set \(BG = \underline{G}/G\) to be the classifying space of \(G\).
+</p>
+
+<p>
+<b>Definition</b>: Let \(A\) be an abelian category, and let \(X \in Simp(A)\); we construct \(C(X) \in Ch(A)\), by setting \(C(X)_n = X_n\), and letting the differential map be \(\sum_{j=0}^n(-1)^j\iota_j^{*}\) where \(\iota_j: [n - 1] \rightarrow [n]\) is an injection missing \(j\).
+</p>
+
+<p>
+<b>Definition</b>: For \(A\) abelian, we may now define \(H_n(X)\) to be the homology of the chain \(H_n(C(X))\).
+</p>
+
+<p>
+<b>Definition</b>: We have another complex, the Moore complex, while will be in degree \(n\)
+\[
+    N(X)_n = \cap_{j=0}^{n-1} \Ker(\iota_j^*: X_n \rightarrow X_{m-1}) \subset C(X)_n, \ \ \delta_n =  (-1)^n
+\iota_n^*
+\]
+</p>
+
+<p>
+<b>Lemma</b>: The inclusion \(N(X) \rightarrow   C(X)\) induces \(H_n(N(X)) \cong H_n(X)\).
+</p>
+
+<p>
+<b>Theorem (Dold-Kan Correspondence)</b>: The functor \(Simp(A) \xrightarrow{N}  Ch_{\geq 0}(A)  \) is an equivalence of abelian categories.
+</p>
+
+<p>
+<b>Definition</b>: We set for \(X \in Simp(Sets)\), \(H_n(X, R) = H_n(R^{\oplus X})\), and if \(X \in Top\), then \(H_n(X, R) = H_n(S(X), R)\), where the homology is taken with coefficients in \(R\), a ring.
+</p>
+
+<p>
+<b>Theorem</b>: The inclusions \(\lambda_0, \lambda_1: X \rightarrow X[0, 1]\), given by \(\lambda_i: x \mapsto (x, i)\) induce the same homomorphism \(H_n(X, R) \rightarrow   H_n(X \times [0, 1], R)\).
+</p>
+
+<p>
+<b>Corollary</b>: If \(f, g: X \rightarrow Y\) are homotopic, then \(H_n(f, R) = H_n(g, R)\); further, if \(f: X \rightarrow  Y\) is a homotopy equivlance then \(H_n(f, R)\) is ana isomorphism.
+</p>
+
+<p>
+<i>Proof</i>: There is some \(H: X \times [0, 1] \rightarrow  Y\) which is a homotopy between \(f,g\). Then,
+</p>
+\begin{align*}
+    H_n(f) = H_n(\lambda_0)H_n(H) = H_n(\lambda_1)H_n(H) = H_n(g)
+\end{align*}
+
+<p>
+<b>Theorem</b>:
+</p>
+<ol class="org-ol">
+<li>If \(X \in Simp(Set)\), then \(X \rightarrow S(|X|)\) ia a homotopy equivalence, and in particular \(H_n(X, R) \cong H_n(S(|X|), R)\).</li>
+<li>If \(X\) is a CW complex, then \(H_n(|S(X)|, R) \cong H_n(X, R)\).</li>
+</ol>
+
+<p>
+<i>Example</i>: Let us consider \(S^1\). In particular, \(S^1\) is a line with endpoints identified, so we may let
+</p>
+<p align="center">
+<img src="s1diag.png" style="width:40%">
+</p>
+<p>
+Then, \(E_n\) is just generated by formally adding degeneracies of \(t\); let us look at \(C(R[E])\), so we have a complex
+\[
+    0 \rightarrow R[t] \xrightarrow{t \mapsto \iota_0^*t - \iota_1^*t = 0} R[a] \rightarrow   0
+\]
+so we see that \(H_1(S^1, R) \cong H_0(S^1, R) \cong R\). If we don&rsquo;t glue things together, so it&rsquo;s just an interval \(I\), then we get the complex
+\[
+    0 \rightarrow    R[t] \rightarrow  R[a_0] \oplus R[a_1] \rightarrow 0
+\]
+so we see that \(H_1(I, R) = 0\), \(H_0(I, R) = R\).
+</p>
+
+<p>
+We may also do \(S^1 \times S^1\), under the triangulation
+</p>
+<p align="center">
+<img src="torustria.png" style="width:25%">
+</p>
+<p>
+so we can see the complex will be
+\[
+    R[\delta_0] \oplus R[\delta_1] \rightarrow   R[a] \oplus R[b] \oplus R[c] \rightarrow    R[e] \rightarrow  0
+\]
+so that \(H_0 = R, H_1 = R^{\oplus 2}, H_2 = R\).
+</p>
+
+<p>
+In general, if \(X \in Top\), then \(C(S(X), R)\) will end in
+\[
+    \text{free modules on paths} \rightarrow \text{free modules on points} \rightarrow  0
+\]
+so it must be \(H_0\) is the set of free \(R\)-modules on \(X / (f(0) \sim f(\lambda), f \in C^0([0, 1], X))\), or the set of path-connected components of \(X\).
+</p>
+
+<p>
+<b>Theorem</b>: \(H_1(X, \Z) \cong \pi_1(X)^{ab}\).
+</p>
+
+<p>
+<i>Proof</i>: \(\pi_1\) is just the homotopy classes of \(f: \Delta^1 \rightarrow   X\), such that \(f\iota_0 = f\iota_1\); in particular, we have a map \(\pi_1 \rightarrow  Z_1(C(S(X)))\), where \(f \mapsto [f]\), where we have that \(df = [f\iota_0] - [f\iota_1] = 0\).
+</p>
+
+<p>
+Then, we have, since \(Z_1(C(S(X))) / B_1 \cong H_1\) is abelian, we have a map that factors \(\pi_1^{ab} \rightarrow H_1\). Then, just check injective/surjective.
+</p>
+
+<p>
+<b>Theorem</b>: Let \(G\) be a group; then the \(H_n(G, R) \cong H_n(BG, R) \cong H_n(|BG|, R)\). In fact, \(\pi_1(BG) = G, \pi_k(BG) = 0\) otherwise; that is, it is a \(K(G,1)\) space.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcab57a4" class="outline-3">
+<h3 id="orgcab57a4"><span class="section-number-3">5.2.</span> Homotopy Groups</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+Let \(X\) be a topological space, and set \(\pi_k(X)\) the fundamental group in degree \(k\), e.g. all maps \(S^k \rightarrow  X\) identified up to homotopy. Note that in general, \(\pi_0\) is just a set, \(\pi_1\) is a group, and \(\pi_k\) is an abelian group for higher \(k\).
+</p>
+
+<p>
+<b>Theorem</b>: The group homology of \(G\) is the same as the singular homology of a \(K(G, 1)\) space.
+</p>
+
+<p>
+We will also take
+\[
+    \Conf_n(\C) = \{(z_1, \dots, z_n) \in \C^n \mid z_i \neq z_j \text{ for } i \neq j\}
+\]
+and show that it is path connected and has \(\pi_1\) the pure braid group.
+</p>
+
+<p>
+<b>Definition</b>: A continuous map \(p: E \rightarrow  B\) is a fiber bundle with typical fiber \(F\) if \(\forall b \in B\), there is \(U\) open containing \(b\) such that
+</p>
+<p align="center">
+<img src="fiber.png" style="width:30%">
+</p>
+<p>
+conmmutes.
+</p>
+
+<p>
+Note that if \(p: E \rightarrow B\) is a fibration with fiber \(F\) path-connected, we can make a long exact sequence
+\[
+    \cdots \rightarrow    \pi_2 (B) \rightarrow   \pi_1 (F) \rightarrow    \pi_1 (E) \rightarrow  \pi_1 (B) \rightarrow  0
+\]
+</p>
+
+<p>
+<b>Theorem</b>: \(\pi_1(\Conf_n(\C))\) is the pure braid group, and every other homotopy class is trivial.
+</p>
+
+<p>
+Let \(O_n = \Conf_n(\C_n)\) be the covering space of \(U_n\) so that it is a fiber bundle with fiber \(S_n\). In this case, we have a s.e.s.
+\[
+    1 \rightarrow  \pi_1 (O_n) \rightarrow   \pi_1 (U_n) \rightarrow S_n \rightarrow  1
+\]
+</p>
+
+<p>
+<i>Proof</i>: Consider \(n = 2\);  then, \(\C^2\setminus \Delta \cong S^1\), so \(\pi_1(O_2) \cong \pi_1 (S^1) \cong \Z\). Then, \(U_2 = \{(s_1, s_2) \mid s_1^2 \neq s_2\}\). Then we see that
+\[
+    U_2 \rightarrow  \C^2 \setminus \C \times \{0\} \cong S^1
+\]
+and the s.e.s. must be
+\[
+     0 \rightarrow   \Z \rightarrow  \Z \rightarrow  \Z/2 \rightarrow    0
+\]
+</p>
+
+<p>
+If you think a little, then \(\pi_1(U_n)\) must be the (geometric) braid group, and \(\pi_1(O_n)\) must be the (geometric) pure braid group; in fact we will take this by fiat and make this our definitions for these groups.
+</p>
+
+<p>
+Furthermore, the higher homotopy groups must be 0, since we have that \(O_n \rightarrow  O_{n-1}\) via forgetting the last coordinate has fiber \(\C \setminus \{z_1, \dots, z_{n-1}\}\), and so we must have that for \(k \geq 2\), we have the l.e.s.
+\[
+    \cdots \rightarrow   \pi_k (F) = 0 \rightarrow  \pi_k(O_n) \rightarrow   \pi_k (O_{n-1}) = 0 \rightarrow \cdots
+\]
+</p>
+
+<p>
+The last thing to do is to check that our geometric groups line up with the group representations
+\[
+    \widetilde{B}_n \cong \left\langle (\sigma_i)^{n-1}_{i=1} \mid \sigma_i\sigma_j = \sigma_i\sigma_i \text{ for }  |i - j| > 2, \sigma_i\sigma_j\sigma_i = \sigma_j\sigma_i\sigma_j \text{ for } |i - j| = 1\right\rangle
+\]
+The entire thing is kind of long and annoying! So I will just make the remark that it&rsquo;s really clear if you take \(\sigma_i\) to be the braid that crosses the threads connecting \(i\) and \(i + 1\) once. In fact, it is good enough to check the pure braid group lines up with the representation (I am <b>not</b> typing this)
+</p>
+<p align="center">
+<img src="purebraid.png" style="width:60%">
+</p>
+<p>
+But we can just check this for \(S_{ij}\) to be (draw a picture, and don&rsquo;t look at this!)
+\[
+    S_{ij} = \sigma_{j-1}^{-1}\sigma_{j-2}^{-1}\cdots\sigma_{i+1}^{-1}\sigma_{i^2}\sigma_{i+1}\cdots\sigma_{j-2}\sigma_{j-1}
+\]
+for \(i < j\).
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3837d12" class="outline-2">
+<h2 id="org3837d12"><span class="section-number-2">6.</span> Spectral Sequences</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+If we have some s.e.s.
+\[
+    1 \rightarrow    G \rightarrow   G' \rightarrow  G'' \rightarrow    1
+\]
+how do we relate \(H_p(G')\) and \(H_p(G'', H_q(G))\)?
+</p>
+
+<p>
+Let \(F: A \rightarrow  B\) a left exact functor between abelian categories with enough injectives; and \(G: B \rightarrow  C\) also left exact. For \(X \in \Ob(A)\), we want to compute \(R(G \circ F)(X)\), the right dervied functor of the compositions; in particular if we take an injective resultion \(X \rightarrow I^\bullet\), then \(R(G \circ F)(X)\) is quasiisomorphic to \((G \circ F)(I^\bullet)\), and \(RF(X)\) is quasiisomorphic to \(F(I^\bullet)\).
+</p>
+
+<p>
+<b>Lemma</b>: If \(0 \rightarrow X \rightarrow Y \rightarrow Z \rightarrow   0\) in \(B\) and if \(X \rightarrow  I^\bullet_X, Z \rightarrow I^\bullet_Z\) are injective resolutions, then there is an exact sequence
+\[
+    0 \rightarrow    I_X^\bullet \rightarrow     I_Y^\bullet \rightarrow     I_Z^\bullet \rightarrow     0
+\]
+and we may write \(Y \rightarrow   I_Y^\bullet\) an injective resolution.
+</p>
+
+<p>
+<b>Lemma (Cartan-Eilenberg Resolution)</b>:  Let \(B\) be an abelian category with enough injectives, and \(C^\bullet\) a bounded below complex. Then, there is a sequence such that
+</p>
+<ol class="org-ol">
+<li>For all \(q\),
+\[
+        C^{q} \rightarrow   I^{q,0} \rightarrow I^{q,1}
+    \]
+is an injective resolution.</li>
+<li>For all \(q\),
+\[
+        Z^q(C^\bullet) \rightarrow  Z^q(I^{\bullet, c}) \rightarrow Z^q(I^{\bullet, I})
+    \]
+is an injective resolution.</li>
+<li>Same for \(B^q = \Im(d^{q-1}) \subset Z^q\)</li>
+<li>Same for \(H^q\)</li>
+</ol>
+
+<p>
+<i>Proof</i>: Take s.e.s.
+\[
+    0 \rightarrow    B^q(C^\bullet) \rightarrow Z^q(C^\bullet) \rightarrow  H^q(C^\bullet) \rightarrow  0
+\]
+and
+\[
+    0 \rightarrow    Z^q(C^\bullet) \rightarrow C^q \rightarrow  B^{q+1}(C^\bullet) \rightarrow 0
+\]
+Now let \(H^{q, \bullet}\) be an injective resolution of \(H^q(C^\bullet)\), and \(B^{q, \bullet}\) be an injective resolution of \(B^q(C^\bullet)\). From the earlier lemma, let \(Z^{q, \bullet}\) be an injective resolution of \(Z^{q}(C^\bullet)\) fitting into a diagram
+</p>
+<p align="center">
+<img src="cartan-eil-res1.png" style="width:50%">
+</p>
+<p>
+Again by the lemma, there is an injective resolution \(C^q \rightarrow  I^{q, \bullet}\) fitting into the diagram
+</p>
+<p align="center">
+<img src="cartan-eil-res2.png" style="width:50%">
+</p>
+<p>
+We have \(C^\bullet \rightarrow I^\bullet\) by construction, and we define a differential \(I^{q, \bullet} \rightarrow  I^{q+1,\bullet}\) as the composition given by \(\iota' \circ \iota \circ \pi'\), where \(\iota: B^{q+1, \bullet} \rightarrow    Z^{q+1, \bullet}\) is the inclusion.
+</p>
+
+<p>
+Then, we have
+\[
+    \Ker(d^q) \cong Z^{q,\bullet}, \ \Im(d^q) \cong B^{q+1, \bullet}
+\]
+which gives use everything we want. See Stacks Tag 015G for more details.
+</p>
+
+<p>
+Now, let \(A \xrightarrow{F} B \xrightarrow{G} \rightarrow  C\) and \(X \rightarrow I^\bullet\) be as earlier (we technically need \(B\) with small coproducts), and let \(F(I^\bullet) \rightarrow   I^{\bullet, \bullet}\) be a Cartan-Eilenberg resolution.
+</p>
+
+<p>
+<b>Definition</b>: We put
+\[
+    \Tot^n(I^{\bullet,\bullet}) = \bigoplus_{p+q = n}I^{p,q}
+\]
+with differential \(d: \Tot^m \rightarrow   \Tot^{m+1}\), given by \(d^{n}|_{I^{p,q}} = d_{\uparrow} + (-1)^p()d_{\rightarrow}\).
+</p>
+
+<p>
+We have \(F(I^q) \xrightarrow{\iota} I^{0, q} \subset Tot^q(I^{\bullet, \bullet})\); similarly, let \(x \in F(I^q)\); then we have
+\[
+    d^q_{\Tot}\iota x = d_{\uparrow}\iota x + d_{\rightarrow}^0 \iota x = d_{\uparrow} \iota x = \iota \delta^q x
+\]
+</p>
+
+<p>
+We have a few questions:
+</p>
+<ol class="org-ol">
+<li>Is \(F(I^\bullet) \rightarrow \Tot^\bullet(I^{\bullet,\bullet})\) is a quasiisomorphism? If so, then \(RGRF X^\bullet\) is quasiisomorphic to \(\Tot^\bullet(G(I^{\bullet, \bullet})\).</li>
+<li>How do we compute the cohomology of \(\Tot^\bullet\)?</li>
+</ol>
+
+<p>
+We can do this more generally.
+</p>
+
+<p>
+<b>Definition</b>: A filtered complex is a complex \(D^\bullet\) alongside \(\Fil^q(D^\bullet)\), such that
+</p>
+<ol class="org-ol">
+<li>\(\Fil^q(D^\bullet) \hookrightarrow D^\bullet\) is an inclusion of a subcomplex.</li>
+<li>We have \(\Fil^q(D^\bullet) \hookleftarrow \Fil^{q+1}(D^\bullet)\).</li>
+<li>\[
+        \bigcup_q \Fil^q(D^\bullet) = D^\bullet
+    \]</li>
+<li>\[
+        \bigcap_q \Fil^q(D^\bullet) = 0^\bullet
+    \]</li>
+</ol>
+
+<p>
+In particular, notice that the complex \(D^\bullet = \Tot^\bullet(I^{\bullet, \bullet})\) is equipped with a filtration
+\[
+    \Fil^q(I^n) = \bigoplus_{p' + q' = n, q' \geq q}I^{p', q'}
+\]
+and we note that \(\Fil^q / \Fil^{q+1} \cong I^{n-q, q}\). Similarly, we have the analogy that \(I^{p,q}\) should be
+\[
+    \Gr^q (D^{p+q}) = \Fil^q (D^{p+q}) / \Fil^{q+1}(D^{p+q})
+\]
+</p>
+
+<p>
+We want to understand the cohomology of a filtered complex \(D^\bullet\) in terms of \(\Gr^q(D^\bullet)\). Let&rsquo;s work in a module category for now.
+</p>
+
+<p>
+Warning! Indicies are <i>probably</i> wrong. Check them!
+</p>
+
+<p>
+We have then that
+\[
+    H^q(C^\bullet) = \frac{\{x \in C^q \mid dx = 0\}}{\{dy \mid y \in C^{q-1}\}}
+\]
+as well as
+\[
+    \{x \in C^q \mid dx = 0\} = \bigcap_{r \geq 0} \{ x \in \Fil^p(C^q) \mid dx \in \Fil^{p+r}(C^q)\} = \bigcap_{r \geq 0}F_{r}^{p,q}
+\]
+and
+\[
+    \{dy \mid y \in C^{q-1}\} = \bigcup_{r \geq 0} \{ y \in \Fil^{p-r}(C^q) \mid dy \in \Fil^{p}(C^q)\}
+\]
+Now let
+\[
+    Z_{r}^{p,q} = \frac{F^{p,q}_r}{F^{P+1,q-1}_{r-1}}
+\]
+and
+\[
+    B^{p,q}_r = \frac{d F^{p+1-r,q+r-2}_{r-1} + \Fil^{p+1}C^{p+q}}{d \Fil^{p+1}(C^{p+q})} = \frac{dF_{r-1}^{p+1-r, q+n-2}}{dF_r^{p+1-r, q+r-2}}
+\]
+</p>
+
+<p>
+Let us finally define
+\[
+    E_r^{p,q} = \frac{Z_r^{p,q}}{B^{p,q}_n}
+\]
+But now, we have a mapping
+\[
+    F_r^{p,q} \xrightarrow{d} F_r^{p+r,q+1-r}
+\]
+so we have, for example,
+</p>
+\begin{align*}
+    E_0^{p,q} &= \Gr^p(C^{p+q}) = I^{p,q} \\
+    E_1^{p,q} &= \frac{\Ker(\Gr^p(C^{p+1}) \rightarrow  \Gr^{p+1}(C^{p+q}))}{d \Gr^{p}(C^{p+q-1})} = H^{p+q}(\Gr^p(C^\bullet)) \\
+\end{align*}
+<p>
+and so on.
+</p>
+
+<p>
+We examine the differential more closely now; in particular we have a map \(F_n^{p,q} \xrightarrow{d_n} E^{p+r, q+1-r}_r\), sending \([x] \mapsto [dx]\). Cruicially, this is well-defined (check!) and factors through \(Z_n^{p,q}\); if \(x \in F_{r-1}^{p+1,q-1}\) we have \(x \in F^{p+r+1-r,q+1-r+r-2}_{r-1}\), hence \([dx] \in B_r^{p+r, q+1-r}\) which is killed in the quotient. And so it must factor through \(E_r^{p,q}\) as well, since \(d^2 = 0\).
+</p>
+
+<p>
+<b>Definition</b>: We call \(E_r^{p,q}\) the \(r^{th}\) page of the spectral sequence associated to the origiinal filtered complex.
+</p>
+
+<p>
+<b>Theorem</b>: We have a natural isomorphism
+\[
+    E_{r+1}^{p,q} \cong \frac{\Ker(d_2: E_r^{p,q} \rightarrow  E_{r}^{p+r,q-r+1})}{\Im(d_r: E_r^{p-r,q+r-1} \rightarrow E_r^{p,q})}
+\]
+given just by inclusion; we may call this map \(\iota\). In other words, we go to the next page of the spectral sequence by taking (co)homology.
+</p>
+
+<p>
+<i>Proof</i>: Let \(x \in F_r^{p,q}\) with \(dx = 0\) in \(E_r^{p+r,q+1-r}\); thus \(dx = dy + z\) for \(y \in F_{r-1}^{p+1,q-1}\) and \(z \in F_{r-1}^{p+r+1, q-r}\). Thus, \(d(x-y) = z\), so \([x] = [x-y] \in Z_n^{p,q}\); thus \(x - y \in F_{n+1}^{p,q}\), and \([x]  = \iota [x-y]\). So the
+</p>
+
+<p>
+So \(\iota\) is surjective; to check injectivity, let \(x \in F_{r+1}^{p,q}\) such that \(\iota [x] = 0\), i.e. such that \([x] = [dy]\) in \(E_{r}^{p,q}\), where \(y \in F_r^{p-r, q+r-1}\). Thus, we have \(x - dy = dz + t\), where \(z \in F_{r-1}^{p+1-r, q+r-2}\) and \(t \in F_{r-1}^{p+1,q-1}\), so \(x  = d(y+z) + t\). Now note that \(dt = dx \in \Fil^{p+r+1}(C^{p+q+1})\), so it must be that \(t \in F_r^{p+1,q-1}\) in fact. So we win, since \(d(y+z) = x-t \implies y + z \in F_{r}^{p-r, q+r-1}\), and we conclude that \([x] = 0\).
+</p>
+
+<p>
+<b>Definition</b>: We say that the spectral sequence degenerates on page \(r\), if for all \(r' \geq r\),  we have that \(d_{r'} = 0\).
+</p>
+
+<p>
+<b>Prop</b>: If \(E_r^{p,q}\) degenerates at \(r\), the filtration on \(H^\bullet(C)\) indueced by \(H^n(\Fil^p)\) has \(p^{th}\) graded terms isomorphic to \(E_r^{p, n-p}\), and we put \(E_n^{p,q} \implies H^{p,q}(C)\).
+</p>
+
+<p>
+<i>Example</i>: We take the following diagram, where the rows are exact and the left and right columns are exact.
+</p>
+<p align="center">
+<img src="9lemma1.png" style="width:40%">
+</p>
+<p>
+We may take the spectral sequence with \(0^{th}\) page \(d_{ \rightarrow  }\), and we obtain by exactness \(E_1^{p,q} = 0\); so it stabilizes at \(r = 1\), so \(H^n(\Tot) = 0\).  However, if we take the spectral sequence with \(0^{th}\) page \(d_{\uparrow}\), we have that the \(E_1\) page looks like this
+</p>
+<p align="center">
+<img src="9lemma2.png" style="width:30%">
+</p>
+<p>
+but since either the target or the source of each morphism is 0, we see that the sequence degenerates. So it must be that \(H^1(\Tot) = \Ker(\iota) = 0\), \(H^2(\Tot) = \frac{\Ker(\pi)}{\Im(\iota)} = 0\), and \(H^3(\Tot) = \text{Coker}(\pi) = 0\). This proves the Nine Lemma.
+</p>
+</div>
+
+<div id="outline-container-orgb063db5" class="outline-3">
+<h3 id="orgb063db5"><span class="section-number-3">6.1.</span> Grothendieck Spectral Sequences</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+<b>Theorem</b>: Let \(F: A \rightarrow   B\) be left exact between abelian categories with enough injectives, and let \(G: B \rightarrow C\) be left exact, such that for all injective \(I \in \Ob(A)\), \(F(I)\) is \(G\)-acyclic; that is, \(R^qG(F(I)) = 0\) for \(q > 0\). Then, there is a natural exact sequence such that
+\[
+    E^{p,q}_2 = R^pG(R^qFX) \implies R^{p+q}(G \circ F)(X)
+\]
+for \(X \in \Ob(A)\). In particular, we have that \(R(GF)(X)\) is quasiisomorphic to \(RG \circ RF (X)\).
+</p>
+
+<p>
+<i>Proof</i>: Let \(X \rightarrow    I^\bullet\) be an injective resolution, and let \(F(I^\bullet) \rightarrow I^{\bullet, \bullet}\) be a Cartan-Eilenberg Resolution. Then, there is an induced homomorphism \(F(I^\bullet) \rightarrow  \Tot(I^{\bullet, \bullet})\) of complexes, and it is a quasiisomorphism.
+</p>
+
+<p>
+To see this, we note that by construction,
+\[
+    E^{p,q}_{1,\rightarrow} = \begin{cases}
+        F(I^q)  & p = 0 \\
+        0 & p \neq 0
+    \end{cases}
+\]
+so it must be that this spectral sequence degenerates at the \(E_1\) page, so \(F(I^q) \cong H^q(\Tot(I^{\bullet, \bullet}))\). We apply \(G(I^{\bullet, \bullet})\), and see that
+</p>
+\begin{align*}
+    E^{p,q}_{1, \rightarrow} &= R^qG(F(I^q)) \\
+    E^{p,q}_{1, \uparrow} &= G(H^{p,q})
+\end{align*}
+<p>
+since the sequences
+\[
+    0 \rightarrow B^{p-1,q} \rightarrow Z^{p,q} \rightarrow H^{p,q} \rightarrow 0
+\]
+and
+\[
+    0 \rightarrow Z^{p,q} \rightarrow I^{p,q} \rightarrow B^{p+1,q} \rightarrow 0
+\]
+split since everything in sight is injective, so they remain exact after applying \(G\). Then, we have that \((H^{p,q})_{p \in \Z}\) is an injective resolution of \(H^{p}(F(I^\bullet)) = R^pF(X)\). Therefore, we have that \(E_{2, \uparrow}^{p,q} = R^qG(R^pFX)\). Furthermore, since \(\Tot^\bullet(G(I^{\bullet, \bullet})) = G(\Tot^\bullet(I{^\bullet,\bullet}))\), and since from before \(\Tot^\bullet(I^{\bullet, \bullet})\) is quasiisomorphic to \(F(I^\bullet)\), we must have
+\[
+    \Tot\bullet(I^{\bullet, \bullet}) \cong RG(F(I^\bullet)) \cong RG \circ RF(X)
+\]
+</p>
+
+<p>
+Now note that by assumption \(R^qG(F(I^q)) = 0\) for \(q > 0\), so then
+\[
+    E^{p,q}_{1, \rightarrow} = \begin{cases}
+        GF(I^p) & q = 0 \\
+        0 & q \neq 0
+    \end{cases}
+\]
+Thus we have that this spectral sequence degenerates at \(E_1\), and thus \(GF(I^\bullet)\) is quasiisomorphic to \(\Tot(G(I^{\bullet,\bullet}))\).
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org138bf1d" class="outline-3">
+<h3 id="org138bf1d"><span class="section-number-3">6.2.</span> Application to Group Homology</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+Let \(G\) be a group, and \(H^q(G, -)\) the right derived functor of the left exact functor \(Mod_{R[G]} \rightarrow    Mod_R\) sending \(M \mapsto M^G\), and \(H_q(G, -)\) the left dervied functors of \(M \mapsto M_G\).
+</p>
+
+<p>
+Let us consider an exact sequence
+\[
+    1 \rightarrow   P \rightarrow    G \rightarrow    Q \rightarrow   1
+\]
+Then for \(M\) a \(G\)-module, we have that \(M^G = (M^P)^Q\), i.e. we have
+</p>
+<p align="center">
+<img src="compgrphom.png" style="width:60%">
+</p>
+<p>
+Then, if \((-)^P\) sends \(R[G]\)-injectives to \(H^\bullet_r(P, -)\) acyclic then we obtain a natural spectral sequence
+\[
+    E_2^{p,q} = H^q(Q, H^p(P, M)) \implies H^{p+q}(G, M)
+\]
+</p>
+
+<p>
+<b>Lemma (Five-term exact sequence)</b>: Let \(M^{p,q}\) be a double complex in the first quadrant, \(A\) its total complex, and \(E^{p,q}_2 \implies H^n(A)\) be the second page of its spectral sequence. Then there is an exact sequence
+\[
+    0 \rightarrow E_2^{1,0} \rightarrow H^1(A) \rightarrow  E_2^{0,1} \rightarrow   E_2^{2,0} \rightarrow   H^2(A)
+\]
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5e38db9" class="outline-2">
+<h2 id="org5e38db9"><span class="section-number-2">7.</span> Symmetry Groups</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Look at the following table of homology:
+</p>
+<p align="center">
+<img src="symmhomo.png" style="width:80%">
+</p>
+<p>
+Then we have a few conjectures:
+</p>
+<ol class="org-ol">
+<li>\(\forall n \geq 2q\), \(H_qS_n \rightarrow H_qS_{n+1}\) is an isomorphism</li>
+<li>\(\forall n\), \(H_qS_{n-1} \rightarrow H_qS_n\)  is an injection</li>
+<li>\(\forall n\), \(H_qS_n / H_qS_{n-1}\) is killed by \(n\).</li>
+</ol>
+
+<p>
+The last one is actually easy to prove; just use restriction/corestriction.
+</p>
+
+<p>
+Remember the ealier discussion of contravariant functors \(FI \rightarrow  Sets\).
+</p>
+
+<p>
+Let \(W_p = C_\bullet (\Hom_{FI}(-, [1, p])) \in Ch(Mod_{\Z[S_p]})\).
+</p>
+
+<p>
+<b>Theorem</b>: \(H_0W_p \cong \Z\). Furthermore, if \(0 < q < p/2\), we have \(H_qW_p = 0\).
+</p>
+
+<p>
+The strategy goes as follows: let \(P_\bullet\) be a projective resolution of \(\Z\) as an \(\Z[S_n]\) module (for example, the bar complex is a free resolution). Then, we look at the double complex \(E^{0}_{p,q} = P_p \otimes_{\Z[S_n]} (W_n)_q\). Then, we see that
+</p>
+<ol class="org-ol">
+<li>\(E^{1,\uparrow}_{p,q} = H_p(S_n, (W_n)_q)\)</li>
+<li>\(E^{1,\rightarrow}_{p,q} = P \otimes H_qW_n\)</li>
+<li>\(E^{2, \rightarrow}_{p,q} = H_p(S_n, H_qW_n)\)</li>
+</ol>
+
+<p>
+Then, use the last theorem and look at the \(E^{2}\) page and win.
+</p>
+
+<p>
+Let us examine \((W_n)_q\) as a \(\Z[S_n]\) module more closely. In particular, we have that \((W_n)_q \cong \Z[\Hom([q], [1,n])]\), so if \(p \leq q\), it is \(0\), and if \(p \geq q +1\), we have that it must be
+\[
+    \bigoplus_{f \in \Hom([q, [1,n]]) / S_n}\Z[S_n / \{\sigma \in S_n \mid \sigma|_{\Im(f)} = \id\}]
+\]
+Note that the summand is also just \(\Ind^{S_n}_{S_{n-p-1}} \Z\).
+But by Schapiro&rsquo;s lemma, we see that
+\[
+    H_p(S_n, (W_n)_q) \cong \bigoplus_{f \in \Hom([p],[1,n]) / S_n} H_p(S_{n-q-1}, \Z)
+\]
+</p>
+
+<p>
+Note that we have the differential mapping
+\[
+    d[f] = \sum_{i=0}^q(-1)^i[f \circ e_i]
+\]
+where each \(e_j\) is a non-decreasing injection that misses \(j\).
+</p>
+
+<p>
+We can endow \(W_n\) with the increasing filtration
+\[
+    \Fil_p W_n =  \begin{cases} W_p & p \leq n \\ W_n & p > n \end{cases}
+\]
+with graded parts
+\[
+    (\Gr_p W_n)_q = \begin{cases}
+        0 & p > n \text{ or p < 0 } \\
+        \bigoplus_{\substack{f: [q] \rightarrow [1,p] \\ p-1 \in \Im(f)}} & \Z[f]
+    \end{cases}
+\]
+We may also rewrite this to be
+\[
+    (\Gr_p W_n)_q = \bigoplus_{j=0}^q D_j(W_{p-1})_{q-1}
+\]
+where
+\[
+D_j[f] = \left[ i \mapsto \begin{cases} f(i) & i < j \\ p & i = j \\ f(i-1) & i > j\end{cases} \right]
+\]
+</p>
+
+<p>
+But does this preserve the differential? We compute that
+</p>
+\begin{align*}
+    dD_j[f] &= \sum_{i=0}^q(-1)^i(D_j[f])e_i  \\
+            &= \sum_{i=0}^{j-1} (-1)^i(D_{j-1}[f \circ e_i]) + \sum_{i=j+1}^{q} (-1)^i(D_{j}[f \circ e_{i-1}])\\
+            &= \sum_{0 \leq i < j}(-1)^uD_{j-1}([f \circ e_i]) - \sum_{j \leq i \leq q - 1}(-1)^{i}D_j([f \circ e_i])
+\end{align*}
+<p>
+Note that since \(f\) misses \(p\), the \(i=j\) term vanishes. So unfortunately the \(D_j\) symbols don&rsquo;t form a subcomplex. But we do have that \(dD_0[f] = - D_0d[f]\)! And everything gets messy afterwards pretty quickly. Further, we do have that for all \(k\), \(\bigoplus_{j \leq k}D_jW_{p-1}\) is a subcomplex of \(\Gr_pW_n\).
+</p>
+
+<p>
+We can also talk about the homology of \(W_n\). In particular, we see that
+</p>
+\begin{align*}
+    W_0 &= 0 \\
+    W_1 &= \Z[0] \\
+    W_2 &= [\Z[\id] \oplus \Z[\tau] \rightarrow \Z[i_0] \oplus \Z[\iota_1]] \\
+    H_0W_2 &= \Z^{\oplus 2}/\Z(-1, 1) \cong \Z \\
+    H_1W_2 &= \Z([\id] + [\tau]) \cong \Z
+\end{align*}
+<p>
+And so on.
+</p>
+
+<p>
+Now, note the spectral sequence associated to the filtration, which is
+</p>
+\begin{align*}
+    E_{p,q}^0 &= (\Gr_pW_n)_{p+q} \\
+    E_{p,q}^{1} &= H_{p+q}(\Gr_p W_n) \\
+\end{align*}
+<p>
+We still need to compute the second page.
+</p>
+
+<p>
+We consider the filtration
+\[
+    \widetilde{\Fil}_k(\Gr_pW_n) = \bigoplus_{i \leq k}(\Gr_p W_n)_{q+1}e_i
+\]
+with graded parts
+\[
+    \widetilde{\Gr}_j(\Gr_pW_n) \cong W_{p-1}[1]
+\]
+noting that \(W_{p-1}[1]\) (the shifted complex) is the same as \((W_{p-1})_{q-1}\) in degree \(q\), with a negative differential. We should have \(H_0 \cong \Z\), \(H_i \cong 0\) for \(i \neq 0, p-1\), and \(H_{p-1}\) is something probably nonzero. Then, in particular we see that the spectral sequence degenerates at the \(E_2\) page.
+</p>
+
+<p>
+And then you do some stuff; I was sick, so forgive me for missing the rest.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb31d7e2" class="outline-2">
+<h2 id="orgb31d7e2"><span class="section-number-2">8.</span> \(FI\)-Modules</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+Again, let \(FI\) be the category of finite sets with injective maps. First, we fix a ring \(k\), and let a \(FI\)-module (over \(k\)) be a functor \(FI \rightarrow Mod_k\). For example, we may take
+\[
+    F^{(d)}: S \mapsto k[\Hom_{FI}(d, S)]
+\]
+In particular, we have for \(V\) any \(FI\)-module, we have that
+\[
+    \Hom_{Mod_{FI}}(F^{(d)}, V) = \Hom(\Hom_{FI}(d, -), V) = V_d
+\]
+In particular, any \(FI\)-module is a quotient of a direct sum of copies of \(F^{(d)}\): if \(M_d \rightarrow  V_d\) is surjective with \(M_d\) free, then
+\[
+    \bigoplus_{d \geq 0} M_d \otimes_k F^{(d)} \rightarrow V
+\]
+is surjective.
+</p>
+
+<p>
+<b>Definition</b>: A \(FI\)-module \(V\) is a finitely generated (in degrees \(\leq D\)) if for all \(d \leq D\), \(V_d\) is a finitely generated \(k\)-module, and if
+\[
+    \bigoplus_{d \leq D}V_d \otimes_k F^{(d)} \rightarrow V
+\]
+is surjective.
+</p>
+
+<p>
+<b>Theorem</b>: If \(k\) is Noetherian commutative, then the category of finitely generated \(FI\)-modules over \(k\) is Noetherian.
+</p>
+
+<p>
+For \(\lambda\) = \((\lambda_j)_j\) with \(\lambda_j \geq \lambda_{j+1}\), we may define
+\[
+    V_n(\lambda) = \begin{cases}
+        V_{(n - \sum \lambda_j, \lambda_1, \lambda_2, \dots)} & n \geq \lambda_1 + \sum_{j \geq 1} \lambda_j \\
+        0 & \text{otherwise}
+       \end{cases}
+\]
+For example, we see that \(V_n(0)\) is the trivial representation of \(k\), \(V_n(1)\) is the standard representation, and so on. (In this case we need \(k\) a field.)
+</p>
+
+<p>
+<b>Prop</b>: There is a f.g. \(FI\)-module \(V_\bullet(\lambda)\) such that in degree \(d\) it is simply \(V_d(\lambda)\).
+</p>
+
+<p>
+<i>Proof</i>: Take
+\[
+    V(\lambda)_d = \colim_{T} k[S_d]c_T
+\]
+where the colimit is in the category with objects Young tabelaus and the indexing set is tabelaus with shape \((d - |\lambda|, \lambda)\).
+</p>
+
+<p>
+<b>Theorem</b>: Let \(k\) be a field of characteristic \(0\). Then, a \(FI\)-module \(W\) is finitely generated if and only if
+</p>
+<ol class="org-ol">
+<li>For all \(d \rightarrow d+1\), the induced map \(W_d \rightarrow W_{d+1} = \text{Res}^{G_{d+1}}_{G_d}W_{d+1}\) is (eventually) injective.</li>
+<li>For all \(d \rightarrow d+1\), the induced map \(\text{Ind}^{G_{d+1}}_{G_d}W_d \rightarrow W_{d+1}\) is (eventually) surjective.</li>
+<li>\(c_{\lambda, n}\), a multiple of \(W_n(\lambda)\) in \(W_n\) is independent of \(n\) for \(n > N\) (uniform representation stability).</li>
+</ol>
+
+<p>
+When combined with the Noetherianity conditions, it becomes really easy to show representational stability!
+</p>
+
+<p>
+<i>Proof</i>: We start with the easier direction, which is \(\impliedby\). Let \(N\) such that for all \(d \geq N\), \(k[S_{d+1}] \otimes_{k[S_d]} W_d \rightarrow W_{d+1}\) is surjective. Then, \(k[S_{d}] \otimes_{k[S_N]} W_N \rightarrow W_{d+1}\). Thus \(F^{(N)} \otimes W_N \rightarrow  W\) is surjective in degree \(\geq N\), and so \(W\) is f.g. in degree \(\leq N\).
+</p>
+
+<p>
+To do the other direction, we need more setup.
+</p>
+
+<p>
+<b>Definition</b>: The injectivity degree (resp. surjectivity degree) is the smallest \(s \geq 0\) (if it exists), such that \((W_n)_{S_{n-r}} \rightarrow    (W_{n+1})_{S_{n+1-r}}\)  is injective (resp. surjective) for \(n \geq s + r\).
+</p>
+
+<p>
+<b>Lemma</b>: If \(V \rightarrow  W\) is surjective, then the surjectivity degree of \(W\) is at most the surjectivity degree of \(V\). The opposite result holds for the injectivity degree.
+</p>
+
+<p>
+<b>Lemma</b>: The \(FI\)-module \(F^{(d)} = k[\Hom_{FI}(d, -)]\) has injectivity degree 0 and surjectivity degree \(d\).
+</p>
+
+<p>
+Now let \(W\) be a finitely generated \(FI\)-module in degree \(\leq N\); let \(F\) be a finite direct sum of \(F^{(d)}\) with \(d \leq N\) such that \(F \rightarrow W\) is a surjection; we have that \(\text{surj deg}(W) \leq \text{surj deg}(F) \leq N\).
+</p>
+
+<p>
+Let
+\[
+    0 \rightarrow    K \rightarrow  F \rightarrow   W \rightarrow   0
+\]
+be exact; then \(K\) is a submodule of \(F\) and is thus finitely generated. Then, in particular we have from the snake lemma in the diagram
+</p>
+
+<p align="center">
+<img src="firepstab.png" style="width:60%">
+</p>
+<p>
+that \(\text{inj deg}(W) \leq \text{inj deg}(K) \leq M\).
+</p>
+
+<p>
+<b>Prop</b>: Let \(W\) be a \(FI\)-module over \(k\) with characteristic \(0\); then \((W_n)_n\) is uniformly representation stable with stable range \(n \geq \max\{\text{inj deg}(W) , \text{surj deg}(W)  \} + \text{weight}(W)\), where
+\[
+    \text{weight}(V) = \max \{ |\lambda| \mid V_n(\lambda) \text { appears in some } W_n\}
+\]
+</p>
+
+<p>
+<b>Theorem</b>: The \(FI\)-module \(n \mapsto H^q(P_n, \Q)\) is uniformly representation stable for \(n \geq 4q\).
+</p>
+
+<p>
+In particular, we may compute that
+\[
+    H^1(P_n, \Q) \cong V_n(0) \oplus V_n(1) \oplus V_n(2)
+\]
+for \(n \geq 4\) and
+\[
+    H^2(P_n, \Q) \cong V_n(1)^{\oplus 2} \oplus V_n(1, 1)^{\oplus 2} \oplus V_n(2)^{\oplus 2} \oplus V(2, 1)^{\oplus 2} \oplus V(3) \oplus V(3, 1)
+\]
+for \(n \geq 7\) (so the bound is not <i>always</i> sharp).
+</p>
+
+<p>
+It remains to prove the noetherianity proposition. In spirit, it will be similar to the Hilbert basis thoerem.
+</p>
+
+<p>
+Consider now the category of \(FI-Mod_R\); if \(W\) is such a \(FI\)-module, consider the grading of \(W\) given by
+\[
+    R(W) = \bigoplus_{n \geq 0} (W_n)_{S_n}
+\]
+where \((W_n)_{S_n} \xrightarrow{T} (W_{n+1})_{S_{n+1}}\), where \(T\) is induced by the cannonical injection. In particular, we already require \(R\) to be a \(\Q\)-algebra since we need left exactness of coinvariants. If \(W \subset F^{(d)}\), then \(R(W) \subset R(F^{(d)})\); then, \(R(W)\) is f.g. as a \(R[T]\) module. Next, we also have that
+\[
+    W_n \cong \bigoplus_{\lambda}(W_n \otimes V_n(\lambda)^*) \otimes V_n(\lambda)
+\]
+</p>
+
+<p>
+Then, if \(W \subset F^{(d)}\), then we have a bound \(m\), namely the weight and each \(R(W \otimes V(\lambda))\) is finitely generated; hence, \(W\) is finitely generated.
+\[
+\]
+</p>
+
+<p>
+<b>Prop</b>: Let \(R\) be noetherian, \(W)\)   a sub \(FI-Mod_R\) of \(F^{(d)}\). Then \(W\) is f.g.
+</p>
+
+<p>
+<i>Proof</i>: Recall that
+\[
+    F^{(d)} = S \mapsto R[\Hom_{FI}(d, S)]
+\]
+We may induct on \(d)\), starting with \(d = -1\), \(F^{(-1)} = 0\); as mimick the proof of the Hilbert basis theorem.
+</p>
+
+<p>
+Let \(A\) be a finite set; we consider the shift
+\[
+    W[A]: S \in FI \mapsto W_{S \sqcup A}
+\]
+</p>
+
+<p>
+In particular, we can map \((F^d[A])_s \rightarrow (F^{(d)})_s\) surjectively, just by taking
+\[
+    [f: d \rightarrow    S \sqcup A] \mapsto \begin{cases} [f] & \Im(f) \subset S \\ 0 & \text{otherwise} \end{cases}
+\]
+and so we discover a s.e.s
+\[
+0 \rightarrow \bigoplus_{\substack{A' \subset A \\ A' \neq \emptyset \\ \text{bij } d\setminus (d - |A'|) \rightarrow   A'}} (F^{d-|A'|})_s\rightarrow    (F^d[A])_s \rightarrow (F^{(d)})_s \rightarrow  0
+\]
+Correspondingly,
+\[
+    0 \rightarrow    K \cap W[A] \rightarrow    W[A] \rightarrow    W^{(A)} \rightarrow  0
+\]
+By induction, \(K \cap W[A]\) is finitely generated, and \(W\) is finitely generated \(\iff W[a]\) is finitely generated, and we can prove that \(W^{(A)}\) is finitely generated. (Skipped)
+</p>
+
+<p>
+<b>Theorem</b>: Fix \(R\) nootherian, and let \(N \subset M\) \(FI\)-modules, with \(M\) f.g. Then \(N\) is f.g. as well.
+</p>
+
+<p>
+<i>Proof</i>: Induct on the number of nonzero graded pieces in \(M\).
+</p>
+
+<p>
+<b>Theorem</b>: Let \(k\) be a field, and let \(W\) be a f.g. \(FI-Mod_R\); then \(\dim_k(W_n)\) is eventually polynomial in \(n\).
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: David Chen</p>
+<p class="date">Created: 2022-07-11 Mon 10:33</p>
+</div>
+</body>
+</html>

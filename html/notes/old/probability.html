@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-04-07 Thu 17:27 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Probability Spring 2022</title>
+<meta name="author" content="David Chen" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+</style>
+<link rel="stylesheet" href="https://daisiesforamouse.net/math.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.min.js" integrity="sha512-9DkJEmXbL/Tdj8b1SxJ4H2p3RCAXKsu8RqbznEjhFYw0cFIWlII+PnGDU2FX3keyE9Ev6eFaDPyEAyAL2cEX0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/input/tex/extensions/ams.min.js" integrity="sha512-hYQ7XXWTcxv2ZqLKj/ZLf+iDlS6UDfMqGZBYViCaAEfLNVtmThtbS0HKzR1PnjMCi3N5SGEpOmEdYXInWlwqqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+    <!--/*--><![CDATA[/*><!--*/
+  MathJax.Hub.Config({
+      jax: ["input/TeX", "output/HTML-CSS"],
+      extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                   "TeX/noUndefined.js", "[Contrib]/siunitx/siunitx.js", "[Contrib]/mhchem/mhchem.js"],
+      tex2jax: {
+          inlineMath: [ ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+          skipTags: ["script","noscript","style","textarea","pre","code"],
+          ignoreClass: "tex2jax_ignore",
+          processEscapes: false,
+          processEnvironments: true,
+          preview: "TeX"
+      },
+      TeX: {extensions: ["AMSmath.js","AMSsymbols.js",
+                         "[Contrib]/siunitx/siunitx.js", "[Contrib]/mhchem/mhchem.js"]},
+      showProcessingMessages: true,
+      displayAlign: "center",
+      displayIndent: "2em",
+
+      "HTML-CSS": {
+          scale: 100,
+          availableFonts: ["STIX","TeX"],
+          preferredFont: "TeX",
+          webFont: "TeX",
+          imageFont: "TeX",
+          showMathMenu: true,
+      },
+      MMLorHTML: {
+          prefer: {
+              MSIE:    "MML",
+              Firefox: "MML",
+              Opera:   "HTML",
+              other:   "HTML"
+          }
+      }
+  });
+  /*]]>*///-->
+</script>
+
+\(
+    \newcommand{\contra}{\Rightarrow\!\Leftarrow}
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\F}{\mathbb{F}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+    \newcommand{\Zg}{\mathbb{Z}_{>0}}
+    \newcommand{\Req}{\mathbb{R}_{\geq 0}}
+    \newcommand{\Rg}{\mathbb{R}_{>0}}
+    \newcommand{\N}{\mathbb{N}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\O}{\mathcal{O}}
+    \newcommand{\C}{\mathbb{C}}
+    \newcommand{\A}{\mathbb{A}}
+    \newcommand{\P}{\mathbb{P}}
+    \DeclareMathOperator{\Spec}{Spec}
+    \DeclareMathOperator{\Proj}{Proj}
+    \DeclareMathOperator{\Ob}{Ob}
+    \DeclareMathOperator{\Mor}{Mor}
+    \DeclareMathOperator{\Hom}{Hom}
+    \DeclareMathOperator{\colim}{colim}
+\)
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Probability Spring 2022</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org29b35e4">1. Skorokhod Embedding</a></li>
+<li><a href="#org1e9ee2f">2. Zero sets of Brownian motion</a></li>
+<li><a href="#org2a70ce7">3. BDG Inequality</a></li>
+<li><a href="#org07fb2e5">4. Local Time</a>
+<ul>
+<li><a href="#orgcf55966">4.1. Convex Functions</a></li>
+<li><a href="#orgaeeec6a">4.2. Return to Local Time</a></li>
+</ul>
+</li>
+<li><a href="#org83abdf3">5. Brownian functions</a></li>
+<li><a href="#org72bd6fb">6. Heat Equations</a></li>
+<li><a href="#orgc50d254">7. Diffusion</a></li>
+</ul>
+</div>
+</div>
+<p>
+\(
+    \newcommand{\contra}{\Rightarrow\!\Leftarrow}
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\F}{\mathbb{F}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \newcommand{\Zeq}{\mathbb{Z}_{\geq 0}}
+    \newcommand{\Zg}{\mathbb{Z}_{>0}}
+    \newcommand{\Req}{\mathbb{R}_{\geq 0}}
+    \newcommand{\Rg}{\mathbb{R}_{>0}}
+    \newcommand{\N}{\mathbb{N}}
+    \newcommand{\Q}{\mathbb{Q}}
+    \newcommand{\O}{\mathcal{O}}
+    \newcommand{\C}{\mathbb{C}}
+    \newcommand{\A}{\mathbb{A}}
+    \renewcommand{\P}{\mathbb{P}}
+    \renewcommand{\mod}{\text{ mod }}
+    \DeclareMathOperator{\Spec}{Spec}
+    \DeclareMathOperator{\Proj}{Proj}
+    \DeclareMathOperator{\Ob}{Ob}
+    \DeclareMathOperator{\Mor}{Mor}
+    \DeclareMathOperator{\Hom}{Hom}
+    \DeclareMathOperator{\sgn}{sgn}
+\)
+</p>
+
+<div id="outline-container-org29b35e4" class="outline-2">
+<h2 id="org29b35e4"><span class="section-number-2">1.</span> Skorokhod Embedding</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Consider a probability measure \(\mu\) on \(\mathcal B\) with
+\[
+    0 < \int_\R x^2 \mu(dx) = \sigma^2 < \infty
+\]
+and
+\[
+    \int_\R x \mu(dx) = 0
+\]
+and Brownian motion \(W_t\) on a filtration \(\F^W\). Then, there exists a stopping time \(T\) of \(\F^W\) with \(E[T] = \sigma^2 < \infty\), and such that
+\[
+    \P(W_T \in A) = \mu(A), \forall A \in \mathcal B(\R)
+\]
+</p>
+
+<p>
+Proof (Chacon-Walsh): Let us first start with \(\mu\) a measure on \(\mathcal B(\mu)\), which satisfies that \(\int_R (1 + |y|)\mu(dy) < \infty\). Then, let us define, as a potential,
+\[
+    \mathcal P_\mu(x) = \int_\R \vert \ x -y \vert \ \mu(dy) \ (= E[\vert \ x - Y \vert \ ])
+\]
+where the parentheses are for a probability measure \(\mu\). In particular, if \(\mu = \delta_0\), the Dirac mass at 0, we have that
+\[
+    \mathcal P_{\delta_0}(x) = \vert \ x \vert
+\]
+and furthermore, for any \(\mu\),
+\[
+    \mathcal P_\mu \geq \mathcal P_{\delta_0}
+\]
+and \(\mathcal P_\mu(x) - \mathcal P_{\delta_0}(x) \rightarrow 0\) as \(\vert \ x \vert \ \rightarrow \infty\). More suprisingly,
+\[
+    \int_\R (\mathcal P_\mu - \mathcal P_{\delta_0})(x)dx = \int_\R y^2 \mu(dy)
+\]
+</p>
+
+<p>
+But now, we notice that potentials kind of look like characteristic functions! And in fact, if \(\mu_1, \mu_2, \dots\) are probability measures, and
+\[
+    \mathcal P_{\mu_n}(x) \rightarrow \mathcal P_{\mu}(x)
+\]
+pointwise, then the measures converge vaguely to \(\mu\) as well.
+</p>
+
+<p>
+Now consider a random variable \(Z\) with distribution \(\nu\), and an independent Brownian motion \(W_t\). Furthermore, consider the stopping time
+\[
+    T_{ab} = \inf \{t \geq 0 \mid Z + W_t \leq a \lor Z + W_t \geq b \}
+\]
+Let \(Z + W_{T_{ab}}\) have distribution \(\nu'\). So what does the potential of \(\nu'\) look like? It is the potential of \(\nu\)  outside of \((a,b)\) and a straight line interpolation inbetween!
+</p>
+
+<p>
+Now, start with \(T_0 = 0, \mu_0 = \delta_0\). Then, approximate the potential by a series of tangent straight lines above \(\mathcal P_{\delta_0}\), and take these to be \(T_n\) via the &ldquo;sweeping&rdquo; or &ldquo;balayage&rdquo; argument above. This then converges pointwise, so the measures, the distributions of \(W_{T_n}\), converge vaguely to the chosen \(\mu\).
+</p>
+
+<p>
+And by continuity of \(W_t\), it must be true that \(W_{T_n} \rightarrow W_T\) almost everywhere, so in fact \(\mu\) is the distribution of \(W_T\). Now, we need to find the right butler, which is going to be \(W_t^2 - t\); in fact,
+\[
+    E[t \land T_n] = E[W_{t \land T_n}^2] \implies E[T_n] = E[W_{T_n}^2]
+\]
+But we already know this is the difference in area between the two potentials! Which must converge to \(\sigma^2\) by our earlier statement about potentials.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1e9ee2f" class="outline-2">
+<h2 id="org1e9ee2f"><span class="section-number-2">2.</span> Zero sets of Brownian motion</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Take \(Z_w = \{t \in [ \ 0, \infty) \mid W_t(w) = 0\}\). This is the preimage of a singleton under a continuous function, so it is almost surely closed. First of all, the Law of the Iterated Logarithm, for \(t \rightarrow \infty\), shows that \(Z_w\) is unbounded, and furthermore as \(t \rightarrow 0\) has an accumulation point at the origin.
+</p>
+
+<p>
+Furthermore, it must be that \(Z_w\) has zero Lebesgue measure, and has no isolated point. To see the latter claim, consider
+\[
+    \{w \in \Omega \mid Z_w \text{ has an isolated point}\} = \bigcup_{0 \leq a < b < \infty, a, b \in \Q} \Lambda_{a, b}
+\]
+where
+\[
+    \Lambda_{ab} = \{w \in \Omega \mid \text{ there is exactly one zero in } (a, b) \} \subset \{ w \in \Omega \mid \beta_a(w) < b < \beta_{\beta_a}(w)\}
+\]
+But by the Strong Markov property, \(\beta_{\beta_t} = \beta_t\) with probability 1.
+</p>
+
+<p>
+Now, consider for positive \(\epsilon\) the limit
+\[
+    L^W_t = \lim_{\epsilon \rightarrow  0} \frac{1}{2 \epsilon} \int_0^t \mathbb 1_{\vert \ W_s \vert \ \leq \epsilon} ds
+\]
+This limit exists, and if \(M^W_t = \max_{0 \leq s \leq t} W_s\), then \(L^W_t = M^W_t\) (in distribution) as processes. And incredibly,
+\[
+    \vert \ W_t \vert \ - L^W_t
+\]
+is Brownian motion!
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2a70ce7" class="outline-2">
+<h2 id="org2a70ce7"><span class="section-number-2">3.</span> BDG Inequality</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Let \(F: [\  0,  \infty) \rightarrow [ \ 0, \infty ) \), \(F(0) = 0\), \(F(x) > 0, x > 0\), and there is some \(\alpha > 0\) such that
+\[
+    \sup_{x > 0}  \frac{F(\alpha x)}{F(x)} < \infty
+\]
+</p>
+
+<p>
+Now, the BDG inequality is then related to the following fact: given \(F\), there exist universal constants \(0 < c_F < C_F < \infty\) such that
+\[
+    c_F E(F(\langle M \rangle^{1/2}_T)) \leq E[F(M^{*}_T)] \leq C_F E[F(\langle M \rangle^{1/2}_T)]
+\]
+And the proof only uses DDS!
+</p>
+</div>
+</div>
+
+<div id="outline-container-org07fb2e5" class="outline-2">
+<h2 id="org07fb2e5"><span class="section-number-2">4.</span> Local Time</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Let
+\[
+    [\ 0, \infty ) \times \Omega \times \mathcal B(\R) \ni (t, \omega, B) \mapsto \Gamma_t(B, \omega) = \int_0^t 1_B(W_s(\omega))ds = \int_B 2L_t(b, \omega)db  \ (*)
+\]
+</p>
+
+<p>
+We call a mapping \([ \ 0, \infty ) \times \Omega \times \R \ni (t, \omega, b) \mapsto L_t(\omega, b) \in [\ 0, \infty]\) local time for \(W\) if the following conditions are met.
+</p>
+<ol class="org-ol">
+<li>\(\omega \mapsto L_t(\omega, b)\) is \(\mathcal F_t\)-measureable</li>
+<li>\(\exists \Omega^*, \P(\Omega^*) = 1\) such that \((t, b) \mapsto L_t(b, \omega)\) is continuous, and the earlier \(*\) condition holds on \(\Omega^*\).</li>
+</ol>
+
+<p>
+Note that since we have this for indicators, we can actually extend this to general functions, and we call these occupation density formulas.
+</p>
+
+<p>
+These exist! Intuitively, consider the fact that if we take \(\epsilon \rightarrow 0\) in
+\[
+    L_t(a) = \lim_{\epsilon \rightarrow 0}\frac{1}{2\epsilon}\int_{a - \epsilon}^{a + \epsilon}L_t(b) db = \lim_{\epsilon \rightarrow  0} \frac{1}{4 \epsilon} \int_0^t 1_{[ \ a - \epsilon, a + \epsilon]}(W_s(\omega))ds
+\]
+</p>
+
+<p>
+If you think closely enough about the <i>illegal</i> intuition that
+\[
+    2L_t(a) = \int_0^t \delta(W_s - a)ds
+\]
+and apply Ito&rsquo;s rule to \(x \mapsto (x - a)^+\), you get that it <i>should</i> be
+\[
+    L_t(a) = (W_t - a)^+ - (W_0 - a)^+ - \int_0^t 1_{(a, \infty)}(W_s)dW_s
+\]
+and also
+\[
+    L_t(a) = (W_t - a)^- - (W_0 - a)^- - \int_0^t 1_{(-\infty, a]}(W_s)dW_s
+\]
+so
+\[
+    2L_t(a) = | \ W_t - a| \  - | \ W_0 - a| \ - \int_0^t \sgn(W_s - a)dW_s
+\]
+The above are called the Tanaka formulas, and they rely on the result of Trotter that local time exctually exists. It is clear that \(L_t(a)\), as defined above is \(\mathcal F_t\) measurable.
+</p>
+
+<p>
+We need to check the continuity and \(*\) conditions. To do this, first assume the continuity condition and consider the following:
+</p>
+\begin{align*}
+    F''(x) &= f(x) \\
+    F'(x) &= \int_{\R}f(u) 1_{(u, \infty)}(x)du \\
+    F(x) &= \int_\R f(u)(x-u)^+ du
+\end{align*}
+<p>
+And applying Ito&rsquo;s rule yields that
+\[
+    \frac{1}{2}\int_0^t f(W_s)ds = F(W_t) - F(W_0) - \int_0^t F'(W_s)dW_s
+\]
+and evetually after we simplify (and invoke nontrivial results between the Lebesgue and Ito integrals), we have that this reduces to
+\[
+    \int_R f(u)L_t(u)du
+\]
+</p>
+
+<p>
+So all that is left is the continuity of the martingale part, \(\int_0^t 1_{(a, \infty)}(W_s)dW_s\). To do this, we invoke Kolmogorov-Centsov to reduces this question to the condition that
+\[
+    E[(M_t(a) - M_s(a))^{2n}] \leq C[(t-s)^n + (b-a)^n]
+\]
+To prove this, invoke BDG inequality and do the trick of removing the exponent by writing iterated integrals.
+</p>
+</div>
+
+<div id="outline-container-orgcf55966" class="outline-3">
+<h3 id="orgcf55966"><span class="section-number-3">4.1.</span> Convex Functions</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Let \(f: \R \rightarrow  \R\) be convex; the set \(\{D^{-}f \neq D^+ f\}\) is at most countable. Furthermore, it must be true that
+\[
+    D^- f(x) \leq D^+ f(x) \leq D^- f(y) \leq D^+ f(y)
+\]
+and we can define
+\[
+    \mu([x, y)) = D^- f(y) - D^- f(x)
+\]
+Then, we have a generalized Tanaka formula, namely,
+\[
+    f(W_t) = f(W_0) + \int_0^t D^- f(W_s)dW_s + \int_\R L_t(x) \mu(dx)
+\]
+which is a Doob-Meyer decomposition! In fact, letting \(f(x) = (x - a)^+, \ (x-a)^-, \ | \ x - a| \ \) gives the previous Tanaka formulas.
+</p>
+
+<p>
+Furthermore, if we have 2 different convex functions, \(f_1, f_2\), then we may write the above for the difference as well; thus \(f(W_t)\) is a a local semimartingale. It even turns out this is actually not only sufficient but also necessary!
+</p>
+
+<p>
+The most shocking thing let: if \(M_T = \sup_{0 \leq n \leq t}W_n\),
+\[
+    (M_T - W_T, M_t) = (|\ W_t| \ , 2L_t)
+\]
+have the same distribution <i>as processes</i>!
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgaeeec6a" class="outline-3">
+<h3 id="orgaeeec6a"><span class="section-number-3">4.2.</span> Return to Local Time</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+The local time only increases on \(\mathcal Z_\omega^{(a)} = \{t \geq 0 \mid W_t(\omega) = a \ \}\). To see this, consider that we want to show that
+\[
+    \int_0^\infty | \ W_t - a| \ dL_t(a) = 0
+ \]
+</p>
+
+<p>
+Now consider the following situation: some \(x(t) = z + y(t) + k(t) \geq 0\), \(y(t)\) continuous, \(k(t)\) continuous and increasing, \(y(0) = k(0) = 0\), and
+\[
+    \int_0^\infty 1_{(0, \infty)}(x(t))dk(t) = 0
+ \]
+Now we note that
+\[
+    k(t) \geq k(s) \geq -(z + y(s)) \implies k(t) \geq \max(0, \max_{0 \leq s \leq t}(-z - y(s)))
+ \]
+It is a theorem of Skorokhod, called Skorokhod reflection, that the latter inequality is actually equality on the nose (if you think hard enough, this is really obvious).
+</p>
+
+<p>
+ But if you pick \(z = 0\), \(y(t) = -W_t(\omega)\), the Tanaka formula gives you
+ \[
+    \vert \ W_t(\omega)  \vert \ = -B_t(\omega) + 2L_t^W(0, \omega)
+ \]
+ where \(B_t = -\int_0^t \sgn(W_s)dW_s\); note that this is a Brownian motion because it is a continuous semimartingale with quadratic variation \(t\). But then we can apply Skorokhod reflection to see that
+ \[
+    2L_t^W(0, \omega) = \max(0, \max_{0 \leq s \leq t} B_s(\omega)) = \max_{0 \leq s \leq t}B_s(\omega) = M^B_t(\omega)
+ \]
+ and in particular,
+ \[
+    \vert \ W_t(\omega) \vert \ = M_t^B(\omega) - B_t(\omega)
+ \]
+ But this shows that
+\[
+    (M_T - W_T, M_t) = (|\ W_t| \ , 2L_t)
+\]
+in distribution, as processes!
+</p>
+
+<p>
+As a remark, note that \(B_t, W_t\) are both Brownian motions, but they generate vastly different filtrations. In particular, \( | \ W_t | \ = \max_{s \leq t} B_s - B_t\) is \(\mathcal F^B_t\)-measurable; so it is true that \( \mathcal F_t^\{| \ W| \ \} \subset \mathcal F^B_t\). But note that since \(B_t = 2L_t^W(0) - | \ W_t| \ \), it must be true that \( \mathcal F_t^\{| \ W| \ \} = \mathcal F^B_t\). So overall,
+\[
+    \mathcal F^B_t = \mathcal F_t^{| \ W| \ } \subsetneq \mathcal F^W_t
+\]
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org83abdf3" class="outline-2">
+<h2 id="org83abdf3"><span class="section-number-2">5.</span> Brownian functions</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Fix some \(x \in (a, b)\). Then, we already know that \(P^x(T_a < T_b) = \frac{b-x}{b-a}, P^x(T_a > T_b) = (\frac{x-a}{b-a})\); now let us put
+\[
+    (b-x)(x-a) = E^x(T_a \land T_b) = 2\int_a^b G_{a,b}(x,y)dy
+\]
+where
+\[
+    G_{a,b}(x,y) = \frac{(x \land y - a)(b - x \lor y)}{b-a}
+\]
+But we can actually generalize, with the occupation density formula:
+\[
+    2\int_a^b f(y)E^x(L_{T_a \land T_b}(y))dy = E^x \left[ \int _0^{T_a \land T_b} f(W_t)dt \right] = 2 \int_a^bf(y)G_{a,b}(x,y)dy
+\]
+But then, this suggests that
+\[
+    G_{a,b}(x,y) = E^x[L_{T_a \land T_b}(y)]
+\]
+Pick some \(f \geq 0\) measureable, so that
+\[
+    \int_0^\infty f(W_t)dt = 2 \int_\R f(y) L_\infty(y)dy
+\]
+but since \(L_\infty = \infty\) with probability 1, it must be that for any \(f\) which is not zero almost surely, \(\int_0^\infty f(W_t)dt = \infty\). Furthemore, if \(f\) has compact support,
+\[
+    \frac{1}{T^{1/2}} \int_0^Tf(W_t)dt \rightarrow 2 \| f \|_1 \cdot L_1^B(0)
+\]
+where \(B\) is a Brownian motion.
+</p>
+
+<p>
+We also have a 0-1 law: for a measureable \(f: \R \rightarrow  [ \ 0, \infty )\), the following are equivalent:
+</p>
+<ol class="org-ol">
+<li>\(P( \int_0^T f(W_t)dt < \infty, \forall T \in (0, \infty)) > 0\)</li>
+<li>\(P( \int_0^T f(W_t)dt < \infty, \forall T \in (0, \infty)) = 1\)</li>
+<li>\(\int_K f(y)dy < \infty \forall K \subset \R\) compact</li>
+</ol>
+
+<p>
+The quick and dirty argument is to note that
+\[
+    \int_0^T f(W_t(\omega))dt = 2\int_\R f(y)L_T(y,\omega)dy = \int_{[m_T(\omega), M_T(\omega)]} f(y)L_T(y,\omega)dy \leq 2 \Lambda_T \int_{K(\omega)}f(y)dy < \infty
+\]
+</p>
+</div>
+</div>
+
+<div id="outline-container-org72bd6fb" class="outline-2">
+<h2 id="org72bd6fb"><span class="section-number-2">6.</span> Heat Equations</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Consider the differential equation
+\[
+    \frac{\partial u}{\partial t} =  \frac{1}{2} \frac{\partial ^2 u}{dx^2}, \ \lim_{t \rightarrow 0, y \rightarrow x}u(0, x) = f(x)
+\]
+Now, if we let \(f: \R \rightarrow   \R\) be continuous and \(\int_\R e^{-\alpha x^2} | \ f(x)| \ dx < \infty \) for all \(\alpha > 0\), we may consider
+\[
+    u(t,x) = E^{x}[f(W_t)] = E[f(W_t + x)] = \int_\R p(t, x, y)f(y)dy
+\]
+where \(p\) is the correct Gaussian density.
+</p>
+
+<p>
+Now, we can alter the equation to add cooling and a source:
+\[
+    \frac{\partial u}{\partial t} =  \frac{1}{2} \frac{\partial ^2 u}{dx^2} - \alpha u + g
+\]
+where \(g: \R \rightarrow \R\) does not vary with time.
+</p>
+
+<p>
+In this case, we may intuitively expect that we may discount, so that the solution ought be
+\[
+    u(t,x) = E \left[ f(x + W_t)e^{-\alpha t} + \int_0^t g(x + W_s)e^{-\alpha s}ds \right]
+\]
+</p>
+
+<p>
+Then, we apply Ito&rsquo;s rule to get
+\[
+    e^{-\alpha T}f(x + W_T) + \int_0^T e^{-\alpha t}g(x + W_t)dt - u(T, x) = \int_0^Te^{-\alpha t}\frac{\partial u}{\partial x}(T- t, x + W_t)dW_t
+\]
+But it turns out that the expectation of the RHS is 0, so we see that the intution is justified. And more importantly we can replace \(\alpha\) with some varying piecewise continuous function \(\beta(x) \geq \alpha > 0\) and see
+\[
+    u(t,x) = E \left[ f(x + W_t)e^{-\int_0^t(x + W_s)ds t} + \int_0^t g(x + W_s)e^{-\int_0^t(x + W_\theta)d\theta s}ds \right]
+\]
+</p>
+
+<p>
+But what is the steady state? That is, where \(\frac{\partial u}{\partial t} = 0\)? It should be
+\[
+    u(x) = E \left[ \int_0^\infty e^{-\int_0^t \beta(x + W_\theta)d\theta} g(x + W_t)dt \right]
+\]
+And it is. This result is known as Feynman-Katz.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc50d254" class="outline-2">
+<h2 id="orgc50d254"><span class="section-number-2">7.</span> Diffusion</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Suppose that we are given \(b: [ \ 0, \infty ) \times \R \rightarrow \R \) and \(\sigma: [ \ 0, \infty ) \times \R \rightarrow \R \), alongside a probability space \((\Omega, \mathcal F, \P)\), alongside a filtration \(\F = \{ \mathcal F(t)\}\). Then,
+\[
+    X(t) + \int_0^t b(s, X(s))ds + \int_0^t \sigma(s, X(s))dW(s) \ \ \ \ (*)
+\]
+is a stochastic integral equation, or in the style of stochastic differential equations,
+\[
+    dX(t) = b(s, X(s))ds + \sigma(s, X(s))dW_t, \ X(0) = x \ \ \ \ (*)
+\]
+Then, we have some approximations, namely
+</p>
+\begin{align*}
+    X^{(0)}(t) &= x \\
+X^{(n-1)}(t) &= x + \int_0^tb(s, X^{n-1}(s))ds + \int_0^t \sigma(s, X^{n-1}(s))dW_s
+\end{align*}
+<p>
+Note that the above processes are all adapted to \(\F^W\). So the question becomes, first of all, then if the limit \(X = \lim_{n \rightarrow  \infty}X^{(n)}\) exists, and if so, does it solve the differential equation?
+</p>
+
+<p>
+Suppose that \(\sup_{0 \leq t \leq T}| \ b(x,t) - b(y,t) | \ \leq K | \ x -  y| \ \), and that \(\sup_{0 \leq t \leq T} | \ b(t,x) | \ \leq K(1 + | \ x | \ )\) (namely, \(b\) is Lipschitz and of linear growth), and that these hypotheses apply also to \(\sigma\). If these conditions hold, then eveything we dream of is true, and we call this a strong solution: an \(\F^W\)-adapted \(X\) that satisfies \((*)\), once \((\Omega, \mathcal F, \mathbb P), W, \F^W\) are fixed.
+</p>
+
+<p>
+Furthermore, strong solutions are pathwise unique, in the sense that if there is another \(\F^W\)-adapted \(\widetilde X\) that solves the equation, then \(\P(\widetilde X_t = X_t, \forall 0 \leq t < \infty) = 1\).
+</p>
+
+<p>
+So what are weak solutions? They are \((\Omega, \mathcal F, \P), \F = (\mathcal F_t), W_t, X_t\), where we are free to choose the filtration and the Brownian motion such that \((*)\) is satisfied, and \(W_t, X_t\) are both adapted to \(\F\).
+</p>
+
+<p>
+Weak solutions are only unique in distribution; if \((\Omega, \mathcal F, \P), \F = (\mathcal F_t), W_t, X_t\) and \(( \widetilde\Omega,  \widetilde {\mathcal F},  \widetilde \P), \widetilde \F = ( \widetilde {\mathcal F}_t), \widetilde W_t, \widetilde X_t\) then the finite dimensional distributions are the same.
+</p>
+
+<p>
+Let \(X(t) = \int_0^t \text{sgn}(X(s))dW_s\); this is actually a Brownian motion, since it is a local martingale with quadratic variation \(t\). But if start with \(X\) adapted to \(\mathcal F\), then
+\[
+    W(t) = \int_0^t \sgn(X_s)dX_s, \ \int_0^t\sgn(X_s)dW_s = \int_0^t \sgn(X_s) \sgn(X_s)dX_s = X(t)
+\]
+so everything works! But this definitely isn&rsquo;t a strong solution. Furthermore,
+\[
+    W(t) = \int_0^t \sgn(X_s)dX_s = | \ X_t | \ - 2 \mathcal L^X_t
+\]
+so \(\mathcal F^W_t \subset \mathcal F^{| \ X | \ }_t \subsetneq \mathcal F^X_t\)
+</p>
+
+<p>
+Thm: Pathwise uniqueness \(\implies\) uniqueness in distribution, and if we also have weak existence, then we have a strong solution as well.
+</p>
+
+<p>
+Thm: If \((\Omega, \mathcal F, \P), \F = (\mathcal F_t), W_t, X_t\) is a weak solution of \((*\), and is unique in distribution, then \(X\) has the strong Markov property; this follows from the fact that the solution is constructed strongly from the Brownian increments.</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: David Chen</p>
+<p class="date">Created: 2022-04-07 Thu 17:27</p>
+</div>
+</body>
+</html>
