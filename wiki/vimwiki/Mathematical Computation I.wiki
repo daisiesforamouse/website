@@ -1,0 +1,103 @@
+= Mathematical Computation I: Matrix Computation Course =
+== UChicago STAT 30900, Autumn 2023 ==
+
+{{$
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\RSS}{RSS}
+\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\Tr}{Tr}
+}}$
+
+=== Linear Algebra Review ===
+
+By convention, vectors are column vectors. 
+
+Set $V$ a vector space (almost always real or complex).
+
+_Def_: $\| \cdot \| : V \to \mathbb R$ is a *norm* if it satisfies the following properties:
+- $\|v\| \geq 0$ for any $v \in V$,
+- $\|v\| = 0$ iff $v = 0$,
+- $\|\alpha v\| = |\alpha| \|v\|$ for $\alpha \in \mathbb R$ and $v \in V$,
+- $ \|v + w\| \leq \|v\| + \|w\|$ for any $v, w \in V$.
+
+Now, since this is a computational class, we only care about specific norms, almost all of which we can quickly qrite down. 
+
+==== Vector Norms ====
+
+Set $V = \mathbb R^n$ or $\mathbb C^n$ equivalently.
+
+_Def_: The *Minkowski* or $p$*-norm* is given by
+{{$
+  \| x \|_p = \left(\sum_{i=1} x_i^p\right)^{1/p}
+}}$
+and we call the $2$-norm the *Euclidean norm* and the $1$-norm the *Manhattan norm*.
+
+_Def_: The $\infty$*-norm* is the limit of $p$-norms as $p \to \infty$, and is given by
+{{$
+  \| x \|_\infty = \max_{i = 1, \dots, n} |x_i| = \lim_{p \to \infty} \| x \|_p.
+}}$
+
+_Def_: For a weight vector $\underline w = \begin{bmatrix}w_1, \dots, w_n\end{bmatrix}^T \in \mathbb R^n$, with each $w_i > 0$, we have that the *weighted* $p$*-norm* is
+{{$
+  \| v \|_{\underline w, p} = \left(\sum_{i=1} w_i x_i^p\right)^{1/p}.
+}}$
+
+_Def_: In general, for any positive definite matrix $A$ (that is, $x^TAx > 0$ for all $x \neq 0$), we may consider the *Mahalanobis norm*
+{{$
+  \| v \|_{A} = \left(x^T A x\right)^{1/2}.
+}}$
+
+As convention, the "default" norm when a subscript is omitted is the Euclidean norm.
+
+==== Matrix Norms ====
+
+Set $V = \mathbb R^{m \times n}$ or $\mathbb C^{m \times n}$ equivalently.
+
+_Def_: The *Hölder* $p$*-norms* are given by
+{{$
+  \| X \|_{H, p} = \left(\sum_{i=1}^m\sum_{j=1}^m |x_{ij}|^p \right)^{1/p},
+}}$
+and the Hölder $2$-norm is called the Frobenius norm, which is also defined on infinite dimensional vector spaces as
+{{$
+  \| X \|_F = \left(\Tr(XX^*)\right)^{1/2}
+}}$
+where $^*$ is the conjugate transpose.
+
+_Def_: As before, we can take $p \to \infty$ to get the *Hölder* $\infty$*-norm* given by
+{{$
+  \| X\|_{H, \infty} = \max_{\substack{i = 1, \dots n \\ j = 1, \dots, n}} |x_{ij}|.
+}}$
+
+_Def_: We can also define norms on matrices by viewing them as linear maps $A: \mathbb R^n \to \mathbb R^m$; in particular, if we have some norm $\| \cdot \|_a$ on $\mathbb R^n$ and some norm $\| \cdot \|_b$ on $\mathbb R^m$, we may define the *operator norm* (or *induced norm*)
+{{$
+  \| A \|_{a, b} = \max_{x \neq 0} \frac{\| A x \|_b}{\| x \|_a}.
+}}$
+In particular, if the norms on the domain and codomain are just $p$-norms, we write
+{{$
+  \| A \|_{p} = \max_{x \neq 0}\frac{\| A x\|_p}{\| x \|_p}
+}}$
+and call it the $p$*-norm* of $A$. In particular, we call the $2$-norm the spectral norm. Further, the $1$-norm and $\infty$-norm are just
+{{$
+  \| A \|_1 = \max_{j = 1, \dots, n} \left(\sum_{i=1}^m |a_{ij}| \right),
+}}$
+which is the max column sum, and
+{{$
+  \| A \|_\infty = \max_{i = 1, \dots, m} \left(\sum_{j=1}^n |a_{ij}| \right),
+}}$
+which is the max row sum; both facts are easy to check.
+
+In general, for $p \notin \{1, 2, \infty\}$, computing $\| A \|_p$ is NP-hard, and if we consider $\| A \|_{p,q}$ then $\|A\|_{\infty, 1}$ is hard and $\|A\|_{1, \infty}$ is easy.
+
+We may also want to consider some other desirable properties on our norms.
+- For example, we might want *submultiplicativity*:
+{{$
+  \| A B\| \leq \|A \| \| B \|.
+}}$
+The Frobenius norm is submultiplicative.
+- Take also *consistency*:
+{{$
+  \| Ax \|_b \leq \| A \|_{a,b} \|x\|_a.
+}}$
+= This is true for $p$-norms, but not in general. =

@@ -1,0 +1,187 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="wiki.css">
+  <title>Mathematical Computation I</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="content">
+      
+<div id="Mathematical Computation I: Matrix Computation Course"><h1 id="Mathematical Computation I: Matrix Computation Course" class="header"><a href="#Mathematical Computation I: Matrix Computation Course">Mathematical Computation I: Matrix Computation Course</a></h1></div>
+<div id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023"><h2 id="UChicago STAT 30900, Autumn 2023" class="header"><a href="#Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023">UChicago STAT 30900, Autumn 2023</a></h2></div>
+
+\[
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\RSS}{RSS}
+\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\Tr}{Tr}
+\]
+
+<div id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review"><h3 id="Linear Algebra Review" class="header"><a href="#Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review">Linear Algebra Review</a></h3></div>
+
+<p>
+By convention, vectors are column vectors. 
+</p>
+
+<p>
+Set \(V\) a vector space (almost always real or complex).
+</p>
+
+<p>
+<em>Def</em>: \(\| \cdot \| : V \to \mathbb R\) is a <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-norm"></span><strong id="norm">norm</strong> if it satisfies the following properties:
+</p>
+<ul>
+<li>
+\(\|v\| \geq 0\) for any \(v \in V\),
+
+<li>
+\(\|v\| = 0\) iff \(v = 0\),
+
+<li>
+\(\|\alpha v\| = |\alpha| \|v\|\) for \(\alpha \in \mathbb R\) and \(v \in V\),
+
+<li>
+\( \|v + w\| \leq \|v\| + \|w\|\) for any \(v, w \in V\).
+
+</ul>
+<p>
+Now, since this is a computational class, we only care about specific norms, almost all of which we can quickly qrite down. 
+</p>
+
+<div id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Vector Norms"><h4 id="Vector Norms" class="header"><a href="#Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Vector Norms">Vector Norms</a></h4></div>
+
+<p>
+Set \(V = \mathbb R^n\) or \(\mathbb C^n\) equivalently.
+</p>
+
+<p>
+<em>Def</em>: The <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Vector Norms-Minkowski"></span><strong id="Minkowski">Minkowski</strong> or \(p\)<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Vector Norms--norm"></span><strong id="-norm">-norm</strong> is given by
+</p>
+\[
+  \| x \|_p = \left(\sum_{i=1} x_i^p\right)^{1/p}
+\]
+<p>
+and we call the \(2\)-norm the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Vector Norms-Euclidean norm"></span><strong id="Euclidean norm">Euclidean norm</strong> and the \(1\)-norm the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Vector Norms-Manhattan norm"></span><strong id="Manhattan norm">Manhattan norm</strong>.
+</p>
+
+<p>
+<em>Def</em>: The \(\infty\)<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Vector Norms--norm"></span><strong id="-norm">-norm</strong> is the limit of \(p\)-norms as \(p \to \infty\), and is given by
+</p>
+\[
+  \| x \|_\infty = \max_{i = 1, \dots, n} |x_i| = \lim_{p \to \infty} \| x \|_p.
+\]
+
+<p>
+<em>Def</em>: For a weight vector \(\underline w = \begin{bmatrix}w_1, \dots, w_n\end{bmatrix}^T \in \mathbb R^n\), with each \(w_i &gt; 0\), we have that the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Vector Norms-weighted"></span><strong id="weighted">weighted</strong> \(p\)<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Vector Norms--norm"></span><strong id="-norm">-norm</strong> is
+</p>
+\[
+  \| v \|_{\underline w, p} = \left(\sum_{i=1} w_i x_i^p\right)^{1/p}.
+\]
+
+<p>
+<em>Def</em>: In general, for any positive definite matrix \(A\) (that is, \(x^TAx &gt; 0\) for all \(x \neq 0\)), we may consider the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Vector Norms-Mahalanobis norm"></span><strong id="Mahalanobis norm">Mahalanobis norm</strong>
+</p>
+\[
+  \| v \|_{A} = \left(x^T A x\right)^{1/2}.
+\]
+
+<p>
+As convention, the "default" norm when a subscript is omitted is the Euclidean norm.
+</p>
+
+<div id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Matrix Norms"><h4 id="Matrix Norms" class="header"><a href="#Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Matrix Norms">Matrix Norms</a></h4></div>
+
+<p>
+Set \(V = \mathbb R^{m \times n}\) or \(\mathbb C^{m \times n}\) equivalently.
+</p>
+
+<p>
+<em>Def</em>: The <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Matrix Norms-Hölder"></span><strong id="Hölder">Hölder</strong> \(p\)<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Matrix Norms--norms"></span><strong id="-norms">-norms</strong> are given by
+</p>
+\[
+  \| X \|_{H, p} = \left(\sum_{i=1}^m\sum_{j=1}^m |x_{ij}|^p \right)^{1/p},
+\]
+<p>
+and the Hölder \(2\)-norm is called the Frobenius norm, which is also defined on infinite dimensional vector spaces as
+</p>
+\[
+  \| X \|_F = \left(\Tr(XX^*)\right)^{1/2}
+\]
+<p>
+where \(^*\) is the conjugate transpose.
+</p>
+
+<p>
+<em>Def</em>: As before, we can take \(p \to \infty\) to get the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Matrix Norms-Hölder"></span><strong id="Hölder">Hölder</strong> \(\infty\)<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Matrix Norms--norm"></span><strong id="-norm">-norm</strong> given by
+</p>
+\[
+  \| X\|_{H, \infty} = \max_{\substack{i = 1, \dots n \\ j = 1, \dots, n}} |x_{ij}|.
+\]
+
+<p>
+<em>Def</em>: We can also define norms on matrices by viewing them as linear maps \(A: \mathbb R^n \to \mathbb R^m\); in particular, if we have some norm \(\| \cdot \|_a\) on \(\mathbb R^n\) and some norm \(\| \cdot \|_b\) on \(\mathbb R^m\), we may define the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Matrix Norms-operator norm"></span><strong id="operator norm">operator norm</strong> (or <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Matrix Norms-induced norm"></span><strong id="induced norm">induced norm</strong>)
+</p>
+\[
+  \| A \|_{a, b} = \max_{x \neq 0} \frac{\| A x \|_b}{\| x \|_a}.
+\]
+<p>
+In particular, if the norms on the domain and codomain are just \(p\)-norms, we write
+</p>
+\[
+  \| A \|_{p} = \max_{x \neq 0}\frac{\| A x\|_p}{\| x \|_p}
+\]
+<p>
+and call it the \(p\)<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Matrix Norms--norm"></span><strong id="-norm">-norm</strong> of \(A\). In particular, we call the \(2\)-norm the spectral norm. Further, the \(1\)-norm and \(\infty\)-norm are just
+</p>
+\[
+  \| A \|_1 = \max_{j = 1, \dots, n} \left(\sum_{i=1}^m |a_{ij}| \right),
+\]
+<p>
+which is the max column sum, and
+</p>
+\[
+  \| A \|_\infty = \max_{i = 1, \dots, m} \left(\sum_{j=1}^n |a_{ij}| \right),
+\]
+<p>
+which is the max row sum; both facts are easy to check.
+</p>
+
+<p>
+In general, for \(p \notin \{1, 2, \infty\}\), computing \(\| A \|_p\) is NP-hard, and if we consider \(\| A \|_{p,q}\) then \(\|A\|_{\infty, 1}\) is hard and \(\|A\|_{1, \infty}\) is easy.
+</p>
+
+<p>
+We may also want to consider some other desirable properties on our norms.
+</p>
+<ul>
+<li>
+For example, we might want <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Matrix Norms-submultiplicativity"></span><strong id="submultiplicativity">submultiplicativity</strong>:
+\[
+  \| A B\| \leq \|A \| \| B \|.
+\]
+
+</ul>
+<p>
+The Frobenius norm is submultiplicative.
+</p>
+<ul>
+<li>
+Take also <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Matrix Norms-consistency"></span><strong id="consistency">consistency</strong>:
+\[
+  \| Ax \|_b \leq \| A \|_{a,b} \|x\|_a.
+\]
+
+</ul>
+<div id="This is true for $p$-norms, but not in general."><h1 id="This is true for $p$-norms, but not in general." class="header"><a href="#This is true for $p$-norms, but not in general.">This is true for \(p\)-norms, but not in general.</a></h1></div>
+
+    </div>
+    <div class="footer">
+      <p><small>Page created on 2023-10-01</small></p>
+    </div>
+</body>
+</html>

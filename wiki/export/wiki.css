@@ -15,12 +15,12 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.5em;
 }
 
-h1 {font-size: 2em; color: #000000;}
-h2 {font-size: 1.8em; color: #404040;}
-h3 {font-size: 1.6em; color: #707070;}
-h4 {font-size: 1.4em; color: #909090;}
-h5 {font-size: 1.2em; color: #989898;}
-h6 {font-size: 1em; color: #9c9c9c;}
+h1 {font-size: 2em; color: #444; text-align: center;}
+h2 {font-size: 1.5em; color: #444; text-align: center;}
+h3 {font-size: 1.3em; color: #444;}
+h4 {font-size: 1.2em; color: #444;}
+h5 {font-size: 1.1em; color: #444;}
+h6 {font-size: 1em; color: #444;}
 
 p, pre, blockquote, table, ul, ol, dl {
   margin-top: 1em;
@@ -131,6 +131,18 @@ del {
 .header a {
   text-decoration: none;
   color: inherit;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    margin: 0px auto;
+    max-width: 650px;
+    line-height: 0;
+    font-size: 12px;
+    color: #444;
+    background: white;
+    padding: 0 10px
 }
 
 /* classes for items of todo lists */

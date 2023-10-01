@@ -1,0 +1,45 @@
+= Applied Linear Statistical Methods =
+== UChicago STAT 34300, Autumn 2023 ==
+
+{{$
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\RSS}{RSS}
+\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Im}{Im}
+}}$
+
+=== Simple Linear Regression ===
+
+The setup of the simpliest model is as follows.
+
+Take $x_i \in \mathbb R$ as predictors (alternatively, independent variables, features, etc), and $y_i \in \mathbb R$ as responses (alternatively, outcomes, etc.). Then, we hopes that the response is approximately linear in the predictors, e.g.
+{{$
+  y_i = \beta_0 + \beta_1 x_i + \epsilon_i
+}}$
+which we split (semantically) into a systemic component and some error.
+
+Our goal is then to minimize the residual sum of squares, e.g. 
+{{$
+  \RSS(\mathbf \beta) = n^{-1}\sum_{i=1}^n \epsilon_i^2 = n^{-1}\sum_{i=1}^n(y_i - \beta_0 - \beta_1 x_i)^2.
+}}$
+
+Do this however you want; it doesn't matter. You will arrive at
+{{$
+\begin{align*}
+  \hat \beta_1 &= \frac{\sum_{i=1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i=1}^n(x_i - \bar x)^2} \\
+  \hat \beta_0 &= \hat \alpha - \hat \beta_1 \bar x.
+\end{align*}
+}}$
+
+Now, none of the above has any particular randomness as defined. However, we can now impose (some of) the following assumptions:
+- We have i.i.d. $(x_1, y_1), \dots, (x_n, y_n) \sim P$.
+- We have independent $y_i \sim P_{y_i \mid x = x_i}$ given fixed $x_i$.
+- *Linearity*: $E[y_i \mid x_i] = \beta_0 + \beta_1 x_i$, and thus our residuals obey $E[\epsilon_i \mid x_i] = 0$.
+- *Homoskedasticity*: $\Var(y_i \mid x_i) = \sigma^2 > 0 \iff \Var(\epsilon_i \mid x_i) = \sigma^2 > 0$.
+
+Now for example, if we assume linearity, we can compute that $\hat \beta_1 = \beta_1 + \widetilde \epsilon$ with
+{{$
+  \Var(\widetilde \epsilon) = \frac{\sum(x_i - \bar x)^2 \Var(\epsilon_i)}{\left(\sum(x_i - \bar x)^2 \right)^2} = \frac{\sigma^2}{\sum(x_i - \bar x)^2}
+}}$
+where the last equality only holds under homoskedasticity.

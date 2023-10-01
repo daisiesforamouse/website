@@ -1,0 +1,89 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="wiki.css">
+  <title>Applied Linear Statistical Methods</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="content">
+      
+<div id="Applied Linear Statistical Methods"><h1 id="Applied Linear Statistical Methods" class="header"><a href="#Applied Linear Statistical Methods">Applied Linear Statistical Methods</a></h1></div>
+<div id="Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023"><h2 id="UChicago STAT 34300, Autumn 2023" class="header"><a href="#Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023">UChicago STAT 34300, Autumn 2023</a></h2></div>
+
+\[
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\RSS}{RSS}
+\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Im}{Im}
+\]
+
+<div id="Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Simple Linear Regression"><h3 id="Simple Linear Regression" class="header"><a href="#Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Simple Linear Regression">Simple Linear Regression</a></h3></div>
+
+<p>
+The setup of the simpliest model is as follows.
+</p>
+
+<p>
+Take \(x_i \in \mathbb R\) as predictors (alternatively, independent variables, features, etc), and \(y_i \in \mathbb R\) as responses (alternatively, outcomes, etc.). Then, we hopes that the response is approximately linear in the predictors, e.g.
+</p>
+\[
+  y_i = \beta_0 + \beta_1 x_i + \epsilon_i
+\]
+<p>
+which we split (semantically) into a systemic component and some error.
+</p>
+
+<p>
+Our goal is then to minimize the residual sum of squares, e.g. 
+</p>
+\[
+  \RSS(\mathbf \beta) = n^{-1}\sum_{i=1}^n \epsilon_i^2 = n^{-1}\sum_{i=1}^n(y_i - \beta_0 - \beta_1 x_i)^2.
+\]
+
+<p>
+Do this however you want; it doesn't matter. You will arrive at
+</p>
+\[
+\begin{align*}
+  \hat \beta_1 &amp;= \frac{\sum_{i=1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i=1}^n(x_i - \bar x)^2} \\
+  \hat \beta_0 &amp;= \hat \alpha - \hat \beta_1 \bar x.
+\end{align*}
+\]
+
+<p>
+Now, none of the above has any particular randomness as defined. However, we can now impose (some of) the following assumptions:
+</p>
+<ul>
+<li>
+We have i.i.d. \((x_1, y_1), \dots, (x_n, y_n) \sim P\).
+
+<li>
+We have independent \(y_i \sim P_{y_i \mid x = x_i}\) given fixed \(x_i\).
+
+<li>
+<span id="Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Simple Linear Regression-Linearity"></span><strong id="Linearity">Linearity</strong>: \(E[y_i \mid x_i] = \beta_0 + \beta_1 x_i\), and thus our residuals obey \(E[\epsilon_i \mid x_i] = 0\).
+
+<li>
+<span id="Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Simple Linear Regression-Homoskedasticity"></span><strong id="Homoskedasticity">Homoskedasticity</strong>: \(\Var(y_i \mid x_i) = \sigma^2 &gt; 0 \iff \Var(\epsilon_i \mid x_i) = \sigma^2 &gt; 0\).
+
+</ul>
+<p>
+Now for example, if we assume linearity, we can compute that \(\hat \beta_1 = \beta_1 + \widetilde \epsilon\) with
+</p>
+\[
+  \Var(\widetilde \epsilon) = \frac{\sum(x_i - \bar x)^2 \Var(\epsilon_i)}{\left(\sum(x_i - \bar x)^2 \right)^2} = \frac{\sigma^2}{\sum(x_i - \bar x)^2}
+\]
+<p>
+where the last equality only holds under homoskedasticity.
+</p>
+
+    </div>
+    <div class="footer">
+      <p><small>Page created on 2023-10-01</small></p>
+    </div>
+</body>
+</html>
