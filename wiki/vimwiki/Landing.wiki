@@ -14,9 +14,9 @@ Courses taken at the University of Chicago:
 
 Old scribbles from undergrad:
 
-[[file:/files/Math 1207.pdf|Honors Math A]]
-[[file:/files/Math 1208.pdf|Honors Math B]]
-[[file:/notes/old/alggeo.html|Algebraic Geometry]]
-[[file:/notes/old/probability.html|Probability]]
-[[file:/notes/old/ant.html|Analytic Number Theory]]
-[[file:/notes/old/paris.html|CMUSRP]]
+* [[file:/notes/old/alggeo.html|Algebraic Geometry]]
+* [[file:/notes/old/probability.html|Probability]]
+* [[file:/notes/old/ant.html|Analytic Number Theory]]
+* [[file:/notes/old/paris.html|CMUSRP]]
+* [[file:/files/Math 1207.pdf|Honors Math A]]
+* [[file:/files/Math 1208.pdf|Honors Math B]]
