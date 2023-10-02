@@ -14,12 +14,35 @@
 <div id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023"><h2 id="UChicago STAT 30900, Autumn 2023" class="header"><a href="#Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023">UChicago STAT 30900, Autumn 2023</a></h2></div>
 
 \[
-\DeclareMathOperator{\Var}{Var}
-\DeclareMathOperator{\RSS}{RSS}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+
 \DeclareMathOperator{\Jac}{Jac}
 \DeclareMathOperator{\Ker}{Ker}
-\DeclareMathOperator{\Im}{Im}
 \DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\diag}{diag}
+
+\let\temp\phi
+\let\phi\varphi
+\let\varphi\temp
+
+\newcommand{\pa}[1]{\left(#1\right)}
+\newcommand{\bra}[1]{\left[#1\right]}
+\newcommand{\cbra}[1]{\left\{#1\right\}}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\lrnorm}[1]{\left\|#1\right\|}
+
+\newcommand{\mat}[1]{\begin{matrix}#1\end{matrix}}
+\newcommand{\pmat}[1]{\pa{\mat{#1}}}
+\newcommand{\bmat}[1]{\bra{\mat{#1}}}
+
+\newcommand{\pfrac}[2]{\pa{\frac{#1}{#2}}}
+\newcommand{\bfrac}[2]{\bra{\frac{#1}{#2}}}
+\newcommand{\psfrac}[2]{\pa{\sfrac{#1}{#2}}}
+\newcommand{\bsfrac}[2]{\bra{\sfrac{#1}{#2}}}
 \]
 
 <div id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review"><h3 id="Linear Algebra Review" class="header"><a href="#Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review">Linear Algebra Review</a></h3></div>
@@ -155,12 +178,14 @@ which is the max row sum; both facts are easy to check.
 In general, for \(p \notin \{1, 2, \infty\}\), computing \(\| A \|_p\) is NP-hard, and if we consider \(\| A \|_{p,q}\) then \(\|A\|_{\infty, 1}\) is hard and \(\|A\|_{1, \infty}\) is easy.
 </p>
 
+<div id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Properties of Norms"><h4 id="Properties of Norms" class="header"><a href="#Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Properties of Norms">Properties of Norms</a></h4></div>
+
 <p>
 We may also want to consider some other desirable properties on our norms.
 </p>
 <ul>
 <li>
-For example, we might want <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Matrix Norms-submultiplicativity"></span><strong id="submultiplicativity">submultiplicativity</strong>:
+For example, we might want <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Properties of Norms-submultiplicativity"></span><strong id="submultiplicativity">submultiplicativity</strong>:
 \[
   \| A B\| \leq \|A \| \| B \|.
 \]
@@ -171,17 +196,162 @@ The Frobenius norm is submultiplicative.
 </p>
 <ul>
 <li>
-Take also <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Matrix Norms-consistency"></span><strong id="consistency">consistency</strong>:
+Take also <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Properties of Norms-consistency"></span><strong id="consistency">consistency</strong>:
 \[
   \| Ax \|_b \leq \| A \|_{a,b} \|x\|_a.
 \]
 
 </ul>
-<div id="This is true for $p$-norms, but not in general."><h1 id="This is true for $p$-norms, but not in general." class="header"><a href="#This is true for $p$-norms, but not in general.">This is true for \(p\)-norms, but not in general.</a></h1></div>
+<p>
+This is true for \(p\)-norms, but not in general.
+</p>
+
+<p>
+Some properties always hold.
+</p>
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Properties of Norms-Prop"></span><strong id="Prop">Prop</strong>: Every norm is Lipschitz.
+</p>
+
+<p>
+<em>Proof</em>: Let our norm be \(\| \cdot \| : V \to \R\). The triangle inequality immediately implies
+</p>
+\[
+  | \| u \| - \| v \| | \leq \| u - v \|.
+\]
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Properties of Norms-Theorem (Equivalence of Norms)"></span><strong id="Theorem (Equivalence of Norms)">Theorem (Equivalence of Norms)</strong>: <a href="https://kconrad.math.uconn.edu/blurbs/gradnumthy/equivnorms.pdf">Link</a>. Set \(V\) a finite-dimensional vector space. Then every pair of norms \(\| \cdot \|_a, \| \cdot \|_b\) are equivalent to each other, e.g. there are constants \(c_1, c_2\) such that for any \(v \in V\),
+</p>
+\[
+  c_1\| v \|_b \leq \| v \|_a \leq c_2 \| v \|_b.
+\]
+
+<p>
+<em>Proof</em>: Induct on the dimension of \(V\) and see that every norm is equivalent to the infinity norm.
+</p>
+
+<p>
+<em>Def</em>: We say that a sequence \(\{ x_k \}_{k=1}^\infty\) of vectors <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Properties of Norms-converges"></span><strong id="converges">converges</strong> to \(x\) if
+</p>
+\[
+  \lim_{k \to \infty} \| x_k - x \| = 0.
+\]
+
+<p>
+Then, the above clearly shows that convergence in one norm implies convergence in every norm.
+</p>
+
+<div id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products"><h4 id="Inner, Outer, Matrix Products" class="header"><a href="#Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products">Inner, Outer, Matrix Products</a></h4></div>
+
+<p>
+<em>Def</em>: Set \(V\) a \(K\)-vector space (where \(K = \R, \C\)). An <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-inner product"></span><strong id="inner product">inner product</strong> is a binary operation \(\langle \cdot, \cdot \rangle: V \times V \to \R\) which satisfies that
+</p>
+<ul>
+<li>
+\(\left\langle v, v \right\rangle \geq 0\) for all \(v \in V\),
+
+<li>
+\(\left\langle v, v,\right\rangle = 0\) if and only if \(v = 0\),
+
+<li>
+\(\left\langle u, v \right\rangle = \overline{ \left\langle v, u\right\rangle }\) for all \(u, v \in V\),
+
+<li>
+\(\left\langle \alpha_1 u_1 + \alpha_2 u_2, v\right\rangle = \alpha \left\langle u_1, v \right\rangle + \alpha_2 \left\langle u_2, v\right\rangle\) for all \(u_1, u_2, v \in V, \alpha_1, \alpha_2 \in K\).
+
+</ul>
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-Prop"></span><strong id="Prop">Prop</strong>: For an inner product \(\left\langle \cdot, \cdot \right\rangle\),
+</p>
+\[
+  \| v \| = \sqrt{ \left\langle v, v \right\rangle }
+\]
+<p>
+is a norm. Furthermore, an arbitrary norm \(\| \|\) is induced by an inner product if and only if it satisfies the parallelogram law
+</p>
+\[
+  \norm{u + v}^2 + \norm{u - v}^2 = 2 \norm u ^ 2 + 2 \norm v ^2.
+\]
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-Theorem (Cauchy-Schwarz)"></span><strong id="Theorem (Cauchy-Schwarz)">Theorem (Cauchy-Schwarz)</strong>: <a href="https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality">Link</a>. Let \(\norm \cdot\) be induced by \(\left\langle \cdot, \cdot \right\rangle\). Then
+</p>
+\[
+  \sqrt{\left\langle u, v \right\rangle} \leq \norm u \norm v.
+\]
+
+
+<p>
+<em>Def</em>: The <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-standard Euclidean inner product"></span><strong id="standard Euclidean inner product">standard Euclidean inner product</strong> on \(\C^n\) is
+</p>
+\[
+  \left\langle x, y\right\rangle = x^*y.
+\]
+
+<p>
+<em>Def</em>: The <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-Frobenius"></span><strong id="Frobenius">Frobenius</strong> norm on \(\C^{m \times n}\) is 
+</p>
+\[
+  \left\langle X, Y\right\rangle = \sum_{i=1}^m \sum_{j=1}^n x_{ij} y_{ij} = \Tr(X^*Y).
+\]
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-Theorem (Hölder Inequality)"></span><strong id="Theorem (Hölder Inequality)">Theorem (Hölder Inequality)</strong>: <a href="https://en.wikipedia.org/wiki/H%C3%B6lder%27s_inequality">Link</a>. For \(x, y \in \C^n\) and \(p^{-1} + q^{-1} = 1\), we have
+</p>
+\[
+  |x^*y| \leq \norm x_p \norm y_q.
+\]
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-Theorem (Bessel Inequality)"></span><strong id="Theorem (Bessel Inequality)">Theorem (Bessel Inequality)</strong>: <a href="https://en.wikipedia.org/wiki/Bessel%27s_inequality">Link</a>. For \(x \in \C^n\) and an orthonormal basis \(e_1, \dots, e_n\), we have 
+</p>
+\[
+  \sum_{k=1}^n | \left\langle x, e_k \right\rangle^2  \leq \norm x_2.
+\]
+
+<p>
+<em>Def</em>: The <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-outer product"></span><strong id="outer product">outer product</strong> is a binary operator \(\C^m \times \C^n \to \C^{m \times n}\) taking 
+</p>
+\[
+  (x, y) \mapsto xy^*.
+\]
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-Prop"></span><strong id="Prop">Prop</strong>: \(A \in \R^{m \times n}\) is an outer product iff and only if it has rank 1.
+</p>
+
+<p>
+<em>Def</em>: The matrix product is a binary operator \(\C^{m \times n} \times \C^{n \times p} \to \C^{M \times p}\). Set \(A = \bmat{\alpha_1 &amp; \alpha_2 &amp; \cdots &amp; \alpha_m}^T\) and \(B = \bmat{\beta_1 &amp; \beta_2 &amp; \cdots &amp; \beta_p}\). Then,
+</p>
+\[
+  AB = \bmat{
+    \alpha_1^T \beta_1 &amp; \cdots &amp; \alpha_1^T \beta_n \\
+    \alpha_2^T \beta_1 &amp; \cdots &amp; \alpha_2^T \beta_n \\
+    \vdots &amp; \ddots &amp; \vdots \\
+    \alpha_m^T \beta_1 &amp; \cdots &amp; \alpha_m^T \beta_n 
+  } 
+  = \bmat{A\beta_1 &amp; A\beta_2 &amp; \cdots &amp; A\beta_n} 
+  = \bmat{\alpha_1^TB \\ \alpha_2^TB \\ \vdots \\ \alpha_m^TB}.
+\]
+<p>
+Alternatively, it is uniquely characterized as the matrix representing the composition of \(A\) and \(B\) as operators.
+</p>
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-<em>Prop</em>"></span><strong id="<em>Prop</em>"><em>Prop</em></strong>: Let \(D = \diag(d_1, \dots, d_n)\), the diagonal matrix with entries \(d_1, \dots, d_n\); then
+</p>
+\[
+  AD = \bmat{d_1\alpha_1, \dots, d_n \alpha_n}.
+\]
+<p>
+Simiar for the other direction of multiplication.
+</p>
 
     </div>
     <div class="footer">
-      <p><small>Page created on 2023-10-01</small></p>
+      <p><small>Page created on 2023-10-02</small></p>
     </div>
 </body>
 </html>

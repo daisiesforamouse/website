@@ -31,16 +31,16 @@
 
 === Brownian Motion ===
 
-As a style prefernce, I'm going to drop all the arguments that are from the probability space.
+As a style preference, I'm going to drop all the arguments that are from the probability space.
 
 Fix a probability space $(\Omega, \mathcal F, P)$; we characterize the Brownian motion $\{B_t\}_{t \geq 0}$ via the follwing properties:
 - *Independent Increments*: If $s < t$, the random variable $B_t - B_s$ is independent of $\sigma\{B_r: r \leq s\}$
 - *Stationary Increments*: If $s < t$, then $B_t - B_s$ has the same distribution as $B_{t-s} - B_0$.
 - *Continuity*: The map $t \mapsto B_t$ is almost surely continuous. 
 
-*Theorem*: If a process satisfies the above, then there are $\mu, \sigma^2$ (respectively called the dirft and the variance parameter, and $\sigma$ is named the volatility) such that there exist $B_t \sim N(\mu t, \sigma^2 t)$.
+*Theorem*: If a process satisfies the above, then there are $\mu, \sigma^2$ (respectively called the drift and the variance parameter, and $\sigma$ is named the volatility) such that there exist $B_t \sim N(\mu t, \sigma^2 t)$.
 
-_Def_: A stochastic process $\{B_t\}_{t \geq 0}$ is called a (one dimensional) *Brownian motion* (or Wiener process) starting from the origin with drift $m$ and variance parameter $\sigma^2$ if $B_t = 0$ and the above three conditions are satisfied, with the imposition that 
+_Def_: A stochastic process $\{B_t\}_{t \geq 0}$ is called a (one dimensional) *Brownian motion* (or Wiener process) starting from the origin with drift $\mu$ and variance parameter $\sigma^2$ if $B_t = 0$ and the above three conditions are satisfied, with the imposition that 
 {{$
 B_t - B_s \sim N(\mu (t-s), \sigma^2 (t-s)).
 }}$

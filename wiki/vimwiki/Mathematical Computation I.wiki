@@ -2,12 +2,35 @@
 == UChicago STAT 30900, Autumn 2023 ==
 
 {{$
-\DeclareMathOperator{\Var}{Var}
-\DeclareMathOperator{\RSS}{RSS}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+
 \DeclareMathOperator{\Jac}{Jac}
 \DeclareMathOperator{\Ker}{Ker}
-\DeclareMathOperator{\Im}{Im}
 \DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\diag}{diag}
+
+\let\temp\phi
+\let\phi\varphi
+\let\varphi\temp
+
+\newcommand{\pa}[1]{\left(#1\right)}
+\newcommand{\bra}[1]{\left[#1\right]}
+\newcommand{\cbra}[1]{\left\{#1\right\}}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\lrnorm}[1]{\left\|#1\right\|}
+
+\newcommand{\mat}[1]{\begin{matrix}#1\end{matrix}}
+\newcommand{\pmat}[1]{\pa{\mat{#1}}}
+\newcommand{\bmat}[1]{\bra{\mat{#1}}}
+
+\newcommand{\pfrac}[2]{\pa{\frac{#1}{#2}}}
+\newcommand{\bfrac}[2]{\bra{\frac{#1}{#2}}}
+\newcommand{\psfrac}[2]{\pa{\sfrac{#1}{#2}}}
+\newcommand{\bsfrac}[2]{\bra{\sfrac{#1}{#2}}}
 }}$
 
 === Linear Algebra Review ===
@@ -90,6 +113,8 @@ which is the max row sum; both facts are easy to check.
 
 In general, for $p \notin \{1, 2, \infty\}$, computing $\| A \|_p$ is NP-hard, and if we consider $\| A \|_{p,q}$ then $\|A\|_{\infty, 1}$ is hard and $\|A\|_{1, \infty}$ is easy.
 
+==== Properties of Norms ====
+
 We may also want to consider some other desirable properties on our norms.
 - For example, we might want *submultiplicativity*:
 {{$
@@ -100,4 +125,96 @@ The Frobenius norm is submultiplicative.
 {{$
   \| Ax \|_b \leq \| A \|_{a,b} \|x\|_a.
 }}$
-= This is true for $p$-norms, but not in general. =
+This is true for $p$-norms, but not in general.
+
+Some properties always hold.
+
+*Prop*: Every norm is Lipschitz.
+
+_Proof_: Let our norm be $\| \cdot \| : V \to \R$. The triangle inequality immediately implies
+{{$
+  | \| u \| - \| v \| | \leq \| u - v \|.
+}}$
+
+*Theorem (Equivalence of Norms)*: [[https://kconrad.math.uconn.edu/blurbs/gradnumthy/equivnorms.pdf|Link]]. Set $V$ a finite-dimensional vector space. Then every pair of norms $\| \cdot \|_a, \| \cdot \|_b$ are equivalent to each other, e.g. there are constants $c_1, c_2$ such that for any $v \in V$,
+{{$
+  c_1\| v \|_b \leq \| v \|_a \leq c_2 \| v \|_b.
+}}$
+
+_Proof_: Induct on the dimension of $V$ and see that every norm is equivalent to the infinity norm.
+
+_Def_: We say that a sequence $\{ x_k \}_{k=1}^\infty$ of vectors *converges* to $x$ if
+{{$
+  \lim_{k \to \infty} \| x_k - x \| = 0.
+}}$
+
+Then, the above clearly shows that convergence in one norm implies convergence in every norm.
+
+==== Inner, Outer, Matrix Products ====
+
+_Def_: Set $V$ a $K$-vector space (where $K = \R, \C$). An *inner product* is a binary operation $\langle \cdot, \cdot \rangle: V \times V \to \R$ which satisfies that
+- $\left\langle v, v \right\rangle \geq 0$ for all $v \in V$,
+- $\left\langle v, v,\right\rangle = 0$ if and only if $v = 0$,
+- $\left\langle u, v \right\rangle = \overline{ \left\langle v, u\right\rangle }$ for all $u, v \in V$,
+- $\left\langle \alpha_1 u_1 + \alpha_2 u_2, v\right\rangle = \alpha \left\langle u_1, v \right\rangle + \alpha_2 \left\langle u_2, v\right\rangle$ for all $u_1, u_2, v \in V, \alpha_1, \alpha_2 \in K$.
+
+*Prop*: For an inner product $\left\langle \cdot, \cdot \right\rangle$,
+{{$
+  \| v \| = \sqrt{ \left\langle v, v \right\rangle }
+}}$
+is a norm. Furthermore, an arbitrary norm $\| \|$ is induced by an inner product if and only if it satisfies the parallelogram law
+{{$
+  \norm{u + v}^2 + \norm{u - v}^2 = 2 \norm u ^ 2 + 2 \norm v ^2.
+}}$
+
+*Theorem (Cauchy-Schwarz)*: [[https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality|Link]]. Let $\norm \cdot$ be induced by $\left\langle \cdot, \cdot \right\rangle$. Then
+{{$
+  \sqrt{\left\langle u, v \right\rangle} \leq \norm u \norm v.
+}}$
+
+
+_Def_: The *standard Euclidean inner product* on $\C^n$ is
+{{$
+  \left\langle x, y\right\rangle = x^*y.
+}}$
+
+_Def_: The *Frobenius* norm on $\C^{m \times n}$ is 
+{{$
+  \left\langle X, Y\right\rangle = \sum_{i=1}^m \sum_{j=1}^n x_{ij} y_{ij} = \Tr(X^*Y).
+}}$
+
+*Theorem (Hölder Inequality)*: [[https://en.wikipedia.org/wiki/H%C3%B6lder%27s_inequality|Link]]. For $x, y \in \C^n$ and $p^{-1} + q^{-1} = 1$, we have
+{{$
+  |x^*y| \leq \norm x_p \norm y_q.
+}}$
+
+*Theorem (Bessel Inequality)*: [[https://en.wikipedia.org/wiki/Bessel%27s_inequality|Link]]. For $x \in \C^n$ and an orthonormal basis $e_1, \dots, e_n$, we have 
+{{$
+  \sum_{k=1}^n | \left\langle x, e_k \right\rangle^2  \leq \norm x_2.
+}}$
+
+_Def_: The *outer product* is a binary operator $\C^m \times \C^n \to \C^{m \times n}$ taking 
+{{$
+  (x, y) \mapsto xy^*.
+}}$
+
+*Prop*: $A \in \R^{m \times n}$ is an outer product iff and only if it has rank 1.
+
+_Def_: The matrix product is a binary operator $\C^{m \times n} \times \C^{n \times p} \to \C^{M \times p}$. Set $A = \bmat{\alpha_1 & \alpha_2 & \cdots & \alpha_m}^T$ and $B = \bmat{\beta_1 & \beta_2 & \cdots & \beta_p}$. Then,
+{{$
+  AB = \bmat{
+    \alpha_1^T \beta_1 & \cdots & \alpha_1^T \beta_n \\
+    \alpha_2^T \beta_1 & \cdots & \alpha_2^T \beta_n \\
+    \vdots & \ddots & \vdots \\
+    \alpha_m^T \beta_1 & \cdots & \alpha_m^T \beta_n 
+  } 
+  = \bmat{A\beta_1 & A\beta_2 & \cdots & A\beta_n} 
+  = \bmat{\alpha_1^TB \\ \alpha_2^TB \\ \vdots \\ \alpha_m^TB}.
+}}$
+Alternatively, it is uniquely characterized as the matrix representing the composition of $A$ and $B$ as operators.
+
+*_Prop_*: Let $D = \diag(d_1, \dots, d_n)$, the diagonal matrix with entries $d_1, \dots, d_n$; then
+{{$
+  AD = \bmat{d_1\alpha_1, \dots, d_n \alpha_n}.
+}}$
+Simiar for the other direction of multiplication.
