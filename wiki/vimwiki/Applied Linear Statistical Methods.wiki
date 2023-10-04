@@ -16,6 +16,8 @@
 \DeclareMathOperator{\Im}{Im}
 \DeclareMathOperator{\argmin}{argmin}
 \DeclareMathOperator{\argmax}{argmin}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\rank}{rank}
 
 \let\temp\phi
 \let\phi\varphi
@@ -39,7 +41,7 @@ Whenever it is unclear, vectors are column vectors.
 
 === Simple Linear Regression ===
 
-[[https://en.wikipedia.org/wiki/Simple_linear_regression|Wikipedia Link]].
+[[https://en.wikipedia.org/wiki/Simple_linear_regression|Wikipedia]]
 
 The setup of the simpliest model is as follows.
 
@@ -93,9 +95,9 @@ Even under misspecification, we can see that if our samples are i.i.d. distribut
 }}$
 where $\rho_{XY}$ is the correlation and $\sigma_X, \sigma_Y$ are standard deviations.
 
-==== Multiple Linear Regression ====
+=== Multiple Linear Regression ===
 
-[[https://en.wikipedia.org/wiki/Linear_regression|Wikipedia Link]].
+[[https://en.wikipedia.org/wiki/Linear_regression|Wikipedia]]
 
 Now we take $x_i \in \R^p$ and $y_i \in \R$, and set our model to be 
 {{$
@@ -129,4 +131,72 @@ Why might $X$ not be invertible? Some examples are
 - unit conversions / indentical measurements,
 - batch effects (e.g. one feature is if a patient was given an medication $A$, and another is if a patient was given it by technician $A'$, but it was exactly $A'$ who handed out $A$).
 
+==== OLS as a Projection ====
+
 From a geometric perspective, the OLS predictions are just the projections of $y$ into the image of $X$ as a linear map $\R^p \to \R^n$.
+
+_Def_: $X_{\cdot, 1}, \dots, X_{\cdot p}$ are *orthogonal* if $\left\langle X_{\cdot j}, X_{\cdot k}\right\rangle = 0$ for all $j, k$, and *orthonormal* if they are all of length 1.
+
+*Theorem*: Set $V \subset \R^n$ a linear subspace and $y \in \R^n$; there exists a unique vector
+{{$
+  \proj_V(y) = \argmin_{v \in V} \| y - v \|.
+}}$
+Furthermore, $y - \proj_V(y) \in V^{\perp}$, the perpendicular space to $V$ (or equivalently, $\left\langle y - \proj_V(y), v \right\rangle = 0$ for all $v \in V$).
+
+There are a few more facts:
+- $y \mapsto \proj_V(y)$ is a linear operator, and the corresponding matrix is called the projection matrix $P_V \in \R^{n \times n} = P_V$;
+- $P_V$ is idempotent, e.g. $P_V^2 = P_V$;
+- $P_V^T = P_V$;
+- $P_{V^\perp} = I - P_V$, which gives a decomposition $y = P_Vy + P_{V^\perp} y$.
+- $\rank(P_V) = \dim(V)$, and has a eigenvalue decomposition with eigenvalues $\{ 0, 1 \}$ in the obvious way.
+
+*Corollary*: Set $P_X = P_{\Im(X)}, \hat y = P_X y = X \hat \beta$. This immediately yields that the "fit" $\hat y$ and the residuals $\hat \epsilon$ are unique, and
+{{$
+  \|y\|^2 = \| \hat y \|^2 + \| \hat \epsilon \|^2
+}}$
+since $\hat \epsilon = (I - P_{X})y$.
+
+_Example_: 
+- If $X_{k 1} = 1$ for all $k$ (that is, we include a constant in our regression), we immediately get that $\sum_{i=1}^m \epsilon_i = 0$. 
+- If $X$ is full rank, then $P_X = X(X^TX)^{-1}X^T$.
+
+==== Reducing to Simple Linear Regression ====
+
+If one column $X_{\cdot j}$ is orthogonal to every other feature, then this reduces to simplre linear regressions: 
+{{$
+  \hat \beta_j = \frac{\left\langle X_{\cdot j}, y\right\rangle}{\| X_{\cdot j} \|^2}.
+}}$
+
+Using this, set 
+- $Z_{\cdot 1} = X_{ \cdot 1}$,
+- $Z_{\cdot n}$ to the residuals of $X_{\cdot n} \sim Z_{\cdot n-1}$, e.g.
+{{$
+  X_{\cdot n} - \sum_{i=1}^{n-1}\frac{\left\langle Z_{\cdot i}, X_{\cdot i}\right\rangle}{\| Z_{\cdot i}\|^2}Z_{\cdot i}.
+}}$
+
+Then, we see that
+{{$
+  \hat \beta_p = \frac{\left\langle Z_{\cdot p}, y \right\rangle}{\| Z_{\cdot p}^2\|},
+}}$
+so in general each coefficient depends on other variables, e.g.
+{{$
+  \hat \beta_j = \frac{\left\langle \text{residuals of } X_{\cdot j} \sim \sum_{k \neq j}X_{\cdot k}, y\right\rangle}{ \| \text{residuals of } X_{\cdot j} \sim \sum_{k \neq j}X_{\cdot k} \|^2}.
+}}$
+
+In particular, the above (which is clearly just doing Gram-Schmidt) gives us a $QR$-decomposition of $X$, where $Q = ZD$ is the orthonormalization of $Z$ and $R$ is the upper triangular matrix corresponding to Gram-Schmidt.
+
+This is (for the most part) what software packages do in computing linear models: you set $y = Q\gamma + \epsilon$, and take $\hat \gamma &= Q^Ty$; but since the hit is unique, we have that $Q \hat \gamma = X \hat \beta = QR\hat \beta \implies R\hat \beta = \hat \gamma$, which is numerically tractible.
+
+==== OLS and SVD ====
+
+_Def_: [[https://en.wikipedia.org/wiki/Singular_value_decomposition|Link]] The *SVD decomposition* of a real (resp. complex) matrix $X \in \R^{n \times p}$ (resp. $\C^{n \times p}$) is
+{{$
+  X = U \Sigma V^*
+}}$
+where $U, V$ are orthogonal (resp. unitary) and $\Sigma$ is diagonal. Alternatively, we may sometimes use the "skinny" SVD, where $U, \Sigma$ are just $n \times p$ and $p \times p$ matrices, essentially by dropping the zero rows of $\Sigma$.
+
+SVD is related to eigenvalue decomposition by noting that
+{{$
+  X^*X = V\Sigma V^* U \Sigma V^* = V(\Sigma^* \Sigma)V^*
+}}$
+so that columns of $V$ are eigenvectors of $X^*X$, and similarly columns of $U$ are eigenvectors of $XX^*$.

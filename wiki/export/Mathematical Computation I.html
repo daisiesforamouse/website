@@ -22,6 +22,7 @@
 
 \DeclareMathOperator{\Jac}{Jac}
 \DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Tr}{Tr}
 \DeclareMathOperator{\diag}{diag}
 
@@ -222,7 +223,7 @@ Some properties always hold.
 \]
 
 <p>
-<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Properties of Norms-Theorem (Equivalence of Norms)"></span><strong id="Theorem (Equivalence of Norms)">Theorem (Equivalence of Norms)</strong>: <a href="https://kconrad.math.uconn.edu/blurbs/gradnumthy/equivnorms.pdf">Link</a>. Set \(V\) a finite-dimensional vector space. Then every pair of norms \(\| \cdot \|_a, \| \cdot \|_b\) are equivalent to each other, e.g. there are constants \(c_1, c_2\) such that for any \(v \in V\),
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Properties of Norms-Theorem (Equivalence of Norms)"></span><strong id="Theorem (Equivalence of Norms)">Theorem (Equivalence of Norms)</strong>: <a href="https://kconrad.math.uconn.edu/blurbs/gradnumthy/equivnorms.pdf">Link</a> Set \(V\) a finite-dimensional vector space. Then every pair of norms \(\| \cdot \|_a, \| \cdot \|_b\) are equivalent to each other, e.g. there are constants \(c_1, c_2\) such that for any \(v \in V\),
 </p>
 \[
   c_1\| v \|_b \leq \| v \|_a \leq c_2 \| v \|_b.
@@ -276,7 +277,7 @@ is a norm. Furthermore, an arbitrary norm \(\| \|\) is induced by an inner produ
 \]
 
 <p>
-<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-Theorem (Cauchy-Schwarz)"></span><strong id="Theorem (Cauchy-Schwarz)">Theorem (Cauchy-Schwarz)</strong>: <a href="https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality">Link</a>. Let \(\norm \cdot\) be induced by \(\left\langle \cdot, \cdot \right\rangle\). Then
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-Theorem (Cauchy-Schwarz)"></span><strong id="Theorem (Cauchy-Schwarz)">Theorem (Cauchy-Schwarz)</strong>: <a href="https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality">Link</a> Let \(\norm \cdot\) be induced by \(\left\langle \cdot, \cdot \right\rangle\). Then
 </p>
 \[
   \sqrt{\left\langle u, v \right\rangle} \leq \norm u \norm v.
@@ -298,14 +299,14 @@ is a norm. Furthermore, an arbitrary norm \(\| \|\) is induced by an inner produ
 \]
 
 <p>
-<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-Theorem (Hölder Inequality)"></span><strong id="Theorem (Hölder Inequality)">Theorem (Hölder Inequality)</strong>: <a href="https://en.wikipedia.org/wiki/H%C3%B6lder%27s_inequality">Link</a>. For \(x, y \in \C^n\) and \(p^{-1} + q^{-1} = 1\), we have
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-Theorem (Hölder Inequality)"></span><strong id="Theorem (Hölder Inequality)">Theorem (Hölder Inequality)</strong>: <a href="https://en.wikipedia.org/wiki/H%C3%B6lder%27s_inequality">Link</a> For \(x, y \in \C^n\) and \(p^{-1} + q^{-1} = 1\), we have
 </p>
 \[
   |x^*y| \leq \norm x_p \norm y_q.
 \]
 
 <p>
-<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-Theorem (Bessel Inequality)"></span><strong id="Theorem (Bessel Inequality)">Theorem (Bessel Inequality)</strong>: <a href="https://en.wikipedia.org/wiki/Bessel%27s_inequality">Link</a>. For \(x \in \C^n\) and an orthonormal basis \(e_1, \dots, e_n\), we have 
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-Theorem (Bessel Inequality)"></span><strong id="Theorem (Bessel Inequality)">Theorem (Bessel Inequality)</strong>: <a href="https://en.wikipedia.org/wiki/Bessel%27s_inequality">Link</a> For \(x \in \C^n\) and an orthonormal basis \(e_1, \dots, e_n\), we have 
 </p>
 \[
   \sum_{k=1}^n | \left\langle x, e_k \right\rangle^2  \leq \norm x_2.
@@ -340,7 +341,7 @@ Alternatively, it is uniquely characterized as the matrix representing the compo
 </p>
 
 <p>
-<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-<em>Prop</em>"></span><strong id="<em>Prop</em>"><em>Prop</em></strong>: Let \(D = \diag(d_1, \dots, d_n)\), the diagonal matrix with entries \(d_1, \dots, d_n\); then
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Inner, Outer, Matrix Products-Prop"></span><strong id="Prop">Prop</strong>: Let \(D = \diag(d_1, \dots, d_n)\), the diagonal matrix with entries \(d_1, \dots, d_n\); then
 </p>
 \[
   AD = \bmat{d_1\alpha_1, \dots, d_n \alpha_n}.
@@ -349,9 +350,182 @@ Alternatively, it is uniquely characterized as the matrix representing the compo
 Simiar for the other direction of multiplication.
 </p>
 
+<div id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors"><h4 id="Eigenvalues and Eigenvectors" class="header"><a href="#Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors">Eigenvalues and Eigenvectors</a></h4></div>
+
+<p>
+<em>Def</em>: For a complex matrix \(A\), an <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-eigenvalue"></span><strong id="eigenvalue">eigenvalue</strong> \(\lambda \in \C\) and <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-eigenvector"></span><strong id="eigenvector">eigenvector</strong> \(v \neq 0\) satisfy
+</p>
+\[
+  Av = \lambda v.
+\]
+
+<p>
+<em>Def</em>: Furthermore, an <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-eigenspace"></span><strong id="eigenspace">eigenspace</strong> is the span of all eigenvectors correspnding to a single eigenvalue, the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-spectrum"></span><strong id="spectrum">spectrum</strong> of \(A\), \(\Spec(A)\) is the set of all eigenvalues of \(A\), and the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-spectral radius"></span><strong id="spectral radius">spectral radius</strong> is \(\rho(A) = \max_{\lambda \in \Spec(A)} |\lambda| = |\lambda_{\text{max}}|\). Sometimes we will call this the top eigenvector/eigenvalue.
+</p>
+
+<p>
+As a convention, usually we implcitly order eigenvalues, e.g. \(|\lambda_1| \geq |\lambda_2| \geq \cdots \geq \lambda_n\).
+</p>
+
+<p>
+<em>Def</em>: More generally, if \(v\) is a eigenvector of \(A^T\), we say that \(v\) is a <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-left eigenvector"></span><strong id="left eigenvector">left eigenvector</strong> of \(A\) (and thus usual eigenvectors are <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-right eigenvectors"></span><strong id="right eigenvectors">right eigenvectors</strong>).
+</p>
+
+<p>
+There are a few warnings about these things:
+</p>
+<ul>
+<li>
+real matrices may have complex eigenvectors;
+
+<li>
+we normally normalize eigenvectors to have unit length;
+
+<li>
+left and right eigenvectors are usually not the same.
+
+</ul>
+<p>
+<em>Def</em>: A square matrix \(A \in \C^{n \times n}\) is diagonalizable if it is simiarly to a diagonal matrix.
+</p>
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Prop"></span><strong id="Prop">Prop</strong>: \(A\) is diagonalizable if and only if it has \(n\) linearly independent eigenvectors.
+</p>
+
+<p>
+<em>Proof</em>: The eigenvectors form a basis by intertibility; change basis from the eigenvectors, scale by eigenvalues, and change basis back. In particular, let \(A \in \C^{n \times n}\) have eigenvalues \(\lambda_1, \dots, \lambda_n\), with corresponding eigenvectors \(v_1, \dots, v_n\); set \(\Lambda = \diag(\lambda_1, \dots, \lambda_n)\) and \(V = \bmat{v_1, \dots, v_n}\). Then
+</p>
+\[
+  A = V \Lambda V^{-1}.
+\]
+
+<p>
+<em>Def</em>: The above \(A = X \Lambda X^{-1}\) is called the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-eigenvalue decomposition"></span><strong id="eigenvalue decomposition">eigenvalue decomposition</strong>, or <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-EVD"></span><strong id="EVD">EVD</strong>.
+</p>
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Prop"></span><strong id="Prop">Prop</strong>: The diagonal entries in a triangular matrix are just the eigenvalues.
+</p>
+
+<p>
+<em>Def</em>: A matrix \(A \in \C^{n \times n}\) is <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-normal"></span><strong id="normal">normal</strong> if it commutes with its adjoint \(A^*\) (the conjugate transpose), and <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-unitary"></span><strong id="unitary">unitary</strong> if \(AA^* = A^*A = I\).
+</p>
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Prop"></span><strong id="Prop">Prop</strong>: \(A\) is unitary if and only if it's columns (or rows) are orthonormal.
+</p>
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Theorem"></span><strong id="Theorem">Theorem</strong>: \(A \in \C^{n \times n}\) is normal if and only if it is unitarily diagonalizable, e.g. if \(A = V\Lambda V^*\) with \(V\) unitary.
+</p>
+
+<p>
+<em>Def</em>: \(A \in \C^{n \times n}\) is <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Hermitian"></span><strong id="Hermitian">Hermitian</strong> if \(A^* = A\).
+</p>
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Theorem (Spectral Theorem)"></span><strong id="Theorem (Spectral Theorem)">Theorem (Spectral Theorem)</strong>: <a href="https://en.wikipedia.org/wiki/Spectral_theorem ">Link</a> \(A \in \C^{n \times n}\) is Hermetian if and only if \(A\) is unitarily diagonalizable with all real eigenvalues.
+</p>
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Corollary"></span><strong id="Corollary">Corollary</strong>: \(A \in \R^{n \times n}\) is symmetric if and only if it is orthgonally diagonalizable with all eigenvalues real.
+</p>
+
+<p>
+<em>Def</em>: <a href="https://en.wikipedia.org/wiki/Jordan_normal_form">Link</a> Any matrix can be written in <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Jordan canonical form"></span><strong id="Jordan canonical form">Jordan canonical form</strong>, e.g.
+</p>
+\[
+  A = XJX^{-1}
+\]
+<p>
+where \(J\) is nonzero only on the diagonal and the superdiagonal, which has values only in \(\{0, 1\}\), such as
+</p>
+\[
+  J = \begin{bmatrix}
+    \lambda_1 &amp; 1         &amp;           &amp;   &amp; &amp; &amp; \\
+              &amp; \lambda_1 &amp; 1         &amp;   &amp; &amp; &amp; \\
+              &amp;           &amp; \lambda_1 &amp; 0 &amp; &amp; &amp; \\
+              &amp;           &amp; &amp; \lambda_2 &amp; 0 &amp; &amp; \\
+              &amp;           &amp;         &amp;  &amp; \lambda_3 &amp; 1 &amp; \\
+              &amp;           &amp;         &amp;  &amp; &amp; \lambda_3  &amp; \\
+  \end{bmatrix}
+\]
+<p>
+for example.
+</p>
+
+<p>
+The way it's written above is not by coincidence: you can permute everything so that \(J\) is composed of Jordan blocks, which have the same entry all the way down the diagonal and have a superdiagonal of only ones, e.g.
+</p>
+\[
+  J = \begin{bmatrix}
+    J_1 &amp; &amp; &amp; \\
+    &amp; J_2 &amp; &amp; \\
+    &amp; &amp; \ddots &amp; \\
+    &amp; &amp; &amp; J_k \\
+  \end{bmatrix}
+\]
+<p>
+where each \(J_i = \lambda I + N\), where \(N\) has all zero entries except on the superdiagonal, on which it is always one.
+</p>
+
+<p>
+Unfortunately, the JCF is pretty useless in application.
+</p>
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Theorem (Golub-Wilkinson)"></span><strong id="Theorem (Golub-Wilkinson)">Theorem (Golub-Wilkinson)</strong>: The Jordan canonical form cannot be computed in finite precision.
+</p>
+
+<p>
+Let's return to the spectral radius,
+</p>
+\[
+  \rho(A) = \max_{\lambda \in \Spec(A)} |\lambda|.
+\]
+
+<p>
+Any nilpotent matrix shows that \(\rho\) is not a norm, but the following is true.
+</p>
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Prop"></span><strong id="Prop">Prop</strong>: If \(\| \cdot \|: \C^{m \times m} \to \R\) is any consistent matrix norm, then \(\rho(A) \leq \| A \|\).
+</p>
+
+<p>
+<em>Proof</em>: Look at the norm of the image of a top eigenvector.
+</p>
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Theorem"></span><strong id="Theorem">Theorem</strong>: Given any \(A \in \C^{n \times n}\), any positive \(\epsilon\), there is a consistent norm (in fact, an operator norm) \(\| \cdot \|: \C^{n \times m} \to \R\) such that 
+</p>
+\[
+  \| A \| \leq \rho(A) + \epsilon.
+\]
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Prop"></span><strong id="Prop">Prop</strong>: Given any matrix norm \(\| \cdot \|: \C^{n \times m} \to R\), we have
+</p>
+\[
+  \rho(A) = \lim_{k \to \infty} \| A^k \|^{1/k}.
+\]
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Lemma"></span><strong id="Lemma">Lemma</strong>: \(\lim_{k \to \infty} A^k = 0\)  if and only if \(\rho(A) &lt; 1\).
+</p>
+
+<p>
+<em>Proof</em>: \((\implies)\) Set \(\lambda\) to be a top eigenvalue of \(A\), and \(x\) a corresponding eigenvector. Then, \(A^k x = \lambda^k x\). Send \(k \to \infty\) and conclude.
+</p>
+
+<p>
+\((\impliedby)\) By the above theorems, there is some operator norm \(\| \cdot \|\) such that \(\|A\| \leq \rho(A) + \epsilon &lt; 1\). Send \(k \to \infty\) and use the fact that operator norms imply \(\| A^k \| \leq \|A\|^k\) and win.
+</p>
+
     </div>
     <div class="footer">
-      <p><small>Page created on 2023-10-02</small></p>
+      <p><small>Page created on 2023-10-04</small></p>
     </div>
 </body>
 </html>

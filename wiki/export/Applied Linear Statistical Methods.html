@@ -28,6 +28,8 @@
 \DeclareMathOperator{\Im}{Im}
 \DeclareMathOperator{\argmin}{argmin}
 \DeclareMathOperator{\argmax}{argmin}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\rank}{rank}
 
 \let\temp\phi
 \let\phi\varphi
@@ -54,7 +56,7 @@ Whenever it is unclear, vectors are column vectors.
 <div id="Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Simple Linear Regression"><h3 id="Simple Linear Regression" class="header"><a href="#Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Simple Linear Regression">Simple Linear Regression</a></h3></div>
 
 <p>
-<a href="https://en.wikipedia.org/wiki/Simple_linear_regression">Wikipedia Link</a>.
+<a href="https://en.wikipedia.org/wiki/Simple_linear_regression">Wikipedia</a>
 </p>
 
 <p>
@@ -144,10 +146,10 @@ Even under misspecification, we can see that if our samples are i.i.d. distribut
 where \(\rho_{XY}\) is the correlation and \(\sigma_X, \sigma_Y\) are standard deviations.
 </p>
 
-<div id="Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Simple Linear Regression-Multiple Linear Regression"><h4 id="Multiple Linear Regression" class="header"><a href="#Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Simple Linear Regression-Multiple Linear Regression">Multiple Linear Regression</a></h4></div>
+<div id="Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Multiple Linear Regression"><h3 id="Multiple Linear Regression" class="header"><a href="#Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Multiple Linear Regression">Multiple Linear Regression</a></h3></div>
 
 <p>
-<a href="https://en.wikipedia.org/wiki/Linear_regression">Wikipedia Link</a>.
+<a href="https://en.wikipedia.org/wiki/Linear_regression">Wikipedia</a>
 </p>
 
 <p>
@@ -210,13 +212,136 @@ unit conversions / indentical measurements,
 batch effects (e.g. one feature is if a patient was given an medication \(A\), and another is if a patient was given it by technician \(A'\), but it was exactly \(A'\) who handed out \(A\)).
 
 </ul>
+<div id="Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Multiple Linear Regression-OLS as a Projection"><h4 id="OLS as a Projection" class="header"><a href="#Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Multiple Linear Regression-OLS as a Projection">OLS as a Projection</a></h4></div>
+
 <p>
 From a geometric perspective, the OLS predictions are just the projections of \(y\) into the image of \(X\) as a linear map \(\R^p \to \R^n\).
 </p>
 
+<p>
+<em>Def</em>: \(X_{\cdot, 1}, \dots, X_{\cdot p}\) are <span id="Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Multiple Linear Regression-OLS as a Projection-orthogonal"></span><strong id="orthogonal">orthogonal</strong> if \(\left\langle X_{\cdot j}, X_{\cdot k}\right\rangle = 0\) for all \(j, k\), and <span id="Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Multiple Linear Regression-OLS as a Projection-orthonormal"></span><strong id="orthonormal">orthonormal</strong> if they are all of length 1.
+</p>
+
+<p>
+<span id="Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Multiple Linear Regression-OLS as a Projection-Theorem"></span><strong id="Theorem">Theorem</strong>: Set \(V \subset \R^n\) a linear subspace and \(y \in \R^n\); there exists a unique vector
+</p>
+\[
+  \proj_V(y) = \argmin_{v \in V} \| y - v \|.
+\]
+<p>
+Furthermore, \(y - \proj_V(y) \in V^{\perp}\), the perpendicular space to \(V\) (or equivalently, \(\left\langle y - \proj_V(y), v \right\rangle = 0\) for all \(v \in V\)).
+</p>
+
+<p>
+There are a few more facts:
+</p>
+<ul>
+<li>
+\(y \mapsto \proj_V(y)\) is a linear operator, and the corresponding matrix is called the projection matrix \(P_V \in \R^{n \times n} = P_V\);
+
+<li>
+\(P_V\) is idempotent, e.g. \(P_V^2 = P_V\);
+
+<li>
+\(P_V^T = P_V\);
+
+<li>
+\(P_{V^\perp} = I - P_V\), which gives a decomposition \(y = P_Vy + P_{V^\perp} y\).
+
+<li>
+\(\rank(P_V) = \dim(V)\), and has a eigenvalue decomposition with eigenvalues \(\{ 0, 1 \}\) in the obvious way.
+
+</ul>
+<p>
+<span id="Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Multiple Linear Regression-OLS as a Projection-Corollary"></span><strong id="Corollary">Corollary</strong>: Set \(P_X = P_{\Im(X)}, \hat y = P_X y = X \hat \beta\). This immediately yields that the "fit" \(\hat y\) and the residuals \(\hat \epsilon\) are unique, and
+</p>
+\[
+  \|y\|^2 = \| \hat y \|^2 + \| \hat \epsilon \|^2
+\]
+<p>
+since \(\hat \epsilon = (I - P_{X})y\).
+</p>
+
+<p>
+<em>Example</em>: 
+</p>
+<ul>
+<li>
+If \(X_{k 1} = 1\) for all \(k\) (that is, we include a constant in our regression), we immediately get that \(\sum_{i=1}^m \epsilon_i = 0\). 
+
+<li>
+If \(X\) is full rank, then \(P_X = X(X^TX)^{-1}X^T\).
+
+</ul>
+<div id="Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Multiple Linear Regression-Reducing to Simple Linear Regression"><h4 id="Reducing to Simple Linear Regression" class="header"><a href="#Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Multiple Linear Regression-Reducing to Simple Linear Regression">Reducing to Simple Linear Regression</a></h4></div>
+
+<p>
+If one column \(X_{\cdot j}\) is orthogonal to every other feature, then this reduces to simplre linear regressions: 
+</p>
+\[
+  \hat \beta_j = \frac{\left\langle X_{\cdot j}, y\right\rangle}{\| X_{\cdot j} \|^2}.
+\]
+
+<p>
+Using this, set 
+</p>
+<ul>
+<li>
+\(Z_{\cdot 1} = X_{ \cdot 1}\),
+
+<li>
+\(Z_{\cdot n}\) to the residuals of \(X_{\cdot n} \sim Z_{\cdot n-1}\), e.g.
+\[
+  X_{\cdot n} - \sum_{i=1}^{n-1}\frac{\left\langle Z_{\cdot i}, X_{\cdot i}\right\rangle}{\| Z_{\cdot i}\|^2}Z_{\cdot i}.
+\]
+
+</ul>
+<p>
+Then, we see that
+</p>
+\[
+  \hat \beta_p = \frac{\left\langle Z_{\cdot p}, y \right\rangle}{\| Z_{\cdot p}^2\|},
+\]
+<p>
+so in general each coefficient depends on other variables, e.g.
+</p>
+\[
+  \hat \beta_j = \frac{\left\langle \text{residuals of } X_{\cdot j} \sim \sum_{k \neq j}X_{\cdot k}, y\right\rangle}{ \| \text{residuals of } X_{\cdot j} \sim \sum_{k \neq j}X_{\cdot k} \|^2}.
+\]
+
+<p>
+In particular, the above (which is clearly just doing Gram-Schmidt) gives us a \(QR\)-decomposition of \(X\), where \(Q = ZD\) is the orthonormalization of \(Z\) and \(R\) is the upper triangular matrix corresponding to Gram-Schmidt.
+</p>
+
+<p>
+This is (for the most part) what software packages do in computing linear models: you set \(y = Q\gamma + \epsilon\), and take \(\hat \gamma &amp;= Q^Ty\); but since the hit is unique, we have that \(Q \hat \gamma = X \hat \beta = QR\hat \beta \implies R\hat \beta = \hat \gamma\), which is numerically tractible.
+</p>
+
+<div id="Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Multiple Linear Regression-OLS and SVD"><h4 id="OLS and SVD" class="header"><a href="#Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Multiple Linear Regression-OLS and SVD">OLS and SVD</a></h4></div>
+
+<p>
+<em>Def</em>: <a href="https://en.wikipedia.org/wiki/Singular_value_decomposition">Link</a> The <span id="Applied Linear Statistical Methods-UChicago STAT 34300, Autumn 2023-Multiple Linear Regression-OLS and SVD-SVD decomposition"></span><strong id="SVD decomposition">SVD decomposition</strong> of a real (resp. complex) matrix \(X \in \R^{n \times p}\) (resp. \(\C^{n \times p}\)) is
+</p>
+\[
+  X = U \Sigma V^*
+\]
+<p>
+where \(U, V\) are orthogonal (resp. unitary) and \(\Sigma\) is diagonal. Alternatively, we may sometimes use the "skinny" SVD, where \(U, \Sigma\) are just \(n \times p\) and \(p \times p\) matrices, essentially by dropping the zero rows of \(\Sigma\).
+</p>
+
+<p>
+SVD is related to eigenvalue decomposition by noting that
+</p>
+\[
+  X^*X = V\Sigma V^* U \Sigma V^* = V(\Sigma^* \Sigma)V^*
+\]
+<p>
+so that columns of \(V\) are eigenvectors of \(X^*X\), and similarly columns of \(U\) are eigenvectors of \(XX^*\).
+</p>
+
     </div>
     <div class="footer">
-      <p><small>Page created on 2023-10-02</small></p>
+      <p><small>Page created on 2023-10-04</small></p>
     </div>
 </body>
 </html>

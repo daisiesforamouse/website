@@ -10,6 +10,7 @@
 
 \DeclareMathOperator{\Jac}{Jac}
 \DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Tr}{Tr}
 \DeclareMathOperator{\diag}{diag}
 
@@ -136,7 +137,7 @@ _Proof_: Let our norm be $\| \cdot \| : V \to \R$. The triangle inequality immed
   | \| u \| - \| v \| | \leq \| u - v \|.
 }}$
 
-*Theorem (Equivalence of Norms)*: [[https://kconrad.math.uconn.edu/blurbs/gradnumthy/equivnorms.pdf|Link]]. Set $V$ a finite-dimensional vector space. Then every pair of norms $\| \cdot \|_a, \| \cdot \|_b$ are equivalent to each other, e.g. there are constants $c_1, c_2$ such that for any $v \in V$,
+*Theorem (Equivalence of Norms)*: [[https://kconrad.math.uconn.edu/blurbs/gradnumthy/equivnorms.pdf|Link]] Set $V$ a finite-dimensional vector space. Then every pair of norms $\| \cdot \|_a, \| \cdot \|_b$ are equivalent to each other, e.g. there are constants $c_1, c_2$ such that for any $v \in V$,
 {{$
   c_1\| v \|_b \leq \| v \|_a \leq c_2 \| v \|_b.
 }}$
@@ -167,7 +168,7 @@ is a norm. Furthermore, an arbitrary norm $\| \|$ is induced by an inner product
   \norm{u + v}^2 + \norm{u - v}^2 = 2 \norm u ^ 2 + 2 \norm v ^2.
 }}$
 
-*Theorem (Cauchy-Schwarz)*: [[https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality|Link]]. Let $\norm \cdot$ be induced by $\left\langle \cdot, \cdot \right\rangle$. Then
+*Theorem (Cauchy-Schwarz)*: [[https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality|Link]] Let $\norm \cdot$ be induced by $\left\langle \cdot, \cdot \right\rangle$. Then
 {{$
   \sqrt{\left\langle u, v \right\rangle} \leq \norm u \norm v.
 }}$
@@ -183,12 +184,12 @@ _Def_: The *Frobenius* norm on $\C^{m \times n}$ is
   \left\langle X, Y\right\rangle = \sum_{i=1}^m \sum_{j=1}^n x_{ij} y_{ij} = \Tr(X^*Y).
 }}$
 
-*Theorem (Hölder Inequality)*: [[https://en.wikipedia.org/wiki/H%C3%B6lder%27s_inequality|Link]]. For $x, y \in \C^n$ and $p^{-1} + q^{-1} = 1$, we have
+*Theorem (Hölder Inequality)*: [[https://en.wikipedia.org/wiki/H%C3%B6lder%27s_inequality|Link]] For $x, y \in \C^n$ and $p^{-1} + q^{-1} = 1$, we have
 {{$
   |x^*y| \leq \norm x_p \norm y_q.
 }}$
 
-*Theorem (Bessel Inequality)*: [[https://en.wikipedia.org/wiki/Bessel%27s_inequality|Link]]. For $x \in \C^n$ and an orthonormal basis $e_1, \dots, e_n$, we have 
+*Theorem (Bessel Inequality)*: [[https://en.wikipedia.org/wiki/Bessel%27s_inequality|Link]] For $x \in \C^n$ and an orthonormal basis $e_1, \dots, e_n$, we have 
 {{$
   \sum_{k=1}^n | \left\langle x, e_k \right\rangle^2  \leq \norm x_2.
 }}$
@@ -213,8 +214,110 @@ _Def_: The matrix product is a binary operator $\C^{m \times n} \times \C^{n \ti
 }}$
 Alternatively, it is uniquely characterized as the matrix representing the composition of $A$ and $B$ as operators.
 
-*_Prop_*: Let $D = \diag(d_1, \dots, d_n)$, the diagonal matrix with entries $d_1, \dots, d_n$; then
+*Prop*: Let $D = \diag(d_1, \dots, d_n)$, the diagonal matrix with entries $d_1, \dots, d_n$; then
 {{$
   AD = \bmat{d_1\alpha_1, \dots, d_n \alpha_n}.
 }}$
 Simiar for the other direction of multiplication.
+
+==== Eigenvalues and Eigenvectors ====
+
+_Def_: For a complex matrix $A$, an *eigenvalue* $\lambda \in \C$ and *eigenvector* $v \neq 0$ satisfy
+{{$
+  Av = \lambda v.
+}}$ 
+
+_Def_: Furthermore, an *eigenspace* is the span of all eigenvectors correspnding to a single eigenvalue, the *spectrum* of $A$, $\Spec(A)$ is the set of all eigenvalues of $A$, and the *spectral radius* is $\rho(A) = \max_{\lambda \in \Spec(A)} |\lambda| = |\lambda_{\text{max}}|$. Sometimes we will call this the top eigenvector/eigenvalue.
+
+As a convention, usually we implcitly order eigenvalues, e.g. $|\lambda_1| \geq |\lambda_2| \geq \cdots \geq \lambda_n$.
+
+_Def_: More generally, if $v$ is a eigenvector of $A^T$, we say that $v$ is a *left eigenvector* of $A$ (and thus usual eigenvectors are *right eigenvectors*).
+
+There are a few warnings about these things:
+- real matrices may have complex eigenvectors;
+- we normally normalize eigenvectors to have unit length;
+- left and right eigenvectors are usually not the same.
+
+_Def_: A square matrix $A \in \C^{n \times n}$ is diagonalizable if it is simiarly to a diagonal matrix.
+
+*Prop*: $A$ is diagonalizable if and only if it has $n$ linearly independent eigenvectors.
+
+_Proof_: The eigenvectors form a basis by intertibility; change basis from the eigenvectors, scale by eigenvalues, and change basis back. In particular, let $A \in \C^{n \times n}$ have eigenvalues $\lambda_1, \dots, \lambda_n$, with corresponding eigenvectors $v_1, \dots, v_n$; set $\Lambda = \diag(\lambda_1, \dots, \lambda_n)$ and $V = \bmat{v_1, \dots, v_n}$. Then
+{{$
+  A = V \Lambda V^{-1}.
+}}$
+
+_Def_: The above $A = X \Lambda X^{-1}$ is called the *eigenvalue decomposition*, or *EVD*.
+
+*Prop*: The diagonal entries in a triangular matrix are just the eigenvalues.
+
+_Def_: A matrix $A \in \C^{n \times n}$ is *normal* if it commutes with its adjoint $A^*$ (the conjugate transpose), and *unitary* if $AA^* = A^*A = I$.
+
+*Prop*: $A$ is unitary if and only if it's columns (or rows) are orthonormal.
+
+*Theorem*: $A \in \C^{n \times n}$ is normal if and only if it is unitarily diagonalizable, e.g. if $A = V\Lambda V^*$ with $V$ unitary.
+
+_Def_: $A \in \C^{n \times n}$ is *Hermitian* if $A^* = A$.
+
+*Theorem (Spectral Theorem)*: [[https://en.wikipedia.org/wiki/Spectral_theorem |Link]] $A \in \C^{n \times n}$ is Hermetian if and only if $A$ is unitarily diagonalizable with all real eigenvalues.
+
+*Corollary*: $A \in \R^{n \times n}$ is symmetric if and only if it is orthgonally diagonalizable with all eigenvalues real.
+
+_Def_: [[https://en.wikipedia.org/wiki/Jordan_normal_form| Link]] Any matrix can be written in *Jordan canonical form*, e.g.
+{{$
+  A = XJX^{-1}
+}}$
+where $J$ is nonzero only on the diagonal and the superdiagonal, which has values only in $\{0, 1\}$, such as
+{{$
+  J = \begin{bmatrix}
+    \lambda_1 & 1         &           &   & & & \\
+              & \lambda_1 & 1         &   & & & \\
+              &           & \lambda_1 & 0 & & & \\
+              &           & & \lambda_2 & 0 & & \\
+              &           &         &  & \lambda_3 & 1 & \\
+              &           &         &  & & \lambda_3  & \\
+  \end{bmatrix}
+}}$
+for example.
+
+The way it's written above is not by coincidence: you can permute everything so that $J$ is composed of Jordan blocks, which have the same entry all the way down the diagonal and have a superdiagonal of only ones, e.g.
+{{$
+  J = \begin{bmatrix}
+    J_1 & & & \\
+    & J_2 & & \\
+    & & \ddots & \\
+    & & & J_k \\
+  \end{bmatrix}
+}}$
+where each $J_i = \lambda I + N$, where $N$ has all zero entries except on the superdiagonal, on which it is always one.
+
+Unfortunately, the JCF is pretty useless in application.
+
+*Theorem (Golub-Wilkinson)*: The Jordan canonical form cannot be computed in finite precision.
+
+Let's return to the spectral radius,
+{{$
+  \rho(A) = \max_{\lambda \in \Spec(A)} |\lambda|.
+}}$
+
+Any nilpotent matrix shows that $\rho$ is not a norm, but the following is true.
+
+*Prop*: If $\| \cdot \|: \C^{m \times m} \to \R$ is any consistent matrix norm, then $\rho(A) \leq \| A \|$.
+
+_Proof_: Look at the norm of the image of a top eigenvector.
+
+*Theorem*: Given any $A \in \C^{n \times n}$, any positive $\epsilon$, there is a consistent norm (in fact, an operator norm) $\| \cdot \|: \C^{n \times m} \to \R$ such that 
+{{$
+  \| A \| \leq \rho(A) + \epsilon.
+}}$
+
+*Prop*: Given any matrix norm $\| \cdot \|: \C^{n \times m} \to R$, we have
+{{$
+  \rho(A) = \lim_{k \to \infty} \| A^k \|^{1/k}.
+}}$
+
+*Lemma*: $\lim_{k \to \infty} A^k = 0$  if and only if $\rho(A) < 1$.
+
+_Proof_: $(\implies)$ Set $\lambda$ to be a top eigenvalue of $A$, and $x$ a corresponding eigenvector. Then, $A^k x = \lambda^k x$. Send $k \to \infty$ and conclude.
+
+$(\impliedby)$ By the above theorems, there is some operator norm $\| \cdot \|$ such that $\|A\| \leq \rho(A) + \epsilon < 1$. Send $k \to \infty$ and use the fact that operator norms imply $\| A^k \| \leq \|A\|^k$ and win.

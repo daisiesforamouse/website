@@ -110,7 +110,7 @@ _Proof_: It's easy to see that $K_n \leq 2 \sum_{j=n+1}^\infty Y_j$ (this is jus
 }}$
 with full probability, and so
 {{$
-  \sup_{\substack{s, t \in D \\ s < t}} \frac{|B_t - B_s|}{\sqrt{(t-s)(|\log(t-s)| + 1)}} < \infty.
+  \sup_{\substack{s, t \in D \\ s < t}} \frac{|B_t - B_s|}{\sqrt{(t-s)|\log((t-s)^{-1})|}} < \infty.
 }}$
 
 Now we may set $B_t$ for $t \in [0, 1]$ by $B_t = \lim_{\substack{s \to t \\ s \in D}}B_s$, and check that this is in fact a genuine Brownian motion, which is not bad; and of course this construction can extend to $[0, \infty)$ easily as well.
@@ -151,16 +151,68 @@ Consider the union bound
 }}$
 and just do literally the stupidest estimate you can, e.g. just look at the density and say that the probability is bounded by $2CMn^{-1/2}$, so that the above is sent to zero as $n \to \infty$.
 
+
+==== Filtrations ====
+
+_Def_: A filtration $\{ \mathcal F \}_{t \geq 0}$ is an incerasing collection of sub $\sigma$-algebras. Further, we put
+{{$
+  \mathcal F_{\infty} = \bigcup_{t \geq 0} \mathcal F_t.
+}}$
+
+_Def_: A stochastic process $\{X_t \}_{t \geq 0}$ is adapted to $\{ \mathcal F_t \}_{t \geq 0}$ if for each $t$, $X_t$ is $\mathcal F_t$-measurable.
+
+_Def_: A process $\{ B_t \}_{t \geq 0}$ is a standard Brownian motion start at 0 w.r.t. $\{ \mathcal F_t \}_{t \geq 0}$ if
+- $B_0 = 0$,
+- $\{ B_t \}_{t \geq 0}$ is adapted to $\{ \mathcal F_t \}_{t \geq 0}$,
+- if $s < t$ then $B_t - B_s$ is independent of $\mathcal F_s$,
+- $B_t - B_s \sim N(0, t-s)$,
+- and with probability 1 $t \mapsto B_t$ is continuous.
+
+_Def_: A random variable $\tau$ taking values in $[0, \infty]$ is called a stopping time with respect to $\{ \mathcal F_t \}_{t \geq 0}$ if for every $t$, the event $\{\tau \leq t\} \in \mathcal F_t$.
+
+_Examples_: The following are all stopping times:
+- constants;
+- $\tau = \inf\{ t \mid B_t \in V \}$ where $V$ is Borel;
+- $\tau_1 \land \tau_2, \tau_1 \lor \tau_2$, where $\tau_1, \tau_2$ are both stopping times.
+
+_Def_: If $\tau$ is a stopping time, then $\mathcal F_\tau$ is the $\sigma$-algebra corresponding to the collection of events $A$ such that for each $t$, $A \cap \{ \tau \leq t \} \in \mathcal F_t$.
+
+==== The Markov Property of Brownian Motion ====
+
 _Def_: For some stochastic process $\{X_t\}_{t \geq 0}$ (or any other indexed set) with filtration $\{F_t\}_{t \geq 0}$, $X_t$ has the *Markov property* if it saitisfies that
 {{$
   E[f(X_t) \mid \mathcal F_s] = E[f(X_t) \mid \sigma(X_s)].
 }}$
 
+_Def_: In general, if $X_t$ is a stochastic process and $\tau$ is a stopping time, both adapted to $\{ \mathcal F_t \}_{t \geq 0}$ with $P(\tau < \infty) = 1$, then $X_t$ has the *strong Markov property* if $X_{\tau + t}$ is independent of $\mathcal F_{\tau}$.
+
+*Prop*: Suppose $B_t$ is a Brownian motion and $\tau$ is a stopping time, both with respect to $\{ \mathcal F_t \}$, and assume $P(\tau < \infty) = 1$. Set
+{{$
+  Y_t = B_{\tau + t} - B_{\tau}.
+}}$
+Then $Y_t$  is a Brownian motion independent of $\mathcal F_t$, e.g. Brownian motion has the strong Markov property and the new process is also a Brownian motion.
+
+_Proof_: You proceed by doing successive approximations.
+- First, let $\tau$ take a finite amount of values, and use the normal Markov property.
+- Then, approximate any $\tau$ by stopping times taking a finite amount of values, such as by
+{{$
+  \tau_n = \begin{cases}
+    \frac{k}{2^n} & \frac{k - 1}{2^n} \leq \tau \leq \frac{k}{2^n} \leq n \\
+    n & \tau > n
+  \end{cases}
+}}$
+  for example.
+- Take a limit by continuity.
+
 In particular, the following is clear for Brownian motion:
 
-*Prop*: If $\{B_t\}_{t \geq 0}$ is a BM, $t$ a fixed time, and $Y_s = B_{t+s} - B_t$, then $\{Y_s\}_{s \geq 0}$, is a BM and independent of $\mathcal F_t = \sigma\{B_s \mid s \leq t\}$.
+*Prop*: If $\{B_t\}_{t \geq 0}$ is a Brownian motion, $t$ a fixed time, and $Y_s = B_{t+s} - B_t$, then $\{Y_s\}_{s \geq 0}$, is a BM and independent of $\mathcal F_t = \sigma\{B_s \mid s \leq t\}$.
 
-Now set $B_t$ to a Brownian motion with drift zero and $\tau_a = \min \{ s \mid B_s = a \}$; the reflection principle is that
+*Theorem*: Set $B_t$ to a Brownian motion with drift zero; *the reflection principle* is that
+{{$
+  P\left(\max_{0 \leq s \leq t} B_s \geq a\right) = 2P(B_t \geq a).
+}}$
+Set $\tau_a = \min \{ s \mid B_s = a \}$; we also have
 {{$
   P(\tau_a \leq t) = 2P(B_t \geq a)
 }}$
@@ -168,3 +220,48 @@ or equivalently
 {{$
   P(B_t \geq a \mid \tau_a \leq t) = \frac{1}{2}.
 }}$
+
+*Prop*: If $0 < r < s < \infty$,
+{{$
+  q(r, s) = P(B_t = 0 \text{ for some } r \leq t \leq s) = 1 - \frac{2}{\pi} \arctan\left(\sqrt{\frac{r}{s}}\right).
+}}$
+
+_Proof_: First, I claim that $q(r, s) = q(1, s/r)$ just by a change of variables, so we only need to compute $q(t) = q(1, t)$. Set $A = \{ B_s = 0 \text{ for some } 1 \leq s \leq 1 + t \}$, so that
+{{$
+\begin{align*}
+  q(t) &= \frac{2}{\sqrt{2 \pi}}\int_0^\infty P(A \mid B_1 = x) e^{-x^2 / 2}dx.
+\end{align*}
+}}$
+However, by the reflection principle, we have that
+{{$
+\begin{align*}
+  P(A \mid B_1 = x) &= P\left(\max_{0 \leq s \leq t} B_s \geq x \right) \\
+  &= P \left( \min_{0 \leq s \leq t} B_s \leq -x \right) \\
+  &= 2P(B_t \geq x) = 2P\left(B_1 \geq \frac{x}{\sqrt{t}}\right)
+\end{align*}
+}}$
+upon which we can just compute the integral.
+
+*Corollary*: One dimensional standard Brownian motion is (pointwise) recurrent (that is, the zero set of Brownian motion is unbounded).
+
+*Corollary*: Since $Y_t = t^{-1}B_{1/t}$ is a standard Brownian motion, this shows that for any $\epsilon > 0$, $Z_\epsilon = \{ t \mid B_t = 0, 0 \leq t \leq \epsilon \}$ has more elements that just $0$.
+
+==== Martingales ====
+
+_Def_: A process $\{ M_t \}_{t \geq 0}$ is a *supermartingale* (resp. *submartingale*) w.r.t. $\{ \mathcal F_t \}$ if
+- $E[|M_t|] < \infty$,
+- $M_t$ is $\{ \mathcal F_t \}$ adapted,
+- and if $E[M_t \mid \mathcal F_s] \leq M_s$ (resp. $\geq M_s$) almost surely for $s \leq t$.
+A process which is both a submartingale and supermartingale is just a martingale, it is continuous if $M_t$ is a continuous function of $t$ almost surely, and is square integrable (or simply $L^2$) if it has finite second moment for all $t$.
+
+As an aside, I'm going to stop saying with probability 1 or almost surely because it's annoying!
+
+*Prop*: Brownian motion (without drift) is an $L^2$ continuous martingale.
+
+*Theorem (Kolmogorov Zero-One)*: Tail events of independent $\sigma$-algebras happen with probability 0 or 1.
+
+_Proof_: Set $\mathcal F_n = \sigma(X_1, \dots, X_n)$, and $\mathcal T_n = \sigma(X_{n+1}, \dots)$, $\mathcal F_\infty = \bigcup_{n} \mathcal F_n$, and $\mathcal T_\infty = \bigcap_n \mathcal T_n$.
+
+Then, one can see that if $A \in \mathcal F_\infty$ and $\epsilon > 0$, there is $n$ and $A_n \in \mathcal F_n$ such that $P(A_n \Delta A) < \epsilon$; even better, there exists $A_n$ independent of $A \in \mathcal T_\infty$ such that $P(A \Delta A_n) < \epsilon$, and so we conclude that $P(A) = P(A)P(A)$.
+
+*Theorem (Blumenthal Zero-One)*: Let $B_t$ be a Brownian motion with the standard filtration, and set $\mathcal F_{0+} = \bigcap_{\epsilon > 0} \mathcal F_{\epsilon}$. Then, if $A \in \mathcal F_{0+}$, $P(A) = 0$ or $1$.
