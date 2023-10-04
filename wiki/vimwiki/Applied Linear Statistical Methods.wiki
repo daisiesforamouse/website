@@ -185,7 +185,7 @@ so in general each coefficient depends on other variables, e.g.
 
 In particular, the above (which is clearly just doing Gram-Schmidt) gives us a $QR$-decomposition of $X$, where $Q = ZD$ is the orthonormalization of $Z$ and $R$ is the upper triangular matrix corresponding to Gram-Schmidt.
 
-This is (for the most part) what software packages do in computing linear models: you set $y = Q\gamma + \epsilon$, and take $\hat \gamma &= Q^Ty$; but since the hit is unique, we have that $Q \hat \gamma = X \hat \beta = QR\hat \beta \implies R\hat \beta = \hat \gamma$, which is numerically tractible.
+This is (for the most part) what software packages do in computing linear models: you set $y = Q\gamma + \epsilon$, and take $\hat \gamma = Q^Ty$; but since the fit is unique, we have that $Q \hat \gamma = X \hat \beta = QR\hat \beta \implies R\hat \beta = \hat \gamma$, which is numerically tractible.
 
 ==== OLS and SVD ====
 
