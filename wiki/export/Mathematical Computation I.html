@@ -25,6 +25,7 @@
 \DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Tr}{Tr}
 \DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\argmin}{argmin}
 
 \let\temp\phi
 \let\phi\varphi
@@ -350,17 +351,17 @@ Alternatively, it is uniquely characterized as the matrix representing the compo
 Simiar for the other direction of multiplication.
 </p>
 
-<div id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors"><h4 id="Eigenvalues and Eigenvectors" class="header"><a href="#Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors">Eigenvalues and Eigenvectors</a></h4></div>
+<div id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors"><h3 id="Eigenvalues and Eigenvectors" class="header"><a href="#Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors">Eigenvalues and Eigenvectors</a></h3></div>
 
 <p>
-<em>Def</em>: For a complex matrix \(A\), an <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-eigenvalue"></span><strong id="eigenvalue">eigenvalue</strong> \(\lambda \in \C\) and <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-eigenvector"></span><strong id="eigenvector">eigenvector</strong> \(v \neq 0\) satisfy
+<em>Def</em>: For a complex matrix \(A\), an <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-eigenvalue"></span><strong id="eigenvalue">eigenvalue</strong> \(\lambda \in \C\) and <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-eigenvector"></span><strong id="eigenvector">eigenvector</strong> \(v \neq 0\) satisfy
 </p>
 \[
   Av = \lambda v.
 \]
 
 <p>
-<em>Def</em>: Furthermore, an <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-eigenspace"></span><strong id="eigenspace">eigenspace</strong> is the span of all eigenvectors correspnding to a single eigenvalue, the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-spectrum"></span><strong id="spectrum">spectrum</strong> of \(A\), \(\Spec(A)\) is the set of all eigenvalues of \(A\), and the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-spectral radius"></span><strong id="spectral radius">spectral radius</strong> is \(\rho(A) = \max_{\lambda \in \Spec(A)} |\lambda| = |\lambda_{\text{max}}|\). Sometimes we will call this the top eigenvector/eigenvalue.
+<em>Def</em>: Furthermore, an <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-eigenspace"></span><strong id="eigenspace">eigenspace</strong> is the span of all eigenvectors correspnding to a single eigenvalue, the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-spectrum"></span><strong id="spectrum">spectrum</strong> of \(A\), \(\Spec(A)\) is the set of all eigenvalues of \(A\), and the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-spectral radius"></span><strong id="spectral radius">spectral radius</strong> is \(\rho(A) = \max_{\lambda \in \Spec(A)} |\lambda| = |\lambda_{\text{max}}|\). Sometimes we will call this the top eigenvector/eigenvalue.
 </p>
 
 <p>
@@ -368,7 +369,7 @@ As a convention, usually we implcitly order eigenvalues, e.g. \(|\lambda_1| \geq
 </p>
 
 <p>
-<em>Def</em>: More generally, if \(v\) is a eigenvector of \(A^T\), we say that \(v\) is a <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-left eigenvector"></span><strong id="left eigenvector">left eigenvector</strong> of \(A\) (and thus usual eigenvectors are <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-right eigenvectors"></span><strong id="right eigenvectors">right eigenvectors</strong>).
+<em>Def</em>: More generally, if \(v\) is a eigenvector of \(A^T\), we say that \(v\) is a <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-left eigenvector"></span><strong id="left eigenvector">left eigenvector</strong> of \(A\) (and thus usual eigenvectors are <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-right eigenvectors"></span><strong id="right eigenvectors">right eigenvectors</strong>).
 </p>
 
 <p>
@@ -390,7 +391,7 @@ left and right eigenvectors are usually not the same.
 </p>
 
 <p>
-<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Prop"></span><strong id="Prop">Prop</strong>: \(A\) is diagonalizable if and only if it has \(n\) linearly independent eigenvectors.
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Prop"></span><strong id="Prop">Prop</strong>: \(A\) is diagonalizable if and only if it has \(n\) linearly independent eigenvectors.
 </p>
 
 <p>
@@ -401,39 +402,41 @@ left and right eigenvectors are usually not the same.
 \]
 
 <p>
-<em>Def</em>: The above \(A = X \Lambda X^{-1}\) is called the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-eigenvalue decomposition"></span><strong id="eigenvalue decomposition">eigenvalue decomposition</strong>, or <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-EVD"></span><strong id="EVD">EVD</strong>.
+<em>Def</em>: The above \(A = X \Lambda X^{-1}\) is called the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-eigenvalue decomposition"></span><strong id="eigenvalue decomposition">eigenvalue decomposition</strong>, or <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-EVD"></span><strong id="EVD">EVD</strong>.
 </p>
 
 <p>
-<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Prop"></span><strong id="Prop">Prop</strong>: The diagonal entries in a triangular matrix are just the eigenvalues.
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Prop"></span><strong id="Prop">Prop</strong>: The diagonal entries in a triangular matrix are just the eigenvalues.
 </p>
 
 <p>
-<em>Def</em>: A matrix \(A \in \C^{n \times n}\) is <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-normal"></span><strong id="normal">normal</strong> if it commutes with its adjoint \(A^*\) (the conjugate transpose), and <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-unitary"></span><strong id="unitary">unitary</strong> if \(AA^* = A^*A = I\).
+<em>Def</em>: A matrix \(A \in \C^{n \times n}\) is <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-normal"></span><strong id="normal">normal</strong> if it commutes with its adjoint \(A^*\) (the conjugate transpose), and <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-unitary"></span><strong id="unitary">unitary</strong> if \(AA^* = A^*A = I\).
 </p>
 
 <p>
-<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Prop"></span><strong id="Prop">Prop</strong>: \(A\) is unitary if and only if it's columns (or rows) are orthonormal.
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Prop"></span><strong id="Prop">Prop</strong>: \(A\) is unitary if and only if it's columns (or rows) are orthonormal.
 </p>
 
 <p>
-<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Theorem"></span><strong id="Theorem">Theorem</strong>: \(A \in \C^{n \times n}\) is normal if and only if it is unitarily diagonalizable, e.g. if \(A = V\Lambda V^*\) with \(V\) unitary.
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Theorem"></span><strong id="Theorem">Theorem</strong>: \(A \in \C^{n \times n}\) is normal if and only if it is unitarily diagonalizable, e.g. if \(A = V\Lambda V^*\) with \(V\) unitary.
 </p>
 
 <p>
-<em>Def</em>: \(A \in \C^{n \times n}\) is <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Hermitian"></span><strong id="Hermitian">Hermitian</strong> if \(A^* = A\).
+<em>Def</em>: \(A \in \C^{n \times n}\) is <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Hermitian"></span><strong id="Hermitian">Hermitian</strong> if \(A^* = A\).
 </p>
 
 <p>
-<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Theorem (Spectral Theorem)"></span><strong id="Theorem (Spectral Theorem)">Theorem (Spectral Theorem)</strong>: <a href="https://en.wikipedia.org/wiki/Spectral_theorem ">Link</a> \(A \in \C^{n \times n}\) is Hermetian if and only if \(A\) is unitarily diagonalizable with all real eigenvalues.
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Theorem (Spectral Theorem)"></span><strong id="Theorem (Spectral Theorem)">Theorem (Spectral Theorem)</strong>: <a href="https://en.wikipedia.org/wiki/Spectral_theorem ">Link</a> \(A \in \C^{n \times n}\) is Hermetian if and only if \(A\) is unitarily diagonalizable with all real eigenvalues.
 </p>
 
 <p>
-<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Corollary"></span><strong id="Corollary">Corollary</strong>: \(A \in \R^{n \times n}\) is symmetric if and only if it is orthgonally diagonalizable with all eigenvalues real.
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Corollary"></span><strong id="Corollary">Corollary</strong>: \(A \in \R^{n \times n}\) is symmetric if and only if it is orthgonally diagonalizable with all eigenvalues real.
 </p>
 
+<div id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Jordan Canonical Form"><h4 id="Jordan Canonical Form" class="header"><a href="#Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Jordan Canonical Form">Jordan Canonical Form</a></h4></div>
+
 <p>
-<em>Def</em>: <a href="https://en.wikipedia.org/wiki/Jordan_normal_form">Link</a> Any matrix can be written in <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Jordan canonical form"></span><strong id="Jordan canonical form">Jordan canonical form</strong>, e.g.
+<em>Def</em>: <a href="https://en.wikipedia.org/wiki/Jordan_normal_form">Link</a> Any matrix can be written in <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Jordan Canonical Form-Jordan canonical form"></span><strong id="Jordan canonical form">Jordan canonical form</strong>, e.g.
 </p>
 \[
   A = XJX^{-1}
@@ -475,8 +478,10 @@ Unfortunately, the JCF is pretty useless in application.
 </p>
 
 <p>
-<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Theorem (Golub-Wilkinson)"></span><strong id="Theorem (Golub-Wilkinson)">Theorem (Golub-Wilkinson)</strong>: The Jordan canonical form cannot be computed in finite precision.
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Jordan Canonical Form-Theorem (Golub-Wilkinson)"></span><strong id="Theorem (Golub-Wilkinson)">Theorem (Golub-Wilkinson)</strong>: The Jordan canonical form cannot be computed in finite precision.
 </p>
+
+<div id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Spectral Radius"><h4 id="Spectral Radius" class="header"><a href="#Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Spectral Radius">Spectral Radius</a></h4></div>
 
 <p>
 Let's return to the spectral radius,
@@ -490,7 +495,7 @@ Any nilpotent matrix shows that \(\rho\) is not a norm, but the following is tru
 </p>
 
 <p>
-<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Prop"></span><strong id="Prop">Prop</strong>: If \(\| \cdot \|: \C^{m \times m} \to \R\) is any consistent matrix norm, then \(\rho(A) \leq \| A \|\).
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Spectral Radius-Prop"></span><strong id="Prop">Prop</strong>: If \(\| \cdot \|: \C^{m \times m} \to \R\) is any consistent matrix norm, then \(\rho(A) \leq \| A \|\).
 </p>
 
 <p>
@@ -498,21 +503,21 @@ Any nilpotent matrix shows that \(\rho\) is not a norm, but the following is tru
 </p>
 
 <p>
-<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Theorem"></span><strong id="Theorem">Theorem</strong>: Given any \(A \in \C^{n \times n}\), any positive \(\epsilon\), there is a consistent norm (in fact, an operator norm) \(\| \cdot \|: \C^{n \times m} \to \R\) such that 
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Spectral Radius-Theorem"></span><strong id="Theorem">Theorem</strong>: Given any \(A \in \C^{n \times n}\), any positive \(\epsilon\), there is a consistent norm (in fact, an operator norm) \(\| \cdot \|: \C^{n \times m} \to \R\) such that 
 </p>
 \[
   \| A \| \leq \rho(A) + \epsilon.
 \]
 
 <p>
-<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Prop"></span><strong id="Prop">Prop</strong>: Given any matrix norm \(\| \cdot \|: \C^{n \times m} \to R\), we have
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Spectral Radius-Prop"></span><strong id="Prop">Prop</strong>: Given any matrix norm \(\| \cdot \|: \C^{n \times m} \to R\), we have
 </p>
 \[
   \rho(A) = \lim_{k \to \infty} \| A^k \|^{1/k}.
 \]
 
 <p>
-<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Linear Algebra Review-Eigenvalues and Eigenvectors-Lemma"></span><strong id="Lemma">Lemma</strong>: \(\lim_{k \to \infty} A^k = 0\)  if and only if \(\rho(A) &lt; 1\).
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Spectral Radius-Lemma"></span><strong id="Lemma">Lemma</strong>: \(\lim_{k \to \infty} A^k = 0\)  if and only if \(\rho(A) &lt; 1\).
 </p>
 
 <p>
@@ -523,9 +528,232 @@ Any nilpotent matrix shows that \(\rho\) is not a norm, but the following is tru
 \((\impliedby)\) By the above theorems, there is some operator norm \(\| \cdot \|\) such that \(\|A\| \leq \rho(A) + \epsilon &lt; 1\). Send \(k \to \infty\) and use the fact that operator norms imply \(\| A^k \| \leq \|A\|^k\) and win.
 </p>
 
+<div id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Finding Eigenvalues"><h4 id="Finding Eigenvalues" class="header"><a href="#Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Finding Eigenvalues">Finding Eigenvalues</a></h4></div>
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Finding Eigenvalues-Theorem (Gershgorin Circle Theorem)"></span><strong id="Theorem (Gershgorin Circle Theorem)">Theorem (Gershgorin Circle Theorem)</strong>: <a href="https://en.wikipedia.org/wiki/Gershgorin_circle_theorem">Wikipedia</a> Let \(A \in \C^{n \times n}\), with entries \(a_{ij}\) and for \(1 \leq i \leq n\) set \(r_i = \sum_{j\neq i} |a_{ij}|\). Then, every eigenvalue of \(A\) lies within the union of the Gershgorin discs
+</p>
+\[
+  G_i = \left\{ z \mid z \in \C, |z - a_{ii}| \leq \sum_{j \neq i} |a_{ij}| \right\}
+\]
+<p>
+and the number of eigenvalues in each connected component is equal to the number of Gershgorin disks that constitute that component.
+</p>
+
+<p>
+<em>Proof</em>: If \(A \in \C^{n \times n}\) is strictly diagonally dominant, e.g.
+</p>
+\[
+  |a_{ii}| &gt; \sum_{j \neq i}|a_{ij}|
+\]
+<p>
+for all \(1 \leq i \leq n\), then \(A\) is invertible. To see this, take any \(x \in \ker(A)\) so that \(\sum_{j=1}^n a_{ij}x_i = 0\). But look at the index \(k\) that witnesses \(\| x \|_\infty\):
+</p>
+\[
+  -a_{kk}x_k = \sum_{j \neq k} a_{kj}x_j \implies |a_{kk}||x_k| \leq \sum_{j \neq k} |a_{kj}||x_k|
+\]
+<p>
+so \(x = 0\) and \(\ker(A)\) is trivial.
+</p>
+
+<p>
+We proceed to prove that any \(z \notin \bigcup_{i=1}^n G_i\) cannot be an eigenvalue by showing that \(A - zI\) is invertible. But this is clear, since \(A - zI\) in that case is strictly diagonally dominant.
+</p>
+
+<p>
+<em>Def</em>: <a href="https://en.wikipedia.org/wiki/Schur_decomposition">Wikipedia</a> The <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Finding Eigenvalues-Schur decomposition"></span><strong id="Schur decomposition">Schur decomposition</strong> of a matrix \(A\) is \(A = QUQ^*\) such that \(Q\) is unitary and \(U\), the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Eigenvalues and Eigenvectors-Finding Eigenvalues-Schur form"></span><strong id="Schur form">Schur form</strong> of \(A\) is upper triangular.
+</p>
+
+<p>
+Note that you can read off the eigenvalues of \(A\) from the diagonal of the Schur form, which is numerically stable to compute.
+</p>
+
+<p>
+As an aside, how one numerically finds the roots of a polynomial \(p(x) = \sum_{k=0}^m c_kx^k\) is by forming the companion matrix
+</p>
+\[
+  A = \begin{bmatrix}
+    0 &amp; \cdots &amp; 0 &amp; -c_0 \\
+    1 &amp; \ddots &amp;0 &amp; -c_1 \\
+    \vdots &amp; \ddots &amp; \vdots &amp; \vdots \\
+    0 &amp; \cdots &amp; 1 &amp; -c_{d-1} 
+  \end{bmatrix}.
+\]
+
+<div id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Singular Value Decomposition"><h3 id="Singular Value Decomposition" class="header"><a href="#Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Singular Value Decomposition">Singular Value Decomposition</a></h3></div>
+
+<p>
+<em>Def</em>: <a href="https://en.wikipedia.org/wiki/Singular_value_decomposition">Link</a> The <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Singular Value Decomposition-SVD decomposition"></span><strong id="SVD decomposition">SVD decomposition</strong> of a real (resp. complex) matrix \(A \in \C^{m \times n}\)) is
+</p>
+\[
+  A = U \Sigma V^*
+\]
+<p>
+where \(U, V\) are orthogonal (resp. unitary) and \(\Sigma\) is diagonal (on the shorter diagonal) with nonnegative entries; that is, if \(m &gt; n\), then
+</p>
+\[
+  \Sigma = \bmat{\diag(\sigma_1, \dots, \sigma_n) \\ \mathbf 0} \in \R^{m \times n}_{\geq 0}
+\]
+<p>
+and if \(m &lt; n\),
+</p>
+\[
+  \Sigma = \bmat{\diag(\sigma_1, \dots, \sigma_n) &amp; \mathbf 0} \in \R^{m \times n}_{\geq 0}
+\]
+
+<p>
+<em>Def</em>: We may arrange \(\sigma_{1} \geq \sigma_2 \geq \dots \geq \sigma_{\min(m, n)} \geq 0\); we then call top few singular values the principal singular values. The columns of \(U\) are left singular vectors, and the columns of \(V\)  are right singular vectors.
+</p>
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Singular Value Decomposition-Prop"></span><strong id="Prop">Prop</strong>: The largest \(r\) for which \(r &gt; 0\)  is the rank of \(A\).
+</p>
+
+<p>
+<em>Def</em>: We sometimes use the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Singular Value Decomposition-reduced SVD"></span><strong id="reduced SVD">reduced SVD</strong>, which is the same as the normal SVD but we drop the extra rows of \(\Sigma\) to force it to be a square diagonal matrix in \(\C^{\min\{m, n\} \times \min\{m, n\}}\). Then,
+</p>
+\[
+  A = \sum_{k=1}^r \sigma_k u_r v_r^*
+\]
+<p>
+where \(u_r, v_r\) are the columns of \(U, V\) in the reduced SVD and \(r = \operatorname{rank}(A)\), or the number of nonzero singular values.
+</p>
+
+<p>
+<em>Def</em>: In a similar vein, the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Singular Value Decomposition-condensed SVD"></span><strong id="condensed SVD">condensed SVD</strong> is attained by removing all of the nonzero rows/columns of \(\Sigma\), so \(\Sigma \in \C^{r \times r}\).
+</p>
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Singular Value Decomposition-Theorem"></span><strong id="Theorem">Theorem</strong>: Given any \(A \in \C^{m \times n}\), there are \(U \in \C^{m \times m}\), \(V \in \C^{n \times n}\), and 
+</p>
+\[
+  \Sigma = \diag(\sigma_1, \dots, \sigma_r, 0, \dots, 0) \in \R_{\geq 0}^{m \times n}
+\]
+<p>
+such that \(U, V\) are unitary and \(A = U \Sigma V^*\).
+</p>
+
+<p>
+<em>Proof</em>: Form the matrix
+</p>
+\[
+  W = \bmat{0 &amp; A \\ A^* &amp; 0}
+\]
+<p>
+which is Hermitian. The spectral theorem gives an EVD, and if you look carefully you get the compact SVD:
+</p>
+\[
+  W = \bmat{ U_r &amp; U_r \\ V_r &amp; -V_r } \bmat{
+  \sigma_1 &amp; &amp; &amp; &amp; &amp;  &amp;\\
+   &amp; \sigma_2 &amp; &amp; &amp; &amp; &amp;\\
+   &amp; &amp; \ddots &amp; &amp; &amp; &amp;\\
+   &amp; &amp;  &amp; \sigma_r &amp; &amp; &amp;\\
+   &amp; &amp;  &amp; &amp; -\sigma_1 &amp; &amp; \\
+   &amp; &amp;  &amp; &amp; &amp; \ddots &amp; \\
+   &amp; &amp;  &amp; &amp; &amp; &amp; -\sigma_r\\ }
+  \bmat{ U_r &amp; U_r \\ V_r &amp; -V_r }^*.
+\]
+
+<p>
+Singular values have a nice property: we have for any singular value \(\sigma\) and left singular vector \(u\) and right singular value \(v\), \(Av = \sigma u\) and \(A^*v = \sigma v\); thus \(u, v\) are eigenvalues of \(AA^*\) and \(A^*A\) respectively.
+</p>
+
+<div id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Singular Value Decomposition-Applications"><h4 id="Applications" class="header"><a href="#Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Singular Value Decomposition-Applications">Applications</a></h4></div>
+
+<p>
+We can read off many important quantities/spaces from the SVD. Let \(A = U \Sigma V^*\) be a SVD, with only \(r\) nonzero singular values.
+</p>
+<ul>
+<li>
+The rank is the number of nonzero singular values.
+
+<li>
+The absolute value of the determinant is the product of the signular values.
+
+<li>
+The two norm is the maximum singular value.
+
+<li>
+Set \(\sigma = (\sigma_1, \dots, \sigma_n)\); then the Frobenius norm of \(A\) is \(\| \sigma \|_2\), and we call the general case of this the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Singular Value Decomposition-Applications-Schatten norm"></span><strong id="Schatten norm">Schatten norm</strong>, e.g. \(\| A \|_{S, p} = \| \sigma \|_p\); the case of \(p = 1\) is also called the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Singular Value Decomposition-Applications-nuclear norm"></span><strong id="nuclear norm">nuclear norm</strong>.
+
+<li>
+The Ky Fan \((p, k)\) norm for an integer \(1 \leq k \leq \infty\) is 
+\[
+  \| A \|_{S, p, k} = \left( \sum_{i=1}^p \sigma_i^p \right)^{1/p}.
+\]
+
+<li>
+The kernel of \(A = U \Sigma V^*\) is spanned by \(v_{r+1}, \dots, v_n\).
+
+<li>
+The image of \(A\) is \(u_1, \dots, u_r\).
+
+<li>
+The kernel of \(A^T\) (this is the cokernel) is spanned by \(v_{1, \dots, v_r}\).
+
+<li>
+The image of \(A^T\) is spanned by \(u_{r+1}, \dots, u_m\).
+
+</ul>
+<p>
+You can also solve fundamental problems. For example, if you consider the linear system \(Ax = b\), it might not have exactly one solution, so we can translate this into the least squares system \(\min_{x \in \R^n} \| Ax - b \|_2^2\); this still might not have a unique solution when \(A\) is singular, so we consider the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Singular Value Decomposition-Applications-minimum norm least squares"></span><strong id="minimum norm least squares">minimum norm least squares</strong> problem: \(\min \{ \| x \|_2 \mid x \in \argmin \| A_x - b \|_2 \}\).
+</p>
+
+<p>
+SVD solves all of these simultaneously; set \(A = U \Sigma V^T\); this means that we want \(\Sigma V^T x = U^T b\); equivalently, we just need to solve \(\Sigma y = c\), where \(b = Uc, x = Vy\). But this is trivial since \(\Sigma\) is diagonal.
+</p>
+
+<p>
+ We could define the pseudoinverse of \(A\) to be \(A^+\) to be the matrix \(A^+\) that sends any \(b\) to the minimum norm least squares solution of \(Ax = b\).
+</p>
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Singular Value Decomposition-Applications-Prop"></span><strong id="Prop">Prop</strong>: \(A^+\) is just \(V \Sigma^{-1} U^*\), where by \(\Sigma^{-1}\) is just gotten by flipping all the nonzero diagonal elements.
+</p>
+
+<p>
+<em>Proof</em>: Clear.
+</p>
+
+<p>
+<em>Def</em>: In general, the <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Singular Value Decomposition-Applications-pseudoinverse"></span><strong id="pseudoinverse">pseudoinverse</strong> or <span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Singular Value Decomposition-Applications-Moore-Penrose"></span><strong id="Moore-Penrose">Moore-Penrose</strong> inverse of \(A \in \K^{m \times n}\) is a matrix \(X \in \K^{n \times m}\) that satisfies 
+</p>
+<ul>
+<li>
+\((AX)^{*} = AX\),
+
+<li>
+\((XA)^* = XA\),
+
+<li>
+\(AXA = A\),
+
+<li>
+\(XAX = X\).
+
+</ul>
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Singular Value Decomposition-Applications-Prop"></span><strong id="Prop">Prop</strong>: The above gives a unique matrix and is in fact the same as \(A^+\) from earlier.
+</p>
+
+<p>
+<span id="Mathematical Computation I: Matrix Computation Course-UChicago STAT 30900, Autumn 2023-Singular Value Decomposition-Applications-Prop"></span><strong id="Prop">Prop</strong>: There following statements are true.
+</p>
+<ul>
+<li>
+\(A^+A\) and \(AA^+\) are not necessarily \(I\).
+
+<li>
+If \(A\) has full column rank \(A^+ = (A^*A)^{-1}A\).
+
+<li>
+If \(A\) has full row rank, \(A^+ = A^*(AA^*)^{-1}\).
+
+</ul>
+
     </div>
     <div class="footer">
-      <p><small>Page created on 2023-10-04</small></p>
+      <p><small>Page created on 2023-10-11</small></p>
     </div>
 </body>
 </html>

@@ -60,7 +60,7 @@ Do this however you want; it doesn't matter. You will arrive at
 {{$
 \begin{align*}
   \hat \beta_1 &= \frac{\sum_{i=1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i=1}^n(x_i - \bar x)^2} \\
-  \hat \beta_0 &= \hat \alpha - \hat \beta_1 \bar x.
+  \hat \beta_0 &= \bar y  - \hat \beta_1 \bar x.
 \end{align*}
 }}$
 
@@ -80,7 +80,7 @@ In this case, we can compute that by the CLT the asymptotic distribution of $\ha
 
 Testing proceeds the same way: set some null $H_0: \beta_1 = c$ and some alternative $H_A: \beta_1 \neq c$, and set 
 {{$
-  \delta() = \begin{cases}
+  \delta = \begin{cases}
     1 & \text{if } H_0 \text{ is rejected} \\
     0 & \text{otherwise} \\
   \end{cases}.
@@ -91,7 +91,7 @@ Then, we set some threshold for $\alpha$, the probability of a Type-I error, and
 
 Even under misspecification, we can see that if our samples are i.i.d. distributed $x_1, \dots, x_n \sim X$ and $y_1, \dots, y_n \sim Y$,
 {{$
-  \hat \beta_1 = \frac{n^{-1} \sum_{i=1}^n (x_i - \bar x)(y_i - \bar x)}{n^{-1}\sum_{i=1}^n (x_i - \bar x)^2} \overset{D}{\to} \frac{\Cov(X, Y)}{\Var(X)} = \rho_{XY} \cdot \frac{\sigma_X}{\sigma_Y}
+  \hat \beta_1 = \frac{n^{-1} \sum_{i=1}^n (x_i - \bar x)(y_i - \bar y)}{n^{-1}\sum_{i=1}^n (x_i - \bar x)^2} \overset{D}{\to} \frac{\Cov(X, Y)}{\Var(X)} = \rho_{XY} \cdot \frac{\sigma_X}{\sigma_Y}
 }}$
 where $\rho_{XY}$ is the correlation and $\sigma_X, \sigma_Y$ are standard deviations.
 
@@ -200,3 +200,81 @@ SVD is related to eigenvalue decomposition by noting that
   X^*X = V\Sigma V^* U \Sigma V^* = V(\Sigma^* \Sigma)V^*
 }}$
 so that columns of $V$ are eigenvectors of $X^*X$, and similarly columns of $U$ are eigenvectors of $XX^*$.
+
+Then, applying to least squares, we have that
+{{$
+\begin{align*}
+  \| y - X \beta \|^2 &= \| y - U \Sigma V^T \beta \|^2  \\
+  &= \| U^Ty - \Sigma V^T B \| \\
+  &= \| U^Ty - \Sigma \beta^* \|^2 \\
+  &= \sum_{j=1}^p ((U^Ty)_j - \sigma_j \beta_j^*)^2 \\
+  &= \sum_{j=1}^k (U^Ty)_j - \sigma_j \beta_j^*)^2 + \sum_{j=k+1}^p (U^Ty)_j)^2 \\
+\end{align*}
+}}$
+
+So minimizing with respect to $\beta_j^*$, we pick
+{{$
+  \hat \beta_j^* = \begin{cases}
+    \frac{(U^Ty)_j}{\sigma_j} &  j = 1, \dots, k \\
+    \text{anything} & j = k + 1, \dots, p
+  \end{cases}
+}}$
+and in particular if we take the arbitrary values to be 0 we get the "minimal norm" solution and since $\beta^* = V^T \beta$, the "ridgeless" solution is $\hat \beta = V\beta^*$, and is
+{{$
+  \argmin \{ \| \beta \| \mid \beta \in \R^p, X^TX\beta = X^Ty \}.
+}}$
+
+=== Distributions ===
+
+We covered a bunch of stuff that you can probably find on Wikipedia.
+
+- [[https://en.wikipedia.org/wiki/Multivariate_normal_distribution|Multivariate Gaussian Distributions]]
+- [[https://en.wikipedia.org/wiki/Chi-squared_distribution|Chi-Square Distribution]]
+- [[https://en.wikipedia.org/wiki/Student%27s_t-distribution|Student-t Distribution]]
+- [[https://en.wikipedia.org/wiki/F-distribution|F Distribution]]
+
+=== Inference in the Homoskedastic Normal Linear Model ===
+
+For this section, set $X \in \R^{n \times p}$ design matrix, which is taken to be deterministic and of full rank. Then, set $y \sim N(X \beta, \sigma^2 I)$ for some $\sigma > 0, \beta \in \R^p$; that is, set
+{{$
+  Y = X\beta + \epsilon, \epsilon \sim N(0, \sigma^2 I).
+}}$
+We have already seen
+{{$
+  \hat \beta = (X^TX)^{-1}X^TY
+}}$
+and so $\hat \beta$ is normal with mean $\beta$ and variance
+{{$
+  \Var(\hat \beta) = (X^TX)^{-1}X^T(\sigma^2 I)X(X^TX)^{-1} = \sigma^2 (X^TX)^{-1}.
+}}$
+
+But now we need to understand $\sigma$: we may split $Y$ into $\hat Y = P_XY$ and $\hat \epsilon = (I - P_X)Y$, where $P_X$ is the orthogonal projection matrix onto $X$; properties of the multivariate Gaussian imply that these two are independent, and have distributions
+{{$
+  \begin{align*}
+    \hat Y &\sim N(X \beta, \sigma^2 P_X) \\
+    \hat \epsilon &\sim N(0, \sigma^2(I - P_X))
+  \end{align*}
+}}$
+which we can now use $\hat \epsilon$ to learn about $\sigma^2$ and $\hat Y$ to learn about $\beta$.
+
+Specifically, we use the residual sum of squares $RSS = \| \hat \epsilon \|^2 \sim \sigma^2 \chi^2_{n-p}$; thus this has expectation $\sigma^2(n - p)$, so we can set
+{{$
+  \hat \sigma^2 = \frac{\| \epsilon^2 \|}{n - p} \sim \frac{\sigma^2 \chi^2_{n - p}}{n - p}.
+}}$
+Moreover, since $X^T = X^TP_X$, we already know that $\hat \beta$ only depends on $\hat y$, and so is independent of $\hat \sigma$.
+
+==== Applications ====
+
+We can now do inference for $\beta_j$; in particular $\hat \beta_j \sim N(\beta_j, \sigma^2 (X^TX)_{jj}^{-1})$. Then we know that if we take
+{{$
+\begin{align*}
+  A &= \frac{\hat \beta_j -  \beta_j}{\sigma \sqrt{(X^TX)^{-1}_jj}} \sim N(0, 1) \\
+  B &= \frac{\hat \sigma^2 }{\sigma^2} \sim \frac{\chi^2_{n-p}}{n - p}
+\end{align*}
+}}$
+so $A / \sqrt{B} \sim t_{n - p}$; that is,
+{{$
+  \frac{\hat \beta_j -  \beta_j}{\hat \sigma \sqrt{(X^TX)^{-1}_jj}} \sim t_{n - p}
+}}$
+so we can get a concrete handle on the sampling distributions from only our observations.
+

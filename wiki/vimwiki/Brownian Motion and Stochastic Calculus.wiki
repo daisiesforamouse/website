@@ -10,6 +10,8 @@
 
 \DeclareMathOperator{\Jac}{Jac}
 \DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\mesh}{mesh}
+\DeclareMathOperator{\Var}{Var}
 
 \let\temp\phi
 \let\phi\varphi
@@ -265,3 +267,188 @@ _Proof_: Set $\mathcal F_n = \sigma(X_1, \dots, X_n)$, and $\mathcal T_n = \sigm
 Then, one can see that if $A \in \mathcal F_\infty$ and $\epsilon > 0$, there is $n$ and $A_n \in \mathcal F_n$ such that $P(A_n \Delta A) < \epsilon$; even better, there exists $A_n$ independent of $A \in \mathcal T_\infty$ such that $P(A \Delta A_n) < \epsilon$, and so we conclude that $P(A) = P(A)P(A)$.
 
 *Theorem (Blumenthal Zero-One)*: Let $B_t$ be a Brownian motion with the standard filtration, and set $\mathcal F_{0+} = \bigcap_{\epsilon > 0} \mathcal F_{\epsilon}$. Then, if $A \in \mathcal F_{0+}$, $P(A) = 0$ or $1$.
+
+==== Quadratic Variation ====
+
+Let $B_t$ be a standard Brownian motion; a partition $\Pi$ of $[0, 1]$ is a sequence $0 = t_0 < t_1 < \dots < t_k = 1$, and the mesh of the partition is just
+{{$
+  \| \Pi \| = \max_{i = 1, \dots, k} t_i - t_{i - 1}.
+}}$
+Now take a sequence of partitions $\Pi_n$, e.g. $0 = t_{0, n} < \dots < t_{k_n, n}$, and define the quantity
+{{$
+  Q(t, \Pi) = \sum_{t_{j} <= t} (B_{t_j} - B_{t_{j-1}})^2
+}}$
+and $Q_n(t) = Q(t, \Pi_n)$ and $Q_n = Q_n(1)$. 
+
+*Theorem*: If $\| \Pi_n \| \to 0$, then $Q_n \to 1$ in probability. Futhermore, if $\sum_{n=1}^\infty \| \Pi_n \| < \infty$, then almost surely $\lim_{n \to \infty} Q_n = 1$.
+
+_Proof_: A simple computation gives us that 
+{{$
+  E(Q_n) = \sum_{j=1}^{k_n}E[(B_{t_j} - B_{t_{j-1}})^2] = \sum_{j=1}^{k_n}(t_j - t_{j-1}) = 1
+}}$
+and
+{{$
+  \Var(Q_n) = \sum_{i=1}^{k_n} \Var((B_{t_j}  - B_{t_{j-1}})^2) = \sum_{j=1}^{k_n} (t_j - t_{j-1})^2 \Var(B_1^2) = 2\sum_{j=1}^{k_n}(t_j - t_{j-1})^2.
+}}$
+Then,
+{{$
+  \Var(Q_n) \leq \| \Pi_n \| 2 \sum_{j=1}^{k_n}(t_j - t_{j-1}) = 2 \| \Pi_n \|
+}}$
+and
+{{$
+  P(|Q_n - 1| \geq \epsilon) \leq \frac{\Var(Q_n)}{\epsilon^2} \leq \frac{2 \| \Pi_n \|}{\epsilon^2}.
+}}$
+
+The latter half of the theorem follows from Borel-Cantelli.
+
+*Theorem*: In general, if $\sum_{n=1}^\infty \| \Pi_n \| < \infty$, then almost surely we have $Q_n(t) \to t$.
+
+_Proof_: With probability 1 this holds for rational $t$, but by construction $Q_n(t)$ is monotone, so it holds everywhere.
+
+_Def_: In general,  if $X_t$ is a process, then its quadratic variation is
+{{$
+  \left\langle X\right\rangle_t = \lim_{n \to \infty} \sum_{t_{j,n} \leq t} (X_{t_{j, n}} - X_{t_{j-1, n}})^2
+}}$
+(sort of, since sometimes this depends on the partition).
+
+_Def_: Alternatively, if $M_t$ is a continuous $L^2$-martingale, its quadratic variation is the unique predictable process $\left\langle M \right\rangle_t$ that makes $M_t^2 - \left\langle M \right\rangle_t$ a martingale (in particular, this exists by Doob decomposition).
+
+We showed above that $\left\langle B_t \right\rangle_t = t$.
+
+*Prop*: If $B_t$ is a standard Brownian motion and $Y_t = \mu t + \sigma B_t$, then
+{{$
+  \left\langle Y \right\rangle_t = \sigma^2 t.
+}}$
+
+_Proof_: Just check directly.
+
+==== Law of the Iterated Logarithm ====
+
+*Lemma (Relaxed Borel-Cantelli)*: Let $A_1, A_2, \dots$ be a sequence of events, and set $\mathcal F_n = \sigma(A_1, \dots, A_n)$; if there is $q_n$ with
+{{$
+  \sum_{n=1}^\infty q_n = \infty
+}}$
+such that $P(A_n \mid \mathcal F_{n-1}) \geq q_n$, then $A_n$ happens infinitely often almost surely.
+
+_Proof_: Same as usual, but just with a little more caution.
+
+Recall that the second Borel-Cantelli lemma tells us that if they are independent and $\sum_{n=1}^\infty P(A_n) = \infty$, then $A_n$ occurs infinitely often with probability 1; this lemma is stronger than that.
+
+
+*Theorem*: If $B_t$ is a standard Brownian motion, then
+{{$
+  \limsup_{t \to \infty} \frac{B_t}{\sqrt{2 t \log \log t}} = 1.
+}}$
+
+*Corollary*: By symmetry,
+{{$
+  \liminf_{t \to \infty} \frac{B_t}{\sqrt{2 t \log \log t}} = -1.
+}}$
+
+_Proof_: Let $\mathcal T_t = \sigma\{ B_{s + t} - B_t \mid s \geq 0\}$, and $\mathcal T_\infty = \bigcap_t \mathcal T_t$;  one can adapt the arguments from the Kolmogorov 0-1 law to show that everything in $\mathcal T_\infty$ happens with probability 0 or 1. Then,
+{{$
+  A_\epsilon = \left\{ \omega \mid \limsup_{t \to \infty} \frac{B_t}{\sqrt{2 t (1 + \epsilon) \log \log t}} \leq 1\right\}
+}}$
+is a tail event (e.g. in $\mathcal T_\infty$) and thus $P(A_\epsilon) = 0$ or $1$. In fact, if $\epsilon < 0$ then it's 0, and if $\epsilon > 0$ then it's 1. In fact, by this 0-1 law and symmetry one may see
+{{$
+  P \left( \limsup_{t \to \infty} \frac{|B_t|}{\sqrt{2 t (1 + \epsilon) \log \log t}} \leq 1 \right) = P \left(\limsup_{t \to \infty} \frac{B_t}{\sqrt{2 t (1 + \epsilon) \log \log t}} \leq 1\right)
+}}$
+as well.
+
+First take $\epsilon > 0$ and take some $\rho > 1$ to be specified later. Then, let 
+{{$
+  V_n = \left\{ |B_{\rho^n}| \geq \sqrt{2 \rho^n(1-\epsilon) \log \log \rho^n} \right\};
+}}$
+we want to to show that $V_n$ occurs infinitely often. I claim that
+{{$
+  P(V_{n+1} \mid V_1, \dots, V_n) \geq P \left( B_{\rho^{n+1}} - B_{\rho^n} \geq \sqrt{2 \rho^{n+1}(1-\epsilon) \log \log \rho^n} \right).
+}}$
+To see this, compute
+{{$
+\begin{align*}
+  &P \left( \frac{B_{\rho^{n+1}} - B_{\rho^n}}{\sqrt{\rho^{n+1} - \rho^n}} \geq \frac{\sqrt{2\rho^{n+1}(1-\epsilon)\log \log \rho^n}}{\sqrt{\rho^n (\rho - 1)}} \right) \\
+  &= P \left( \frac{B_{\rho^{n+1}} - B_{\rho^n}}{\sqrt{\rho^{n+1} - \rho^n}} \geq \sqrt{\frac{2 \rho}{\rho - 1}(1-\epsilon)(\log n + \log \log \rho)} \right) \\
+\end{align*}
+}}$
+and choose $\rho$ large enough so that $\frac{2 \rho}{\rho - 1}(1-\epsilon) < 1$, and use the estimate $P(B_1 > x) \sim \exp(-x^2 / 2)$ and conclude by the earlier lemma. The other direction for $\epsilon < 0$ is similar (in fact, easier since we may conclude from the first Borel-Cantelli lemma).
+
+==== Zero Sets of Brownian Motion ====
+
+_Def_: Set $B_t$ a standard Brownian motion, $Z = \{ t \mid B_t = 0 \}$, and $Z_t = Z \cap [0, t]$. Then, $t \in Z$ is right-isolated if $t \in Z$, and $\exists \epsilon > 0$ such that $(t, t + \epsilon) \cap Z = \emptyset$; similar for left-isolated. A point which is both left and right isolated is just isolated.
+
+With probability $1$, $0$ is not right-isolated; further, $Z_1$ is homeomorphic to the Cantor set.
+
+With probability 1, the sets of left and right isolated points are countable, and there are no isolated points.
+
+We can show that if $q \in \Q_{\geq 0}$, $P(B_q  = 0) = 0$, and $\tau_q = \min \{ t \geq q \mid B_t = 0\}$ is a stopping time; further, the left-isolated points are just $\{ \tau_q \mid q \in \Q_{\geq 0}\}$. And by strong Markov property, no $\tau_q$ is a right-isolated point, so there are no isolated points.
+
+Set $\sigma_q = \max_t \{ t < q \mid B_t = 0 \}$ (this is well-defined, but not a stopping time). Then associate every $q$ to an interval $(\sigma_q, \tau_q)$; then $Z = [0, \infty) \setminus \bigcup_q (\sigma_q, \tau_q)$ and has Lesbegue measure 0. To see this, we just interchange integrals:
+{{$
+  E[ \lambda(Z_1) ] = E\left[ \int_0^1 1_{\{B_s = 0\}} ds \right] = \int_0^1 P\{ B_s = 0 \}ds = 0.
+}}$
+
+Look at $Z \cap [1, 2]$; now cover $[1, 2]$ by intervals of length $n^[-1]$; put the number of these intervals that intersect $Z$ as $X_n$. Then,
+{{$
+  E[X_n] = \sum_{j=1}^n P\left(Z \cap \left[1 + \frac{j-1}{n}, 1 + \frac{j}{n}  \right]\neq \emptyset \right) \sim Cn^{1/2}.
+}}$
+
+The box or Minkowski dimension of a set is given by the exponent above (sort of).
+
+_Def_: The *Hausdorff dimension* comes from the *Hausdorff measure*: for $\epsilon > 0$ and $\alpha$, set
+{{$
+  \mathcal H^\alpha_\epsilon = \left\{ \inf \sum_{j=1}^\infty (\operatorname{diam} U_j)^\alpha \right\}
+}}$
+where the infimum is over all coverings $\bigcup_j=1^\infty U_j$ of $V$ with each $\operatorname{diam} (U_j) < \epsilon$. Then the Hausdorff measure is given by
+{{$
+  \mathcal H^\alpha(V) = \lim_{\epsilon \to 0} \mathcal H_{\epsilon}^\alpha (V).
+}}$
+Then, there is some number $D$ such that
+{{$
+  \mathcal H^{\alpha}(V) = \begin{cases}
+    \infty & \alpha < D \\
+    0 & \alpha > D
+  \end{cases}
+}}$
+and we call this $D$ the Hausdorff dimension. In general, the Hausdorff dimension is at most the Minkowski dimension, but in this case we actually do have equality.
+
+==== Local Time ====
+
+The local time is the amount of time the Brownian motion spends at $0$ by a certain time. It is sort of like the Cantor measure, insofar as if $s < t$, then $L_t - L_s > 0 \iff (s, t) \cap Z \neq \emptyset$. 
+
+_Def_: We define the *local time* of Brownian motion at $x \in \R$, $L_t$, by first setting
+{{$
+  L_{t, \epsilon}(x) = \frac{1}{2\epsilon} \int_0^t 1_{\{|B_s - x| \leq \epsilon\}} ds
+}}$
+and then letting $L_t(x) = \lim_{\epsilon \to 0} L_{t, \epsilon}$. We abbreviate $L_t = L_t(0)$.
+
+We can compute the expectation
+{{$
+  \begin{align*}
+    E[L_{t, \epsilon}] &= \frac{1}{2\epsilon} \int_0^t P(|B_s| \leq \epsilon)ds \\
+    &\sim \frac{1}{2\epsilon} \int_0^t 2e \frac{1}{2 \pi s}ds \\
+    &= \sqrt{\frac{2}{\pi}}t^{1/2}
+  \end{align*}.
+}}$
+
+*Theorem*: With probability 1, $L_t$ exists for all $t$, and this holds in $L^2$ as well.
+
+There are more facts: $L_t$ is continuous in $t$ and nondecreasing, $L_t - L_s > 0 \iff (s, t) \cap Z \neq \emptyset$, and $L_t$ is weakly $\frac{1}{2}$-Hölder continuous.
+
+*Theorem (Scaling Rule)*: $L_t$ has the same distribution as $t^{1/2} L_1$. Further, $M_t = \max_{ 0 \leq s \leq t}B_s$ has the same distribution as $L_t$.
+
+=== Brownian Motion in Several Dimensions ===
+
+_Def_: If $B_t^1, \dots, B_t^d$  are independent standard Brownian motions, then
+{{$
+  B_t = (B_t^1, \dots, B_t^d)
+}}$
+is a standard Brownian motion in $\R^d$.
+
+*Prop*: $B_0 = \mathbf 0$, has independent increments, if $s < t, B_t - B_s \sim N(0, (t-s)I)$, and $B_t$ has continuous paths.
+
+In particular, if we have the above with $B_t - B_s \sim N(\mu, \Gamma)$, then $B_t$ is a Brownian motion with dift $\mu \in \R^d$ and covariance matrix $\Gamma$. Further, if $AA^T = \Gamma$, then we may write $B_t = AY_t + t \mu$ for a standard Brownian motion $Y_t$.
+
+Consider the open annulus with inner radius $r$ and outer radius $R$, e.g. $D(r, R) = \{ y \in \R^d \mid r < |y| < R \}$. Start a Brownian motion at $x$, and let $\tau = \tau(r, R)$ be the first time with $|B_t| = r$ or $|B_t| = R$. What is the probability that $|B_\tau| = R$?
+
+In one dimension, this is easy: stop the Brownian motion at $\tau$ and look at what happens at infinity.
+

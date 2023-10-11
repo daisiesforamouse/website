@@ -13,6 +13,7 @@
 \DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Tr}{Tr}
 \DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\argmin}{argmin}
 
 \let\temp\phi
 \let\phi\varphi
@@ -220,7 +221,7 @@ Alternatively, it is uniquely characterized as the matrix representing the compo
 }}$
 Simiar for the other direction of multiplication.
 
-==== Eigenvalues and Eigenvectors ====
+=== Eigenvalues and Eigenvectors ===
 
 _Def_: For a complex matrix $A$, an *eigenvalue* $\lambda \in \C$ and *eigenvector* $v \neq 0$ satisfy
 {{$
@@ -263,6 +264,8 @@ _Def_: $A \in \C^{n \times n}$ is *Hermitian* if $A^* = A$.
 
 *Corollary*: $A \in \R^{n \times n}$ is symmetric if and only if it is orthgonally diagonalizable with all eigenvalues real.
 
+==== Jordan Canonical Form ====
+
 _Def_: [[https://en.wikipedia.org/wiki/Jordan_normal_form| Link]] Any matrix can be written in *Jordan canonical form*, e.g.
 {{$
   A = XJX^{-1}
@@ -295,6 +298,8 @@ Unfortunately, the JCF is pretty useless in application.
 
 *Theorem (Golub-Wilkinson)*: The Jordan canonical form cannot be computed in finite precision.
 
+==== Spectral Radius ====
+
 Let's return to the spectral radius,
 {{$
   \rho(A) = \max_{\lambda \in \Spec(A)} |\lambda|.
@@ -321,3 +326,128 @@ _Proof_: Look at the norm of the image of a top eigenvector.
 _Proof_: $(\implies)$ Set $\lambda$ to be a top eigenvalue of $A$, and $x$ a corresponding eigenvector. Then, $A^k x = \lambda^k x$. Send $k \to \infty$ and conclude.
 
 $(\impliedby)$ By the above theorems, there is some operator norm $\| \cdot \|$ such that $\|A\| \leq \rho(A) + \epsilon < 1$. Send $k \to \infty$ and use the fact that operator norms imply $\| A^k \| \leq \|A\|^k$ and win.
+
+==== Finding Eigenvalues ====
+
+*Theorem (Gershgorin Circle Theorem)*: [[https://en.wikipedia.org/wiki/Gershgorin_circle_theorem|Wikipedia]] Let $A \in \C^{n \times n}$, with entries $a_{ij}$ and for $1 \leq i \leq n$ set $r_i = \sum_{j\neq i} |a_{ij}|$. Then, every eigenvalue of $A$ lies within the union of the Gershgorin discs
+{{$
+  G_i = \left\{ z \mid z \in \C, |z - a_{ii}| \leq \sum_{j \neq i} |a_{ij}| \right\}
+}}$
+and the number of eigenvalues in each connected component is equal to the number of Gershgorin disks that constitute that component.
+
+_Proof_: If $A \in \C^{n \times n}$ is strictly diagonally dominant, e.g.
+{{$
+  |a_{ii}| > \sum_{j \neq i}|a_{ij}|
+}}$
+for all $1 \leq i \leq n$, then $A$ is invertible. To see this, take any $x \in \ker(A)$ so that $\sum_{j=1}^n a_{ij}x_i = 0$. But look at the index $k$ that witnesses $\| x \|_\infty$:
+{{$
+  -a_{kk}x_k = \sum_{j \neq k} a_{kj}x_j \implies |a_{kk}||x_k| \leq \sum_{j \neq k} |a_{kj}||x_k|
+}}$
+so $x = 0$ and $\ker(A)$ is trivial.
+
+We proceed to prove that any $z \notin \bigcup_{i=1}^n G_i$ cannot be an eigenvalue by showing that $A - zI$ is invertible. But this is clear, since $A - zI$ in that case is strictly diagonally dominant.
+
+_Def_: [[https://en.wikipedia.org/wiki/Schur_decomposition|Wikipedia]] The *Schur decomposition* of a matrix $A$ is $A = QUQ^*$ such that $Q$ is unitary and $U$, the *Schur form* of $A$ is upper triangular.
+
+Note that you can read off the eigenvalues of $A$ from the diagonal of the Schur form, which is numerically stable to compute.
+
+As an aside, how one numerically finds the roots of a polynomial $p(x) = \sum_{k=0}^m c_kx^k$ is by forming the companion matrix
+{{$
+  A = \begin{bmatrix}
+    0 & \cdots & 0 & -c_0 \\
+    1 & \ddots &0 & -c_1 \\
+    \vdots & \ddots & \vdots & \vdots \\
+    0 & \cdots & 1 & -c_{d-1} 
+  \end{bmatrix}.
+}}$
+
+=== Singular Value Decomposition ===
+
+_Def_: [[https://en.wikipedia.org/wiki/Singular_value_decomposition|Link]] The *SVD decomposition* of a real (resp. complex) matrix $A \in \C^{m \times n}$) is
+{{$
+  A = U \Sigma V^*
+}}$
+where $U, V$ are orthogonal (resp. unitary) and $\Sigma$ is diagonal (on the shorter diagonal) with nonnegative entries; that is, if $m > n$, then
+{{$
+  \Sigma = \bmat{\diag(\sigma_1, \dots, \sigma_n) \\ \mathbf 0} \in \R^{m \times n}_{\geq 0}
+}}$
+and if $m < n$,
+{{$
+  \Sigma = \bmat{\diag(\sigma_1, \dots, \sigma_n) & \mathbf 0} \in \R^{m \times n}_{\geq 0}
+}}$
+
+_Def_: We may arrange $\sigma_{1} \geq \sigma_2 \geq \dots \geq \sigma_{\min(m, n)} \geq 0$; we then call top few singular values the principal singular values. The columns of $U$ are left singular vectors, and the columns of $V$  are right singular vectors.
+
+*Prop*: The largest $r$ for which $r > 0$  is the rank of $A$.
+
+_Def_: We sometimes use the *reduced SVD*, which is the same as the normal SVD but we drop the extra rows of $\Sigma$ to force it to be a square diagonal matrix in $\C^{\min\{m, n\} \times \min\{m, n\}}$. Then,
+{{$
+  A = \sum_{k=1}^r \sigma_k u_r v_r^*
+}}$
+where $u_r, v_r$ are the columns of $U, V$ in the reduced SVD and $r = \operatorname{rank}(A)$, or the number of nonzero singular values.
+
+_Def_: In a similar vein, the *condensed SVD* is attained by removing all of the nonzero rows/columns of $\Sigma$, so $\Sigma \in \C^{r \times r}$.
+
+*Theorem*: Given any $A \in \C^{m \times n}$, there are $U \in \C^{m \times m}$, $V \in \C^{n \times n}$, and 
+{{$
+  \Sigma = \diag(\sigma_1, \dots, \sigma_r, 0, \dots, 0) \in \R_{\geq 0}^{m \times n}
+}}$
+such that $U, V$ are unitary and $A = U \Sigma V^*$.
+
+_Proof_: Form the matrix
+{{$
+  W = \bmat{0 & A \\ A^* & 0}
+}}$
+which is Hermitian. The spectral theorem gives an EVD, and if you look carefully you get the compact SVD:
+{{$
+  W = \bmat{ U_r & U_r \\ V_r & -V_r } \bmat{
+  \sigma_1 & & & & &  &\\
+   & \sigma_2 & & & & &\\
+   & & \ddots & & & &\\
+   & &  & \sigma_r & & &\\
+   & &  & & -\sigma_1 & & \\
+   & &  & & & \ddots & \\
+   & &  & & & & -\sigma_r\\ }
+  \bmat{ U_r & U_r \\ V_r & -V_r }^*.
+}}$
+
+Singular values have a nice property: we have for any singular value $\sigma$ and left singular vector $u$ and right singular value $v$, $Av = \sigma u$ and $A^*v = \sigma v$; thus $u, v$ are eigenvalues of $AA^*$ and $A^*A$ respectively.
+
+==== Applications ====
+
+We can read off many important quantities/spaces from the SVD. Let $A = U \Sigma V^*$ be a SVD, with only $r$ nonzero singular values.
+- The rank is the number of nonzero singular values.
+- The absolute value of the determinant is the product of the signular values.
+- The two norm is the maximum singular value.
+- Set $\sigma = (\sigma_1, \dots, \sigma_n)$; then the Frobenius norm of $A$ is $\| \sigma \|_2$, and we call the general case of this the *Schatten norm*, e.g. $\| A \|_{S, p} = \| \sigma \|_p$; the case of $p = 1$ is also called the *nuclear norm*.
+- The Ky Fan $(p, k)$ norm for an integer $1 \leq k \leq \infty$ is 
+  {{$
+    \| A \|_{S, p, k} = \left( \sum_{i=1}^p \sigma_i^p \right)^{1/p}.
+  }}$
+- The kernel of $A = U \Sigma V^*$ is spanned by $v_{r+1}, \dots, v_n$.
+- The image of $A$ is $u_1, \dots, u_r$.
+- The kernel of $A^T$ (this is the cokernel) is spanned by $v_{1, \dots, v_r}$.
+- The image of $A^T$ is spanned by $u_{r+1}, \dots, u_m$.
+
+You can also solve fundamental problems. For example, if you consider the linear system $Ax = b$, it might not have exactly one solution, so we can translate this into the least squares system $\min_{x \in \R^n} \| Ax - b \|_2^2$; this still might not have a unique solution when $A$ is singular, so we consider the *minimum norm least squares* problem: $\min \{ \| x \|_2 \mid x \in \argmin \| A_x - b \|_2 \}$.
+
+SVD solves all of these simultaneously; set $A = U \Sigma V^T$; this means that we want $\Sigma V^T x = U^T b$; equivalently, we just need to solve $\Sigma y = c$, where $b = Uc, x = Vy$. But this is trivial since $\Sigma$ is diagonal.
+
+ We could define the pseudoinverse of $A$ to be $A^+$ to be the matrix $A^+$ that sends any $b$ to the minimum norm least squares solution of $Ax = b$.
+
+*Prop*: $A^+$ is just $V \Sigma^{-1} U^*$, where by $\Sigma^{-1}$ is just gotten by flipping all the nonzero diagonal elements.
+
+_Proof_: Clear.
+
+_Def_: In general, the *pseudoinverse* or *Moore-Penrose* inverse of $A \in \K^{m \times n}$ is a matrix $X \in \K^{n \times m}$ that satisfies 
+- $(AX)^{*} = AX$,
+- $(XA)^* = XA$,
+- $AXA = A$,
+- $XAX = X$.
+
+*Prop*: The above gives a unique matrix and is in fact the same as $A^+$ from earlier.
+
+*Prop*: There following statements are true.
+- $A^+A$ and $AA^+$ are not necessarily $I$.
+- If $A$ has full column rank $A^+ = (A^*A)^{-1}A$.
+- If $A$ has full row rank, $A^+ = A^*(AA^*)^{-1}$.
