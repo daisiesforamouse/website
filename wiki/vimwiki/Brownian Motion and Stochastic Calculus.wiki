@@ -225,10 +225,10 @@ or equivalently
 
 *Prop*: If $0 < r < s < \infty$,
 {{$
-  q(r, s) = P(B_t = 0 \text{ for some } r \leq t \leq s) = 1 - \frac{2}{\pi} \arctan\left(\sqrt{\frac{r}{s}}\right).
+  q(r, s) = P(B_t = 0 \text{ for some } r \leq t \leq s) = 1 - \frac{2}{\pi} \arctan\left(\sqrt{\frac{r}{s - s}}\right).
 }}$
 
-_Proof_: First, I claim that $q(r, s) = q(1, s/r)$ just by a change of variables, so we only need to compute $q(t) = q(1, t)$. Set $A = \{ B_s = 0 \text{ for some } 1 \leq s \leq 1 + t \}$, so that
+_Proof_: First, I claim that $q(r, s) = q(1, s/r)$ just by a change of variables, so we only need to compute $q(t) = q(1, 1 + t)$. Set $A = \{ B_s = 0 \text{ for some } 1 \leq s \leq 1 + t \}$, so that
 {{$
 \begin{align*}
   q(t) &= \frac{2}{\sqrt{2 \pi}}\int_0^\infty P(A \mid B_1 = x) e^{-x^2 / 2}dx.
@@ -387,7 +387,7 @@ Set $\sigma_q = \max_t \{ t < q \mid B_t = 0 \}$ (this is well-defined, but not 
   E[ \lambda(Z_1) ] = E\left[ \int_0^1 1_{\{B_s = 0\}} ds \right] = \int_0^1 P\{ B_s = 0 \}ds = 0.
 }}$
 
-Look at $Z \cap [1, 2]$; now cover $[1, 2]$ by intervals of length $n^[-1]$; put the number of these intervals that intersect $Z$ as $X_n$. Then,
+Look at $Z \cap [1, 2]$; now cover $[1, 2]$ by intervals of length $n^{-1}$; put the number of these intervals that intersect $Z$ as $X_n$. Then,
 {{$
   E[X_n] = \sum_{j=1}^n P\left(Z \cap \left[1 + \frac{j-1}{n}, 1 + \frac{j}{n}  \right]\neq \emptyset \right) \sim Cn^{1/2}.
 }}$
@@ -452,3 +452,101 @@ Consider the open annulus with inner radius $r$ and outer radius $R$, e.g. $D(r,
 
 In one dimension, this is easy: stop the Brownian motion at $\tau$ and look at what happens at infinity.
 
+In higher dimensions, we need a quick detour.
+
+==== Harmonic Functions in $\R^d$ ====
+
+For this section, a domain is an open connected subset of $\R^d$.
+
+_Def_: For a domain $D$, we say $f: D \to \R$ is harmonic if it is continuous (or merely locally integrable) and satisfies the mean value property
+{{$
+  f(x) = MV(f, x, \epsilon) = \int_{|x - y| = \epsilon} f(y) ds
+}}$
+where $s$ is the surface measure, normalized so that $\int_{|x - y| = \epsilon}ds = 1$.
+
+In a probabilistic vein, if $B_t$ is a standard $d$-dimensional Brownian motion starting at $x$, and $\tau = \min \{ t \mid |B_t - x| = \epsilon \}$, since $B_t$ is rotation invariant, the above is just
+{{$
+  MV(f, x, \epsilon) = E[f(B_\tau)].
+}}$
+
+_Def_: The Laplacian of $f$ is 
+{{$
+  \nabla f = \sum_{j=1}^d \frac{\partial ^2 f }{\partial x_j^2}.
+}}$
+
+*Prop*: If $f$ is $C^2$ in $D$, then 
+{{$
+  \frac{1}{2d}\nabla f = \lim_{\epsilon \to 0} \frac{MV(f, x, \epsilon) - f(x)}{\epsilon^2}.
+}}$
+
+_Proof_: Look at the Taylor expansion.
+
+*Theorem*: $f$ is harmonic in $D$ if and only if it is in $C^2$ and $\nabla f = 0$ everywhere.
+
+==== Hitting Probabilities for Brownian Motion ====
+
+Let $\tau = \tau_{r, R} = \min \{ |B_t| = r \text{ or } R \} = \min \{ t \mid B_t \in \partial D \}$. We will let a superscript $x$ denote that $B_0 = x$, and let
+{{$
+  \phi(x) = P^x(|B_\tau| = R).
+}}$
+By rotational invariance, $\phi(x) = \phi(|x|)$, and it is continuous at the boundary; we also clearly have $\phi(x) = 0$ if $|x| = r$ and $\phi(x) = 1$ if $|x| = R$. The strong Markov property furnishes that $\phi$ is harmonic. Set $\tau_\epsilon = \min \{ t \mid |B_t - x| = \epsilon\}$; then
+{{$
+  P^X(|B_\tau| = R \mid \mathcal F_{\tau_\epsilon}) = \phi(B_{\tau_\epsilon})
+}}$
+and
+{{$
+  P^X(|B_\tau| = R) = E^x[P(|B_\tau| = R \mid \mathcal F_{\tau_\epsilon})] = E^x[\phi(B_{\tau_\epsilon})] = MV(\phi, x, \epsilon).
+}}$
+This list of properties gives a unique function (solve an ODE in polar coordinates), and is given by
+{{$
+  \phi(x) = \frac{|x|^{2-d} - r^{2-d}}{R^{2-d} - |r|^{2-d}} 
+}}$
+for $d \neq 2$ and
+{{$
+  \phi(x) = \frac{\log|x| - \log r}{\log R - \log r}
+}}$
+for $d = 2$.
+
+
+==== Recurrence and Transcience of Brownian Motion ====
+
+Let $B_t$ be a standard Brownian motion in $\R^d$.
+
+*Theorem*: With probability 1, Brownian motion is transient in dimensions at least 3; that is,
+{{$
+  \lim_{t \to \infty} |B_t| = \infty.
+}}$
+
+_Proof_: If $d \geq 3$, and we start at $x$ with $|x| > r$, if we set $T_r = \min \{ t \mid |B_t| = r \}$,
+{{$
+  P^x(T_r < \infty)  = \lim_{R \to \infty} P^X(|B_{\tau_{r, R}}| = r) = \left( \frac{r}{|x|} \right)^{d-2} < 1
+}}$
+
+*Theorem*: With probability 1, Brownian motion is neighborhood recurrent; that is, $\forall z \in \R^2, \epsilon > 0$, Brownian motion visits the disk of radius $\epsilon$ about $z$ infinitely often. However, it is not point recurrent, e.g. it hits $z \neq 0$ with probability 0.
+
+_Proof_:  If $d = 2$, then
+{{$
+  P^x(T_r < \infty) = \lim_{R \to \infty} P(|B_{\tau_{r, R}}| = r) = 1
+}}$
+But if $T = \min\{ t \mid B_t = 0 \}$,
+{{$
+  P^x(T < \infty) \leq \lim_{R \to \infty} \lim_{r \to 0} P^x(|B_{\tau_{r, R}}| = r) = 0
+}}$
+
+A fun fact is that if $d \geq 2$, then $\{ B_t, t \geq 0 \}$ has Hausdorff dimension $2$ but also zero Hausdorff-2 measure.
+
+==== The Dirchlet Problem ====
+
+Take a bounded domain $D \subset \R^d$, and a continous function $F: \partial D \to \R$; the Dirichlet problem is to find the unique continuous $f: \overline D \to \R$ that agrees with $F$ on $\partial D$ and is harmonic on $D$.
+
+In fact, uniqueness follows from the maximum principle, which says that the maximum of $f$ is attained on the boundary (think about the mean value principle). Then subtract two solutions and see that it is 0.
+
+Let $T = \min\{t \mid B_t \in \partial D \}$, and $f(x) = E^x[F(B_T)]$. This satisfies the mean value principle, and in fact continuous (which is kinda hard) but it is obviously locally integrable, so $f$ here is harmonic.
+
+In general, such a harmonic function is not necessarily continuous on the boundary: take the example of the punctured unit disk, with $F(x) = 1$ for $|x| = 1$ and $F(0) = 0$. And so everything is fine except at the origin, since $f(x) = P^x(|B_T| = 1) = 1$.
+
+_Def_: If $x \in \partial D$, let $\sigma = \inf \{ t > 0 \mid B_t \in \partial D\}$; $x$ is regular if $P^x(\sigma = 0) = 1$.
+
+*Prop*: $f$ as defined above is continuous at every regular boundary point.
+
+Therefore the Dirichlet problem has a solution for every continuous $F$ if and only if every opint on $\partial D$ is regular.

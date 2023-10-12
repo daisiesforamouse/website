@@ -365,11 +365,11 @@ or equivalently
 <span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-The Markov Property of Brownian Motion-Prop"></span><strong id="Prop">Prop</strong>: If \(0 &lt; r &lt; s &lt; \infty\),
 </p>
 \[
-  q(r, s) = P(B_t = 0 \text{ for some } r \leq t \leq s) = 1 - \frac{2}{\pi} \arctan\left(\sqrt{\frac{r}{s}}\right).
+  q(r, s) = P(B_t = 0 \text{ for some } r \leq t \leq s) = 1 - \frac{2}{\pi} \arctan\left(\sqrt{\frac{r}{s - s}}\right).
 \]
 
 <p>
-<em>Proof</em>: First, I claim that \(q(r, s) = q(1, s/r)\) just by a change of variables, so we only need to compute \(q(t) = q(1, t)\). Set \(A = \{ B_s = 0 \text{ for some } 1 \leq s \leq 1 + t \}\), so that
+<em>Proof</em>: First, I claim that \(q(r, s) = q(1, s/r)\) just by a change of variables, so we only need to compute \(q(t) = q(1, 1 + t)\). Set \(A = \{ B_s = 0 \text{ for some } 1 \leq s \leq 1 + t \}\), so that
 </p>
 \[
 \begin{align*}
@@ -632,7 +632,7 @@ Set \(\sigma_q = \max_t \{ t &lt; q \mid B_t = 0 \}\) (this is well-defined, but
 \]
 
 <p>
-Look at \(Z \cap [1, 2]\); now cover \([1, 2]\) by intervals of length \(n^[-1]\); put the number of these intervals that intersect \(Z\) as \(X_n\). Then,
+Look at \(Z \cap [1, 2]\); now cover \([1, 2]\) by intervals of length \(n^{-1}\); put the number of these intervals that intersect \(Z\) as \(X_n\). Then,
 </p>
 \[
   E[X_n] = \sum_{j=1}^n P\left(Z \cap \left[1 + \frac{j-1}{n}, 1 + \frac{j}{n}  \right]\neq \emptyset \right) \sim Cn^{1/2}.
@@ -734,30 +734,158 @@ Consider the open annulus with inner radius \(r\) and outer radius \(R\), e.g. \
 In one dimension, this is easy: stop the Brownian motion at \(\tau\) and look at what happens at infinity.
 </p>
 
-<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Distributions"><h3 id="Distributions" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Distributions">Distributions</a></h3></div>
-
 <p>
-We covered a bunch of stuff that you can probably find on wikipedia.
+In higher dimensions, we need a quick detour.
 </p>
 
-<ul>
-<li>
-<a href="https://en.wikipedia.org/wiki/Multivariate_normal_distribution">Gaussians</a>
+<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Harmonic Functions in $\R^d$"><h4 id="Harmonic Functions in $\R^d$" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Harmonic Functions in $\R^d$">Harmonic Functions in \(\R^d\)</a></h4></div>
 
-<li>
-<a href="https://en.wikipedia.org/wiki/Chi-squared_distribution">Chi-Square</a>
+<p>
+For this section, a domain is an open connected subset of \(\R^d\).
+</p>
 
-<li>
-<a href="https://en.wikipedia.org/wiki/Student%27s_t-distribution">Student-t</a>
+<p>
+<em>Def</em>: For a domain \(D\), we say \(f: D \to \R\) is harmonic if it is continuous (or merely locally integrable) and satisfies the mean value property
+</p>
+\[
+  f(x) = MV(f, x, \epsilon) = \int_{|x - y| = \epsilon} f(y) ds
+\]
+<p>
+where \(s\) is the surface measure, normalized so that \(\int_{|x - y| = \epsilon}ds = 1\).
+</p>
 
-<li>
-<a href="https://en.wikipedia.org/wiki/F-distribution">F distribution</a>
+<p>
+In a probabilistic vein, if \(B_t\) is a standard \(d\)-dimensional Brownian motion starting at \(x\), and \(\tau = \min \{ t \mid |B_t - x| = \epsilon \}\), since \(B_t\) is rotation invariant, the above is just
+</p>
+\[
+  MV(f, x, \epsilon) = E[f(B_\tau)].
+\]
 
-</ul>
+<p>
+<em>Def</em>: The Laplacian of \(f\) is 
+</p>
+\[
+  \nabla f = \sum_{j=1}^d \frac{\partial ^2 f }{\partial x_j^2}.
+\]
+
+<p>
+<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Harmonic Functions in \(\R^d\)-Prop"></span><strong id="Prop">Prop</strong>: If \(f\) is \(C^2\) in \(D\), then 
+</p>
+\[
+  \frac{1}{2d}\nabla f = \lim_{\epsilon \to 0} \frac{MV(f, x, \epsilon) - f(x)}{\epsilon^2}.
+\]
+
+<p>
+<em>Proof</em>: Look at the Taylor expansion.
+</p>
+
+<p>
+<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Harmonic Functions in \(\R^d\)-Theorem"></span><strong id="Theorem">Theorem</strong>: \(f\) is harmonic in \(D\) if and only if it is in \(C^2\) and \(\nabla f = 0\) everywhere.
+</p>
+
+<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Hitting Probabilities for Brownian Motion"><h4 id="Hitting Probabilities for Brownian Motion" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Hitting Probabilities for Brownian Motion">Hitting Probabilities for Brownian Motion</a></h4></div>
+
+<p>
+Let \(\tau = \tau_{r, R} = \min \{ |B_t| = r \text{ or } R \} = \min \{ t \mid B_t \in \partial D \}\). We will let a superscript \(x\) denote that \(B_0 = x\), and let
+</p>
+\[
+  \phi(x) = P^x(|B_\tau| = R).
+\]
+<p>
+By rotational invariance, \(\phi(x) = \phi(|x|)\), and it is continuous at the boundary; we also clearly have \(\phi(x) = 0\) if \(|x| = r\) and \(\phi(x) = 1\) if \(|x| = R\). The strong Markov property furnishes that \(\phi\) is harmonic. Set \(\tau_\epsilon = \min \{ t \mid |B_t - x| = \epsilon\}\); then
+</p>
+\[
+  P^X(|B_\tau| = R \mid \mathcal F_{\tau_\epsilon}) = \phi(B_{\tau_\epsilon})
+\]
+<p>
+and
+</p>
+\[
+  P^X(|B_\tau| = R) = E^x[P(|B_\tau| = R \mid \mathcal F_{\tau_\epsilon})] = E^x[\phi(B_{\tau_\epsilon})] = MV(\phi, x, \epsilon).
+\]
+<p>
+This list of properties gives a unique function (solve an ODE in polar coordinates), and is given by
+</p>
+\[
+  \phi(x) = \frac{|x|^{2-d} - r^{2-d}}{R^{2-d} - |r|^{2-d}} 
+\]
+<p>
+for \(d \neq 2\) and
+</p>
+\[
+  \phi(x) = \frac{\log|x| - \log r}{\log R - \log r}
+\]
+<p>
+for \(d = 2\).
+</p>
+
+
+<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Recurrence and Transcience of Brownian Motion"><h4 id="Recurrence and Transcience of Brownian Motion" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Recurrence and Transcience of Brownian Motion">Recurrence and Transcience of Brownian Motion</a></h4></div>
+
+<p>
+Let \(B_t\) be a standard Brownian motion in \(\R^d\).
+</p>
+
+<p>
+<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Recurrence and Transcience of Brownian Motion-Theorem"></span><strong id="Theorem">Theorem</strong>: With probability 1, Brownian motion is transient in dimensions at least 3; that is,
+</p>
+\[
+  \lim_{t \to \infty} |B_t| = \infty.
+\]
+
+<p>
+<em>Proof</em>: If \(d \geq 3\), and we start at \(x\) with \(|x| &gt; r\), if we set \(T_r = \min \{ t \mid |B_t| = r \}\),
+</p>
+\[
+  P^x(T_r &lt; \infty)  = \lim_{R \to \infty} P^X(|B_{\tau_{r, R}}| = r) = \left( \frac{r}{|x|} \right)^{d-2} &lt; 1
+\]
+
+<p>
+<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Recurrence and Transcience of Brownian Motion-Theorem"></span><strong id="Theorem">Theorem</strong>: With probability 1, Brownian motion is neighborhood recurrent; that is, \(\forall z \in \R^2, \epsilon &gt; 0\), Brownian motion visits the disk of radius \(\epsilon\) about \(z\) infinitely often. However, it is not point recurrent, e.g. it hits \(z \neq 0\) with probability 0.
+</p>
+
+<p>
+<em>Proof</em>:  If \(d = 2\), then
+</p>
+\[
+  P^x(T_r &lt; \infty) = \lim_{R \to \infty} P(|B_{\tau_{r, R}}| = r) = 1
+\]
+<p>
+But if \(T = \min\{ t \mid B_t = 0 \}\),
+</p>
+\[
+  P^x(T &lt; \infty) \leq \lim_{R \to \infty} \lim_{r \to 0} P^x(|B_{\tau_{r, R}}| = r) = 0
+\]
+
+<p>
+A fun fact is that if \(d \geq 2\), then \(\{ B_t, t \geq 0 \}\) has Hausdorff dimension \(2\) but also zero Hausdorff-2 measure.
+</p>
+
+<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-The Dirchlet Problem"><h4 id="The Dirchlet Problem" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-The Dirchlet Problem">The Dirchlet Problem</a></h4></div>
+
+<p>
+Take a bounded domain \(D \subset \R^d\), and a continous function \(F: \partial D \to \R\); the Dirichlet problem is to find the unique continuous \(f: \overline D \to \R\) that agrees with \(F\) on \(\partial D\) and is harmonic on \(D\).
+</p>
+
+<p>
+In fact, uniqueness follows from the maximum principle, which says that the maximum of \(f\) is attained on the boundary (think about the mean value principle). Then subtract two solutions and see that it is 0.
+</p>
+
+<p>
+Let \(T = \min\{t \mid B_t \in \partial D \}\), and \(f(x) = E^x[F(B_T)]\). This satisfies the mean value principle, and in fact continuous (which is kinda hard) but it is obviously locally integrable, so \(f\) here is harmonic.
+</p>
+
+<p>
+In general, such a harmonic function is not necessarily continuous on the boundary: take the example of the punctured unit disk, with \(F(x) = 1\) for \(|x| = 1\) and \(F(0) = 0\). And so everything is fine except at the origin, since \(f(x) = P^x(|B_T| = 1) = 1\).
+</p>
+
+<p>
+<em>Def</em>: If \(x \in \partial D\), let \(\sigma = \inf \{ t &gt; 0 \mid B_t \in \partial D\}\); \(x\) is regular if \(P^x(\sigma = 0) = 1\).
+</p>
 
     </div>
     <div class="footer">
-      <p><small>Page created on 2023-10-11</small></p>
+      <p><small>Page created on 2023-10-12</small></p>
     </div>
 </body>
 </html>
