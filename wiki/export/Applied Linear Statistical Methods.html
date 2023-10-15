@@ -45,13 +45,26 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Applied Linear Statistical Methods</h1>
+<h2 class="subtitle">UChicago STAT 34300, Autumn 2023</h2>
 </header>
-<h1 id="applied-linear-statistical-methods">Applied Linear Statistical
-Methods</h1>
-<h2 id="uchicago-stat-34300-autumn-2023">UChicago STAT 34300, Autumn
-2023</h2>
+<hr>
+<nav id="TOC" role="doc-toc">
+<ul class="incremental">
+<li><a href="#simple-linear-regression"
+id="toc-simple-linear-regression">Simple Linear Regression</a></li>
+<li><a href="#multiple-linear-regression"
+id="toc-multiple-linear-regression">Multiple Linear Regression</a></li>
+<li><a href="#distributions"
+id="toc-distributions">Distributions</a></li>
+<li><a href="#inference-in-the-homoskedastic-normal-linear-model"
+id="toc-inference-in-the-homoskedastic-normal-linear-model">Inference in
+the Homoskedastic Normal Linear Model</a></li>
+</ul>
+</nav>
+<hr>
 <p>Whenever it is unclear, vectors are column vectors.</p>
 <h3 id="simple-linear-regression">Simple Linear Regression</h3>
+<hr />
 <p><a
 href="https://en.wikipedia.org/wiki/Simple_linear_regression">Wikipedia</a></p>
 <p>The setup of the simpliest model is as follows.</p>
@@ -133,6 +146,7 @@ y)}{n^{-1}\sum_{i=1}^n (x_i - \bar x)^2} \overset{D}{\to}
 correlation and <span class="math inline">\sigma_X, \sigma_Y</span> are
 standard deviations.</p>
 <h3 id="multiple-linear-regression">Multiple Linear Regression</h3>
+<hr />
 <p><a
 href="https://en.wikipedia.org/wiki/Linear_regression">Wikipedia</a></p>
 <p>Now we take <span class="math inline">x_i \in \mathbb{R}^p</span> and
@@ -185,7 +199,7 @@ class="math inline">A&#39;</span>, but it was exactly <span
 class="math inline">A&#39;</span> who handed out <span
 class="math inline">A</span>).</li>
 </ul>
-<h3 id="ols-as-a-projection">OLS as a Projection</h3>
+<h4 id="ols-as-a-projection">OLS as a Projection</h4>
 <p>From a geometric perspective, the OLS predictions are just the
 projections of <span class="math inline">y</span> into the image of
 <span class="math inline">X</span> as a linear map <span
@@ -328,6 +342,7 @@ class="math display">
 X^TX\beta = X^Ty \}.
 </span></p>
 <h3 id="distributions">Distributions</h3>
+<hr />
 <p>We covered a bunch of stuff that you can probably find on
 Wikipedia.</p>
 <ul class="incremental">
@@ -345,6 +360,7 @@ Distribution</a></li>
 </ul>
 <h3 id="inference-in-the-homoskedastic-normal-linear-model">Inference in
 the Homoskedastic Normal Linear Model</h3>
+<hr />
 <p>For this section, set <span class="math inline">X \in \mathbb{R}^{n
 \times p}</span> design matrix, which is taken to be deterministic and
 of full rank. Then, set <span class="math inline">y \sim N(X \beta,

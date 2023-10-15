@@ -1,5 +1,7 @@
-# Mathematical Computation I: Matrix Computation Course 
-## UChicago STAT 30900, Autumn 2023 
+---
+title: 'Mathematical Computation I: Matrix Computation Course'
+subtitle: 'UChicago STAT 30900, Autumn 2023'
+...
 
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\R}{\mathbb{R}}
@@ -33,7 +35,9 @@
 \newcommand{\psfrac}[2]{\pa{\sfrac{#1}{#2}}}
 \newcommand{\bsfrac}[2]{\bra{\sfrac{#1}{#2}}}
 
-### Linear Algebra Review 
+## Linear Algebra Review 
+
+-------
 
 By convention, vectors are column vectors. 
 
@@ -48,22 +52,22 @@ _Def_: $\| \cdot \| : V \to \mathbb R$ is a **norm** if it satisfies the followi
 
 Now, since this is a computational class, we only care about specific norms, almost all of which we can quickly qrite down. 
 
-#### Vector Norms 
+### Vector Norms 
 
 Set $V = \mathbb R^n$ or $\mathbb C^n$ equivalently.
 
-_Def_: The **Minkowski** or $p$*-norm* is given by
+_Def_: The **Minkowski** or $p$**-norm** is given by
 $$
   \| x \|_p = \left(\sum_{i=1} x_i^p\right)^{1/p}
 $$
 and we call the $2$-norm the **Euclidean norm** and the $1$-norm the **Manhattan norm**.
 
-_Def_: The $\infty$*-norm* is the limit of $p$-norms as $p \to \infty$, and is given by
+_Def_: The $\infty$**-norm** is the limit of $p$-norms as $p \to \infty$, and is given by
 $$
   \| x \|_\infty = \max_{i = 1, \dots, n} |x_i| = \lim_{p \to \infty} \| x \|_p.
 $$
 
-_Def_: For a weight vector $\underline w = \begin{bmatrix}w_1, \dots, w_n\end{bmatrix}^T \in \mathbb R^n$, with each $w_i > 0$, we have that the **weighted** $p$*-norm* is
+_Def_: For a weight vector $\underline w = \begin{bmatrix}w_1, \dots, w_n\end{bmatrix}^T \in \mathbb R^n$, with each $w_i > 0$, we have that the **weighted** $p$**-norm** is
 $$
   \| v \|_{\underline w, p} = \left(\sum_{i=1} w_i x_i^p\right)^{1/p}.
 $$
@@ -75,11 +79,11 @@ $$
 
 As convention, the "default" norm when a subscript is omitted is the Euclidean norm.
 
-#### Matrix Norms 
+### Matrix Norms 
 
 Set $V = \mathbb R^{m \times n}$ or $\mathbb C^{m \times n}$ equivalently.
 
-_Def_: The **Hölder** $p$*-norms* are given by
+_Def_: The **Hölder** $p$**-norms** are given by
 $$
   \| X \|_{H, p} = \left(\sum_{i=1}^m\sum_{j=1}^m |x_{ij}|^p \right)^{1/p},
 $$
@@ -89,7 +93,7 @@ $$
 $$
 where $^*$ is the conjugate transpose.
 
-_Def_: As before, we can take $p \to \infty$ to get the **Hölder** $\infty$*-norm* given by
+_Def_: As before, we can take $p \to \infty$ to get the **Hölder** $\infty$**-norm** given by
 $$
   \| X\|_{H, \infty} = \max_{\substack{i = 1, \dots n \\ j = 1, \dots, n}} |x_{ij}|.
 $$
@@ -102,7 +106,7 @@ In particular, if the norms on the domain and codomain are just $p$-norms, we wr
 $$
   \| A \|_{p} = \max_{x \neq 0}\frac{\| A x\|_p}{\| x \|_p}
 $$
-and call it the $p$*-norm* of $A$. In particular, we call the $2$-norm the spectral norm. Further, the $1$-norm and $\infty$-norm are just
+and call it the $p$**-norm** of $A$. In particular, we call the $2$-norm the spectral norm. Further, the $1$-norm and $\infty$-norm are just
 $$
   \| A \|_1 = \max_{j = 1, \dots, n} \left(\sum_{i=1}^m |a_{ij}| \right),
 $$
@@ -114,7 +118,7 @@ which is the max row sum; both facts are easy to check.
 
 In general, for $p \notin \{1, 2, \infty\}$, computing $\| A \|_p$ is NP-hard, and if we consider $\| A \|_{p,q}$ then $\|A\|_{\infty, 1}$ is hard and $\|A\|_{1, \infty}$ is easy.
 
-#### Properties of Norms 
+### Properties of Norms 
 
 We may also want to consider some other desirable properties on our norms.
 
@@ -152,7 +156,7 @@ $$
 
 Then, the above clearly shows that convergence in one norm implies convergence in every norm.
 
-#### Inner, Outer, Matrix Products 
+### Inner, Outer, Matrix Products 
 
 _Def_: Set $V$ a $K$-vector space (where $K = \R, \C$). An **inner product** is a binary operation $\langle \cdot, \cdot \rangle: V \times V \to \R$ which satisfies that
 
@@ -222,7 +226,9 @@ $$
 $$
 Simiar for the other direction of multiplication.
 
-### Eigenvalues and Eigenvectors 
+## Eigenvalues and Eigenvectors 
+
+-------
 
 _Def_: For a complex matrix $A$, an **eigenvalue** $\lambda \in \C$ and **eigenvector** $v \neq 0$ satisfy
 $$
@@ -266,7 +272,7 @@ _Def_: $A \in \C^{n \times n}$ is **Hermitian** if $A^* = A$.
 
 **Corollary**: $A \in \R^{n \times n}$ is symmetric if and only if it is orthgonally diagonalizable with all eigenvalues real.
 
-#### Jordan Canonical Form 
+### Jordan Canonical Form 
 
 _Def_: [ Link](https://en.wikipedia.org/wiki/Jordan_normal_form) Any matrix can be written in **Jordan canonical form**, e.g.
 $$
@@ -300,7 +306,7 @@ Unfortunately, the JCF is pretty useless in application.
 
 **Theorem (Golub-Wilkinson)**: The Jordan canonical form cannot be computed in finite precision.
 
-#### Spectral Radius 
+### Spectral Radius 
 
 Let's return to the spectral radius,
 $$
@@ -329,7 +335,7 @@ _Proof_: $(\implies)$ Set $\lambda$ to be a top eigenvalue of $A$, and $x$ a cor
 
 $(\impliedby)$ By the above theorems, there is some operator norm $\| \cdot \|$ such that $\|A\| \leq \rho(A) + \epsilon < 1$. Send $k \to \infty$ and use the fact that operator norms imply $\| A^k \| \leq \|A\|^k$ and win.
 
-#### Finding Eigenvalues 
+### Finding Eigenvalues 
 
 **Theorem (Gershgorin Circle Theorem)**: [Wikipedia](https://en.wikipedia.org/wiki/Gershgorin_circle_theorem) Let $A \in \C^{n \times n}$, with entries $a_{ij}$ and for $1 \leq i \leq n$ set $r_i = \sum_{j\neq i} |a_{ij}|$. Then, every eigenvalue of $A$ lies within the union of the Gershgorin discs
 $$
@@ -363,7 +369,9 @@ $$
   \end{bmatrix}.
 $$
 
-### Singular Value Decomposition 
+## Singular Value Decomposition 
+
+-------
 
 _Def_: [Link](https://en.wikipedia.org/wiki/Singular_value_decomposition) The **SVD decomposition** of a real (resp. complex) matrix $A \in \C^{m \times n}$) is
 $$
@@ -415,7 +423,7 @@ $$
 
 Singular values have a nice property: we have for any singular value $\sigma$ and left singular vector $u$ and right singular value $v$, $Av = \sigma u$ and $A^*v = \sigma v$; thus $u, v$ are eigenvalues of $AA^*$ and $A^*A$ respectively.
 
-#### Applications 
+### Applications 
 
 We can read off many important quantities/spaces from the SVD. Let $A = U \Sigma V^*$ be a SVD, with only $r$ nonzero singular values.
 

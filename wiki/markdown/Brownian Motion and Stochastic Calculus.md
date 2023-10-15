@@ -1,5 +1,7 @@
-#  Brownian Motion and Stochastic Calculus 
-##  UChicago STAT 38510, Autumn 2023 
+---
+title: 'Brownian Motion and Stochastic Calculus'
+subtitle: 'UChicago STAT 38510, Autumn 2023'
+...
 
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\R}{\mathbb{R}}
@@ -29,7 +31,9 @@
 \newcommand{\psfrac}[2]{\pa{\sfrac{#1}{#2}}}
 \newcommand{\bsfrac}[2]{\bra{\sfrac{#1}{#2}}}
 
-###  Brownian Motion 
+##  Brownian Motion 
+
+-------
 
 As a style preference, I'm going to drop all the arguments that are from the probability space.
 
@@ -50,7 +54,7 @@ $$
 
 _Proof_: Obvious.
 
-####  Construction 
+###  Construction 
 
 Pick a probability space $(\Omega, \mathcal F, P)$ that is rich enough to support a countable collection of independent standard normal variables. If you are particular, the unit interval with Lesbegue measure is sufficient here.
 
@@ -116,7 +120,7 @@ $$
 
 Now we may set $B_t$ for $t \in [0, 1]$ by $B_t = \lim_{\substack{s \to t \\ s \in D}}B_s$, and check that this is in fact a genuine Brownian motion, which is not bad; and of course this construction can extend to $[0, \infty)$ easily as well.
 
-####  Properties of Brownian Motion 
+###  Properties of Brownian Motion 
 
 _Def_: A function $f: [0, 1] -> \mathbb R$ is called **Hölder continuous** of order $\beta \geq 0$ if there is some $C < \infty$ such that for all $s, t$, $|f(t) - f(s)| \leq C|t-s|^\beta$. Futher, $f$ is **weakly Hölder continuous** of order $\beta$ if it is Hölder continuous of order $\alpha$ for all $\alpha < \beta$. In both cases, we will say Hölder-$\beta$ continuous for short.
 
@@ -153,7 +157,7 @@ $$
 and just do literally the stupidest estimate you can, e.g. just look at the density and say that the probability is bounded by $2CMn^{-1/2}$, so that the above is sent to zero as $n \to \infty$.
 
 
-####  Filtrations 
+###  Filtrations 
 
 _Def_: A filtration $\{ \mathcal F \}_{t \geq 0}$ is an incerasing collection of sub $\sigma$-algebras. Further, we put
 $$
@@ -180,7 +184,7 @@ _Examples_: The following are all stopping times:
 
 _Def_: If $\tau$ is a stopping time, then $\mathcal F_\tau$ is the $\sigma$-algebra corresponding to the collection of events $A$ such that for each $t$, $A \cap \{ \tau \leq t \} \in \mathcal F_t$.
 
-####  The Markov Property of Brownian Motion 
+###  The Markov Property of Brownian Motion 
 
 _Def_: For some stochastic process $\{X_t\}_{t \geq 0}$ (or any other indexed set) with filtration $\{F_t\}_{t \geq 0}$, $X_t$ has the **Markov property** if it saitisfies that
 $$
@@ -250,7 +254,7 @@ upon which we can just compute the integral.
 
 **Corollary**: Since $Y_t = t^{-1}B_{1/t}$ is a standard Brownian motion, this shows that for any $\epsilon > 0$, $Z_\epsilon = \{ t \mid B_t = 0, 0 \leq t \leq \epsilon \}$ has more elements that just $0$.
 
-####  Martingales 
+###  Martingales 
 
 _Def_: A process $\{ M_t \}_{t \geq 0}$ is a **supermartingale** (resp. **submartingale**) w.r.t. $\{ \mathcal F_t \}$ if
 - $E[|M_t|] < \infty$,
@@ -270,7 +274,7 @@ Then, one can see that if $A \in \mathcal F_\infty$ and $\epsilon > 0$, there is
 
 **Theorem (Blumenthal Zero-One)**: Let $B_t$ be a Brownian motion with the standard filtration, and set $\mathcal F_{0+} = \bigcap_{\epsilon > 0} \mathcal F_{\epsilon}$; then, if $A \in \mathcal F_{0+}$, either $P(A) = 0$ or $1$.
 
-####  Quadratic Variation 
+###  Quadratic Variation 
 
 Let $B_t$ be a standard Brownian motion; a partition $\Pi$ of $[0, 1]$ is a sequence $0 = t_0 < t_1 < \dots < t_k = 1$, and the mesh of the partition is just
 $$
@@ -324,7 +328,7 @@ $$
 
 _Proof_: Just check directly.
 
-####  Law of the Iterated Logarithm 
+###  Law of the Iterated Logarithm 
 
 **Lemma (Relaxed Borel-Cantelli)**: Let $A_1, A_2, \dots$ be a sequence of events, and set $\mathcal F_n = \sigma(A_1, \dots, A_n)$; if there is $q_n$ with
 $$
@@ -374,7 +378,7 @@ $$
 $$
 and choose $\rho$ large enough so that $\frac{2 \rho}{\rho - 1}(1-\epsilon) < 1$, and use the estimate $P(B_1 > x) \sim \exp(-x^2 / 2)$ and conclude by the earlier lemma. The other direction for $\epsilon < 0$ is similar (in fact, easier since we may conclude from the first Borel-Cantelli lemma).
 
-####  Zero Sets of Brownian Motion 
+###  Zero Sets of Brownian Motion 
 
 _Def_: Set $B_t$ a standard Brownian motion, $Z = \{ t \mid B_t = 0 \}$, and $Z_t = Z \cap [0, t]$. Then, $t \in Z$ is right-isolated if $t \in Z$, and $\exists \epsilon > 0$ such that $(t, t + \epsilon) \cap Z = \emptyset$; similar for left-isolated. A point which is both left and right isolated is just isolated.
 
@@ -413,7 +417,7 @@ $$
 $$
 and we call this $D$ the Hausdorff dimension. In general, the Hausdorff dimension is at most the Minkowski dimension, but in this case we actually do have equality.
 
-####  Local Time 
+###  Local Time 
 
 The local time is the amount of time the Brownian motion spends at $0$ by a certain time. It is sort of like the Cantor measure, insofar as if $s < t$, then $L_t - L_s > 0 \iff (s, t) \cap Z \neq \emptyset$. 
 
@@ -438,7 +442,9 @@ There are more facts: $L_t$ is continuous in $t$ and nondecreasing, $L_t - L_s >
 
 **Theorem (Scaling Rule)**: $L_t$ has the same distribution as $t^{1/2} L_1$. Further, $M_t = \max_{ 0 \leq s \leq t}B_s$ has the same distribution as $L_t$.
 
-###  Brownian Motion in Several Dimensions 
+##  Brownian Motion in Several Dimensions 
+
+-------
 
 _Def_: If $B_t^1, \dots, B_t^d$  are independent standard Brownian motions, then
 $$
@@ -456,7 +462,7 @@ In one dimension, this is easy: stop the Brownian motion at $\tau$ and look at w
 
 In higher dimensions, we need a quick detour.
 
-####  Harmonic Functions in $\R^d$ 
+###  Harmonic Functions in $\R^d$ 
 
 For this section, a domain is an open connected subset of $\R^d$.
 
@@ -485,7 +491,7 @@ _Proof_: Look at the Taylor expansion.
 
 **Theorem**: $f$ is harmonic in $D$ if and only if it is in $C^2$ and $\nabla f = 0$ everywhere.
 
-####  Hitting Probabilities for Brownian Motion 
+###  Hitting Probabilities for Brownian Motion 
 
 Let $\tau = \tau_{r, R} = \min \{ |B_t| = r \text{ or } R \} = \min \{ t \mid B_t \in \partial D \}$. We will let a superscript $x$ denote that $B_0 = x$, and let
 $$
@@ -510,7 +516,7 @@ $$
 for $d = 2$.
 
 
-####  Recurrence and Transcience of Brownian Motion 
+###  Recurrence and Transcience of Brownian Motion 
 
 Let $B_t$ be a standard Brownian motion in $\R^d$.
 
@@ -537,7 +543,7 @@ $$
 
 A fun fact is that if $d \geq 2$, then $\{ B_t, t \geq 0 \}$ has Hausdorff dimension $2$ but also zero Hausdorff-2 measure.
 
-####  The Dirchlet Problem 
+###  The Dirchlet Problem 
 
 Take a bounded domain $D \subset \R^d$, and a continous function $F: \partial D \to \R$; the Dirichlet problem is to find the unique continuous $f: \overline D \to \R$ that agrees with $F$ on $\partial D$ and is harmonic on $D$.
 

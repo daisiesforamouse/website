@@ -1,7 +1,7 @@
-# Applied Linear Statistical Methods
-
-## UChicago STAT 34300, Autumn 2023
-
+---
+title: 'Applied Linear Statistical Methods'
+subtitle: 'UChicago STAT 34300, Autumn 2023'
+...
 
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\R}{\mathbb{R}}
@@ -39,8 +39,9 @@
 
 Whenever it is unclear, vectors are column vectors.
 
-### Simple Linear Regression
+## Simple Linear Regression
 
+-------
 
 [Wikipedia](https://en.wikipedia.org/wiki/Simple_linear_regression)
 
@@ -97,7 +98,9 @@ $$
 $$
 where $\rho_{XY}$ is the correlation and $\sigma_X, \sigma_Y$ are standard deviations.
 
-### Multiple Linear Regression
+## Multiple Linear Regression
+
+-------
 
 [Wikipedia](https://en.wikipedia.org/wiki/Linear_regression)
 
@@ -166,7 +169,7 @@ _Example_:
 - If $X_{k 1} = 1$ for all $k$ (that is, we include a constant in our regression), we immediately get that $\sum_{i=1}^m \epsilon_i = 0$. 
 - If $X$ is full rank, then $P_X = X(X^TX)^{-1}X^T$.
 
-#### Reducing to Simple Linear Regression
+### Reducing to Simple Linear Regression
   
 If one column $X_{\cdot j}$ is orthogonal to every other feature, then this reduces to simplre linear regressions: 
 $$
@@ -194,7 +197,7 @@ In particular, the above (which is clearly just doing Gram-Schmidt) gives us a $
 
 This is (for the most part) what software packages do in computing linear models: you set $y = Q\gamma + \epsilon$, and take $\hat \gamma = Q^Ty$; but since the fit is unique, we have that $Q \hat \gamma = X \hat \beta = QR\hat \beta \implies R\hat \beta = \hat \gamma$, which is numerically tractible.
 
-#### OLS and SVD ####
+### OLS and SVD ###
 
 _Def_: [Link](https://en.wikipedia.org/wiki/Singular_value_decomposition) The **SVD decomposition** of a real (resp. complex) matrix $X \in \R^{n \times p}$ (resp. $\C^{n \times p}$) is
 $$
@@ -230,8 +233,10 @@ and in particular if we take the arbitrary values to be 0 we get the "minimal no
 $$
   \argmin \{ \| \beta \| \mid \beta \in \R^p, X^TX\beta = X^Ty \}.
 $$
-  
-### Distributions
+
+## Distributions
+
+-------
 
 We covered a bunch of stuff that you can probably find on Wikipedia.
 
@@ -239,8 +244,10 @@ We covered a bunch of stuff that you can probably find on Wikipedia.
 - [Chi-Square Distribution](https://en.wikipedia.org/wiki/Chi-squared_distribution)
 - [Student-t Distribution](https://en.wikipedia.org/wiki/Student%27s_t-distribution)
 - [F Distribution](https://en.wikipedia.org/wiki/F-distribution)
-  
-### Inference in the Homoskedastic Normal Linear Model
+
+## Inference in the Homoskedastic Normal Linear Model
+
+-------
 
 For this section, set $X \in \R^{n \times p}$ design matrix, which is taken to be deterministic and of full rank. Then, set $y \sim N(X \beta, \sigma^2 I)$ for some $\sigma > 0, \beta \in \R^p$; that is, set
 $$
@@ -271,7 +278,7 @@ $$
 $$
 Moreover, since $X^T = X^TP_X$, we already know that $\hat \beta$ only depends on $\hat y$, and so is independent of $\hat \sigma$.
 
-#### Applications
+### Applications
 
 We can now do inference for $\beta_j$; in particular $\hat \beta_j \sim N(\beta_j, \sigma^2 (X^TX)_{jj}^{-1})$. Then we know that if we take
 $$

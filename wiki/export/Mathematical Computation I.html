@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Mathematical Computation I</title>
+  <title>Mathematical Computation I: Matrix Computation Course</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -44,14 +44,26 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Mathematical Computation I</h1>
+<h1 class="title">Mathematical Computation I: Matrix Computation
+Course</h1>
+<h2 class="subtitle">UChicago STAT 30900, Autumn 2023</h2>
 </header>
-<h1
-id="mathematical-computation-i-matrix-computation-course">Mathematical
-Computation I: Matrix Computation Course</h1>
-<h2 id="uchicago-stat-30900-autumn-2023">UChicago STAT 30900, Autumn
-2023</h2>
+<hr>
+<nav id="TOC" role="doc-toc">
+<ul class="incremental">
+<li><a href="#linear-algebra-review"
+id="toc-linear-algebra-review">Linear Algebra Review</a></li>
+<li><a href="#eigenvalues-and-eigenvectors"
+id="toc-eigenvalues-and-eigenvectors">Eigenvalues and
+Eigenvectors</a></li>
+<li><a href="#singular-value-decomposition"
+id="toc-singular-value-decomposition">Singular Value
+Decomposition</a></li>
+</ul>
+</nav>
+<hr>
 <h3 id="linear-algebra-review">Linear Algebra Review</h3>
+<hr />
 <p>By convention, vectors are column vectors.</p>
 <p>Set <span class="math inline">V</span> a vector space (almost always
 real or complex).</p>
@@ -75,7 +87,7 @@ norms, almost all of which we can quickly qrite down.</p>
 <p>Set <span class="math inline">V = \mathbb R^n</span> or <span
 class="math inline">\mathbb C^n</span> equivalently.</p>
 <p><em>Def</em>: The <strong>Minkowski</strong> or <span
-class="math inline">p</span><em>-norm</em> is given by <span
+class="math inline">p</span><strong>-norm</strong> is given by <span
 class="math display">
   \| x \|_p = \left(\sum_{i=1} x_i^p\right)^{1/p}
 </span> and we call the <span class="math inline">2</span>-norm the
@@ -83,9 +95,9 @@ class="math display">
 class="math inline">1</span>-norm the <strong>Manhattan
 norm</strong>.</p>
 <p><em>Def</em>: The <span
-class="math inline">\infty</span><em>-norm</em> is the limit of <span
-class="math inline">p</span>-norms as <span class="math inline">p \to
-\infty</span>, and is given by <span class="math display">
+class="math inline">\infty</span><strong>-norm</strong> is the limit of
+<span class="math inline">p</span>-norms as <span class="math inline">p
+\to \infty</span>, and is given by <span class="math display">
   \| x \|_\infty = \max_{i = 1, \dots, n} |x_i| = \lim_{p \to \infty} \|
 x \|_p.
 </span></p>
@@ -94,7 +106,7 @@ class="math inline">\underline w = \begin{bmatrix}w_1, \dots,
 w_n\end{bmatrix}^T \in \mathbb R^n</span>, with each <span
 class="math inline">w_i &gt; 0</span>, we have that the
 <strong>weighted</strong> <span
-class="math inline">p</span><em>-norm</em> is <span
+class="math inline">p</span><strong>-norm</strong> is <span
 class="math display">
   \| v \|_{\underline w, p} = \left(\sum_{i=1} w_i x_i^p\right)^{1/p}.
 </span></p>
@@ -112,7 +124,7 @@ Euclidean norm.</p>
 <span class="math inline">\mathbb C^{m \times n}</span>
 equivalently.</p>
 <p><em>Def</em>: The <strong>Hölder</strong> <span
-class="math inline">p</span><em>-norms</em> are given by <span
+class="math inline">p</span><strong>-norms</strong> are given by <span
 class="math display">
   \| X \|_{H, p} = \left(\sum_{i=1}^m\sum_{j=1}^m |x_{ij}|^p
 \right)^{1/p},
@@ -124,7 +136,7 @@ spaces as <span class="math display">
 transpose.</p>
 <p><em>Def</em>: As before, we can take <span class="math inline">p \to
 \infty</span> to get the <strong>Hölder</strong> <span
-class="math inline">\infty</span><em>-norm</em> given by <span
+class="math inline">\infty</span><strong>-norm</strong> given by <span
 class="math display">
   \| X\|_{H, \infty} = \max_{\substack{i = 1, \dots n \\ j = 1, \dots,
 n}} |x_{ij}|.
@@ -143,8 +155,9 @@ class="math display">
 <span class="math inline">p</span>-norms, we write <span
 class="math display">
   \| A \|_{p} = \max_{x \neq 0}\frac{\| A x\|_p}{\| x \|_p}
-</span> and call it the <span class="math inline">p</span><em>-norm</em>
-of <span class="math inline">A</span>. In particular, we call the <span
+</span> and call it the <span
+class="math inline">p</span><strong>-norm</strong> of <span
+class="math inline">A</span>. In particular, we call the <span
 class="math inline">2</span>-norm the spectral norm. Further, the <span
 class="math inline">1</span>-norm and <span
 class="math inline">\infty</span>-norm are just <span
@@ -298,6 +311,7 @@ class="math display">
 \alpha_n\end{matrix}\right].
 </span> Simiar for the other direction of multiplication.</p>
 <h3 id="eigenvalues-and-eigenvectors">Eigenvalues and Eigenvectors</h3>
+<hr />
 <p><em>Def</em>: For a complex matrix <span
 class="math inline">A</span>, an <strong>eigenvalue</strong> <span
 class="math inline">\lambda \in \mathbb{C}</span> and
@@ -506,6 +520,7 @@ forming the companion matrix <span class="math display">
   \end{bmatrix}.
 </span></p>
 <h3 id="singular-value-decomposition">Singular Value Decomposition</h3>
+<hr />
 <p><em>Def</em>: <a
 href="https://en.wikipedia.org/wiki/Singular_value_decomposition">Link</a>
 The <strong>SVD decomposition</strong> of a real (resp. complex) matrix
