@@ -1,891 +1,828 @@
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/wiki.css">
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Brownian Motion and Stochastic Calculus</title>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="wiki.css" />
+  <link rel="stylesheet" href="/wiki.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
-    <div class="content">
-      
-<div id="Brownian Motion and Stochastic Calculus"><h1 id="Brownian Motion and Stochastic Calculus" class="header"><a href="#Brownian Motion and Stochastic Calculus">Brownian Motion and Stochastic Calculus</a></h1></div>
-<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023"><h2 id="UChicago STAT 38510, Autumn 2023" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023">UChicago STAT 38510, Autumn 2023</a></h2></div>
-
-\[
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\C}{\mathbb{C}}
-
-\DeclareMathOperator{\Jac}{Jac}
-\DeclareMathOperator{\Ker}{Ker}
-\DeclareMathOperator{\mesh}{mesh}
-\DeclareMathOperator{\Var}{Var}
-
-\let\temp\phi
-\let\phi\varphi
-\let\varphi\temp
-
-\newcommand{\pa}[1]{\left(#1\right)}
-\newcommand{\bra}[1]{\left[#1\right]}
-\newcommand{\cbra}[1]{\left\{#1\right\}}
-
-\newcommand{\mat}[1]{\begin{matrix}#1\end{matrix}}
-\newcommand{\pmat}[1]{\pa{\mat{#1}}}
-\newcommand{\bmat}[1]{\bra{\mat{#1}}}
-
-\newcommand{\pfrac}[2]{\pa{\frac{#1}{#2}}}
-\newcommand{\bfrac}[2]{\bra{\frac{#1}{#2}}}
-\newcommand{\psfrac}[2]{\pa{\sfrac{#1}{#2}}}
-\newcommand{\bsfrac}[2]{\bra{\sfrac{#1}{#2}}}
-\]
-
-<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion"><h3 id="Brownian Motion" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion">Brownian Motion</a></h3></div>
-
-<p>
-As a style preference, I'm going to drop all the arguments that are from the probability space.
-</p>
-
-<p>
-Fix a probability space \((\Omega, \mathcal F, P)\); we characterize the Brownian motion \(\{B_t\}_{t \geq 0}\) via the follwing properties:
-</p>
-<ul>
-<li>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Independent Increments"></span><strong id="Independent Increments">Independent Increments</strong>: If \(s &lt; t\), the random variable \(B_t - B_s\) is independent of \(\sigma\{B_r: r \leq s\}\)
-
-<li>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Stationary Increments"></span><strong id="Stationary Increments">Stationary Increments</strong>: If \(s &lt; t\), then \(B_t - B_s\) has the same distribution as \(B_{t-s} - B_0\).
-
-<li>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Continuity"></span><strong id="Continuity">Continuity</strong>: The map \(t \mapsto B_t\) is almost surely continuous. 
-
+<header id="title-block-header">
+<h1 class="title">Brownian Motion and Stochastic Calculus</h1>
+</header>
+<h1 id="brownian-motion-and-stochastic-calculus">Brownian Motion and
+Stochastic Calculus</h1>
+<h2 id="uchicago-stat-38510-autumn-2023">UChicago STAT 38510, Autumn
+2023</h2>
+<h3 id="brownian-motion">Brownian Motion</h3>
+<p>As a style preference, I’m going to drop all the arguments that are
+from the probability space.</p>
+<p>Fix a probability space <span class="math inline">(\Omega, \mathcal
+F, P)</span>; we characterize the Brownian motion <span
+class="math inline">\{B_t\}_{t \geq 0}</span> via the following
+properties:</p>
+<ul class="incremental">
+<li><strong>Independent Increments</strong>: If <span
+class="math inline">s &lt; t</span>, the random variable <span
+class="math inline">B_t - B_s</span> is independent of <span
+class="math inline">\sigma\{B_r: r \leq s\}</span></li>
+<li><strong>Stationary Increments</strong>: If <span
+class="math inline">s &lt; t</span>, then <span class="math inline">B_t
+- B_s</span> has the same distribution as <span
+class="math inline">B_{t-s} - B_0</span>.</li>
+<li><strong>Continuity</strong>: The map <span class="math inline">t
+\mapsto B_t</span> is almost surely continuous.</li>
 </ul>
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Theorem"></span><strong id="Theorem">Theorem</strong>: If a process satisfies the above, then there are \(\mu, \sigma^2\) (respectively called the drift and the variance parameter, and \(\sigma\) is named the volatility) such that there exist \(B_t \sim N(\mu t, \sigma^2 t)\).
-</p>
-
-<p>
-<em>Def</em>: A stochastic process \(\{B_t\}_{t \geq 0}\) is called a (one dimensional) <span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Brownian motion"></span><strong id="Brownian motion">Brownian motion</strong> (or Wiener process) starting from the origin with drift \(\mu\) and variance parameter \(\sigma^2\) if \(B_t = 0\) and the above three conditions are satisfied, with the imposition that 
-</p>
-\[
+<p><strong>Theorem</strong>: If a process satisfies the above, then
+there are <span class="math inline">\mu, \sigma^2</span> (respectively
+called the drift and the variance parameter, and <span
+class="math inline">\sigma</span> is named the volatility) such that
+there exist <span class="math inline">B_t \sim N(\mu t, \sigma^2
+t)</span>.</p>
+<p><em>Def</em>: A stochastic process <span
+class="math inline">\{B_t\}_{t \geq 0}</span> is called a (one
+dimensional) <strong>Brownian motion</strong> (or Wiener process)
+starting from the origin with drift <span class="math inline">\mu</span>
+and variance parameter <span class="math inline">\sigma^2</span> if
+<span class="math inline">B_t = 0</span> and the above three conditions
+are satisfied, with the imposition that <span class="math display">
 B_t - B_s \sim N(\mu (t-s), \sigma^2 (t-s)).
-\]
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Prop"></span><strong id="Prop">Prop</strong>: If \(B_t\) is a Brownian motion with \(\mu = 0, \sigma^2 = 1\) (a so-called <span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-standard Brownian motion"></span><strong id="standard Brownian motion">standard Brownian motion</strong>), then \(Y_t = \sigma B_t + \mu t\) is a Brownian motion with parameters \(\mu, \sigma^2\).
-</p>
-
-<p>
-<em>Proof</em>: Obvious.
-</p>
-
-<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Construction"><h4 id="Construction" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Construction">Construction</a></h4></div>
-
-<p>
-Pick a probability space \((\Omega, \mathcal F, P)\) that is rich enough to support a countable collection of independent standard normal variables. If you are particular, the unit interval with Lesbegue measure is sufficient here.
-</p>
-
-<p>
-The strategy is as follows: we define \(B_t\) for a countable dense set (in particular the dyadic rationals) of times using our precession of standard normals. then, we find some \(t \mapsto B_t\) that agrees on the dense set and is uniformly continuous and then extend by continuity.
-</p>
-
-<p>
-Set \(D_n = \left\{ \frac{k}{2^n}, k = 0, 1, \dots, 2^n \right\}\) and \(D = \bigcup_{n=0}^\infty D_n\); index our standard normals by \(\{N_{q}\}_{q \in D}\), and set \(B_0 = 0, B_1 = N_1\), and \(B_{1/2} = \frac{B_1 - B_0}{2} + \frac{1}{2}N_{1/2}\). Just continue the same thing for every such dyadic, such that
-</p>
-\[
-\{B_{1/2^n} - B_0, B_{2/2^n} - B_{1/2^n}, \dots, B_1- B_{(2^n-1) / 2^n} \}
-\]
-<p>
-are all independent \(N\left(0, 2^{-n}\right)\). 
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Construction-Theorem"></span><strong id="Theorem">Theorem</strong>: Almost surely, \(t \mapsto B_t\), \(t \in D\) is uniformly continuous.
-</p>
-
-<p>
-<em>Proof</em>: Set \(K_n = \sup \{ |B_s - B_t| \mid s,t \in D, |s - t| \leq 2^{-n}\}\). We just need to show that \(K_n \to 0\) as \(n \to \infty\). In fact, something even stronger is true: for \(\alpha &lt; \frac{1}{2}\), \(\lim_{n \to \infty} 2^{\alpha n}K_n = 0\). Morally speaking, just think that each Brownian increment is about its standard deviation, which is \(|t - s|^{1/2}\).
-</p>
-
-<p>
-Technically, however, we proceed as follows: set
-</p>
-\[
-  Y_n = \max\{B_{1/2^n} - B_0, B_{2/2^n} - B_{1/2^n}, \dots, B_1- B_{(2^n-1) / 2^n} \}
-\]
-<p>
-and note that the union bound yields
-</p>
-\[
+</span></p>
+<p><strong>Prop</strong>: If <span class="math inline">B_t</span> is a
+Brownian motion with <span class="math inline">\mu = 0, \sigma^2 =
+1</span> (a so-called <strong>standard Brownian motion</strong>), then
+<span class="math inline">Y_t = \sigma B_t + \mu t</span> is a Brownian
+motion with parameters <span class="math inline">\mu,
+\sigma^2</span>.</p>
+<p><em>Proof</em>: Obvious.</p>
+<h4 id="construction">Construction</h4>
+<p>Pick a probability space <span class="math inline">(\Omega, \mathcal
+F, P)</span> that is rich enough to support a countable collection of
+independent standard normal variables. If you are particular, the unit
+interval with Lesbegue measure is sufficient here.</p>
+<p>The strategy is as follows: we define <span
+class="math inline">B_t</span> for a countable dense set (in particular
+the dyadic rationals) of times using our precession of standard normals.
+then, we find some <span class="math inline">t \mapsto B_t</span> that
+agrees on the dense set and is uniformly continuous and then extend by
+continuity.</p>
+<p>Set <span class="math inline">D_n = \left\{ \frac{k}{2^n}, k = 0, 1,
+\dots, 2^n \right\}</span> and <span class="math inline">D =
+\bigcup_{n=0}^\infty D_n</span>; index our standard normals by <span
+class="math inline">\{N_{q}\}_{q \in D}</span>, and set <span
+class="math inline">B_0 = 0, B_1 = N_1</span>, and <span
+class="math inline">B_{1/2} = \frac{B_1 - B_0}{2} +
+\frac{1}{2}N_{1/2}</span>. Just continue the same thing for every such
+dyadic, such that <span class="math display">
+\{B_{1/2^n} - B_0, B_{2/2^n} - B_{1/2^n}, \dots, B_1- B_{(2^n-1) / 2^n}
+\}
+</span> are all independent <span class="math inline">N\left(0,
+2^{-n}\right)</span>.</p>
+<p><strong>Theorem</strong>: Almost surely, <span class="math inline">t
+\mapsto B_t</span>, <span class="math inline">t \in D</span> is
+uniformly continuous.</p>
+<p><em>Proof</em>: Set <span class="math inline">K_n = \sup \{ |B_s -
+B_t| \mid s,t \in D, |s - t| \leq 2^{-n}\}</span>. We just need to show
+that <span class="math inline">K_n \to 0</span> as <span
+class="math inline">n \to \infty</span>. In fact, something even
+stronger is true: for <span class="math inline">\alpha &lt;
+\frac{1}{2}</span>, <span class="math inline">\lim_{n \to \infty}
+2^{\alpha n}K_n = 0</span>. Morally speaking, just think that each
+Brownian increment is about its standard deviation, which is <span
+class="math inline">|t - s|^{1/2}</span>.</p>
+<p>Technically, however, we proceed as follows: set <span
+class="math display">
+  Y_n = \max\{B_{1/2^n} - B_0, B_{2/2^n} - B_{1/2^n}, \dots, B_1-
+B_{(2^n-1) / 2^n} \}
+</span> and note that the union bound yields <span class="math display">
 \begin{align*}
-  P(Y_n \geq x) &amp;\leq \sum_{j=1}^{2^n} P(|B_{j/2^n} - B_{(j-1)/2^n}| \geq x) \\
+  P(Y_n \geq x) &amp;\leq \sum_{j=1}^{2^n} P(|B_{j/2^n} - B_{(j-1)/2^n}|
+\geq x) \\
       &amp;= 2^nP(B_{1/2^n} \geq x) \\
       &amp;= 2^{n+1}P(B_1 \geq 2^{n/2} x).
 \end{align*}
-\]
-<p>
-If we choose \(x_n\) such that \(\sum_{n=1}^\infty 2^{n+1}P(B_1 \geq 2^{n/2}x_n) &lt; \infty\), then by Borel-Cantelli shows that for sufficiently large \(n\), \(Y_n \leq x_n\) almost surely. Do any reasonable bound you like on the tail of the normal distribution and take a sufficiently large \(x\) and call it a day. In particular, if you choose the easiest bound \(P(N \geq x) \leq Ce^{-x^2/2}\), you can eventually get the bound:
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Construction-Prop"></span><strong id="Prop">Prop</strong>:
-</p>
-\[
-  \limsup_{n \to \infty} \frac{2^{n/2}}{\sqrt{n}}Y_n \leq \sqrt{2 \log 2}.
-\]
-
-<p>
-<em>Proof</em>: Look at the sum
-</p>
-\[
-  \sum_{n=1}^\infty P\left(Y_n &gt; \sqrt{n} \cdot 2 ^{-n/2} \cdot \sqrt{2 \log 2 (1 + \epsilon)}\right)
-\]
-<p>
-and apply Borel-Cantelli. In particular, we have
-</p>
-\[
+</span> If we choose <span class="math inline">x_n</span> such that
+<span class="math inline">\sum_{n=1}^\infty 2^{n+1}P(B_1 \geq
+2^{n/2}x_n) &lt; \infty</span>, then by Borel-Cantelli shows that for
+sufficiently large <span class="math inline">n</span>, <span
+class="math inline">Y_n \leq x_n</span> almost surely. Do any reasonable
+bound you like on the tail of the normal distribution and take a
+sufficiently large <span class="math inline">x</span> and call it a day.
+In particular, if you choose the easiest bound <span
+class="math inline">P(N \geq x) \leq Ce^{-x^2/2}</span>, you can
+eventually get the bound:</p>
+<p><strong>Prop</strong>: <span class="math display">
+  \limsup_{n \to \infty} \frac{2^{n/2}}{\sqrt{n}}Y_n \leq \sqrt{2 \log
+2}.
+</span></p>
+<p><em>Proof</em>: Look at the sum <span class="math display">
+  \sum_{n=1}^\infty P\left(Y_n &gt; \sqrt{n} \cdot 2 ^{-n/2} \cdot
+\sqrt{2 \log 2 (1 + \epsilon)}\right)
+</span> and apply Borel-Cantelli. In particular, we have <span
+class="math display">
 \begin{align*}
-  P(Y_n &gt; x_n) &amp;\leq \sum_{j=1^{2^n}} P(|B_{j/2^n} - B_{(j-1)/2^n}| &gt; x_n) \\
+  P(Y_n &gt; x_n) &amp;\leq \sum_{j=1^{2^n}} P(|B_{j/2^n} -
+B_{(j-1)/2^n}| &gt; x_n) \\
   &amp;= 2^{n+1}P(B_{1/2^n} &gt; x_n) \\
-  &amp;= 2^{n+1}P\left(B_1 &gt; \sqrt{n} \sqrt{2(\log 2 (1 + \epsilon)}\right) \\
+  &amp;= 2^{n+1}P\left(B_1 &gt; \sqrt{n} \sqrt{2(\log 2 (1 +
+\epsilon)}\right) \\
   &amp;\leq C 2^n e^{-\frac{\sqrt{2\log 2 n(1+\epsilon)^2}}{2}} \\
   &amp;\leq C e^{-n\epsilon}.
 \end{align*}
-\]
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Construction-Prop"></span><strong id="Prop">Prop</strong>: Set \(K_n = \sup \{ |B_s - B_t| \mid s,t \in D, |s - t| \leq 2^{-n}\}\); then, there is \(C\) such that with almost surely,
-</p>
-\[
+</span></p>
+<p><strong>Prop</strong>: Set <span class="math inline">K_n = \sup \{
+|B_s - B_t| \mid s,t \in D, |s - t| \leq 2^{-n}\}</span>; then, there is
+<span class="math inline">C</span> such that with almost surely, <span
+class="math display">
   \limsup_{n \to \infty} \frac{2^{n/2}}{\sqrt{n}}K_n \leq C.
-\]
-
-<p>
-<em>Proof</em>: It's easy to see that \(K_n \leq 2 \sum_{j=n+1}^\infty Y_j\) (this is just the triangle inequality). Then for sufficiently large \(n\), we get
-</p>
-\[
+</span></p>
+<p><em>Proof</em>: It’s easy to see that <span class="math inline">K_n
+\leq 2 \sum_{j=n+1}^\infty Y_j</span> (this is just the triangle
+inequality). Then for sufficiently large <span
+class="math inline">n</span>, we get <span class="math display">
   K_n \leq 2 \cdot 2 \sum_{j=n+1}^\infty 2^{-j/2}\sqrt{j}
-\]
-<p>
-with full probability, and so
-</p>
-\[
-  \sup_{\substack{s, t \in D \\ s &lt; t}} \frac{|B_t - B_s|}{\sqrt{(t-s)|\log((t-s)^{-1})|}} &lt; \infty.
-\]
-
-<p>
-Now we may set \(B_t\) for \(t \in [0, 1]\) by \(B_t = \lim_{\substack{s \to t \\ s \in D}}B_s\), and check that this is in fact a genuine Brownian motion, which is not bad; and of course this construction can extend to \([0, \infty)\) easily as well.
-</p>
-
-<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Properties of Brownian Motion"><h4 id="Properties of Brownian Motion" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Properties of Brownian Motion">Properties of Brownian Motion</a></h4></div>
-
-<p>
-<em>Def</em>: A function \(f: [0, 1] -&gt; \mathbb R\) is called <span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Properties of Brownian Motion-Hölder continuous"></span><strong id="Hölder continuous">Hölder continuous</strong> of order \(\beta \geq 0\) if there is some \(C &lt; \infty\) such that for all \(s, t\), \(|f(t) - f(s)| \leq C|t-s|^\beta\). Futher, \(f\) is <span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Properties of Brownian Motion-weakly Hölder continuous"></span><strong id="weakly Hölder continuous">weakly Hölder continuous</strong> of order \(\beta\) if it is Hölder continuous of order \(\alpha\) for all \(\alpha &lt; \beta\). In both cases, we will say Hölder-\(\beta\) continuous for short.
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Properties of Brownian Motion-Prop"></span><strong id="Prop">Prop</strong>: Brownian motion paths are weakly Hölder-\(\frac{1}{2}\) continuous.
-</p>
-
-<p>
-<em>Proof</em>: Omitted.
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Properties of Brownian Motion-Theorem"></span><strong id="Theorem">Theorem</strong>: The function \(t \mapsto B_t\) is nowhere differentiable almost surely.
-</p>
-
-<p>
-<em>Proof</em>: Assume \(|f'(t)| &lt; K\); there exists \(\delta &gt; 0\) such that if \(|s - t| \leq \delta\), \(|f(t) - f(s)| \leq 2K|s-t|\); in particular there is an \(N\) such that for all \(n &gt; N\), \(|s - t| \leq n^{-1}, |r - t| \leq n^{-1}\), \(|f(s) - f(r)| \leq 4Kn^{-1}\). Then, set 
-</p>
-\[
-  Z_{k, n} = \max \left\{ |B_{k/n} - B_{(k-1)/n}|, |B_{(k+1)/n} - B_{k/n}|, |B_{(k+2)/n} - B_{(k+1)/n}|\right\}
-\]
-<p>
-and
-</p>
-\[
+</span> with full probability, and so <span class="math display">
+  \sup_{\substack{s, t \in D \\ s &lt; t}} \frac{|B_t -
+B_s|}{\sqrt{(t-s)|\log((t-s)^{-1})|}} &lt; \infty.
+</span></p>
+<p>Now we may set <span class="math inline">B_t</span> for <span
+class="math inline">t \in [0, 1]</span> by <span class="math inline">B_t
+= \lim_{\substack{s \to t \\ s \in D}}B_s</span>, and check that this is
+in fact a genuine Brownian motion, which is not bad; and of course this
+construction can extend to <span class="math inline">[0, \infty)</span>
+easily as well.</p>
+<h4 id="properties-of-brownian-motion">Properties of Brownian
+Motion</h4>
+<p><em>Def</em>: A function <span class="math inline">f: [0, 1] -&gt;
+\mathbb R</span> is called <strong>Hölder continuous</strong> of order
+<span class="math inline">\beta \geq 0</span> if there is some <span
+class="math inline">C &lt; \infty</span> such that for all <span
+class="math inline">s, t</span>, <span class="math inline">|f(t) - f(s)|
+\leq C|t-s|^\beta</span>. Futher, <span class="math inline">f</span> is
+<strong>weakly Hölder continuous</strong> of order <span
+class="math inline">\beta</span> if it is Hölder continuous of order
+<span class="math inline">\alpha</span> for all <span
+class="math inline">\alpha &lt; \beta</span>. In both cases, we will say
+Hölder-<span class="math inline">\beta</span> continuous for short.</p>
+<p><strong>Prop</strong>: Brownian motion paths are weakly Hölder-<span
+class="math inline">\frac{1}{2}</span> continuous.</p>
+<p><em>Proof</em>: Omitted.</p>
+<p><strong>Theorem</strong>: The function <span class="math inline">t
+\mapsto B_t</span> is nowhere differentiable almost surely.</p>
+<p><em>Proof</em>: Assume <span class="math inline">|f&#39;(t)| &lt;
+K</span>; there exists <span class="math inline">\delta &gt; 0</span>
+such that if <span class="math inline">|s - t| \leq \delta</span>, <span
+class="math inline">|f(t) - f(s)| \leq 2K|s-t|</span>; in particular
+there is an <span class="math inline">N</span> such that for all <span
+class="math inline">n &gt; N</span>, <span class="math inline">|s - t|
+\leq n^{-1}, |r - t| \leq n^{-1}</span>, <span class="math inline">|f(s)
+- f(r)| \leq 4Kn^{-1}</span>. Then, set <span class="math display">
+  Z_{k, n} = \max \left\{ |B_{k/n} - B_{(k-1)/n}|, |B_{(k+1)/n} -
+B_{k/n}|, |B_{(k+2)/n} - B_{(k+1)/n}|\right\}
+</span> and <span class="math display">
   Z_n = \min \{ Z_{k, n} \mid k = 1, \dots, n \}.
-\]
-
-<p>
-If \(B\) is differentiable, then there is some \(M\) such that \(Z_n \leq Mn^{-1}\) for all \(n\). Now set \(E_M\) to be the event that \(Z_n \leq Mn^{-1}\) for all sufficiently large; our theorem reduces to showing that \(P(E_M)  = 0\) for all \(M\). In fact, we will show that
-</p>
-\[
+</span></p>
+<p>If <span class="math inline">B</span> is differentiable, then there
+is some <span class="math inline">M</span> such that <span
+class="math inline">Z_n \leq Mn^{-1}</span> for all <span
+class="math inline">n</span>. Now set <span
+class="math inline">E_M</span> to be the event that <span
+class="math inline">Z_n \leq Mn^{-1}</span> for all sufficiently large;
+our theorem reduces to showing that <span class="math inline">P(E_M) =
+0</span> for all <span class="math inline">M</span>. In fact, we will
+show that <span class="math display">
   \lim_{n \to \infty} P(Z_n \leq Mn^{-1}) = 0.
-\]
-
-<p>
-Consider the union bound
-</p>
-\[
+</span></p>
+<p>Consider the union bound <span class="math display">
 \begin{align*}
   P(Z_n \leq Mn^{-1}) &amp;\leq \sum_{j=1}^{n}P(Z(n,k) \leq Mn^{-1}) \\
-  &amp;\leq nP\left( \max \left\{ |B_{1/n}|, |B_{2/n} - B_{1/n}|, |B_{3/n} - B_{2/n}|\right\}
+  &amp;\leq nP\left( \max \left\{ |B_{1/n}|, |B_{2/n} - B_{1/n}|,
+|B_{3/n} - B_{2/n}|\right\}
 \right) \\
 &amp;\leq nP(|B_{1/n}| \leq Mn^{-1})^3 \\
 &amp;\leq nP(|B_1| \leq Mn^{-1/2})^3
 \end{align*}
-\]
-<p>
-and just do literally the stupidest estimate you can, e.g. just look at the density and say that the probability is bounded by \(2CMn^{-1/2}\), so that the above is sent to zero as \(n \to \infty\).
-</p>
-
-
-<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Filtrations"><h4 id="Filtrations" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Filtrations">Filtrations</a></h4></div>
-
-<p>
-<em>Def</em>: A filtration \(\{ \mathcal F \}_{t \geq 0}\) is an incerasing collection of sub \(\sigma\)-algebras. Further, we put
-</p>
-\[
+</span> and just do literally the stupidest estimate you can, e.g. just
+look at the density and say that the probability is bounded by <span
+class="math inline">2CMn^{-1/2}</span>, so that the above is sent to
+zero as <span class="math inline">n \to \infty</span>.</p>
+<h4 id="filtrations">Filtrations</h4>
+<p><em>Def</em>: A filtration <span class="math inline">\{ \mathcal F
+\}_{t \geq 0}</span> is an incerasing collection of sub <span
+class="math inline">\sigma</span>-algebras. Further, we put <span
+class="math display">
   \mathcal F_{\infty} = \bigcup_{t \geq 0} \mathcal F_t.
-\]
-
-<p>
-<em>Def</em>: A stochastic process \(\{X_t \}_{t \geq 0}\) is adapted to \(\{ \mathcal F_t \}_{t \geq 0}\) if for each \(t\), \(X_t\) is \(\mathcal F_t\)-measurable.
-</p>
-
-<p>
-<em>Def</em>: A process \(\{ B_t \}_{t \geq 0}\) is a standard Brownian motion start at 0 w.r.t. \(\{ \mathcal F_t \}_{t \geq 0}\) if
-</p>
-<ul>
-<li>
-\(B_0 = 0\),
-
-<li>
-\(\{ B_t \}_{t \geq 0}\) is adapted to \(\{ \mathcal F_t \}_{t \geq 0}\),
-
-<li>
-if \(s &lt; t\) then \(B_t - B_s\) is independent of \(\mathcal F_s\),
-
-<li>
-\(B_t - B_s \sim N(0, t-s)\),
-
-<li>
-and with probability 1 \(t \mapsto B_t\) is continuous.
-
+</span></p>
+<p><em>Def</em>: A stochastic process <span class="math inline">\{X_t
+\}_{t \geq 0}</span> is adapted to <span class="math inline">\{ \mathcal
+F_t \}_{t \geq 0}</span> if for each <span class="math inline">t</span>,
+<span class="math inline">X_t</span> is <span
+class="math inline">\mathcal F_t</span>-measurable.</p>
+<p><em>Def</em>: A process <span class="math inline">\{ B_t \}_{t \geq
+0}</span> is a standard Brownian motion start at 0 w.r.t. <span
+class="math inline">\{ \mathcal F_t \}_{t \geq 0}</span> if</p>
+<ul class="incremental">
+<li><span class="math inline">B_0 = 0</span>,</li>
+<li><span class="math inline">\{ B_t \}_{t \geq 0}</span> is adapted to
+<span class="math inline">\{ \mathcal F_t \}_{t \geq 0}</span>,</li>
+<li>if <span class="math inline">s &lt; t</span> then <span
+class="math inline">B_t - B_s</span> is independent of <span
+class="math inline">\mathcal F_s</span>,</li>
+<li><span class="math inline">B_t - B_s \sim N(0, t-s)</span>,</li>
+<li>and with probability 1 <span class="math inline">t \mapsto
+B_t</span> is continuous.</li>
 </ul>
-<p>
-<em>Def</em>: A random variable \(\tau\) taking values in \([0, \infty]\) is called a stopping time with respect to \(\{ \mathcal F_t \}_{t \geq 0}\) if for every \(t\), the event \(\{\tau \leq t\} \in \mathcal F_t\).
-</p>
-
-<p>
-<em>Examples</em>: The following are all stopping times:
-</p>
-<ul>
-<li>
-constants;
-
-<li>
-\(\tau = \inf\{ t \mid B_t \in V \}\) where \(V\) is Borel;
-
-<li>
-\(\tau_1 \land \tau_2, \tau_1 \lor \tau_2\), where \(\tau_1, \tau_2\) are both stopping times.
-
+<p><em>Def</em>: A random variable <span class="math inline">\tau</span>
+taking values in <span class="math inline">[0, \infty]</span> is called
+a stopping time with respect to <span class="math inline">\{ \mathcal
+F_t \}_{t \geq 0}</span> if for every <span
+class="math inline">t</span>, the event <span class="math inline">\{\tau
+\leq t\} \in \mathcal F_t</span>.</p>
+<p><em>Examples</em>: The following are all stopping times:</p>
+<ul class="incremental">
+<li>constants;</li>
+<li><span class="math inline">\tau = \inf\{ t \mid B_t \in V \}</span>
+where <span class="math inline">V</span> is Borel;</li>
+<li><span class="math inline">\tau_1 \land \tau_2, \tau_1 \lor
+\tau_2</span>, where <span class="math inline">\tau_1, \tau_2</span> are
+both stopping times.</li>
 </ul>
-<p>
-<em>Def</em>: If \(\tau\) is a stopping time, then \(\mathcal F_\tau\) is the \(\sigma\)-algebra corresponding to the collection of events \(A\) such that for each \(t\), \(A \cap \{ \tau \leq t \} \in \mathcal F_t\).
-</p>
-
-<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-The Markov Property of Brownian Motion"><h4 id="The Markov Property of Brownian Motion" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-The Markov Property of Brownian Motion">The Markov Property of Brownian Motion</a></h4></div>
-
-<p>
-<em>Def</em>: For some stochastic process \(\{X_t\}_{t \geq 0}\) (or any other indexed set) with filtration \(\{F_t\}_{t \geq 0}\), \(X_t\) has the <span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-The Markov Property of Brownian Motion-Markov property"></span><strong id="Markov property">Markov property</strong> if it saitisfies that
-</p>
-\[
+<p><em>Def</em>: If <span class="math inline">\tau</span> is a stopping
+time, then <span class="math inline">\mathcal F_\tau</span> is the <span
+class="math inline">\sigma</span>-algebra corresponding to the
+collection of events <span class="math inline">A</span> such that for
+each <span class="math inline">t</span>, <span class="math inline">A
+\cap \{ \tau \leq t \} \in \mathcal F_t</span>.</p>
+<h4 id="the-markov-property-of-brownian-motion">The Markov Property of
+Brownian Motion</h4>
+<p><em>Def</em>: For some stochastic process <span
+class="math inline">\{X_t\}_{t \geq 0}</span> (or any other indexed set)
+with filtration <span class="math inline">\{F_t\}_{t \geq 0}</span>,
+<span class="math inline">X_t</span> has the <strong>Markov
+property</strong> if it saitisfies that <span class="math display">
   E[f(X_t) \mid \mathcal F_s] = E[f(X_t) \mid \sigma(X_s)].
-\]
-
-<p>
-<em>Def</em>: In general, if \(X_t\) is a stochastic process and \(\tau\) is a stopping time, both adapted to \(\{ \mathcal F_t \}_{t \geq 0}\) with \(P(\tau &lt; \infty) = 1\), then \(X_t\) has the <span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-The Markov Property of Brownian Motion-strong Markov property"></span><strong id="strong Markov property">strong Markov property</strong> if \(X_{\tau + t}\) is independent of \(\mathcal F_{\tau}\).
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-The Markov Property of Brownian Motion-Prop"></span><strong id="Prop">Prop</strong>: Suppose \(B_t\) is a Brownian motion and \(\tau\) is a stopping time, both with respect to \(\{ \mathcal F_t \}\), and assume \(P(\tau &lt; \infty) = 1\). Set
-</p>
-\[
+</span></p>
+<p><em>Def</em>: In general, if <span class="math inline">X_t</span> is
+a stochastic process and <span class="math inline">\tau</span> is a
+stopping time, both adapted to <span class="math inline">\{ \mathcal F_t
+\}_{t \geq 0}</span> with <span class="math inline">P(\tau &lt; \infty)
+= 1</span>, then <span class="math inline">X_t</span> has the
+<strong>strong Markov property</strong> if <span
+class="math inline">X_{\tau + t}</span> is independent of <span
+class="math inline">\mathcal F_{\tau}</span>.</p>
+<p><strong>Prop</strong>: Suppose <span class="math inline">B_t</span>
+is a Brownian motion and <span class="math inline">\tau</span> is a
+stopping time, both with respect to <span class="math inline">\{
+\mathcal F_t \}</span>, and assume <span class="math inline">P(\tau &lt;
+\infty) = 1</span>. Set <span class="math display">
   Y_t = B_{\tau + t} - B_{\tau}.
-\]
-<p>
-Then \(Y_t\)  is a Brownian motion independent of \(\mathcal F_t\), e.g. Brownian motion has the strong Markov property and the new process is also a Brownian motion.
-</p>
-
-<p>
-<em>Proof</em>: You proceed by doing successive approximations.
-</p>
-<ul>
-<li>
-First, let \(\tau\) take a finite amount of values, and use the normal Markov property.
-
-<li>
-Then, approximate any \(\tau\) by stopping times taking a finite amount of values, such as by
-\[
-  \tau_n = \begin{cases}
-    \frac{k}{2^n} &amp; \frac{k - 1}{2^n} \leq \tau \leq \frac{k}{2^n} \leq n \\
-    n &amp; \tau &gt; n
-  \end{cases}
-\]
-  for example.
-
-<li>
-Take a limit by continuity.
-
+</span> Then <span class="math inline">Y_t</span> is a Brownian motion
+independent of <span class="math inline">\mathcal F_t</span>,
+e.g. Brownian motion has the strong Markov property and the new process
+is also a Brownian motion.</p>
+<p><em>Proof</em>: You proceed by doing successive approximations.</p>
+<ul class="incremental">
+<li>First, let <span class="math inline">\tau</span> take a finite
+amount of values, and use the normal Markov property.</li>
+<li>Then, approximate any <span class="math inline">\tau</span> by
+stopping times taking a finite amount of values, such as by <span
+class="math display">
+\tau_n = \begin{cases}
+  \frac{k}{2^n} &amp; \frac{k - 1}{2^n} \leq \tau \leq \frac{k}{2^n}
+\leq n \\
+  n &amp; \tau &gt; n
+\end{cases}
+</span> for example.</li>
+<li>Take a limit by continuity.</li>
 </ul>
-<p>
-In particular, the following is clear for Brownian motion:
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-The Markov Property of Brownian Motion-Prop"></span><strong id="Prop">Prop</strong>: If \(\{B_t\}_{t \geq 0}\) is a Brownian motion, \(t\) a fixed time, and \(Y_s = B_{t+s} - B_t\), then \(\{Y_s\}_{s \geq 0}\), is a BM and independent of \(\mathcal F_t = \sigma\{B_s \mid s \leq t\}\).
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-The Markov Property of Brownian Motion-Theorem"></span><strong id="Theorem">Theorem</strong>: Set \(B_t\) to a Brownian motion with drift zero; <span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-The Markov Property of Brownian Motion-the reflection principle"></span><strong id="the reflection principle">the reflection principle</strong> is that
-</p>
-\[
+<p>In particular, the following is clear for Brownian motion:</p>
+<p><strong>Prop</strong>: If <span class="math inline">\{B_t\}_{t \geq
+0}</span> is a Brownian motion, <span class="math inline">t</span> a
+fixed time, and <span class="math inline">Y_s = B_{t+s} - B_t</span>,
+then <span class="math inline">\{Y_s\}_{s \geq 0}</span>, is a BM and
+independent of <span class="math inline">\mathcal F_t = \sigma\{B_s \mid
+s \leq t\}</span>.</p>
+<p><strong>Theorem</strong>: Set <span class="math inline">B_t</span> to
+a Brownian motion with drift zero; <strong>the reflection
+principle</strong> is that <span class="math display">
   P\left(\max_{0 \leq s \leq t} B_s \geq a\right) = 2P(B_t \geq a).
-\]
-<p>
-Set \(\tau_a = \min \{ s \mid B_s = a \}\); we also have
-</p>
-\[
+</span> Set <span class="math inline">\tau_a = \min \{ s \mid B_s = a
+\}</span>; we also have <span class="math display">
   P(\tau_a \leq t) = 2P(B_t \geq a)
-\]
-<p>
-or equivalently
-</p>
-\[
+</span> or equivalently <span class="math display">
   P(B_t \geq a \mid \tau_a \leq t) = \frac{1}{2}.
-\]
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-The Markov Property of Brownian Motion-Prop"></span><strong id="Prop">Prop</strong>: If \(0 &lt; r &lt; s &lt; \infty\),
-</p>
-\[
-  q(r, s) = P(B_t = 0 \text{ for some } r \leq t \leq s) = 1 - \frac{2}{\pi} \arctan\left(\sqrt{\frac{r}{s - s}}\right).
-\]
-
-<p>
-<em>Proof</em>: First, I claim that \(q(r, s) = q(1, s/r)\) just by a change of variables, so we only need to compute \(q(t) = q(1, 1 + t)\). Set \(A = \{ B_s = 0 \text{ for some } 1 \leq s \leq 1 + t \}\), so that
-</p>
-\[
+</span></p>
+<p><strong>Prop</strong>: If <span class="math inline">0 &lt; r &lt; s
+&lt; \infty</span>, <span class="math display">
+  q(r, s) = P(B_t = 0 \text{ for some } r \leq t \leq s) = 1 -
+\frac{2}{\pi} \arctan\left(\sqrt{\frac{r}{s - s}}\right).
+</span></p>
+<p><em>Proof</em>: First, I claim that <span class="math inline">q(r, s)
+= q(1, s/r)</span> just by a change of variables, so we only need to
+compute <span class="math inline">q(t) = q(1, 1 + t)</span>. Set <span
+class="math inline">A = \{ B_s = 0 \text{ for some } 1 \leq s \leq 1 + t
+\}</span>, so that <span class="math display">
 \begin{align*}
-  q(t) &amp;= \frac{2}{\sqrt{2 \pi}}\int_0^\infty P(A \mid B_1 = x) e^{-x^2 / 2}dx.
+  q(t) &amp;= \frac{2}{\sqrt{2 \pi}}\int_0^\infty P(A \mid B_1 = x)
+e^{-x^2 / 2}dx.
 \end{align*}
-\]
-<p>
-However, by the reflection principle, we have that
-</p>
-\[
+</span> However, by the reflection principle, we have that <span
+class="math display">
 \begin{align*}
-  P(A \mid B_1 = x) &amp;= P\left(\max_{0 \leq s \leq t} B_s \geq x \right) \\
+  P(A \mid B_1 = x) &amp;= P\left(\max_{0 \leq s \leq t} B_s \geq x
+\right) \\
   &amp;= P \left( \min_{0 \leq s \leq t} B_s \leq -x \right) \\
   &amp;= 2P(B_t \geq x) = 2P\left(B_1 \geq \frac{x}{\sqrt{t}}\right)
 \end{align*}
-\]
-<p>
-upon which we can just compute the integral.
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-The Markov Property of Brownian Motion-Corollary"></span><strong id="Corollary">Corollary</strong>: One dimensional standard Brownian motion is (pointwise) recurrent (that is, the zero set of Brownian motion is unbounded).
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-The Markov Property of Brownian Motion-Corollary"></span><strong id="Corollary">Corollary</strong>: Since \(Y_t = t^{-1}B_{1/t}\) is a standard Brownian motion, this shows that for any \(\epsilon &gt; 0\), \(Z_\epsilon = \{ t \mid B_t = 0, 0 \leq t \leq \epsilon \}\) has more elements that just \(0\).
-</p>
-
-<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Martingales"><h4 id="Martingales" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Martingales">Martingales</a></h4></div>
-
-<p>
-<em>Def</em>: A process \(\{ M_t \}_{t \geq 0}\) is a <span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Martingales-supermartingale"></span><strong id="supermartingale">supermartingale</strong> (resp. <span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Martingales-submartingale"></span><strong id="submartingale">submartingale</strong>) w.r.t. \(\{ \mathcal F_t \}\) if
-</p>
-<ul>
-<li>
-\(E[|M_t|] &lt; \infty\),
-
-<li>
-\(M_t\) is \(\{ \mathcal F_t \}\) adapted,
-
-<li>
-and if \(E[M_t \mid \mathcal F_s] \leq M_s\) (resp. \(\geq M_s\)) almost surely for \(s \leq t\).
-
-</ul>
-<p>
-A process which is both a submartingale and supermartingale is just a martingale, it is continuous if \(M_t\) is a continuous function of \(t\) almost surely, and is square integrable (or simply \(L^2\)) if it has finite second moment for all \(t\).
-</p>
-
-<p>
-As an aside, I'm going to stop saying with probability 1 or almost surely because it's annoying!
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Martingales-Prop"></span><strong id="Prop">Prop</strong>: Brownian motion (without drift) is an \(L^2\) continuous martingale.
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Martingales-Theorem (Kolmogorov Zero-One)"></span><strong id="Theorem (Kolmogorov Zero-One)">Theorem (Kolmogorov Zero-One)</strong>: Tail events of independent \(\sigma\)-algebras happen with probability 0 or 1.
-</p>
-
-<p>
-<em>Proof</em>: Set \(\mathcal F_n = \sigma(X_1, \dots, X_n)\), and \(\mathcal T_n = \sigma(X_{n+1}, \dots)\), \(\mathcal F_\infty = \bigcup_{n} \mathcal F_n\), and \(\mathcal T_\infty = \bigcap_n \mathcal T_n\).
-</p>
-
-<p>
-Then, one can see that if \(A \in \mathcal F_\infty\) and \(\epsilon &gt; 0\), there is \(n\) and \(A_n \in \mathcal F_n\) such that \(P(A_n \Delta A) &lt; \epsilon\); even better, there exists \(A_n\) independent of \(A \in \mathcal T_\infty\) such that \(P(A \Delta A_n) &lt; \epsilon\), and so we conclude that \(P(A) = P(A)P(A)\).
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Martingales-Theorem (Blumenthal Zero-One)"></span><strong id="Theorem (Blumenthal Zero-One)">Theorem (Blumenthal Zero-One)</strong>: Let \(B_t\) be a Brownian motion with the standard filtration, and set \(\mathcal F_{0+} = \bigcap_{\epsilon &gt; 0} \mathcal F_{\epsilon}\). Then, if \(A \in \mathcal F_{0+}\), \(P(A) = 0\) or \(1\).
-</p>
-
-<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Quadratic Variation"><h4 id="Quadratic Variation" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Quadratic Variation">Quadratic Variation</a></h4></div>
-
-<p>
-Let \(B_t\) be a standard Brownian motion; a partition \(\Pi\) of \([0, 1]\) is a sequence \(0 = t_0 &lt; t_1 &lt; \dots &lt; t_k = 1\), and the mesh of the partition is just
-</p>
-\[
+</span> upon which we can just compute the integral.</p>
+<p><strong>Corollary</strong>: One dimensional standard Brownian motion
+is (pointwise) recurrent (that is, the zero set of Brownian motion is
+unbounded).</p>
+<p><strong>Corollary</strong>: Since <span class="math inline">Y_t =
+t^{-1}B_{1/t}</span> is a standard Brownian motion, this shows that for
+any <span class="math inline">\epsilon &gt; 0</span>, <span
+class="math inline">Z_\epsilon = \{ t \mid B_t = 0, 0 \leq t \leq
+\epsilon \}</span> has more elements that just <span
+class="math inline">0</span>.</p>
+<h4 id="martingales">Martingales</h4>
+<p><em>Def</em>: A process <span class="math inline">\{ M_t \}_{t \geq
+0}</span> is a <strong>supermartingale</strong> (resp.
+<strong>submartingale</strong>) w.r.t. <span class="math inline">\{
+\mathcal F_t \}</span> if - <span class="math inline">E[|M_t|] &lt;
+\infty</span>, - <span class="math inline">M_t</span> is <span
+class="math inline">\{ \mathcal F_t \}</span> adapted, - and if <span
+class="math inline">E[M_t \mid \mathcal F_s] \leq M_s</span> (resp.
+<span class="math inline">\geq M_s</span>) almost surely for <span
+class="math inline">s \leq t</span>. A process which is both a
+submartingale and supermartingale is just a martingale, it is continuous
+if <span class="math inline">M_t</span> is a continuous function of
+<span class="math inline">t</span> almost surely, and is square
+integrable (or simply <span class="math inline">L^2</span>) if it has
+finite second moment for all <span class="math inline">t</span>.</p>
+<p>As an aside, I’m going to stop saying with probability 1 or almost
+surely because it’s annoying!</p>
+<p><strong>Prop</strong>: Brownian motion (without drift) is an <span
+class="math inline">L^2</span> continuous martingale.</p>
+<p><strong>Theorem (Kolmogorov Zero-One)</strong>: Tail events of
+independent <span class="math inline">\sigma</span>-algebras happen with
+probability 0 or 1.</p>
+<p><em>Proof</em>: Set <span class="math inline">\mathcal F_n =
+\sigma(X_1, \dots, X_n)</span>, and <span class="math inline">\mathcal
+T_n = \sigma(X_{n+1}, \dots)</span>, <span class="math inline">\mathcal
+F_\infty = \bigcup_{n} \mathcal F_n</span>, and <span
+class="math inline">\mathcal T_\infty = \bigcap_n \mathcal
+T_n</span>.</p>
+<p>Then, one can see that if <span class="math inline">A \in \mathcal
+F_\infty</span> and <span class="math inline">\epsilon &gt; 0</span>,
+there is <span class="math inline">n</span> and <span
+class="math inline">A_n \in \mathcal F_n</span> such that <span
+class="math inline">P(A_n \Delta A) &lt; \epsilon</span>; even better,
+there exists <span class="math inline">A_n</span> independent of <span
+class="math inline">A \in \mathcal T_\infty</span> such that <span
+class="math inline">P(A \Delta A_n) &lt; \epsilon</span>, and so we
+conclude that <span class="math inline">P(A) = P(A)P(A)</span>.</p>
+<p><strong>Theorem (Blumenthal Zero-One)</strong>: Let <span
+class="math inline">B_t</span> be a Brownian motion with the standard
+filtration, and set <span class="math inline">\mathcal F_{0+} =
+\bigcap_{\epsilon &gt; 0} \mathcal F_{\epsilon}</span>; then, if <span
+class="math inline">A \in \mathcal F_{0+}</span>, either <span
+class="math inline">P(A) = 0</span> or <span
+class="math inline">1</span>.</p>
+<h4 id="quadratic-variation">Quadratic Variation</h4>
+<p>Let <span class="math inline">B_t</span> be a standard Brownian
+motion; a partition <span class="math inline">\Pi</span> of <span
+class="math inline">[0, 1]</span> is a sequence <span
+class="math inline">0 = t_0 &lt; t_1 &lt; \dots &lt; t_k = 1</span>, and
+the mesh of the partition is just <span class="math display">
   \| \Pi \| = \max_{i = 1, \dots, k} t_i - t_{i - 1}.
-\]
-<p>
-Now take a sequence of partitions \(\Pi_n\), e.g. \(0 = t_{0, n} &lt; \dots &lt; t_{k_n, n}\), and define the quantity
-</p>
-\[
+</span> Now take a sequence of partitions <span
+class="math inline">\Pi_n</span>, e.g. <span class="math inline">0 =
+t_{0, n} &lt; \dots &lt; t_{k_n, n}</span>, and define the quantity
+<span class="math display">
   Q(t, \Pi) = \sum_{t_{j} &lt;= t} (B_{t_j} - B_{t_{j-1}})^2
-\]
-<p>
-and \(Q_n(t) = Q(t, \Pi_n)\) and \(Q_n = Q_n(1)\). 
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Quadratic Variation-Theorem"></span><strong id="Theorem">Theorem</strong>: If \(\| \Pi_n \| \to 0\), then \(Q_n \to 1\) in probability. Futhermore, if \(\sum_{n=1}^\infty \| \Pi_n \| &lt; \infty\), then almost surely \(\lim_{n \to \infty} Q_n = 1\).
-</p>
-
-<p>
-<em>Proof</em>: A simple computation gives us that 
-</p>
-\[
-  E(Q_n) = \sum_{j=1}^{k_n}E[(B_{t_j} - B_{t_{j-1}})^2] = \sum_{j=1}^{k_n}(t_j - t_{j-1}) = 1
-\]
-<p>
-and
-</p>
-\[
-  \Var(Q_n) = \sum_{i=1}^{k_n} \Var((B_{t_j}  - B_{t_{j-1}})^2) = \sum_{j=1}^{k_n} (t_j - t_{j-1})^2 \Var(B_1^2) = 2\sum_{j=1}^{k_n}(t_j - t_{j-1})^2.
-\]
-<p>
-Then,
-</p>
-\[
-  \Var(Q_n) \leq \| \Pi_n \| 2 \sum_{j=1}^{k_n}(t_j - t_{j-1}) = 2 \| \Pi_n \|
-\]
-<p>
-and
-</p>
-\[
-  P(|Q_n - 1| \geq \epsilon) \leq \frac{\Var(Q_n)}{\epsilon^2} \leq \frac{2 \| \Pi_n \|}{\epsilon^2}.
-\]
-
-<p>
-The latter half of the theorem follows from Borel-Cantelli.
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Quadratic Variation-Theorem"></span><strong id="Theorem">Theorem</strong>: In general, if \(\sum_{n=1}^\infty \| \Pi_n \| &lt; \infty\), then almost surely we have \(Q_n(t) \to t\).
-</p>
-
-<p>
-<em>Proof</em>: With probability 1 this holds for rational \(t\), but by construction \(Q_n(t)\) is monotone, so it holds everywhere.
-</p>
-
-<p>
-<em>Def</em>: In general,  if \(X_t\) is a process, then its quadratic variation is
-</p>
-\[
-  \left\langle X\right\rangle_t = \lim_{n \to \infty} \sum_{t_{j,n} \leq t} (X_{t_{j, n}} - X_{t_{j-1, n}})^2
-\]
-<p>
-(sort of, since sometimes this depends on the partition).
-</p>
-
-<p>
-<em>Def</em>: Alternatively, if \(M_t\) is a continuous \(L^2\)-martingale, its quadratic variation is the unique predictable process \(\left\langle M \right\rangle_t\) that makes \(M_t^2 - \left\langle M \right\rangle_t\) a martingale (in particular, this exists by Doob decomposition).
-</p>
-
-<p>
-We showed above that \(\left\langle B_t \right\rangle_t = t\).
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Quadratic Variation-Prop"></span><strong id="Prop">Prop</strong>: If \(B_t\) is a standard Brownian motion and \(Y_t = \mu t + \sigma B_t\), then
-</p>
-\[
+</span> and <span class="math inline">Q_n(t) = Q(t, \Pi_n)</span> and
+<span class="math inline">Q_n = Q_n(1)</span>.</p>
+<p><strong>Theorem</strong>: If <span class="math inline">\| \Pi_n \|
+\to 0</span>, then <span class="math inline">Q_n \to 1</span> in
+probability. Futhermore, if <span class="math inline">\sum_{n=1}^\infty
+\| \Pi_n \| &lt; \infty</span>, then almost surely <span
+class="math inline">\lim_{n \to \infty} Q_n = 1</span>.</p>
+<p><em>Proof</em>: A simple computation gives us that <span
+class="math display">
+  E(Q_n) = \sum_{j=1}^{k_n}E[(B_{t_j} - B_{t_{j-1}})^2] =
+\sum_{j=1}^{k_n}(t_j - t_{j-1}) = 1
+</span> and <span class="math display">
+  \mathop{\mathrm{Var}}(Q_n) = \sum_{i=1}^{k_n}
+\mathop{\mathrm{Var}}((B_{t_j}  - B_{t_{j-1}})^2) = \sum_{j=1}^{k_n}
+(t_j - t_{j-1})^2 \mathop{\mathrm{Var}}(B_1^2) = 2\sum_{j=1}^{k_n}(t_j -
+t_{j-1})^2.
+</span> Then, <span class="math display">
+  \mathop{\mathrm{Var}}(Q_n) \leq \| \Pi_n \| 2 \sum_{j=1}^{k_n}(t_j -
+t_{j-1}) = 2 \| \Pi_n \|
+</span> and <span class="math display">
+  P(|Q_n - 1| \geq \epsilon) \leq
+\frac{\mathop{\mathrm{Var}}(Q_n)}{\epsilon^2} \leq \frac{2 \| \Pi_n
+\|}{\epsilon^2}.
+</span></p>
+<p>The latter half of the theorem follows from Borel-Cantelli.</p>
+<p><strong>Theorem</strong>: In general, if <span
+class="math inline">\sum_{n=1}^\infty \| \Pi_n \| &lt; \infty</span>,
+then almost surely we have <span class="math inline">Q_n(t) \to
+t</span>.</p>
+<p><em>Proof</em>: With probability 1 this holds for rational <span
+class="math inline">t</span>, but by construction <span
+class="math inline">Q_n(t)</span> is monotone, so it holds
+everywhere.</p>
+<p><em>Def</em>: In general, if <span class="math inline">X_t</span> is
+a process, then its quadratic variation is <span class="math display">
+  \left\langle X\right\rangle_t = \lim_{n \to \infty} \sum_{t_{j,n} \leq
+t} (X_{t_{j, n}} - X_{t_{j-1, n}})^2
+</span> (sort of, since sometimes this depends on the partition).</p>
+<p><em>Def</em>: Alternatively, if <span class="math inline">M_t</span>
+is a continuous <span class="math inline">L^2</span>-martingale, its
+quadratic variation is the unique predictable process <span
+class="math inline">\left\langle M \right\rangle_t</span> that makes
+<span class="math inline">M_t^2 - \left\langle M \right\rangle_t</span>
+a martingale (in particular, this exists by Doob decomposition).</p>
+<p>We showed above that <span class="math inline">\left\langle B_t
+\right\rangle_t = t</span>.</p>
+<p><strong>Prop</strong>: If <span class="math inline">B_t</span> is a
+standard Brownian motion and <span class="math inline">Y_t = \mu t +
+\sigma B_t</span>, then <span class="math display">
   \left\langle Y \right\rangle_t = \sigma^2 t.
-\]
-
-<p>
-<em>Proof</em>: Just check directly.
-</p>
-
-<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Law of the Iterated Logarithm"><h4 id="Law of the Iterated Logarithm" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Law of the Iterated Logarithm">Law of the Iterated Logarithm</a></h4></div>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Law of the Iterated Logarithm-Lemma (Relaxed Borel-Cantelli)"></span><strong id="Lemma (Relaxed Borel-Cantelli)">Lemma (Relaxed Borel-Cantelli)</strong>: Let \(A_1, A_2, \dots\) be a sequence of events, and set \(\mathcal F_n = \sigma(A_1, \dots, A_n)\); if there is \(q_n\) with
-</p>
-\[
+</span></p>
+<p><em>Proof</em>: Just check directly.</p>
+<h4 id="law-of-the-iterated-logarithm">Law of the Iterated
+Logarithm</h4>
+<p><strong>Lemma (Relaxed Borel-Cantelli)</strong>: Let <span
+class="math inline">A_1, A_2, \dots</span> be a sequence of events, and
+set <span class="math inline">\mathcal F_n = \sigma(A_1, \dots,
+A_n)</span>; if there is <span class="math inline">q_n</span> with <span
+class="math display">
   \sum_{n=1}^\infty q_n = \infty
-\]
-<p>
-such that \(P(A_n \mid \mathcal F_{n-1}) \geq q_n\), then \(A_n\) happens infinitely often almost surely.
-</p>
-
-<p>
-<em>Proof</em>: Same as usual, but just with a little more caution.
-</p>
-
-<p>
-Recall that the second Borel-Cantelli lemma tells us that if they are independent and \(\sum_{n=1}^\infty P(A_n) = \infty\), then \(A_n\) occurs infinitely often with probability 1; this lemma is stronger than that.
-</p>
-
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Law of the Iterated Logarithm-Theorem"></span><strong id="Theorem">Theorem</strong>: If \(B_t\) is a standard Brownian motion, then
-</p>
-\[
+</span> such that <span class="math inline">P(A_n \mid \mathcal F_{n-1})
+\geq q_n</span>, then <span class="math inline">A_n</span> happens
+infinitely often almost surely.</p>
+<p><em>Proof</em>: Same as usual, but just with a little more
+caution.</p>
+<p>Recall that the second Borel-Cantelli lemma tells us that if they are
+independent and <span class="math inline">\sum_{n=1}^\infty P(A_n) =
+\infty</span>, then <span class="math inline">A_n</span> occurs
+infinitely often with probability 1; this lemma is stronger than
+that.</p>
+<p><strong>Theorem</strong>: If <span class="math inline">B_t</span> is
+a standard Brownian motion, then <span class="math display">
   \limsup_{t \to \infty} \frac{B_t}{\sqrt{2 t \log \log t}} = 1.
-\]
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Law of the Iterated Logarithm-Corollary"></span><strong id="Corollary">Corollary</strong>: By symmetry,
-</p>
-\[
+</span></p>
+<p><strong>Corollary</strong>: By symmetry, <span class="math display">
   \liminf_{t \to \infty} \frac{B_t}{\sqrt{2 t \log \log t}} = -1.
-\]
-
-<p>
-<em>Proof</em>: Let \(\mathcal T_t = \sigma\{ B_{s + t} - B_t \mid s \geq 0\}\), and \(\mathcal T_\infty = \bigcap_t \mathcal T_t\);  one can adapt the arguments from the Kolmogorov 0-1 law to show that everything in \(\mathcal T_\infty\) happens with probability 0 or 1. Then,
-</p>
-\[
-  A_\epsilon = \left\{ \omega \mid \limsup_{t \to \infty} \frac{B_t}{\sqrt{2 t (1 + \epsilon) \log \log t}} \leq 1\right\}
-\]
-<p>
-is a tail event (e.g. in \(\mathcal T_\infty\)) and thus \(P(A_\epsilon) = 0\) or \(1\). In fact, if \(\epsilon &lt; 0\) then it's 0, and if \(\epsilon &gt; 0\) then it's 1. In fact, by this 0-1 law and symmetry one may see
-</p>
-\[
-  P \left( \limsup_{t \to \infty} \frac{|B_t|}{\sqrt{2 t (1 + \epsilon) \log \log t}} \leq 1 \right) = P \left(\limsup_{t \to \infty} \frac{B_t}{\sqrt{2 t (1 + \epsilon) \log \log t}} \leq 1\right)
-\]
-<p>
-as well.
-</p>
-
-<p>
-First take \(\epsilon &gt; 0\) and take some \(\rho &gt; 1\) to be specified later. Then, let 
-</p>
-\[
-  V_n = \left\{ |B_{\rho^n}| \geq \sqrt{2 \rho^n(1-\epsilon) \log \log \rho^n} \right\};
-\]
-<p>
-we want to to show that \(V_n\) occurs infinitely often. I claim that
-</p>
-\[
-  P(V_{n+1} \mid V_1, \dots, V_n) \geq P \left( B_{\rho^{n+1}} - B_{\rho^n} \geq \sqrt{2 \rho^{n+1}(1-\epsilon) \log \log \rho^n} \right).
-\]
-<p>
-To see this, compute
-</p>
-\[
+</span></p>
+<p><em>Proof</em>: Let <span class="math inline">\mathcal T_t = \sigma\{
+B_{s + t} - B_t \mid s \geq 0\}</span>, and <span
+class="math inline">\mathcal T_\infty = \bigcap_t \mathcal T_t</span>;
+one can adapt the arguments from the Kolmogorov 0-1 law to show that
+everything in <span class="math inline">\mathcal T_\infty</span> happens
+with probability 0 or 1. Then, <span class="math display">
+  A_\epsilon = \left\{ \omega \mid \limsup_{t \to \infty}
+\frac{B_t}{\sqrt{2 t (1 + \epsilon) \log \log t}} \leq 1\right\}
+</span> is a tail event (e.g. in <span class="math inline">\mathcal
+T_\infty</span>) and thus <span class="math inline">P(A_\epsilon) =
+0</span> or <span class="math inline">1</span>. In fact, if <span
+class="math inline">\epsilon &lt; 0</span> then it’s 0, and if <span
+class="math inline">\epsilon &gt; 0</span> then it’s 1. In fact, by this
+0-1 law and symmetry one may see <span class="math display">
+  P \left( \limsup_{t \to \infty} \frac{|B_t|}{\sqrt{2 t (1 + \epsilon)
+\log \log t}} \leq 1 \right) = P \left(\limsup_{t \to \infty}
+\frac{B_t}{\sqrt{2 t (1 + \epsilon) \log \log t}} \leq 1\right)
+</span> as well.</p>
+<p>First take <span class="math inline">\epsilon &gt; 0</span> and take
+some <span class="math inline">\rho &gt; 1</span> to be specified later.
+Then, let <span class="math display">
+  V_n = \left\{ |B_{\rho^n}| \geq \sqrt{2 \rho^n(1-\epsilon) \log \log
+\rho^n} \right\};
+</span> we want to to show that <span class="math inline">V_n</span>
+occurs infinitely often. I claim that <span class="math display">
+  P(V_{n+1} \mid V_1, \dots, V_n) \geq P \left( B_{\rho^{n+1}} -
+B_{\rho^n} \geq \sqrt{2 \rho^{n+1}(1-\epsilon) \log \log \rho^n}
+\right).
+</span> To see this, compute <span class="math display">
 \begin{align*}
-  &amp;P \left( \frac{B_{\rho^{n+1}} - B_{\rho^n}}{\sqrt{\rho^{n+1} - \rho^n}} \geq \frac{\sqrt{2\rho^{n+1}(1-\epsilon)\log \log \rho^n}}{\sqrt{\rho^n (\rho - 1)}} \right) \\
-  &amp;= P \left( \frac{B_{\rho^{n+1}} - B_{\rho^n}}{\sqrt{\rho^{n+1} - \rho^n}} \geq \sqrt{\frac{2 \rho}{\rho - 1}(1-\epsilon)(\log n + \log \log \rho)} \right) \\
+  &amp;P \left( \frac{B_{\rho^{n+1}} - B_{\rho^n}}{\sqrt{\rho^{n+1} -
+\rho^n}} \geq \frac{\sqrt{2\rho^{n+1}(1-\epsilon)\log \log
+\rho^n}}{\sqrt{\rho^n (\rho - 1)}} \right) \\
+  &amp;= P \left( \frac{B_{\rho^{n+1}} - B_{\rho^n}}{\sqrt{\rho^{n+1} -
+\rho^n}} \geq \sqrt{\frac{2 \rho}{\rho - 1}(1-\epsilon)(\log n + \log
+\log \rho)} \right) \\
 \end{align*}
-\]
-<p>
-and choose \(\rho\) large enough so that \(\frac{2 \rho}{\rho - 1}(1-\epsilon) &lt; 1\), and use the estimate \(P(B_1 &gt; x) \sim \exp(-x^2 / 2)\) and conclude by the earlier lemma. The other direction for \(\epsilon &lt; 0\) is similar (in fact, easier since we may conclude from the first Borel-Cantelli lemma).
-</p>
-
-<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Zero Sets of Brownian Motion"><h4 id="Zero Sets of Brownian Motion" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Zero Sets of Brownian Motion">Zero Sets of Brownian Motion</a></h4></div>
-
-<p>
-<em>Def</em>: Set \(B_t\) a standard Brownian motion, \(Z = \{ t \mid B_t = 0 \}\), and \(Z_t = Z \cap [0, t]\). Then, \(t \in Z\) is right-isolated if \(t \in Z\), and \(\exists \epsilon &gt; 0\) such that \((t, t + \epsilon) \cap Z = \emptyset\); similar for left-isolated. A point which is both left and right isolated is just isolated.
-</p>
-
-<p>
-With probability \(1\), \(0\) is not right-isolated; further, \(Z_1\) is homeomorphic to the Cantor set.
-</p>
-
-<p>
-With probability 1, the sets of left and right isolated points are countable, and there are no isolated points.
-</p>
-
-<p>
-We can show that if \(q \in \Q_{\geq 0}\), \(P(B_q  = 0) = 0\), and \(\tau_q = \min \{ t \geq q \mid B_t = 0\}\) is a stopping time; further, the left-isolated points are just \(\{ \tau_q \mid q \in \Q_{\geq 0}\}\). And by strong Markov property, no \(\tau_q\) is a right-isolated point, so there are no isolated points.
-</p>
-
-<p>
-Set \(\sigma_q = \max_t \{ t &lt; q \mid B_t = 0 \}\) (this is well-defined, but not a stopping time). Then associate every \(q\) to an interval \((\sigma_q, \tau_q)\); then \(Z = [0, \infty) \setminus \bigcup_q (\sigma_q, \tau_q)\) and has Lesbegue measure 0. To see this, we just interchange integrals:
-</p>
-\[
-  E[ \lambda(Z_1) ] = E\left[ \int_0^1 1_{\{B_s = 0\}} ds \right] = \int_0^1 P\{ B_s = 0 \}ds = 0.
-\]
-
-<p>
-Look at \(Z \cap [1, 2]\); now cover \([1, 2]\) by intervals of length \(n^{-1}\); put the number of these intervals that intersect \(Z\) as \(X_n\). Then,
-</p>
-\[
-  E[X_n] = \sum_{j=1}^n P\left(Z \cap \left[1 + \frac{j-1}{n}, 1 + \frac{j}{n}  \right]\neq \emptyset \right) \sim Cn^{1/2}.
-\]
-
-<p>
-The box or Minkowski dimension of a set is given by the exponent above (sort of).
-</p>
-
-<p>
-<em>Def</em>: The <span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Zero Sets of Brownian Motion-Hausdorff dimension"></span><strong id="Hausdorff dimension">Hausdorff dimension</strong> comes from the <span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Zero Sets of Brownian Motion-Hausdorff measure"></span><strong id="Hausdorff measure">Hausdorff measure</strong>: for \(\epsilon &gt; 0\) and \(\alpha\), set
-</p>
-\[
-  \mathcal H^\alpha_\epsilon = \left\{ \inf \sum_{j=1}^\infty (\operatorname{diam} U_j)^\alpha \right\}
-\]
-<p>
-where the infimum is over all coverings \(\bigcup_j=1^\infty U_j\) of \(V\) with each \(\operatorname{diam} (U_j) &lt; \epsilon\). Then the Hausdorff measure is given by
-</p>
-\[
-  \mathcal H^\alpha(V) = \lim_{\epsilon \to 0} \mathcal H_{\epsilon}^\alpha (V).
-\]
-<p>
-Then, there is some number \(D\) such that
-</p>
-\[
+</span> and choose <span class="math inline">\rho</span> large enough so
+that <span class="math inline">\frac{2 \rho}{\rho - 1}(1-\epsilon) &lt;
+1</span>, and use the estimate <span class="math inline">P(B_1 &gt; x)
+\sim \exp(-x^2 / 2)</span> and conclude by the earlier lemma. The other
+direction for <span class="math inline">\epsilon &lt; 0</span> is
+similar (in fact, easier since we may conclude from the first
+Borel-Cantelli lemma).</p>
+<h4 id="zero-sets-of-brownian-motion">Zero Sets of Brownian Motion</h4>
+<p><em>Def</em>: Set <span class="math inline">B_t</span> a standard
+Brownian motion, <span class="math inline">Z = \{ t \mid B_t = 0
+\}</span>, and <span class="math inline">Z_t = Z \cap [0, t]</span>.
+Then, <span class="math inline">t \in Z</span> is right-isolated if
+<span class="math inline">t \in Z</span>, and <span
+class="math inline">\exists \epsilon &gt; 0</span> such that <span
+class="math inline">(t, t + \epsilon) \cap Z = \emptyset</span>; similar
+for left-isolated. A point which is both left and right isolated is just
+isolated.</p>
+<p>With probability <span class="math inline">1</span>, <span
+class="math inline">0</span> is not right-isolated; further, <span
+class="math inline">Z_1</span> is homeomorphic to the Cantor set.</p>
+<p>With probability 1, the sets of left and right isolated points are
+countable, and there are no isolated points.</p>
+<p>We can show that if <span class="math inline">q \in \mathbb{Q}_{\geq
+0}</span>, <span class="math inline">P(B_q = 0) = 0</span>, and <span
+class="math inline">\tau_q = \min \{ t \geq q \mid B_t = 0\}</span> is a
+stopping time; further, the left-isolated points are just <span
+class="math inline">\{ \tau_q \mid q \in \mathbb{Q}_{\geq 0}\}</span>.
+And by strong Markov property, no <span
+class="math inline">\tau_q</span> is a right-isolated point, so there
+are no isolated points.</p>
+<p>Set <span class="math inline">\sigma_q = \max_t \{ t &lt; q \mid B_t
+= 0 \}</span> (this is well-defined, but not a stopping time). Then
+associate every <span class="math inline">q</span> to an interval <span
+class="math inline">(\sigma_q, \tau_q)</span>; then <span
+class="math inline">Z = [0, \infty) \setminus \bigcup_q (\sigma_q,
+\tau_q)</span> and has Lesbegue measure 0. To see this, we just
+interchange integrals: <span class="math display">
+  E[ \lambda(Z_1) ] = E\left[ \int_0^1 1_{\{B_s = 0\}} ds \right] =
+\int_0^1 P\{ B_s = 0 \}ds = 0.
+</span></p>
+<p>Look at <span class="math inline">Z \cap [1, 2]</span>; now cover
+<span class="math inline">[1, 2]</span> by intervals of length <span
+class="math inline">n^{-1}</span>; put the number of these intervals
+that intersect <span class="math inline">Z</span> as <span
+class="math inline">X_n</span>. Then, <span class="math display">
+  E[X_n] = \sum_{j=1}^n P\left(Z \cap \left[1 + \frac{j-1}{n}, 1 +
+\frac{j}{n}  \right]\neq \emptyset \right) \sim Cn^{1/2}.
+</span></p>
+<p>The box or Minkowski dimension of a set is given by the exponent
+above (sort of).</p>
+<p><em>Def</em>: The <strong>Hausdorff dimension</strong> comes from the
+<strong>Hausdorff measure</strong>: for <span
+class="math inline">\epsilon &gt; 0</span> and <span
+class="math inline">\alpha</span>, set <span class="math display">
+  \mathcal H^\alpha_\epsilon = \left\{ \inf \sum_{j=1}^\infty
+(\operatorname{diam} U_j)^\alpha \right\}
+</span> where the infimum is over all coverings <span
+class="math inline">\bigcup_j=1^\infty U_j</span> of <span
+class="math inline">V</span> with each <span
+class="math inline">\operatorname{diam} (U_j) &lt; \epsilon</span>. Then
+the Hausdorff measure is given by <span class="math display">
+  \mathcal H^\alpha(V) = \lim_{\epsilon \to 0} \mathcal
+H_{\epsilon}^\alpha (V).
+</span> Then, there is some number <span class="math inline">D</span>
+such that <span class="math display">
   \mathcal H^{\alpha}(V) = \begin{cases}
     \infty &amp; \alpha &lt; D \\
     0 &amp; \alpha &gt; D
   \end{cases}
-\]
-<p>
-and we call this \(D\) the Hausdorff dimension. In general, the Hausdorff dimension is at most the Minkowski dimension, but in this case we actually do have equality.
-</p>
-
-<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Local Time"><h4 id="Local Time" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Local Time">Local Time</a></h4></div>
-
-<p>
-The local time is the amount of time the Brownian motion spends at \(0\) by a certain time. It is sort of like the Cantor measure, insofar as if \(s &lt; t\), then \(L_t - L_s &gt; 0 \iff (s, t) \cap Z \neq \emptyset\). 
-</p>
-
-<p>
-<em>Def</em>: We define the <span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Local Time-local time"></span><strong id="local time">local time</strong> of Brownian motion at \(x \in \R\), \(L_t\), by first setting
-</p>
-\[
-  L_{t, \epsilon}(x) = \frac{1}{2\epsilon} \int_0^t 1_{\{|B_s - x| \leq \epsilon\}} ds
-\]
-<p>
-and then letting \(L_t(x) = \lim_{\epsilon \to 0} L_{t, \epsilon}\). We abbreviate \(L_t = L_t(0)\).
-</p>
-
-<p>
-We can compute the expectation
-</p>
-\[
+</span> and we call this <span class="math inline">D</span> the
+Hausdorff dimension. In general, the Hausdorff dimension is at most the
+Minkowski dimension, but in this case we actually do have equality.</p>
+<h4 id="local-time">Local Time</h4>
+<p>The local time is the amount of time the Brownian motion spends at
+<span class="math inline">0</span> by a certain time. It is sort of like
+the Cantor measure, insofar as if <span class="math inline">s &lt;
+t</span>, then <span class="math inline">L_t - L_s &gt; 0 \iff (s, t)
+\cap Z \neq \emptyset</span>.</p>
+<p><em>Def</em>: We define the <strong>local time</strong> of Brownian
+motion at <span class="math inline">x \in \mathbb{R}</span>, <span
+class="math inline">L_t</span>, by first setting <span
+class="math display">
+  L_{t, \epsilon}(x) = \frac{1}{2\epsilon} \int_0^t 1_{\{|B_s - x| \leq
+\epsilon\}} ds
+</span> and then letting <span class="math inline">L_t(x) =
+\lim_{\epsilon \to 0} L_{t, \epsilon}</span>. We abbreviate <span
+class="math inline">L_t = L_t(0)</span>.</p>
+<p>We can compute the expectation <span class="math display">
   \begin{align*}
-    E[L_{t, \epsilon}] &amp;= \frac{1}{2\epsilon} \int_0^t P(|B_s| \leq \epsilon)ds \\
+    E[L_{t, \epsilon}] &amp;= \frac{1}{2\epsilon} \int_0^t P(|B_s| \leq
+\epsilon)ds \\
     &amp;\sim \frac{1}{2\epsilon} \int_0^t 2e \frac{1}{2 \pi s}ds \\
     &amp;= \sqrt{\frac{2}{\pi}}t^{1/2}
   \end{align*}.
-\]
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Local Time-Theorem"></span><strong id="Theorem">Theorem</strong>: With probability 1, \(L_t\) exists for all \(t\), and this holds in \(L^2\) as well.
-</p>
-
-<p>
-There are more facts: \(L_t\) is continuous in \(t\) and nondecreasing, \(L_t - L_s &gt; 0 \iff (s, t) \cap Z \neq \emptyset\), and \(L_t\) is weakly \(\frac{1}{2}\)-Hölder continuous.
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion-Local Time-Theorem (Scaling Rule)"></span><strong id="Theorem (Scaling Rule)">Theorem (Scaling Rule)</strong>: \(L_t\) has the same distribution as \(t^{1/2} L_1\). Further, \(M_t = \max_{ 0 \leq s \leq t}B_s\) has the same distribution as \(L_t\).
-</p>
-
-<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions"><h3 id="Brownian Motion in Several Dimensions" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions">Brownian Motion in Several Dimensions</a></h3></div>
-
-<p>
-<em>Def</em>: If \(B_t^1, \dots, B_t^d\)  are independent standard Brownian motions, then
-</p>
-\[
+</span></p>
+<p><strong>Theorem</strong>: With probability 1, <span
+class="math inline">L_t</span> exists for all <span
+class="math inline">t</span>, and this holds in <span
+class="math inline">L^2</span> as well.</p>
+<p>There are more facts: <span class="math inline">L_t</span> is
+continuous in <span class="math inline">t</span> and nondecreasing,
+<span class="math inline">L_t - L_s &gt; 0 \iff (s, t) \cap Z \neq
+\emptyset</span>, and <span class="math inline">L_t</span> is weakly
+<span class="math inline">\frac{1}{2}</span>-Hölder continuous.</p>
+<p><strong>Theorem (Scaling Rule)</strong>: <span
+class="math inline">L_t</span> has the same distribution as <span
+class="math inline">t^{1/2} L_1</span>. Further, <span
+class="math inline">M_t = \max_{ 0 \leq s \leq t}B_s</span> has the same
+distribution as <span class="math inline">L_t</span>.</p>
+<h3 id="brownian-motion-in-several-dimensions">Brownian Motion in
+Several Dimensions</h3>
+<p><em>Def</em>: If <span class="math inline">B_t^1, \dots, B_t^d</span>
+are independent standard Brownian motions, then <span
+class="math display">
   B_t = (B_t^1, \dots, B_t^d)
-\]
-<p>
-is a standard Brownian motion in \(\R^d\).
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Prop"></span><strong id="Prop">Prop</strong>: \(B_0 = \mathbf 0\), has independent increments, if \(s &lt; t, B_t - B_s \sim N(0, (t-s)I)\), and \(B_t\) has continuous paths.
-</p>
-
-<p>
-In particular, if we have the above with \(B_t - B_s \sim N(\mu, \Gamma)\), then \(B_t\) is a Brownian motion with dift \(\mu \in \R^d\) and covariance matrix \(\Gamma\). Further, if \(AA^T = \Gamma\), then we may write \(B_t = AY_t + t \mu\) for a standard Brownian motion \(Y_t\).
-</p>
-
-<p>
-Consider the open annulus with inner radius \(r\) and outer radius \(R\), e.g. \(D(r, R) = \{ y \in \R^d \mid r &lt; |y| &lt; R \}\). Start a Brownian motion at \(x\), and let \(\tau = \tau(r, R)\) be the first time with \(|B_t| = r\) or \(|B_t| = R\). What is the probability that \(|B_\tau| = R\)?
-</p>
-
-<p>
-In one dimension, this is easy: stop the Brownian motion at \(\tau\) and look at what happens at infinity.
-</p>
-
-<p>
-In higher dimensions, we need a quick detour.
-</p>
-
-<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Harmonic Functions in $\R^d$"><h4 id="Harmonic Functions in $\R^d$" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Harmonic Functions in $\R^d$">Harmonic Functions in \(\R^d\)</a></h4></div>
-
-<p>
-For this section, a domain is an open connected subset of \(\R^d\).
-</p>
-
-<p>
-<em>Def</em>: For a domain \(D\), we say \(f: D \to \R\) is harmonic if it is continuous (or merely locally integrable) and satisfies the mean value property
-</p>
-\[
+</span> is a standard Brownian motion in <span
+class="math inline">\mathbb{R}^d</span>.</p>
+<p><strong>Prop</strong>: <span class="math inline">B_0 = \mathbf
+0</span>, has independent increments, if <span class="math inline">s
+&lt; t, B_t - B_s \sim N(0, (t-s)I)</span>, and <span
+class="math inline">B_t</span> has continuous paths.</p>
+<p>In particular, if we have the above with <span
+class="math inline">B_t - B_s \sim N(\mu, \Gamma)</span>, then <span
+class="math inline">B_t</span> is a Brownian motion with dift <span
+class="math inline">\mu \in \mathbb{R}^d</span> and covariance matrix
+<span class="math inline">\Gamma</span>. Further, if <span
+class="math inline">AA^T = \Gamma</span>, then we may write <span
+class="math inline">B_t = AY_t + t \mu</span> for a standard Brownian
+motion <span class="math inline">Y_t</span>.</p>
+<p>Consider the open annulus with inner radius <span
+class="math inline">r</span> and outer radius <span
+class="math inline">R</span>, e.g. <span class="math inline">D(r, R) =
+\{ y \in \mathbb{R}^d \mid r &lt; |y| &lt; R \}</span>. Start a Brownian
+motion at <span class="math inline">x</span>, and let <span
+class="math inline">\tau = \tau(r, R)</span> be the first time with
+<span class="math inline">|B_t| = r</span> or <span
+class="math inline">|B_t| = R</span>. What is the probability that <span
+class="math inline">|B_\tau| = R</span>?</p>
+<p>In one dimension, this is easy: stop the Brownian motion at <span
+class="math inline">\tau</span> and look at what happens at
+infinity.</p>
+<p>In higher dimensions, we need a quick detour.</p>
+<h4 id="harmonic-functions-in-mathbbrd">Harmonic Functions in <span
+class="math inline">\mathbb{R}^d</span></h4>
+<p>For this section, a domain is an open connected subset of <span
+class="math inline">\mathbb{R}^d</span>.</p>
+<p><em>Def</em>: For a domain <span class="math inline">D</span>, we say
+<span class="math inline">f: D \to \mathbb{R}</span> is harmonic if it
+is continuous (or merely locally integrable) and satisfies the mean
+value property <span class="math display">
   f(x) = MV(f, x, \epsilon) = \int_{|x - y| = \epsilon} f(y) ds
-\]
-<p>
-where \(s\) is the surface measure, normalized so that \(\int_{|x - y| = \epsilon}ds = 1\).
-</p>
-
-<p>
-In a probabilistic vein, if \(B_t\) is a standard \(d\)-dimensional Brownian motion starting at \(x\), and \(\tau = \min \{ t \mid |B_t - x| = \epsilon \}\), since \(B_t\) is rotation invariant, the above is just
-</p>
-\[
+</span> where <span class="math inline">s</span> is the surface measure,
+normalized so that <span class="math inline">\int_{|x - y| = \epsilon}ds
+= 1</span>.</p>
+<p>In a probabilistic vein, if <span class="math inline">B_t</span> is a
+standard <span class="math inline">d</span>-dimensional Brownian motion
+starting at <span class="math inline">x</span>, and <span
+class="math inline">\tau = \min \{ t \mid |B_t - x| = \epsilon
+\}</span>, since <span class="math inline">B_t</span> is rotation
+invariant, the above is just <span class="math display">
   MV(f, x, \epsilon) = E[f(B_\tau)].
-\]
-
-<p>
-<em>Def</em>: The Laplacian of \(f\) is 
-</p>
-\[
+</span></p>
+<p><em>Def</em>: The Laplacian of <span class="math inline">f</span> is
+<span class="math display">
   \nabla f = \sum_{j=1}^d \frac{\partial ^2 f }{\partial x_j^2}.
-\]
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Harmonic Functions in \(\R^d\)-Prop"></span><strong id="Prop">Prop</strong>: If \(f\) is \(C^2\) in \(D\), then 
-</p>
-\[
-  \frac{1}{2d}\nabla f = \lim_{\epsilon \to 0} \frac{MV(f, x, \epsilon) - f(x)}{\epsilon^2}.
-\]
-
-<p>
-<em>Proof</em>: Look at the Taylor expansion.
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Harmonic Functions in \(\R^d\)-Theorem"></span><strong id="Theorem">Theorem</strong>: \(f\) is harmonic in \(D\) if and only if it is in \(C^2\) and \(\nabla f = 0\) everywhere.
-</p>
-
-<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Hitting Probabilities for Brownian Motion"><h4 id="Hitting Probabilities for Brownian Motion" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Hitting Probabilities for Brownian Motion">Hitting Probabilities for Brownian Motion</a></h4></div>
-
-<p>
-Let \(\tau = \tau_{r, R} = \min \{ |B_t| = r \text{ or } R \} = \min \{ t \mid B_t \in \partial D \}\). We will let a superscript \(x\) denote that \(B_0 = x\), and let
-</p>
-\[
-  \phi(x) = P^x(|B_\tau| = R).
-\]
-<p>
-By rotational invariance, \(\phi(x) = \phi(|x|)\), and it is continuous at the boundary; we also clearly have \(\phi(x) = 0\) if \(|x| = r\) and \(\phi(x) = 1\) if \(|x| = R\). The strong Markov property furnishes that \(\phi\) is harmonic. Set \(\tau_\epsilon = \min \{ t \mid |B_t - x| = \epsilon\}\); then
-</p>
-\[
-  P^X(|B_\tau| = R \mid \mathcal F_{\tau_\epsilon}) = \phi(B_{\tau_\epsilon})
-\]
-<p>
-and
-</p>
-\[
-  P^X(|B_\tau| = R) = E^x[P(|B_\tau| = R \mid \mathcal F_{\tau_\epsilon})] = E^x[\phi(B_{\tau_\epsilon})] = MV(\phi, x, \epsilon).
-\]
-<p>
-This list of properties gives a unique function (solve an ODE in polar coordinates), and is given by
-</p>
-\[
-  \phi(x) = \frac{|x|^{2-d} - r^{2-d}}{R^{2-d} - |r|^{2-d}} 
-\]
-<p>
-for \(d \neq 2\) and
-</p>
-\[
-  \phi(x) = \frac{\log|x| - \log r}{\log R - \log r}
-\]
-<p>
-for \(d = 2\).
-</p>
-
-
-<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Recurrence and Transcience of Brownian Motion"><h4 id="Recurrence and Transcience of Brownian Motion" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Recurrence and Transcience of Brownian Motion">Recurrence and Transcience of Brownian Motion</a></h4></div>
-
-<p>
-Let \(B_t\) be a standard Brownian motion in \(\R^d\).
-</p>
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Recurrence and Transcience of Brownian Motion-Theorem"></span><strong id="Theorem">Theorem</strong>: With probability 1, Brownian motion is transient in dimensions at least 3; that is,
-</p>
-\[
+</span></p>
+<p><strong>Prop</strong>: If <span class="math inline">f</span> is <span
+class="math inline">C^2</span> in <span class="math inline">D</span>,
+then <span class="math display">
+  \frac{1}{2d}\nabla f = \lim_{\epsilon \to 0} \frac{MV(f, x, \epsilon)
+- f(x)}{\epsilon^2}.
+</span></p>
+<p><em>Proof</em>: Look at the Taylor expansion.</p>
+<p><strong>Theorem</strong>: <span class="math inline">f</span> is
+harmonic in <span class="math inline">D</span> if and only if it is in
+<span class="math inline">C^2</span> and <span
+class="math inline">\nabla f = 0</span> everywhere.</p>
+<h4 id="hitting-probabilities-for-brownian-motion">Hitting Probabilities
+for Brownian Motion</h4>
+<p>Let <span class="math inline">\tau = \tau_{r, R} = \min \{ |B_t| = r
+\text{ or } R \} = \min \{ t \mid B_t \in \partial D \}</span>. We will
+let a superscript <span class="math inline">x</span> denote that <span
+class="math inline">B_0 = x</span>, and let <span class="math display">
+  \varphi(x) = P^x(|B_\tau| = R).
+</span> By rotational invariance, <span class="math inline">\varphi(x) =
+\varphi(|x|)</span>, and it is continuous at the boundary; we also
+clearly have <span class="math inline">\varphi(x) = 0</span> if <span
+class="math inline">|x| = r</span> and <span
+class="math inline">\varphi(x) = 1</span> if <span
+class="math inline">|x| = R</span>. The strong Markov property furnishes
+that <span class="math inline">\varphi</span> is harmonic. Set <span
+class="math inline">\tau_\epsilon = \min \{ t \mid |B_t - x| =
+\epsilon\}</span>; then <span class="math display">
+  P^X(|B_\tau| = R \mid \mathcal F_{\tau_\epsilon}) =
+\varphi(B_{\tau_\epsilon})
+</span> and <span class="math display">
+  P^X(|B_\tau| = R) = E^x[P(|B_\tau| = R \mid \mathcal
+F_{\tau_\epsilon})] = E^x[\varphi(B_{\tau_\epsilon})] = MV(\varphi, x,
+\epsilon).
+</span> This list of properties gives a unique function (solve an ODE in
+polar coordinates), and is given by <span class="math display">
+  \varphi(x) = \frac{|x|^{2-d} - r^{2-d}}{R^{2-d} - |r|^{2-d}}
+</span> for <span class="math inline">d \neq 2</span> and <span
+class="math display">
+  \varphi(x) = \frac{\log|x| - \log r}{\log R - \log r}
+</span> for <span class="math inline">d = 2</span>.</p>
+<h4 id="recurrence-and-transcience-of-brownian-motion">Recurrence and
+Transcience of Brownian Motion</h4>
+<p>Let <span class="math inline">B_t</span> be a standard Brownian
+motion in <span class="math inline">\mathbb{R}^d</span>.</p>
+<p><strong>Theorem</strong>: With probability 1, Brownian motion is
+transient in dimensions at least 3; that is, <span class="math display">
   \lim_{t \to \infty} |B_t| = \infty.
-\]
-
-<p>
-<em>Proof</em>: If \(d \geq 3\), and we start at \(x\) with \(|x| &gt; r\), if we set \(T_r = \min \{ t \mid |B_t| = r \}\),
-</p>
-\[
-  P^x(T_r &lt; \infty)  = \lim_{R \to \infty} P^X(|B_{\tau_{r, R}}| = r) = \left( \frac{r}{|x|} \right)^{d-2} &lt; 1
-\]
-
-<p>
-<span id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-Recurrence and Transcience of Brownian Motion-Theorem"></span><strong id="Theorem">Theorem</strong>: With probability 1, Brownian motion is neighborhood recurrent; that is, \(\forall z \in \R^2, \epsilon &gt; 0\), Brownian motion visits the disk of radius \(\epsilon\) about \(z\) infinitely often. However, it is not point recurrent, e.g. it hits \(z \neq 0\) with probability 0.
-</p>
-
-<p>
-<em>Proof</em>:  If \(d = 2\), then
-</p>
-\[
-  P^x(T_r &lt; \infty) = \lim_{R \to \infty} P(|B_{\tau_{r, R}}| = r) = 1
-\]
-<p>
-But if \(T = \min\{ t \mid B_t = 0 \}\),
-</p>
-\[
-  P^x(T &lt; \infty) \leq \lim_{R \to \infty} \lim_{r \to 0} P^x(|B_{\tau_{r, R}}| = r) = 0
-\]
-
-<p>
-A fun fact is that if \(d \geq 2\), then \(\{ B_t, t \geq 0 \}\) has Hausdorff dimension \(2\) but also zero Hausdorff-2 measure.
-</p>
-
-<div id="Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-The Dirchlet Problem"><h4 id="The Dirchlet Problem" class="header"><a href="#Brownian Motion and Stochastic Calculus-UChicago STAT 38510, Autumn 2023-Brownian Motion in Several Dimensions-The Dirchlet Problem">The Dirchlet Problem</a></h4></div>
-
-<p>
-Take a bounded domain \(D \subset \R^d\), and a continous function \(F: \partial D \to \R\); the Dirichlet problem is to find the unique continuous \(f: \overline D \to \R\) that agrees with \(F\) on \(\partial D\) and is harmonic on \(D\).
-</p>
-
-<p>
-In fact, uniqueness follows from the maximum principle, which says that the maximum of \(f\) is attained on the boundary (think about the mean value principle). Then subtract two solutions and see that it is 0.
-</p>
-
-<p>
-Let \(T = \min\{t \mid B_t \in \partial D \}\), and \(f(x) = E^x[F(B_T)]\). This satisfies the mean value principle, and in fact continuous (which is kinda hard) but it is obviously locally integrable, so \(f\) here is harmonic.
-</p>
-
-<p>
-In general, such a harmonic function is not necessarily continuous on the boundary: take the example of the punctured unit disk, with \(F(x) = 1\) for \(|x| = 1\) and \(F(0) = 0\). And so everything is fine except at the origin, since \(f(x) = P^x(|B_T| = 1) = 1\).
-</p>
-
-<p>
-<em>Def</em>: If \(x \in \partial D\), let \(\sigma = \inf \{ t &gt; 0 \mid B_t \in \partial D\}\); \(x\) is regular if \(P^x(\sigma = 0) = 1\).
-</p>
-
-    </div>
-    <div class="footer">
-      <p><small>Page created on 2023-10-12</small></p>
-    </div>
+</span></p>
+<p><em>Proof</em>: If <span class="math inline">d \geq 3</span>, and we
+start at <span class="math inline">x</span> with <span
+class="math inline">|x| &gt; r</span>, if we set <span
+class="math inline">T_r = \min \{ t \mid |B_t| = r \}</span>, <span
+class="math display">
+  P^x(T_r &lt; \infty)  = \lim_{R \to \infty} P^X(|B_{\tau_{r, R}}| = r)
+= \left( \frac{r}{|x|} \right)^{d-2} &lt; 1
+</span></p>
+<p><strong>Theorem</strong>: With probability 1, Brownian motion is
+neighborhood recurrent; that is, <span class="math inline">\forall z \in
+\mathbb{R}^2, \epsilon &gt; 0</span>, Brownian motion visits the disk of
+radius <span class="math inline">\epsilon</span> about <span
+class="math inline">z</span> infinitely often. However, it is not point
+recurrent, e.g. it hits <span class="math inline">z \neq 0</span> with
+probability 0.</p>
+<p><em>Proof</em>: If <span class="math inline">d = 2</span>, then <span
+class="math display">
+  P^x(T_r &lt; \infty) = \lim_{R \to \infty} P(|B_{\tau_{r, R}}| = r) =
+1
+</span> But if <span class="math inline">T = \min\{ t \mid B_t = 0
+\}</span>, <span class="math display">
+  P^x(T &lt; \infty) \leq \lim_{R \to \infty} \lim_{r \to 0}
+P^x(|B_{\tau_{r, R}}| = r) = 0
+</span></p>
+<p>A fun fact is that if <span class="math inline">d \geq 2</span>, then
+<span class="math inline">\{ B_t, t \geq 0 \}</span> has Hausdorff
+dimension <span class="math inline">2</span> but also zero Hausdorff-2
+measure.</p>
+<h4 id="the-dirchlet-problem">The Dirchlet Problem</h4>
+<p>Take a bounded domain <span class="math inline">D \subset
+\mathbb{R}^d</span>, and a continous function <span
+class="math inline">F: \partial D \to \mathbb{R}</span>; the Dirichlet
+problem is to find the unique continuous <span class="math inline">f:
+\overline D \to \mathbb{R}</span> that agrees with <span
+class="math inline">F</span> on <span class="math inline">\partial
+D</span> and is harmonic on <span class="math inline">D</span>.</p>
+<p>In fact, uniqueness follows from the maximum principle, which says
+that the maximum of <span class="math inline">f</span> is attained on
+the boundary (think about the mean value principle). Then subtract two
+solutions and see that it is 0.</p>
+<p>Let <span class="math inline">T = \min\{t \mid B_t \in \partial D
+\}</span>, and <span class="math inline">f(x) = E^x[F(B_T)]</span>. This
+satisfies the mean value principle, and in fact continuous (which is
+kinda hard) but it is obviously locally integrable, so <span
+class="math inline">f</span> here is harmonic.</p>
+<p>In general, such a harmonic function is not necessarily continuous on
+the boundary: take the example of the punctured unit disk, with <span
+class="math inline">F(x) = 1</span> for <span class="math inline">|x| =
+1</span> and <span class="math inline">F(0) = 0</span>. And so
+everything is fine except at the origin, since <span
+class="math inline">f(x) = P^x(|B_T| = 1) = 1</span>.</p>
+<p><em>Def</em>: If <span class="math inline">x \in \partial D</span>,
+let <span class="math inline">\sigma = \inf \{ t &gt; 0 \mid B_t \in
+\partial D\}</span>; <span class="math inline">x</span> is regular if
+<span class="math inline">P^x(\sigma = 0) = 1</span>.</p>
+<p><strong>Prop</strong>: <span class="math inline">f</span> as defined
+above is continuous at every regular boundary point.</p>
+<p>Therefore the Dirichlet problem has a solution for every continuous
+<span class="math inline">F</span> if and only if every opint on <span
+class="math inline">\partial D</span> is regular.</p>
 </body>
 </html>
