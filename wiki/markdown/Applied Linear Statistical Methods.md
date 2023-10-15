@@ -45,7 +45,7 @@ Whenever it is unclear, vectors are column vectors.
 
 [Wikipedia](https://en.wikipedia.org/wiki/Simple_linear_regression)
 
-The setup of the simpliest model is as follows.
+The setup of the simplest model is as follows.
 
 Take $x_i \in \mathbb R$ as predictors (alternatively, independent variables, features, etc), and $y_i \in \mathbb R$ as responses (alternatively, outcomes, etc.). Then, we hopes that the response is approximately linear in the predictors, e.g.
 $$
@@ -111,7 +111,7 @@ $$
 There are many different features that one could use.
 
 - Taking a feature to be constantly $1$ is equivalent to adding a constant in our regression.
-- One can take features that are functions of predictors (e.g. polynomals).
+- One can take features that are functions of predictors (e.g. polynomials).
 - You can take $\max \{ x_i - c, 0 \}$ to set a cutoff for a feature.
 
 Notationally, set $y = \bmat{y_1 & \dots & y_n}^T \in \R^n$, $X = \bmat{x_1 & \dots & x_n}^T \in \R^{n \times p}$ where each $x_i$ is considered as column vector, $\beta = \bmat{ \beta_1 & \dots & \beta_n }$ and $\epsilon = \bmat{ \epsilon_1 & \dots & \epsilon_n }^T$ so that our model reduces to
@@ -135,7 +135,7 @@ $$
 Why might $X$ not be invertible? Some examples are
 
 - duplicated features,
-- unit conversions / indentical measurements,
+- unit conversions / identical measurements,
 - batch effects (e.g. one feature is if a patient was given an medication $A$, and another is if a patient was given it by technician $A'$, but it was exactly $A'$ who handed out $A$).
 
 ### OLS as a Projection
@@ -171,7 +171,7 @@ _Example_:
 
 ### Reducing to Simple Linear Regression
   
-If one column $X_{\cdot j}$ is orthogonal to every other feature, then this reduces to simplre linear regressions: 
+If one column $X_{\cdot j}$ is orthogonal to every other feature, then this reduces to simple linear regressions: 
 $$
   \hat \beta_j = \frac{\left\langle X_{\cdot j}, y\right\rangle}{\| X_{\cdot j} \|^2}.
 $$
@@ -240,7 +240,7 @@ $$
 
 We covered a bunch of stuff that you can probably find on Wikipedia.
 
-- [Multivariate Gaussian Distributions](https://en.wikipedia.org/wiki/Multivariate_normal_distribution)
+- [Multivariate Gaussian Distribution](https://en.wikipedia.org/wiki/Multivariate_normal_distribution)
 - [Chi-Square Distribution](https://en.wikipedia.org/wiki/Chi-squared_distribution)
 - [Student-t Distribution](https://en.wikipedia.org/wiki/Student%27s_t-distribution)
 - [F Distribution](https://en.wikipedia.org/wiki/F-distribution)

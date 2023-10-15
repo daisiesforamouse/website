@@ -50,7 +50,7 @@ _Def_: $\| \cdot \| : V \to \mathbb R$ is a **norm** if it satisfies the followi
 - $\|\alpha v\| = |\alpha| \|v\|$ for $\alpha \in \mathbb R$ and $v \in V$,
 - $\|v + w\| \leq \|v\| + \|w\|$ for any $v, w \in V$.
 
-Now, since this is a computational class, we only care about specific norms, almost all of which we can quickly qrite down. 
+Now, since this is a computational class, we only care about specific norms, almost all of which we can quickly write down. 
 
 ### Vector Norms 
 
@@ -237,7 +237,7 @@ $$
 
 _Def_: Furthermore, an **eigenspace** is the span of all eigenvectors correspnding to a single eigenvalue, the **spectrum** of $A$, $\Spec(A)$ is the set of all eigenvalues of $A$, and the **spectral radius** is $\rho(A) = \max_{\lambda \in \Spec(A)} |\lambda| = |\lambda_{\text{max}}|$. Sometimes we will call this the top eigenvector/eigenvalue.
 
-As a convention, usually we implcitly order eigenvalues, e.g. $|\lambda_1| \geq |\lambda_2| \geq \cdots \geq \lambda_n$.
+As a convention, usually we implicitly order eigenvalues, e.g. $|\lambda_1| \geq |\lambda_2| \geq \cdots \geq \lambda_n$.
 
 _Def_: More generally, if $v$ is a eigenvector of $A^T$, we say that $v$ is a **left eigenvector** of $A$ (and thus usual eigenvectors are **right eigenvectors**).
 
@@ -247,7 +247,7 @@ There are a few warnings about these things:
 - we normally normalize eigenvectors to have unit length;
 - left and right eigenvectors are usually not the same.
 
-_Def_: A square matrix $A \in \C^{n \times n}$ is diagonalizable if it is simiarly to a diagonal matrix.
+_Def_: A square matrix $A \in \C^{n \times n}$ is diagonalizable if it is similarly to a diagonal matrix.
 
 **Prop**: $A$ is diagonalizable if and only if it has $n$ linearly independent eigenvectors.
 
@@ -268,9 +268,9 @@ _Def_: A matrix $A \in \C^{n \times n}$ is **normal** if it commutes with its ad
 
 _Def_: $A \in \C^{n \times n}$ is **Hermitian** if $A^* = A$.
 
-**Theorem (Spectral Theorem)**: [Link](https://en.wikipedia.org/wiki/Spectral_theorem ) $A \in \C^{n \times n}$ is Hermetian if and only if $A$ is unitarily diagonalizable with all real eigenvalues.
+**Theorem (Spectral Theorem)**: [Link](https://en.wikipedia.org/wiki/Spectral_theorem ) $A \in \C^{n \times n}$ is Hermitian if and only if $A$ is unitarily diagonalizable with all real eigenvalues.
 
-**Corollary**: $A \in \R^{n \times n}$ is symmetric if and only if it is orthgonally diagonalizable with all eigenvalues real.
+**Corollary**: $A \in \R^{n \times n}$ is symmetric if and only if it is orthogonally diagonalizable with all eigenvalues real.
 
 ### Jordan Canonical Form 
 
@@ -428,7 +428,7 @@ Singular values have a nice property: we have for any singular value $\sigma$ an
 We can read off many important quantities/spaces from the SVD. Let $A = U \Sigma V^*$ be a SVD, with only $r$ nonzero singular values.
 
 - The rank is the number of nonzero singular values.
-- The absolute value of the determinant is the product of the signular values.
+- The absolute value of the determinant is the product of the singular values.
 - The two norm is the maximum singular value.
 - Set $\sigma = (\sigma_1, \dots, \sigma_n)$; then the Frobenius norm of $A$ is $\| \sigma \|_2$, and we call the general case of this the **Schatten norm**, e.g. $\| A \|_{S, p} = \| \sigma \|_p$; the case of $p = 1$ is also called the **nuclear norm**.
 - The Ky Fan $(p, k)$ norm for an integer $1 \leq k \leq \infty$ is 

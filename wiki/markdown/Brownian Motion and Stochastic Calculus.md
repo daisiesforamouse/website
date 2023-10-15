@@ -286,7 +286,7 @@ $$
 $$
 and $Q_n(t) = Q(t, \Pi_n)$ and $Q_n = Q_n(1)$. 
 
-**Theorem**: If $\| \Pi_n \| \to 0$, then $Q_n \to 1$ in probability. Futhermore, if $\sum_{n=1}^\infty \| \Pi_n \| < \infty$, then almost surely $\lim_{n \to \infty} Q_n = 1$.
+**Theorem**: If $\| \Pi_n \| \to 0$, then $Q_n \to 1$ in probability. Furthermore, if $\sum_{n=1}^\infty \| \Pi_n \| < \infty$, then almost surely $\lim_{n \to \infty} Q_n = 1$.
 
 _Proof_: A simple computation gives us that 
 $$
@@ -388,7 +388,7 @@ With probability 1, the sets of left and right isolated points are countable, an
 
 We can show that if $q \in \Q_{\geq 0}$, $P(B_q  = 0) = 0$, and $\tau_q = \min \{ t \geq q \mid B_t = 0\}$ is a stopping time; further, the left-isolated points are just $\{ \tau_q \mid q \in \Q_{\geq 0}\}$. And by strong Markov property, no $\tau_q$ is a right-isolated point, so there are no isolated points.
 
-Set $\sigma_q = \max_t \{ t < q \mid B_t = 0 \}$ (this is well-defined, but not a stopping time). Then associate every $q$ to an interval $(\sigma_q, \tau_q)$; then $Z = [0, \infty) \setminus \bigcup_q (\sigma_q, \tau_q)$ and has Lesbegue measure 0. To see this, we just interchange integrals:
+Set $\sigma_q = \max_t \{ t < q \mid B_t = 0 \}$ (this is well-defined, but not a stopping time). Then associate every $q$ to an interval $(\sigma_q, \tau_q)$; then $Z = [0, \infty) \setminus \bigcup_q (\sigma_q, \tau_q)$ and has Lebesgue measure 0. To see this, we just interchange integrals:
 $$
   E[ \lambda(Z_1) ] = E\left[ \int_0^1 1_{\{B_s = 0\}} ds \right] = \int_0^1 P\{ B_s = 0 \}ds = 0.
 $$
@@ -438,7 +438,7 @@ $$
 
 **Theorem**: With probability 1, $L_t$ exists for all $t$, and this holds in $L^2$ as well.
 
-There are more facts: $L_t$ is continuous in $t$ and nondecreasing, $L_t - L_s > 0 \iff (s, t) \cap Z \neq \emptyset$, and $L_t$ is weakly $\frac{1}{2}$-Hölder continuous.
+There are more facts: $L_t$ is continuous in $t$ and non-decreasing, $L_t - L_s > 0 \iff (s, t) \cap Z \neq \emptyset$, and $L_t$ is weakly $\frac{1}{2}$-Hölder continuous.
 
 **Theorem (Scaling Rule)**: $L_t$ has the same distribution as $t^{1/2} L_1$. Further, $M_t = \max_{ 0 \leq s \leq t}B_s$ has the same distribution as $L_t$.
 
@@ -545,7 +545,7 @@ A fun fact is that if $d \geq 2$, then $\{ B_t, t \geq 0 \}$ has Hausdorff dimen
 
 ###  The Dirchlet Problem 
 
-Take a bounded domain $D \subset \R^d$, and a continous function $F: \partial D \to \R$; the Dirichlet problem is to find the unique continuous $f: \overline D \to \R$ that agrees with $F$ on $\partial D$ and is harmonic on $D$.
+Take a bounded domain $D \subset \R^d$, and a continuous function $F: \partial D \to \R$; the Dirichlet problem is to find the unique continuous $f: \overline D \to \R$ that agrees with $F$ on $\partial D$ and is harmonic on $D$.
 
 In fact, uniqueness follows from the maximum principle, which says that the maximum of $f$ is attained on the boundary (think about the mean value principle). Then subtract two solutions and see that it is 0.
 
@@ -557,4 +557,4 @@ _Def_: If $x \in \partial D$, let $\sigma = \inf \{ t > 0 \mid B_t \in \partial 
 
 **Prop**: $f$ as defined above is continuous at every regular boundary point.
 
-Therefore the Dirichlet problem has a solution for every continuous $F$ if and only if every opint on $\partial D$ is regular.
+Therefore the Dirichlet problem has a solution for every continuous $F$ if and only if every point on $\partial D$ is regular.
