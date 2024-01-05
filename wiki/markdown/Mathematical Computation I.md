@@ -15,6 +15,10 @@ subtitle: 'UChicago STAT 30900, Autumn 2023'
 \DeclareMathOperator{\Tr}{Tr}
 \DeclareMathOperator{\diag}{diag}
 \DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\fl}{fl}
+\DeclareMathOperator{\rcond}{rcond}
 
 \let\temp\phi
 \let\phi\varphi
@@ -421,9 +425,11 @@ $$
   \bmat{ U_r & U_r \\ V_r & -V_r }^*.
 $$
 
-Singular values have a nice property: we have for any singular value $\sigma$ and left singular vector $u$ and right singular value $v$, $Av = \sigma u$ and $A^*v = \sigma v$; thus $u, v$ are eigenvalues of $AA^*$ and $A^*A$ respectively.
+Singular values have a nice property: we have for any singular value $\sigma$ and left singular vector $u$ and right singular vector $v$, $Av = \sigma u$ and $A^*v = \sigma v$; thus $u, v$ are eigenvalues of $AA^*$ and $A^*A$ respectively.
 
-### Applications 
+## Applications of the SVD
+
+----
 
 We can read off many important quantities/spaces from the SVD. Let $A = U \Sigma V^*$ be a SVD, with only $r$ nonzero singular values.
 
@@ -459,8 +465,334 @@ _Def_: In general, the **pseudoinverse** or **Moore-Penrose** inverse of $A \in 
 
 **Prop**: The above gives a unique matrix and is in fact the same as $A^+$ from earlier.
 
-**Prop**: There following statements are true.
+**Prop**: The following statements are true.
 
 - $A^+A$ and $AA^+$ are not necessarily $I$.
 - If $A$ has full column rank $A^+ = (A^*A)^{-1}A$.
 - If $A$ has full row rank, $A^+ = A^*(AA^*)^{-1}$.
+
+### Ridge Regressions
+
+Suppose that we are looking for
+$$
+  \min \|Ax - b\|^2_2 \text{ such that } \|x\|^2_2 \leq \alpha^2
+$$
+which is a ridge regression. Remember that the pseudoinverse $A^+$ gives that $A^+b$ is the minimal norm solution; so if $\|A^+b\| \leq \alpha$, this works. On the other hand, if we have $\|A^+b\| > \alpha$, we first use the fact that the above optimization reduces to one on the boundary $\|x\|_2 = \alpha$. Then take the SVD decomposition $A = U\Sigma V^T$, and look at the Lagrange multiplier condition
+$$
+  A^TAx - A^Tb - \lambda x = 0 \implies x = (A^TA - \lambda I)^{-1}A^Tb
+$$
+and thus, setting $c = U^b$,
+$$
+  \begin{align*}
+    \alpha^2 & = x^Tx \\
+             & = b^TA(A^TA- \lambda I)^{-2}A^Tb \\
+             & = c^T \Sigma(\Sigma^T\Sigma + \lambda I)^{-2}\Sigma^Tc \\
+             & = \sum_{i=1}^r \frac{c_i^2\sigma_i^2}{(\sigma_i^2 + \lambda)^2} = f(\lambda).
+  \end{align*}
+$$ 
+Then, solve $f(\lambda) = \alpha^2$ to get a solution (or really, $f(\lambda)^{-1} = \alpha^{-2}$ since most univariate root finders are bad when things go to infinity). In fact, there are many solutions, but the one we are looking for is actually the biggest solution.
+
+### Matrix Approximation Problems
+
+Suppose that $A \in \R^{n \times n}$; then, we want to solve
+$$
+  \min_{X^T = X} \|A - X\|_F
+$$
+or
+$$
+  \min_{X^TX = 1} \|A - X\|_F
+$$
+or if $A \in \R^{m \times n}$,
+$$
+  \min_{\rank(X) \leq r} \|A - X\|_F.
+$$
+The last problem is very important since rounding error sends every matrix to an invertible matrix, so the above approximates a solution to this problem.
+
+Set
+$$
+  A = \frac{A + A^T}{2} + \frac{A - A^T}{2} = X + Y;
+$$
+then, $X = \frac{A + A^T}{2}$ is the solution to the first problem. Further, we can compute
+$$
+  \tr(X^TY) = 0 
+$$
+and so
+$$
+  \|A\|^2 = \|X + Y\|^2 = \tr(X^TX) + 2\tr(X^TY) + \tr(Y^TY) = \|X\|^2 + \|Y\|^2.
+$$
+In general, we see $\R^{n \times n} = S^2(\R^n) \oplus \Lambda^2(\R^n)$, e.g. the space of all matrices is the direct sum of symmetric and skew symmetric matrices.
+
+In the second problem, take the SVD $A = U\Sigma V^T$ and $Z = U^T X V$ so that
+$$
+\begin{align*}
+  \min_{X^TX = I}\|U \Sigma V^T - X\|_F^2 & = \min_{X^TX = I}\|\Sigma - U^TXV\|^2_F \\
+                                          & = \min_{Z^TZ = I}\| \Sigma - Z \|^2_F \\
+                                          & = \max_{Z^TZ = I} \| \Sigma \|_F^2 - 2 \tr(\Sigma^T Z) + \|Z\|^2_F
+                                          & = \max_{Z^TZ = I} \| \Sigma \|_F^2 - 2 \tr(\Sigma^T Z) + n
+\end{align*}
+$$
+so we just need to maximize $\tr(\Sigma^T Z) = \sum_{i=1}^n \sigma_i z_ii \leq \sum_{i=1}^n \sigma_i$; but this is attained when $Z = I$, so we need $X = UV^2$.
+
+The solution to the last problem is called the Eckhart-Young theorem.
+
+**Theorem (Eckhart-Young)**: Let $A \in \R^{m \times n}$ and let $A = U \Sigma V^T$ be the SVD. Then the solution to $\min_{\rank(X) \leq r} \|A - X\|_2$ is given by dropping all but the first $r$ entries in $\Sigma$.
+
+_Proof_: Suppose not. Then let the solution be called $B$. Then
+$$
+  \|A - X\|_2 = \|U \diag(0, \dots, 0, \sigma_{r+1}, \dots, \sigma_{\min(m, n)}) V^T\|_2 = \sigma_{r + 1}.
+$$
+However, the nullity of $B$ is at least $n - r$; but if we take $W$ to be the span of the first $r+1$ right singular vectors, then any $w \in W$ is
+$$
+  w = V_{r+1}\alpha
+$$
+where $V_{r+1}$ is the first $r+1$ columns of $X$ and $\alpha$ is some vector in $\R^{r+1}$. Then,
+$$
+  \|Aw\|^2 = \| U\Sigma V^T V_{r+1}\alpha \|_2^2 = \sum_{i=1}^{r+1}\sigma_i^2 \|\alpha_i\|^2 \geq \sigma_{r+1}^2 \|w\|^2.
+$$
+But if we pick some $w \in \ker(B)$, then $Aw = (A - B)w$, so
+$$
+  \|Aw\|_2 \leq \|A - B\|\|w\|_2 < \sigma_{r+1}\|w\|_2
+$$
+and since the ranks sum above $r$, we have a contradiction.
+
+The Eckhart-Young-Mirsky theorem extends this to all unitarily invariant norms.
+
+### Total Least Squares / Errors in Variables Regression
+
+Consider a linear system $Ax = b$ with $A$ having full column rank. Then, if this system is not consistent, then we can "solve it" by taking $Ax= b + r$ for some minimal $r$, which is just least squares; alternatively, we can take $(A + E)x = b$, which is the **data least squares**; if we take both, we get the **total least squares** $(A + E)x = b + r$.
+
+In this last problem, we are minimizing $\|E\|_F^2 + \|r\|_2^2$; take $C = \bmat{A & b}$ and $F = \bmat{E & b}$. Then we can restate the constraint to $(C + F)\bmat{x \\ -1} = 0$. Then either $\rank(C) = n$, in which case $b$ is in the span of $A$ and we may take $E = 0, r = 0$, or $\rank(C) = n + 1$. In the latter case, the kernel of $C + F$ is nontrivial, and so $\rank(C + F) \leq n$.
+
+Taking the SVD of both $C$ and $C + F$, we must have that
+$$
+  F = U \diag(0, \dots, 0, \sigma_{n+1}, 0, \dots, 0) V^T.
+$$
+Solve for $z$ in $(C + F)z = 0$, and take a solution so that the last entry is $-1$.
+
+## Floating Point Arithmetic
+
+_Def_: We have a few different types of errors; let $x$ be the real solution and $\hat x$ the computed solution.
+
+- The **forward error** is $\|\hat x - x\|$, 
+- the **relative error** is $\frac{\|\hat x - x\|}{\|x\|}$,
+- the **pointwise error** is $\left\| \frac{x_\cdot - \hat x_{\cdot}}{x_i} \right\|$.
+
+Error is inherent in floating point arithmetic. If there are $n$-bits, there can only be $2^n$ real numbers that are representable; the way this works is by taking each number to be of the form
+$$
+    \mat{ \pm & e_1 & e_2 & \dots & e_l & a_1 & a_2 & \dots & a_k} = \pm a_1.a_2a_3\dots a_k \cdot 2^{e_1e_2\dots e_l}
+$$
+where the $e_i$ are called the exponent and the $a_i$ are called the mantissa.
+
+The exponent is stored as two's complement, and is computed as
+$$
+    e = -e_1\cdot 2^{l - 1} + \sum_{k=1}^{l} e_{k+1}\cdot 2^{l - k}.
+$$
+
+If $a_1 = 1$, it is called normal, and if $a_1 = 0$, it is called subnormal (and since they are in some ways pathological, we ignore them for now).
+
+Double precision corresponds to $n = 64$, $l = 11$, $k = 52$. This includes numbers from $2^{-1024}$ to $2^{1024}$.
+
+Let $F$ be the set of floating point numbers. We have some rounding scheme $\fl: \R \to F$ and some machine $\epsilon$, $\epsilon_{m}$ such that
+$$
+    \epsilon_m = \inf \{ x \in \R \mid x > 0, \fl(1 + x) \neq 1 \}.
+$$
+In double precision, $\epsilon_m = 2^{-52}$.
+
+**Theorem (Kahan)**: For any $x \in [-2^{M}, -2^{m}] \cup [2^m, 2^M]$, there is $x' \in F$ such that $|x - x'| \leq \epsilon_m |x|$. Furthermore, for any $x, y \in F$,
+
+- $\fl(x \pm y) = (x \pm y)(1 + \epsilon_1)$ where $|\epsilon_1| \leq \epsilon_m$,
+- $\fl(xy) = xy(1 + \epsilon_2)$ where $|\epsilon_2| \leq \epsilon_m$,
+- $\fl(x/y) = x/y \cdot (1 + \epsilon_3)$ where $|\epsilon_3| \leq \epsilon_m$.
+
+Unfortunately, $F$ is terrible otherwise: it is not commutative, not associative, and not distributive. We have all types of errors here: for example, round off error is stuff like $\fl(1.1112 \times 10^5) = 1.111 \times 10^5$.
+
+There is also overflow and underflow: when your computations exceed the defined limits of the floating point standard; also cancellation error: double precision claims that
+$$
+    844487^5 + 1288439^5 - 1318202^5 = 0
+$$
+which is about 200 billion off the real answer, but this fits within the non-significant bits of the floating point representation.
+
+### Avoiding Floating Point Error
+
+To compute $\|x\|_2$, you compute $\|x\|_\infty$, compute $y = \frac{x}{\|x\|_\infty}$, and then finally $\|x\|_2 = \|x\|_\infty\|y\|$. The reason to do this is to avoid underflow/overflow.
+
+As another example, consider the sample variance;
+$$
+    s^2 = \frac{1}{n-1} \left( \sum_{i=1}^n x_i^2 - n^{-1} \left( \sum_{i=1}^n x_i \right)^2 \right)
+$$
+is a terrible formula, since it suffers from cancellation error; but
+$$
+    s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar x)^2
+$$
+is fine. Similarly, $x^2 - y^2$ is bad, but $(x + y)(x - y)$ is good. As another example, you would rather compute
+$$
+    x_1 = \frac{-b + \operatorname{sign}(b) \sqrt{b^2 - 4ac}}{2a}
+$$
+and $x_2 = \frac{c}{ax_1}$.
+
+## Conditioning
+
+Conditioning will be a property of the problem.
+
+Suppose you have some problem, such as finding a solution to a linear system $Ax = b$ for some invertible $A$. One thing that we can do is perturb $A$ by a little bit, e.g.
+$$
+    (A + \Delta A)(x + \Delta x) = b + \Delta b;
+$$
+then we want to bound $\|\Delta x\| = \|\hat x - x\|$. A rough answer in this case is possible; in particular suppose $\Delta A = 0$, so that
+$$
+    \|\Delta x\| = \|A^{-1}\Delta b\|.
+$$
+Further, $\|b\| \leq \|A\|\|x\|$, so $\frac{1}{\|x\|} \leq \frac{\|A\|}{\|b\|}$ and
+$$
+    \frac{\|\Delta x\|}{\|x\|} \leq \|A\|\|A^{-1}\|\frac{\|\Delta b\|}{\|b\|}.
+$$
+The quantity $\kappa(A) = \|A\|\|A^{-1}\|$ is so important that it is called the condition number of $A$. In the case of the two norm, it is called the spectral condition number.
+
+Now if the error is instead in $A$, we have that
+$$
+    \frac{\|\Delta x\|}{\|x\|} = \frac{\kappa(A)\frac{\|\Delta A\|}{\|A\|}}{1 - \kappa(A)\frac{\|\Delta A\|}{\|A\|}}.
+$$
+Most generally, we have
+$$
+    \frac{\|\Delta x\|}{\|x\|} \leq \frac{\kappa(A)\left(\frac{\|\Delta A\|}{\|A\|} + \frac{\|\Delta b\|}{\|b\|}\right)}{1 - \kappa(A)\frac{\|\Delta A\|}{\|A\|}}.
+$$
+Thus, if $\frac{\|\Delta A\|}{\|A\|}, \frac{\|\Delta b\|}{\|b\|} \leq \epsilon$ then
+$$
+    \frac{\|\Delta x\|}{\|x\|} \leq \frac{2\epsilon}{1 - \rho}\kappa(A)
+$$
+where $\rho = \kappa(A)\frac{\|\Delta A\|}{\|A\|}$.
+
+
+_Def_: Given any norm $\|\cdot \|: \C^{m \times n} \to \R$, the **condition number of a matrix** $A \in \C^{m \times n}$ is defined by
+$$
+    \kappa_{\|\cdot\|}(A) =  \|A\|\|A^+\|.
+$$
+
+In the case of the spectral norm, this is just the ratio of the largest singular value to the smallest singular value.
+
+We have that in general, $1 \leq \kappa_2(A) < \infty$, and $\kappa_2(A) = 1$ (perfectly conditioned) if and only if it is unitary.
+
+Since you can get invertible matrices that we terribly conditioned, we never care about the determinant or invertibility: we only ever compute $\rcond(A)$ to check for near-singularity, never the determinant.
+
+_Def_: A problem is **well posed** if a solution exists and is unique, and **ill-posed** otherwise. An **instance** of a problem is a selection of parameters that describes the problem further.
+
+_Def_: The **condition number of a problem** is the normalized reciprocal of the distance  to the nearest ill-posed instance.
+
+For example, in the case of solving $Ax = b$, this will be $\frac{\|A\|}{d(A, M)}$, where $M = \{X \in \C^{n \times n} \mid \det(X) = 0 \}$ is the ill-posed manifold.
+
+(Quiz problem: show that $d(A, M) = \|A^{-1}\|^{-1}$).
+
+Luckily, if $A = U\Sigma V^T$, we can see that $\|\Delta A\| = \|\Delta \Sigma\|$ so the SVD is perfectly conditioned and so we will be able to find it to machine precision.
+
+In some sense, every problem gives rise to a map $f: X \to Y$ from input data to an output solution; when the problem is well posed this is a function. When $X, Y$ have norms, then
+$$
+    \kappa_f(x) = \lim_{\delta \to 0} \sup_{\operatorname{RelErr}(x) < \delta}\frac{\operatorname{RelErr}(f(x))}{\operatorname{RelErr}(x)}
+$$
+is the (relative) condition number. Recall that the relative error is 
+$$
+    \operatorname{RelErr}(x) = \frac{\|\Delta x\|}{\|x\|}.
+$$
+Then, we immediately see that
+$$
+    \operatorname{RelErr}(f(x)) \leq \kappa_f(x) \operatorname{RelErr}(x) + o(\operatorname{RelErr}(x))
+$$
+or, with names,
+$$
+    \text{forward error} \lessapprox \text{condition number } \cdot \text{ backward error}
+$$
+
+## Stability
+
+Stability, on the other hand will be a property of an algorithm. As above, each problem is some $f:X \to Y$ sending inputs to solutions; on the other hand, we only have some algorithm $\hat f:X \to Y$.
+
+Suppose that we have some backward error $x + \Delta x$ and some forward error $y + \Delta y$, such that $\hat f(x + \Delta x) = f(x) = y + \Delta y$.
+
+For example, if $A \in \operatorname{GL}(n)$, then the solution to $Ax = b$ is $f(A, b) = A^{-1}b$; for any algorithm $\hat f(A, b) = \hat x$, if we know $A$ exactly, then the forward error is
+$$
+    \|f(A, b) - \hat f(A, b)\| = \|A^{-1} b - \hat x\|
+$$
+and the backward error is 
+$$
+    \|A\hat{x} - b\|.
+$$
+
+If the problem is SVD, then we have $f(A) = (U, \Sigma, V)$; the forward errors are
+$$
+    \|U - \hat U\|, \|V - \hat V\|, \|\Sigma - \hat \Sigma\|
+$$
+but the backward error is just
+$$
+    \|A - \hat U \hat \Sigma \hat V^T\|.
+$$
+
+_Def_: We say an algorithm $\hat f$ is **backwards stable**, if for any $x \in X$, the computed $\hat y = \hat f(x)$ satisfies that
+$$
+    \hat y = f(x + \Delta x), \ \  \|\Delta x\| \leq \delta \|x\|
+$$
+for $\delta$ small.
+
+_Def_: We say that $\hat f$ is **numerically stable** if for any $x \in X$, the computed $\hat y = \hat f(x)$ satisfies
+$$
+    \hat y + \Delta y = f(x + \Delta x), \ \ \|\Delta x\| \leq \delta \|x\|, \|\Delta y\| \leq \delta \|y\|
+$$
+for $\delta, \epsilon$ small.
+
+
+## QR Decomposition
+
+_Def_: Let $A \in \R^{m \times n}$ with $n \leq m$; then we can find a decomposition $A = QR$, where $Q \in O(m)$ is orthogonal and $R \in \R^{m \times n}$ is upper triangular. In particular, we have $R = \bmat{R_1 \\ 0}$ where $R_1$ is upper triangular in $\R^{n \times n}$. If $A$ is of full column rank, then $R_1$ is invertible. This is called the **full $QR$ decomposition**.
+
+_Def_: In the same setup as above, partition $A = \bmat{Q_1 & Q_2}\bmat{R_1 \\ 0} = Q_1R_1$. This is the **condensed $QR$ decomposition**.
+
+_Def_: In the same setup as above, if we take $\rank(A) = r$, then there is a permutation matrix $\Pi$ such that
+$$
+    A\Pi = Q \bmat{R_1 & S \\ 0 & 0}
+$$
+and so
+$$
+    A = Q \bmat{R_2^T & 0 \\ 0 & 0}Z^T \Pi^T
+$$
+where $R_1 \in \C^{r \times r}$ and we get $R_2$ by doing the full $QR$ decomposition on $\bmat{R_1^T \\ S^T} = Z \bmat{R_2 \\ 0}$. This is the **rank-retaining $QR$ decomposition**.
+
+_Def_: For any $A \in \R^{m \times n}$, we may find $A = Q\bmat{L & 0 \\ 0 & 0}U^T$. This is the **complete orthogonal decomposition**.
+
+### Solving Linear Equations
+
+To solve $Ax = b$, we can take $A = QR$ so $Rx = Q^Tb$ and solve using back substitution. Alternatively, let $A\Pi = LU$; then we solve $Ly = b$ with back substitution, $Uz = y$ with forward substitution, and set $x = \Pi z$. 
+
+Linearly constrained least squares problems are problems of the form 
+$$
+    \min\| Ax - b \|, \  \ \text{s.t. } C^Tx = d.
+$$
+where $A \in \R^{m \times n}, b \in \R^n, C \in \R^{n \times p}$, and $d \in \R^p$. 
+
+- We could form the Lagrangian to get
+$$
+    \begin{cases}
+        A^Ax - A^Tb + C\lambda = 0\\
+        C^Tx - d = 0
+    \end{cases}   
+$$
+which is a KKT constraint. Sometimes we care about $\lambda$, and this is fine (though $A^TA$ can often be ill-conditioned).
+- Instead, we may use the QR decomposition: note that $A^TAx = A^Tb - C\lambda$ and thus $x = \hat x - (A^TA)^{-1}C\lambda$, where $\hat x = \argmin \|Ax - b\|_2$. Then, since $C^Tx = d$, we must have that
+$$
+    C^T(A^TA)^{-1}C\lambda = C^T\hat x - d.
+$$
+To avoid $A^TA$, set $A = Q\bmat{R \\ 0}$, set $W = R^{-T}C$ via backsubstitution, take the QR $W = Q_1R_1$, set $\eta = C^T \hat x - d$ and finally solve $R_1^TR_1 \lambda = \eta$ via backsubstitution.
+
+- If we do not want to compute $\lambda$, if we take $p \leq n$, let $C = Q_2 \bmat{R_2 \\ 0}$, so that $\bmat{R_2^T & 0}Q_2^Tx = d$. Thus, if we take $Q_2^Tx = \bmat{u \\ v}$, we backsolve for $u$ such that $R_2^Tu = d$, we know that
+$$
+    \|b - Ax\|^2 = \|b - AQ_2Q_2^Tx\|^2 = \left\|b - \bmat{A_1 & A_2} \bmat{u \\ v}\right\|^2 = \|b - A_1u - A_2v\|_2^2.
+$$
+
+### Computing QR, LU, CO Decompositions
+
+Either use Householder reflections or Givens rotations to compute QR. Compute the complete orthogonal decomposition via two QR decompositions. Compute the LU decomposition via Gauss/elimination matrices.
+
+### Multiple RHS
+
+Suppose that we have some sequence of equations $Ax_i = b_i$. In this case, we form $B = \mat{b_1 & b_2 & \dots & b_n}$ and solve $AX = B$. Everything from before carries through to $X = A^+B$, where $A^+$ is the pseudoinverse.
+
+### Low Rank Updates
+
+If you have a low-rank error, e.g. you solved $Ax = b$ but in fact needed $\hat A = A + uv^T$ instead, then you can solve the new system efficiently by using the Sherman-Morrison formula, or in general the Woodbury formula for higher rank corrections.

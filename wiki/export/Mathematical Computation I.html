@@ -59,6 +59,14 @@ Eigenvectors</a></li>
 <li><a href="#singular-value-decomposition"
 id="toc-singular-value-decomposition">Singular Value
 Decomposition</a></li>
+<li><a href="#applications-of-the-svd"
+id="toc-applications-of-the-svd">Applications of the SVD</a></li>
+<li><a href="#floating-point-arithmetic"
+id="toc-floating-point-arithmetic">Floating Point Arithmetic</a></li>
+<li><a href="#conditioning" id="toc-conditioning">Conditioning</a></li>
+<li><a href="#stability" id="toc-stability">Stability</a></li>
+<li><a href="#qr-decomposition" id="toc-qr-decomposition">QR
+Decomposition</a></li>
 </ul>
 </nav>
 <hr>
@@ -589,13 +597,14 @@ you look carefully you get the compact SVD: <span class="math display">
 </span></p>
 <p>Singular values have a nice property: we have for any singular value
 <span class="math inline">\sigma</span> and left singular vector <span
-class="math inline">u</span> and right singular value <span
+class="math inline">u</span> and right singular vector <span
 class="math inline">v</span>, <span class="math inline">Av = \sigma
 u</span> and <span class="math inline">A^*v = \sigma v</span>; thus
 <span class="math inline">u, v</span> are eigenvalues of <span
 class="math inline">AA^*</span> and <span
 class="math inline">A^*A</span> respectively.</p>
-<h4 id="applications">Applications</h4>
+<h3 id="applications-of-the-svd">Applications of the SVD</h3>
+<hr />
 <p>We can read off many important quantities/spaces from the SVD. Let
 <span class="math inline">A = U \Sigma V^*</span> be a SVD, with only
 <span class="math inline">r</span> nonzero singular values.</p>
@@ -663,7 +672,7 @@ K^{n \times m}</span> that satisfies</p>
 </ul>
 <p><strong>Prop</strong>: The above gives a unique matrix and is in fact
 the same as <span class="math inline">A^+</span> from earlier.</p>
-<p><strong>Prop</strong>: There following statements are true.</p>
+<p><strong>Prop</strong>: The following statements are true.</p>
 <ul class="incremental">
 <li><span class="math inline">A^+A</span> and <span
 class="math inline">AA^+</span> are not necessarily <span
@@ -673,5 +682,480 @@ class="math inline">A^+ = (A^*A)^{-1}A</span>.</li>
 <li>If <span class="math inline">A</span> has full row rank, <span
 class="math inline">A^+ = A^*(AA^*)^{-1}</span>.</li>
 </ul>
+<h4 id="ridge-regressions">Ridge Regressions</h4>
+<p>Suppose that we are looking for <span class="math display">
+  \min \|Ax - b\|^2_2 \text{ such that } \|x\|^2_2 \leq \alpha^2
+</span> which is a ridge regression. Remember that the pseudoinverse
+<span class="math inline">A^+</span> gives that <span
+class="math inline">A^+b</span> is the minimal norm solution; so if
+<span class="math inline">\|A^+b\| \leq \alpha</span>, this works. On
+the other hand, if we have <span class="math inline">\|A^+b\| &gt;
+\alpha</span>, we first use the fact that the above optimization reduces
+to one on the boundary <span class="math inline">\|x\|_2 =
+\alpha</span>. Then take the SVD decomposition <span
+class="math inline">A = U\Sigma V^T</span>, and look at the Lagrange
+multiplier condition <span class="math display">
+  A^TAx - A^Tb - \lambda x = 0 \implies x = (A^TA - \lambda I)^{-1}A^Tb
+</span> and thus, setting <span class="math inline">c = U^b</span>,
+<span class="math display">
+  \begin{align*}
+    \alpha^2 &amp; = x^Tx \\
+             &amp; = b^TA(A^TA- \lambda I)^{-2}A^Tb \\
+             &amp; = c^T \Sigma(\Sigma^T\Sigma + \lambda
+I)^{-2}\Sigma^Tc \\
+             &amp; = \sum_{i=1}^r \frac{c_i^2\sigma_i^2}{(\sigma_i^2 +
+\lambda)^2} = f(\lambda).
+  \end{align*}
+</span> Then, solve <span class="math inline">f(\lambda) =
+\alpha^2</span> to get a solution (or really, <span
+class="math inline">f(\lambda)^{-1} = \alpha^{-2}</span> since most
+univariate root finders are bad when things go to infinity). In fact,
+there are many solutions, but the one we are looking for is actually the
+biggest solution.</p>
+<h4 id="matrix-approximation-problems">Matrix Approximation
+Problems</h4>
+<p>Suppose that <span class="math inline">A \in \mathbb{R}^{n \times
+n}</span>; then, we want to solve <span class="math display">
+  \min_{X^T = X} \|A - X\|_F
+</span> or <span class="math display">
+  \min_{X^TX = 1} \|A - X\|_F
+</span> or if <span class="math inline">A \in \mathbb{R}^{m \times
+n}</span>, <span class="math display">
+  \min_{\mathop{\mathrm{rank}}(X) \leq r} \|A - X\|_F.
+</span> The last problem is very important since rounding error sends
+every matrix to an invertible matrix, so the above approximates a
+solution to this problem.</p>
+<p>Set <span class="math display">
+  A = \frac{A + A^T}{2} + \frac{A - A^T}{2} = X + Y;
+</span> then, <span class="math inline">X = \frac{A + A^T}{2}</span> is
+the solution to the first problem. Further, we can compute <span
+class="math display">
+  \mathop{\mathrm{tr}}(X^TY) = 0
+</span> and so <span class="math display">
+  \|A\|^2 = \|X + Y\|^2 = \mathop{\mathrm{tr}}(X^TX) +
+2\mathop{\mathrm{tr}}(X^TY) + \mathop{\mathrm{tr}}(Y^TY) = \|X\|^2 +
+\|Y\|^2.
+</span> In general, we see <span class="math inline">\mathbb{R}^{n
+\times n} = S^2(\mathbb{R}^n) \oplus \Lambda^2(\mathbb{R}^n)</span>,
+e.g. the space of all matrices is the direct sum of symmetric and skew
+symmetric matrices.</p>
+<p>In the second problem, take the SVD <span class="math inline">A =
+U\Sigma V^T</span> and <span class="math inline">Z = U^T X V</span> so
+that <span class="math display">
+\begin{align*}
+  \min_{X^TX = I}\|U \Sigma V^T - X\|_F^2 &amp; = \min_{X^TX =
+I}\|\Sigma - U^TXV\|^2_F \\
+                                          &amp; = \min_{Z^TZ = I}\|
+\Sigma - Z \|^2_F \\
+                                          &amp; = \max_{Z^TZ = I} \|
+\Sigma \|_F^2 - 2 \mathop{\mathrm{tr}}(\Sigma^T Z) + \|Z\|^2_F
+                                          &amp; = \max_{Z^TZ = I} \|
+\Sigma \|_F^2 - 2 \mathop{\mathrm{tr}}(\Sigma^T Z) + n
+\end{align*}
+</span> so we just need to maximize <span
+class="math inline">\mathop{\mathrm{tr}}(\Sigma^T Z) = \sum_{i=1}^n
+\sigma_i z_ii \leq \sum_{i=1}^n \sigma_i</span>; but this is attained
+when <span class="math inline">Z = I</span>, so we need <span
+class="math inline">X = UV^2</span>.</p>
+<p>The solution to the last problem is called the Eckhart-Young
+theorem.</p>
+<p><strong>Theorem (Eckhart-Young)</strong>: Let <span
+class="math inline">A \in \mathbb{R}^{m \times n}</span> and let <span
+class="math inline">A = U \Sigma V^T</span> be the SVD. Then the
+solution to <span class="math inline">\min_{\mathop{\mathrm{rank}}(X)
+\leq r} \|A - X\|_2</span> is given by dropping all but the first <span
+class="math inline">r</span> entries in <span
+class="math inline">\Sigma</span>.</p>
+<p><em>Proof</em>: Suppose not. Then let the solution be called <span
+class="math inline">B</span>. Then <span class="math display">
+  \|A - X\|_2 = \|U \mathop{\mathrm{diag}}(0, \dots, 0, \sigma_{r+1},
+\dots, \sigma_{\min(m, n)}) V^T\|_2 = \sigma_{r + 1}.
+</span> However, the nullity of <span class="math inline">B</span> is at
+least <span class="math inline">n - r</span>; but if we take <span
+class="math inline">W</span> to be the span of the first <span
+class="math inline">r+1</span> right singular vectors, then any <span
+class="math inline">w \in W</span> is <span class="math display">
+  w = V_{r+1}\alpha
+</span> where <span class="math inline">V_{r+1}</span> is the first
+<span class="math inline">r+1</span> columns of <span
+class="math inline">X</span> and <span class="math inline">\alpha</span>
+is some vector in <span class="math inline">\mathbb{R}^{r+1}</span>.
+Then, <span class="math display">
+  \|Aw\|^2 = \| U\Sigma V^T V_{r+1}\alpha \|_2^2 =
+\sum_{i=1}^{r+1}\sigma_i^2 \|\alpha_i\|^2 \geq \sigma_{r+1}^2 \|w\|^2.
+</span> But if we pick some <span class="math inline">w \in
+\ker(B)</span>, then <span class="math inline">Aw = (A - B)w</span>, so
+<span class="math display">
+  \|Aw\|_2 \leq \|A - B\|\|w\|_2 &lt; \sigma_{r+1}\|w\|_2
+</span> and since the ranks sum above <span
+class="math inline">r</span>, we have a contradiction.</p>
+<p>The Eckhart-Young-Mirsky theorem extends this to all unitarily
+invariant norms.</p>
+<h4 id="total-least-squares-errors-in-variables-regression">Total Least
+Squares / Errors in Variables Regression</h4>
+<p>Consider a linear system <span class="math inline">Ax = b</span> with
+<span class="math inline">A</span> having full column rank. Then, if
+this system is not consistent, then we can “solve it” by taking <span
+class="math inline">Ax= b + r</span> for some minimal <span
+class="math inline">r</span>, which is just least squares;
+alternatively, we can take <span class="math inline">(A + E)x =
+b</span>, which is the <strong>data least squares</strong>; if we take
+both, we get the <strong>total least squares</strong> <span
+class="math inline">(A + E)x = b + r</span>.</p>
+<p>In this last problem, we are minimizing <span
+class="math inline">\|E\|_F^2 + \|r\|_2^2</span>; take <span
+class="math inline">C = \left[\begin{matrix}A &amp;
+b\end{matrix}\right]</span> and <span class="math inline">F =
+\left[\begin{matrix}E &amp; b\end{matrix}\right]</span>. Then we can
+restate the constraint to <span class="math inline">(C +
+F)\left[\begin{matrix}x \\ -1\end{matrix}\right] = 0</span>. Then either
+<span class="math inline">\mathop{\mathrm{rank}}(C) = n</span>, in which
+case <span class="math inline">b</span> is in the span of <span
+class="math inline">A</span> and we may take <span class="math inline">E
+= 0, r = 0</span>, or <span
+class="math inline">\mathop{\mathrm{rank}}(C) = n + 1</span>. In the
+latter case, the kernel of <span class="math inline">C + F</span> is
+nontrivial, and so <span class="math inline">\mathop{\mathrm{rank}}(C +
+F) \leq n</span>.</p>
+<p>Taking the SVD of both <span class="math inline">C</span> and <span
+class="math inline">C + F</span>, we must have that <span
+class="math display">
+  F = U \mathop{\mathrm{diag}}(0, \dots, 0, \sigma_{n+1}, 0, \dots, 0)
+V^T.
+</span> Solve for <span class="math inline">z</span> in <span
+class="math inline">(C + F)z = 0</span>, and take a solution so that the
+last entry is <span class="math inline">-1</span>.</p>
+<h3 id="floating-point-arithmetic">Floating Point Arithmetic</h3>
+<p><em>Def</em>: We have a few different types of errors; let <span
+class="math inline">x</span> be the real solution and <span
+class="math inline">\hat x</span> the computed solution.</p>
+<ul class="incremental">
+<li>The <strong>forward error</strong> is <span
+class="math inline">\|\hat x - x\|</span>,</li>
+<li>the <strong>relative error</strong> is <span
+class="math inline">\frac{\|\hat x - x\|}{\|x\|}</span>,</li>
+<li>the <strong>pointwise error</strong> is <span
+class="math inline">\left\| \frac{x_\cdot - \hat x_{\cdot}}{x_i}
+\right\|</span>.</li>
+</ul>
+<p>Error is inherent in floating point arithmetic. If there are <span
+class="math inline">n</span>-bits, there can only be <span
+class="math inline">2^n</span> real numbers that are representable; the
+way this works is by taking each number to be of the form <span
+class="math display">
+    \begin{matrix} \pm &amp; e_1 &amp; e_2 &amp; \dots &amp; e_l &amp;
+a_1 &amp; a_2 &amp; \dots &amp; a_k\end{matrix} = \pm a_1.a_2a_3\dots
+a_k \cdot 2^{e_1e_2\dots e_l}
+</span> where the <span class="math inline">e_i</span> are called the
+exponent and the <span class="math inline">a_i</span> are called the
+mantissa.</p>
+<p>The exponent is stored as two’s complement, and is computed as <span
+class="math display">
+    e = -e_1\cdot 2^{l - 1} + \sum_{k=1}^{l} e_{k+1}\cdot 2^{l - k}.
+</span></p>
+<p>If <span class="math inline">a_1 = 1</span>, it is called normal, and
+if <span class="math inline">a_1 = 0</span>, it is called subnormal (and
+since they are in some ways pathological, we ignore them for now).</p>
+<p>Double precision corresponds to <span class="math inline">n =
+64</span>, <span class="math inline">l = 11</span>, <span
+class="math inline">k = 52</span>. This includes numbers from <span
+class="math inline">2^{-1024}</span> to <span
+class="math inline">2^{1024}</span>.</p>
+<p>Let <span class="math inline">F</span> be the set of floating point
+numbers. We have some rounding scheme <span
+class="math inline">\mathop{\mathrm{fl}}: \mathbb{R}\to F</span> and
+some machine <span class="math inline">\epsilon</span>, <span
+class="math inline">\epsilon_{m}</span> such that <span
+class="math display">
+    \epsilon_m = \inf \{ x \in \mathbb{R}\mid x &gt; 0,
+\mathop{\mathrm{fl}}(1 + x) \neq 1 \}.
+</span> In double precision, <span class="math inline">\epsilon_m =
+2^{-52}</span>.</p>
+<p><strong>Theorem (Kahan)</strong>: For any <span class="math inline">x
+\in [-2^{M}, -2^{m}] \cup [2^m, 2^M]</span>, there is <span
+class="math inline">x&#39; \in F</span> such that <span
+class="math inline">|x - x&#39;| \leq \epsilon_m |x|</span>.
+Furthermore, for any <span class="math inline">x, y \in F</span>,</p>
+<ul class="incremental">
+<li><span class="math inline">\mathop{\mathrm{fl}}(x \pm y) = (x \pm
+y)(1 + \epsilon_1)</span> where <span class="math inline">|\epsilon_1|
+\leq \epsilon_m</span>,</li>
+<li><span class="math inline">\mathop{\mathrm{fl}}(xy) = xy(1 +
+\epsilon_2)</span> where <span class="math inline">|\epsilon_2| \leq
+\epsilon_m</span>,</li>
+<li><span class="math inline">\mathop{\mathrm{fl}}(x/y) = x/y \cdot (1 +
+\epsilon_3)</span> where <span class="math inline">|\epsilon_3| \leq
+\epsilon_m</span>.</li>
+</ul>
+<p>Unfortunately, <span class="math inline">F</span> is terrible
+otherwise: it is not commutative, not associative, and not distributive.
+We have all types of errors here: for example, round off error is stuff
+like <span class="math inline">\mathop{\mathrm{fl}}(1.1112 \times 10^5)
+= 1.111 \times 10^5</span>.</p>
+<p>There is also overflow and underflow: when your computations exceed
+the defined limits of the floating point standard; also cancellation
+error: double precision claims that <span class="math display">
+    844487^5 + 1288439^5 - 1318202^5 = 0
+</span> which is about 200 billion off the real answer, but this fits
+within the non-significant bits of the floating point
+representation.</p>
+<h4 id="avoiding-floating-point-error">Avoiding Floating Point
+Error</h4>
+<p>To compute <span class="math inline">\|x\|_2</span>, you compute
+<span class="math inline">\|x\|_\infty</span>, compute <span
+class="math inline">y = \frac{x}{\|x\|_\infty}</span>, and then finally
+<span class="math inline">\|x\|_2 = \|x\|_\infty\|y\|</span>. The reason
+to do this is to avoid underflow/overflow.</p>
+<p>As another example, consider the sample variance; <span
+class="math display">
+    s^2 = \frac{1}{n-1} \left( \sum_{i=1}^n x_i^2 - n^{-1} \left(
+\sum_{i=1}^n x_i \right)^2 \right)
+</span> is a terrible formula, since it suffers from cancellation error;
+but <span class="math display">
+    s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar x)^2
+</span> is fine. Similarly, <span class="math inline">x^2 - y^2</span>
+is bad, but <span class="math inline">(x + y)(x - y)</span> is good. As
+another example, you would rather compute <span class="math display">
+    x_1 = \frac{-b + \operatorname{sign}(b) \sqrt{b^2 - 4ac}}{2a}
+</span> and <span class="math inline">x_2 = \frac{c}{ax_1}</span>.</p>
+<h3 id="conditioning">Conditioning</h3>
+<p>Conditioning will be a property of the problem.</p>
+<p>Suppose you have some problem, such as finding a solution to a linear
+system <span class="math inline">Ax = b</span> for some invertible <span
+class="math inline">A</span>. One thing that we can do is perturb <span
+class="math inline">A</span> by a little bit, e.g. <span
+class="math display">
+    (A + \Delta A)(x + \Delta x) = b + \Delta b;
+</span> then we want to bound <span class="math inline">\|\Delta x\| =
+\|\hat x - x\|</span>. A rough answer in this case is possible; in
+particular suppose <span class="math inline">\Delta A = 0</span>, so
+that <span class="math display">
+    \|\Delta x\| = \|A^{-1}\Delta b\|.
+</span> Further, <span class="math inline">\|b\| \leq \|A\|\|x\|</span>,
+so <span class="math inline">\frac{1}{\|x\|} \leq
+\frac{\|A\|}{\|b\|}</span> and <span class="math display">
+    \frac{\|\Delta x\|}{\|x\|} \leq \|A\|\|A^{-1}\|\frac{\|\Delta
+b\|}{\|b\|}.
+</span> The quantity <span class="math inline">\kappa(A) =
+\|A\|\|A^{-1}\|</span> is so important that it is called the condition
+number of <span class="math inline">A</span>. In the case of the two
+norm, it is called the spectral condition number.</p>
+<p>Now if the error is instead in <span class="math inline">A</span>, we
+have that <span class="math display">
+    \frac{\|\Delta x\|}{\|x\|} = \frac{\kappa(A)\frac{\|\Delta
+A\|}{\|A\|}}{1 - \kappa(A)\frac{\|\Delta A\|}{\|A\|}}.
+</span> Most generally, we have <span class="math display">
+    \frac{\|\Delta x\|}{\|x\|} \leq \frac{\kappa(A)\left(\frac{\|\Delta
+A\|}{\|A\|} + \frac{\|\Delta b\|}{\|b\|}\right)}{1 -
+\kappa(A)\frac{\|\Delta A\|}{\|A\|}}.
+</span> Thus, if <span class="math inline">\frac{\|\Delta A\|}{\|A\|},
+\frac{\|\Delta b\|}{\|b\|} \leq \epsilon</span> then <span
+class="math display">
+    \frac{\|\Delta x\|}{\|x\|} \leq \frac{2\epsilon}{1 - \rho}\kappa(A)
+</span> where <span class="math inline">\rho = \kappa(A)\frac{\|\Delta
+A\|}{\|A\|}</span>.</p>
+<p><em>Def</em>: Given any norm <span class="math inline">\|\cdot \|:
+\mathbb{C}^{m \times n} \to \mathbb{R}</span>, the <strong>condition
+number of a matrix</strong> <span class="math inline">A \in
+\mathbb{C}^{m \times n}</span> is defined by <span class="math display">
+    \kappa_{\|\cdot\|}(A) =  \|A\|\|A^+\|.
+</span></p>
+<p>In the case of the spectral norm, this is just the ratio of the
+largest singular value to the smallest singular value.</p>
+<p>We have that in general, <span class="math inline">1 \leq \kappa_2(A)
+&lt; \infty</span>, and <span class="math inline">\kappa_2(A) = 1</span>
+(perfectly conditioned) if and only if it is unitary.</p>
+<p>Since you can get invertible matrices that we terribly conditioned,
+we never care about the determinant or invertibility: we only ever
+compute <span class="math inline">\mathop{\mathrm{rcond}}(A)</span> to
+check for near-singularity, never the determinant.</p>
+<p><em>Def</em>: A problem is <strong>well posed</strong> if a solution
+exists and is unique, and <strong>ill-posed</strong> otherwise. An
+<strong>instance</strong> of a problem is a selection of parameters that
+describes the problem further.</p>
+<p><em>Def</em>: The <strong>condition number of a problem</strong> is
+the normalized reciprocal of the distance to the nearest ill-posed
+instance.</p>
+<p>For example, in the case of solving <span class="math inline">Ax =
+b</span>, this will be <span class="math inline">\frac{\|A\|}{d(A,
+M)}</span>, where <span class="math inline">M = \{X \in \mathbb{C}^{n
+\times n} \mid \det(X) = 0 \}</span> is the ill-posed manifold.</p>
+<p>(Quiz problem: show that <span class="math inline">d(A, M) =
+\|A^{-1}\|^{-1}</span>).</p>
+<p>Luckily, if <span class="math inline">A = U\Sigma V^T</span>, we can
+see that <span class="math inline">\|\Delta A\| = \|\Delta
+\Sigma\|</span> so the SVD is perfectly conditioned and so we will be
+able to find it to machine precision.</p>
+<p>In some sense, every problem gives rise to a map <span
+class="math inline">f: X \to Y</span> from input data to an output
+solution; when the problem is well posed this is a function. When <span
+class="math inline">X, Y</span> have norms, then <span
+class="math display">
+    \kappa_f(x) = \lim_{\delta \to 0} \sup_{\operatorname{RelErr}(x)
+&lt; \delta}\frac{\operatorname{RelErr}(f(x))}{\operatorname{RelErr}(x)}
+</span> is the (relative) condition number. Recall that the relative
+error is <span class="math display">
+    \operatorname{RelErr}(x) = \frac{\|\Delta x\|}{\|x\|}.
+</span> Then, we immediately see that <span class="math display">
+    \operatorname{RelErr}(f(x)) \leq \kappa_f(x)
+\operatorname{RelErr}(x) + o(\operatorname{RelErr}(x))
+</span> or, with names, <span class="math display">
+    \text{forward error} \lessapprox \text{condition number } \cdot
+\text{ backward error}
+</span></p>
+<h3 id="stability">Stability</h3>
+<p>Stability, on the other hand will be a property of an algorithm. As
+above, each problem is some <span class="math inline">f:X \to Y</span>
+sending inputs to solutions; on the other hand, we only have some
+algorithm <span class="math inline">\hat f:X \to Y</span>.</p>
+<p>Suppose that we have some backward error <span class="math inline">x
++ \Delta x</span> and some forward error <span class="math inline">y +
+\Delta y</span>, such that <span class="math inline">\hat f(x + \Delta
+x) = f(x) = y + \Delta y</span>.</p>
+<p>For example, if <span class="math inline">A \in
+\operatorname{GL}(n)</span>, then the solution to <span
+class="math inline">Ax = b</span> is <span class="math inline">f(A, b) =
+A^{-1}b</span>; for any algorithm <span class="math inline">\hat f(A, b)
+= \hat x</span>, if we know <span class="math inline">A</span> exactly,
+then the forward error is <span class="math display">
+    \|f(A, b) - \hat f(A, b)\| = \|A^{-1} b - \hat x\|
+</span> and the backward error is <span class="math display">
+    \|A\hat{x} - b\|.
+</span></p>
+<p>If the problem is SVD, then we have <span class="math inline">f(A) =
+(U, \Sigma, V)</span>; the forward errors are <span
+class="math display">
+    \|U - \hat U\|, \|V - \hat V\|, \|\Sigma - \hat \Sigma\|
+</span> but the backward error is just <span class="math display">
+    \|A - \hat U \hat \Sigma \hat V^T\|.
+</span></p>
+<p><em>Def</em>: We say an algorithm <span class="math inline">\hat
+f</span> is <strong>backwards stable</strong>, if for any <span
+class="math inline">x \in X</span>, the computed <span
+class="math inline">\hat y = \hat f(x)</span> satisfies that <span
+class="math display">
+    \hat y = f(x + \Delta x), \ \  \|\Delta x\| \leq \delta \|x\|
+</span> for <span class="math inline">\delta</span> small.</p>
+<p><em>Def</em>: We say that <span class="math inline">\hat f</span> is
+<strong>numerically stable</strong> if for any <span
+class="math inline">x \in X</span>, the computed <span
+class="math inline">\hat y = \hat f(x)</span> satisfies <span
+class="math display">
+    \hat y + \Delta y = f(x + \Delta x), \ \ \|\Delta x\| \leq \delta
+\|x\|, \|\Delta y\| \leq \delta \|y\|
+</span> for <span class="math inline">\delta, \epsilon</span> small.</p>
+<h3 id="qr-decomposition">QR Decomposition</h3>
+<p><em>Def</em>: Let <span class="math inline">A \in \mathbb{R}^{m
+\times n}</span> with <span class="math inline">n \leq m</span>; then we
+can find a decomposition <span class="math inline">A = QR</span>, where
+<span class="math inline">Q \in O(m)</span> is orthogonal and <span
+class="math inline">R \in \mathbb{R}^{m \times n}</span> is upper
+triangular. In particular, we have <span class="math inline">R =
+\left[\begin{matrix}R_1 \\ 0\end{matrix}\right]</span> where <span
+class="math inline">R_1</span> is upper triangular in <span
+class="math inline">\mathbb{R}^{n \times n}</span>. If <span
+class="math inline">A</span> is of full column rank, then <span
+class="math inline">R_1</span> is invertible. This is called the
+<strong>full <span class="math inline">QR</span>
+decomposition</strong>.</p>
+<p><em>Def</em>: In the same setup as above, partition <span
+class="math inline">A = \left[\begin{matrix}Q_1 &amp;
+Q_2\end{matrix}\right]\left[\begin{matrix}R_1 \\ 0\end{matrix}\right] =
+Q_1R_1</span>. This is the <strong>condensed <span
+class="math inline">QR</span> decomposition</strong>.</p>
+<p><em>Def</em>: In the same setup as above, if we take <span
+class="math inline">\mathop{\mathrm{rank}}(A) = r</span>, then there is
+a permutation matrix <span class="math inline">\Pi</span> such that
+<span class="math display">
+    A\Pi = Q \left[\begin{matrix}R_1 &amp; S \\ 0 &amp;
+0\end{matrix}\right]
+</span> and so <span class="math display">
+    A = Q \left[\begin{matrix}R_2^T &amp; 0 \\ 0 &amp;
+0\end{matrix}\right]Z^T \Pi^T
+</span> where <span class="math inline">R_1 \in \mathbb{C}^{r \times
+r}</span> and we get <span class="math inline">R_2</span> by doing the
+full <span class="math inline">QR</span> decomposition on <span
+class="math inline">\left[\begin{matrix}R_1^T \\ S^T\end{matrix}\right]
+= Z \left[\begin{matrix}R_2 \\ 0\end{matrix}\right]</span>. This is the
+<strong>rank-retaining <span class="math inline">QR</span>
+decomposition</strong>.</p>
+<p><em>Def</em>: For any <span class="math inline">A \in \mathbb{R}^{m
+\times n}</span>, we may find <span class="math inline">A =
+Q\left[\begin{matrix}L &amp; 0 \\ 0 &amp;
+0\end{matrix}\right]U^T</span>. This is the <strong>complete orthogonal
+decomposition</strong>.</p>
+<h4 id="solving-linear-equations">Solving Linear Equations</h4>
+<p>To solve <span class="math inline">Ax = b</span>, we can take <span
+class="math inline">A = QR</span> so <span class="math inline">Rx =
+Q^Tb</span> and solve using back substitution. Alternatively, let <span
+class="math inline">A\Pi = LU</span>; then we solve <span
+class="math inline">Ly = b</span> with back substitution, <span
+class="math inline">Uz = y</span> with forward substitution, and set
+<span class="math inline">x = \Pi z</span>.</p>
+<p>Linearly constrained least squares problems are problems of the form
+<span class="math display">
+    \min\| Ax - b \|, \  \ \text{s.t. } C^Tx = d.
+</span> where <span class="math inline">A \in \mathbb{R}^{m \times n}, b
+\in \mathbb{R}^n, C \in \mathbb{R}^{n \times p}</span>, and <span
+class="math inline">d \in \mathbb{R}^p</span>.</p>
+<ul class="incremental">
+<li><p>We could form the Lagrangian to get <span class="math display">
+  \begin{cases}
+      A^Ax - A^Tb + C\lambda = 0\\
+      C^Tx - d = 0
+  \end{cases}   
+</span> which is a KKT constraint. Sometimes we care about <span
+class="math inline">\lambda</span>, and this is fine (though <span
+class="math inline">A^TA</span> can often be ill-conditioned).</p></li>
+<li><p>Instead, we may use the QR decomposition: note that <span
+class="math inline">A^TAx = A^Tb - C\lambda</span> and thus <span
+class="math inline">x = \hat x - (A^TA)^{-1}C\lambda</span>, where <span
+class="math inline">\hat x = \mathop{\mathrm{argmin}}\|Ax -
+b\|_2</span>. Then, since <span class="math inline">C^Tx = d</span>, we
+must have that <span class="math display">
+  C^T(A^TA)^{-1}C\lambda = C^T\hat x - d.
+</span> To avoid <span class="math inline">A^TA</span>, set <span
+class="math inline">A = Q\left[\begin{matrix}R \\
+0\end{matrix}\right]</span>, set <span class="math inline">W =
+R^{-T}C</span> via backsubstitution, take the QR <span
+class="math inline">W = Q_1R_1</span>, set <span
+class="math inline">\eta = C^T \hat x - d</span> and finally solve <span
+class="math inline">R_1^TR_1 \lambda = \eta</span> via
+backsubstitution.</p></li>
+<li><p>If we do not want to compute <span
+class="math inline">\lambda</span>, if we take <span
+class="math inline">p \leq n</span>, let <span class="math inline">C =
+Q_2 \left[\begin{matrix}R_2 \\ 0\end{matrix}\right]</span>, so that
+<span class="math inline">\left[\begin{matrix}R_2^T &amp;
+0\end{matrix}\right]Q_2^Tx = d</span>. Thus, if we take <span
+class="math inline">Q_2^Tx = \left[\begin{matrix}u \\
+v\end{matrix}\right]</span>, we backsolve for <span
+class="math inline">u</span> such that <span class="math inline">R_2^Tu
+= d</span>, we know that <span class="math display">
+  \|b - Ax\|^2 = \|b - AQ_2Q_2^Tx\|^2 = \left\|b -
+\left[\begin{matrix}A_1 &amp; A_2\end{matrix}\right]
+\left[\begin{matrix}u \\ v\end{matrix}\right]\right\|^2 = \|b - A_1u -
+A_2v\|_2^2.
+</span></p></li>
+</ul>
+<h4 id="computing-qr-lu-co-decompositions">Computing QR, LU, CO
+Decompositions</h4>
+<p>Either use Householder reflections or Givens rotations to compute QR.
+Compute the complete orthogonal decomposition via two QR decompositions.
+Compute the LU decomposition via Gauss/elimination matrices.</p>
+<h4 id="multiple-rhs">Multiple RHS</h4>
+<p>Suppose that we have some sequence of equations <span
+class="math inline">Ax_i = b_i</span>. In this case, we form <span
+class="math inline">B = \begin{matrix}b_1 &amp; b_2 &amp; \dots &amp;
+b_n\end{matrix}</span> and solve <span class="math inline">AX =
+B</span>. Everything from before carries through to <span
+class="math inline">X = A^+B</span>, where <span
+class="math inline">A^+</span> is the pseudoinverse.</p>
+<h4 id="low-rank-updates">Low Rank Updates</h4>
+<p>If you have a low-rank error, e.g. you solved <span
+class="math inline">Ax = b</span> but in fact needed <span
+class="math inline">\hat A = A + uv^T</span> instead, then you can solve
+the new system efficiently by using the Sherman-Morrison formula, or in
+general the Woodbury formula for higher rank corrections.</p>
 </body>
 </html>

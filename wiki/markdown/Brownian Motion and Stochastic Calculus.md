@@ -13,6 +13,7 @@ subtitle: 'UChicago STAT 38510, Autumn 2023'
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\mesh}{mesh}
 \DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\hm}{hm}
 
 \let\temp\phi
 \let\phi\varphi
@@ -516,7 +517,7 @@ $$
 for $d = 2$.
 
 
-###  Recurrence and Transcience of Brownian Motion 
+###  Recurrence and Transience of Brownian Motion 
 
 Let $B_t$ be a standard Brownian motion in $\R^d$.
 
@@ -555,6 +556,620 @@ In general, such a harmonic function is not necessarily continuous on the bounda
 
 _Def_: If $x \in \partial D$, let $\sigma = \inf \{ t > 0 \mid B_t \in \partial D\}$; $x$ is regular if $P^x(\sigma = 0) = 1$.
 
-**Prop**: $f$ as defined above is continuous at every regular boundary point.
+**Prop**: $f$ as defined above is continuous at every regular boundary point. If we relax the boundary to be only bounded and measurable, then the above is continuous at every regular point at which $F$ is continuous.
 
 Therefore the Dirichlet problem has a solution for every continuous $F$ if and only if every point on $\partial D$ is regular.
+
+_Def_: If $D$ is a domain, then **harmonic measure** on $D$ (or on $\partial D$) at $z \in D$, is the hitting measure of Brownian motion, starting at $z$ and stopped at $\partial D$. That is, if $V \subset \partial D$,
+$$
+  \hm_D(V, z)  = P^z(B_T \in V).
+$$
+
+**Prop**: Note that $\hm_D(\partial D, z) = P^z(T < \infty)$ so if $D$ is bounded, this is a probability measure. Then,
+$$
+  E^z[F(B_T)] = \int_{\partial D} F(w) \hm_D(dw, z)
+$$
+and if $\partial D$ is smooth, then $\hm_D(\cdot, z)$ is absolutely continuous with respect to surface measure; if $H_D(z, w)$ is the Poisson kernel,
+$$
+  \hm_D(v, z) = \int_V H_D(z, w)S(dw)
+$$
+where $S$ is the surface measure.
+
+A nice example of all of the above is the unit ball. Then, $H_D(z, w) = c_d^{-1}\frac{1 - |z|^2}{|z - w|^d}$ where $c_d$ is the surface measure of the unit sphere.
+
+**Prop**: The following are true.
+
+- If $V \subset \partial D$ and $h(z) = \hm_D(V, z) = P^z(B_T \in V)$, then $h$ is the unique harmonic function in $D$ with boundary condition 
+$$
+  F(w) = \begin{cases}
+    1 & w \in V \\
+    0 & w \notin V
+  \end{cases}
+$$
+In particular, one could define the harmonic measure this way and show existence, but this is unreasonably hard compared to just using the Brownian motion.
+- If $D$ contains the closed unit ball $B$, and $f$ is harmonic in $D$, then for every $|z| < 1$,
+$$
+  f(z) = \int_{|w| = 1} f(w) H_B(z, w)S(dw).
+$$
+
+**Corollary (Harnack Inequality)**: For every $r \in (0, 1)$, there is $C = C(r, d)$ such that if $f: B \to (0, \infty)$ is harmonic, then for all $|z|, |z'| \leq r$,
+$$
+  f(z) \leq Cf(z')
+$$
+and
+$$
+  C = \max_{\substack{|z|, |z'| \leq r \\ |w| = 1}} \frac{H_B(z, w)}{H_B(z', w)}
+$$
+
+**Corollary**: For every $k$ there exists $c = c(k, d)$ such that if $f: B \to \R$ is harmonic, then for any $k$-th order partial derivative,
+$$
+  |\partial^k f(0)| \leq c\| f \|_\infty.
+$$
+Moreover, there is $C = C(k, d)$ such that if $f: D \to \R$ is harmonic and $z \in D$, then
+$$
+  |\partial^k f(z)| \leq \frac{C_k}{(\operatorname{dist}(z, \partial D)^k} \left( \max_{|z - w| \leq \operatorname{dist}(z, \partial D) / 2} |f(w)| \right).
+$$
+
+**Theorem (Harnack principle)**: if $D$ is a domain and $K \subset D$ is compact, then there exists some $C = C(K, D)$ such that if $f: D \to (0, \infty)$ is harmonic and $z, w \in K$, then
+$$
+  f(z) \leq Cf(w).
+$$
+
+Now let $D$ and $\R^{d} \setminus D = K$; if $F: K \to \R$ is continuous, we can ask about the existence of $f: \R^d \to \R$ which is harmonic on $D$, coincides with $F$ on $K$, and is continuous on $\R^d$. Such a thing is obviously not unique (think!).
+
+Let both $F$ and $f$ bounded but otherwise as above. Set $T = \min\{ t \geq 0 \mid B_t \in K \}$, and assume for every $z \in D$, $P^z(T < \infty) > 0$. If $d = 1$ or $2$, there is a unique $f$, given by $f(z) = E^z[f(B_T)]$. 
+
+Now if $d \geq 3$ and $K$ is bounded, then $g(z) = P^z(T = \infty) > 0$; $g$ is harmonic and bounded, and if $g = 0$ on $K$ then $g$ is continuous.
+
+**Theorem**: All solutions to the above problem are given by
+$$
+  f(z) = E^z[(F(B_t) 1_{\{T < \infty\}}] + cP^z(T = \infty).
+$$
+
+Intuitively, we just add a point at infinity which has value $c$ and get this formula; but this only works on $\R^d$ and $\Z^d$.
+
+Consider a random walk on an infinite binary tree; such a walk is clearly recurrent, since it moves away from the starting point with probability $2/3$. But now there are lots of infinities.
+
+## Differential Equations
+
+The heat equation is described by some initial function $u_0: D \to \R$, some boundary condition $u(t,x) = F(x)$ for $x \in \partial D$, and $\dot i(t,x) = \frac{1}{2} \Delta u(t,x)$. Then,
+$$
+    u_t(x) = E^x[1_{\{T \leq t\}}F(B_T) + u_0(B_t)1_{\{T > t\}}].
+$$
+
+We can also handle Green's functions. Let $B_t$ be a Brownian motion in $\R^d$, $d \geq 3$; $G(x,y)$ is the "expected amount of time spent at $y$ starting at $x$; that is,
+$$
+    G(x, y) = \int_0^\infty P_t(x,y)dt = G(y,x) = G(0, y-x).
+$$
+Further,
+$$
+    G(x) = G(0, x) = \int_0^\infty \frac{1}{(2\pi t)^{d/2}}\exp(-|x|^2/2t)dt;
+$$
+and when one computes this integral, we get $C_d |x|^{2-d}$ away from the origin. This is no coincidence: in $d=2$, you get $a(x) = C_2\log(|x|)$, which is also the unique radially symmetric harmonic function.
+
+In a domain $D$ (in any dimension), let
+$$
+    G_D(x,y) = \int_0^\infty P_t^D(x,y)dt
+$$
+so in $d \geq 3$,
+$$
+    G(x,y) - E^x[G(B_T, y)]
+$$
+and in $d = 2$,
+$$
+    E^x[a(B_T, y)] - a(x,y)
+$$
+where $a(x,y) = a(y - x)$.
+
+For fixed $y$, the function $h(x) = G_D(x,y)$ is harmonic in $D \setminus \{ y \}$ as $x \to y$.
+
+## Stochastic Integration
+
+Let $\frac{d}{dt} F(t) = C(t, F(t))$; we then write $dF(t) = C(t, F(t))dt$, so $F(t) = F(0) + \int_0^t C(s, F(s))ds$. Here we are interested in the case where we allow things to be random, e.g.
+$$
+    dX_t = R_tdt + A_tdB_t.
+$$
+Intuitively, we require that $X_t$ looks like a BM with some drift $R_t$ and variance $A_t^2$. Then,
+$$
+    X_t = X_0 + \int_0^tR_sds + \int_0^tA_sdB_s.
+$$
+Of course, we still need to define the (Itô) stochastic integral.
+
+Let $B_t$ be a Brownian motion with a filtration $\mathcal F_t$. 
+
+_Def_: A process $A_t$ is a **simple process** (with respect to $\mathcal F_t$) if there exists a finite number of times $0 = t_0 < t_1 < \dots < t_n < t_{n+1} = \infty$ and random variables $Y_0, Y_1, \dots, Y_n$ such that $Y_j$ is $\mathcal F_{t_j}$-measurable, and $A_t = Y_j$ on $t_j \leq t < t_{j+1}$. We can have $L^2$ or bounded simple processes, and those are just requirements on the $Y_i$.
+
+_Def_: If $A_t$ is a simple process, we define the stochastic integral of $A_t$ to be 
+$$
+    Z_t = \int_0^t A_sdB_s = \sum_{k=0}^{j-1}Y_k[B_{t_{k+1}} - B_{t_k}] + Y_j[B_t -  B_{t_j}].
+$$
+
+We have some properties immediately:
+
+- If $A_t$ and $C_t$ are simple, and $a, c \in \R$, then $aA_t + cC_t$ is simple and
+$$
+    \int_0^t (aA_t + cC_t)dB_s = a\int_0^tA_tdB_s + c\int_0^tC_tdB_s.
+$$
+- If $A_t$ is $L^1$, then $Z_t$ is a martingale (just compute).
+- The Itô isometry is, if $A_t$ is in $L^2$,
+$$
+    \Var(Z_t) = E[Z_t^2] = \int_0^t E[A_s^2]ds = E \left[ \int_0^t A_s^2ds \right].
+$$
+Again, just compute and use the orthogonality of martingale increments.
+- With probability 1, $t \mapsto Z_t$ is a continuous function.
+
+Now let $A_t$ be a bounded, continuous process, adapted to $\mathcal F_t$.
+_Def_: We define
+$$
+    \int_0^t A_sdB_s = \lim_{n \to \infty}\int_0^t A_s^{(n)} dB_s
+$$
+where $A_s^{(n)}$ is a sequence of simple processes approaching $A_s$.
+
+**Lemma**: For every $t$, we can find a sequence of simple processes $A_t^{(n)}$ with $|A_t^{(n)} \leq K$ and such that
+$$
+    \lim_{n \to \infty} \int_0^t E[(A_s^{(n)} - A_s)^2]ds = 0.
+$$
+
+_Proof_: For ease, take $t = 1$. Then,
+$$
+    A_t^{(n)} = n \int_{\frac{k-1}{n}}^{\frac{k}{n}}A_sds
+$$
+does the job. Scale appropriately.
+
+Now if $Z_t^{(n)} = \int_0^t A_s^{(n)}dB_s$, then $E[(Z_t^{(n)} - Z_t^{(m)})^2] = \int_0^tE[(A_s^{(n)} - A_s^{(m)})^2]ds$, so $Z_t^{(n)}$ is a Cauchy sequence in $L^2(\Omega)$, and there is therefore an $L^2$ limit that we call $Z_t$. Further, there is a continuous modification of $Z_t$, which we can show exists by defining it on dyadics and using continuity.
+
+**Prop**: Let $Z_t = \int_0^t A_sdB_s$, with $A_s$ continuous in $L^2$. Then the above properties all hold.
+
+We do not necessarily need continuity. We do need progressive measurability, e.g. $\{A_s(\omega)\}$ is measurable on $\Omega \times [0, t]$.
+
+If $A_s$ is continuous, however, without any other boundedness assumptions, let $\tau_n = \min \{ |A_s| \geq n \}$. Then let $A_s^{(n)} = A_{s \land \tau_n}$ so that $Z_t^{(n)} = \int_0^t A_s^{(n)}dB_s$ is well-defined, and moreover if $n > \sup_{0 \leq s \leq t} |A_s|$, then $Z_t^{(n)} = \int_0^t A_sdB_s$. Thus, we define
+$$
+    Z_t = \int_0^t A_sdB_s = \lim_{n \to \infty}Z_s^{(n)}
+$$
+which is a pointwise limit in $\Omega$ (so we have to be careful). With this definition, linearity, continuity, and the Itô isometry holds (allowing for $\infty$ as a possible value), but $Z_t$ is merely a local martingale.
+
+**Prop**: If $M_t$ is a continuous square integrable martingale starting from 0, the for all $\epsilon > 0$,
+$$
+    P \left(\max_{0 \leq s \leq t}|M_s| \geq \epsilon\right) \leq \frac{E(M_t^2)}{\epsilon^2}.
+$$
+
+Now, set $M_t = Z_t - Z_t^{(n)}$  is a continuous square-integrable martingale; thus by the above proposition,
+$$
+    P(\max_{0 \leq t \leq 1} |M_t| \geq \epsilon ) \leq \frac{E(M_t^2)}{\epsilon^2}.
+$$
+
+**Theorem**: Suppose $A_s$ is a continuous process with $\int_0^1 E[A_s^2)ds < \infty$, and $\Pi^{(n)}$ is a sequence of partitions of $[0, 1]$ such that
+$$
+    \sum_{n=1}^\infty \int_0^1 E[|A_t - A_t^{(n)}|^2]dt < \infty.
+$$
+If $Y^{(n)} = \max_{0 \leq t \leq 1}|Z_t - Z_t^{(n)}|$, then $Y^{(n)} \to 0$ with probability 1.
+
+_Proof_: Apply Borel-Cantelli to the above.
+
+If $Z_t = \int_0^t A_sdB_s$, then the quadratic variation is
+$$
+    \left\langle Z\right\rangle_t = \int_0^t A_s^2ds
+$$
+and $Z_t - \left\langle Z \right\rangle_t$ is a martingale. In fact, the quadratic variation is the unique increasing process such that it is a martingale.
+
+### Ito's Formula
+
+**Theorem**: Suppose that $f: \R \to \R$ is $C^2$, and $B_t$ is a standard Brownian motion. Then 
+$$
+    f(B_t) - f(B_0) = \int_0^t f'(B_s)dB_s + \frac{1}{2}\int_0^t f''(B_s)ds.
+$$
+
+_Proof_: Taylor approximate; prove for a countable dense set of $t$, and conclude for $f$ with compact support. Otherwise, take something that agrees with $f$ on $[-n. n]$ send $n \to \infty$.
+
+People often write this in differential form:
+$$
+    dX_t = R_tdt + A_tdB_t.
+$$
+
+Suppose that $f(t, x)$ is a function from $[0, \infty) \times \to \R$ that is $C^1$ in $t$ and $C^2$ in $x$. Then,
+$$
+f(t, B_t) - f(0, B_0) = \int_0^t \partial_s f(s,B_s)ds + \int_0^t \partial_x f(s, B_s) + \frac{1}{2} \int_0^t\partial^2_{xx}f(s, B_s)ds
+$$
+
+Suppose $f$ is $C^2$, but not all of $\R$, merely on an open interval $(a, b)$, and $B_t$ is a Brownian motion starting in the interval. Then, if $T = \inf \{ t \mid B_t = a, b\}$, then if $t < T$, then Ito's formula holds.
+
+_Def_: Suppose that $dX_t = R_tdt + A_tdB_t$; that is,
+$$
+    X_t = X_0 + \int_0^t R_sds + \int_0^t A_sdB_s.
+$$
+Then, we define
+$$
+    \int_0^t Y_sdX_s = \int_0^t Y_sR_sds + \int_0^t Y_sA_sdB_s
+$$
+and
+$$
+    \left\langle X \right\rangle_t = \lim_{n \to \infty} \sum_{j < t/n} (X_{j/n} - X_{(j-1)/n})^2.
+$$
+
+If you look closely at $X$, you can see that the quadratic variation becomes
+$$
+    \left\langle X \right\rangle_t = \lim_{n \to \infty} (A_{j/n} - A_{(j-1)/n})^2 = \int_0^t A_s^2ds.
+$$
+
+**Prop**: If $f(t,x)$ is $C^1$ in $t$ and $C^2$ in $x$, and $X_t$ is as above,
+$$
+    f(t, X_t) - f(0, X_0) = \int_0^t \partial_t f(s,X_s)ds + \int_0^t \partial_x f(s, X_s)dX_s + \frac{1}{2} \int_0^t \partial_{xx}f(s, X_s)A^2_sds.
+$$
+
+## Diffusions
+
+_Def_: **Diffusions** are SDEs of the form
+$$
+    dX_t = m(t, X_t)dt + \sigma(t, X_t)dB_t
+$$
+where $m, \sigma$ are deterministic. Something satisfies the above if
+$$
+    X_t = y_0 + \int_0^t m(s, X_s)ds + \int_0^t \sigma(s, X_s)dB_s.
+$$
+for some initial condition $y_0$.
+
+**Prop**: When $m, \sigma$ are uniformly Lipschitz in the latter arguments, a solution to the above exists.
+
+_Proof_: Let $m, \sigma$ be uniformly Lipschitz with constant $\beta$. For ease, assume that there is no $s$-dependence (you don't need this, but writing it is annoying). We proceed by Picard iteration.
+
+Let $X_t^{(0)} = y_0$. Define $X_t^{(n)}$ by
+$$
+    X_t^{(n)} = y_0 + \int_{0}^t m(X_t^{(n-1)})ds + \int_0^t \sigma(X_s^{(n-1)})dB_s.
+$$
+
+We wish to show $X_t = \lim_{n \to \infty} X_t^{(n)}$ exists (in $L^2$). Look at
+$$
+\begin{align*}
+    E[|X_t^{(k+1)} - X_t^{(k)}|^2] &= E \left[ \left| \int_0^t (m(X_s^{(k)}) - m(X_s^{(k-1)}))ds + \int_0^t (\sigma(X_s^{(k)}) - \sigma(X_s^{(k-1)}))dB_s \right|^2 \right] \\
+    &\leq 2E \left[ \left| \int_0^t (m(X_s^{(k)}) - m(X_s^{(k-1)}))ds \right|^2 \right] + E\left[ \left| \int_0^t (\sigma(X_s^{(k)}) - \sigma(X_s^{(k-1)}))dB_s \right|^2 \right] \\
+    &\leq E \left[ \left(\int_0^t \beta^2 |X_s^{(k)} - X_s^{(k-1)}|\right)^2 \right] + \int_0^t E[\sigma(X_s^{(k)}) - \sigma(X_s^{(k-1)})]^2dB_s \\
+    &\leq \beta^2 E[t \int_0^t |X_s^{(k)} - X_s^{(k-1)}|^2ds] + \beta^2 \int_0^t E[|X_s^{(k)} - X_s^{(k-1)}|^2]ds \\
+    &\leq Ct \int_0^t E[|X_s^{(k)} - X_s^{(k-1)}|^2]
+\end{align*}
+$$
+and specifically, one can now show
+$$
+    E[|X_t^{k+1} - X_t^{(k)}|] \leq \frac{\lambda^{k+1}t^{k+1}}{(k+1)!}
+$$
+which vanishes as $k \to \infty$.
+
+_Def_ Let $X_t$ be a diffusion as above. The **generator** of $X_t$ is
+$$
+    Lf(x) = \lim_{t \to 0} \frac{E^x[f(X_t)] - E^x[f(X_0)]}{t}.
+$$
+Let $f$ be $C^2$; then
+$$
+\begin{align*}
+    f(X_t) - f(X_0) &= \int_0^t f'(X_s)dX_s + \frac{1}{2} \int_0^t f''(X_s)d \left\langle X \right\rangle_s \\
+    &= \int_0^t f'(X_s)\sigma(X_s)dB_s + \int_0^t (f'(X_s)m(X_s) + \frac{1}{2}f''(X_s)\sigma^2(X_s))ds.
+\end{align*}
+$$
+Taking the expectation, under suitable regularity conditions (we will take $\sigma, m$ bounded), we get that
+$$
+    E[f(X_t)] - E[f(X_0)] = 0 + E[t(f'(X_0)m(X_0) + \frac{1}{2}f''(X_0)\sigma^2(X_0) + o(t^2)]
+$$
+and
+$$
+    Lf(x) = m(x)f'(x) + \frac{\sigma^2(x)}{2} f''(x).
+$$
+
+**Prop**: Let
+$$
+    dX_t = R_tdt + A_tdB_s
+$$
+and
+$$
+    dY_t = S_tdt + C_tdB_s.
+$$
+Then if we define the covariation as
+$$
+    \left\langle X, Y \right\rangle_t = \lim_{n \to \infty} \sum_{j < tn}(X_{j/n} - X_{(j-1)/n})(Y_{j/n} - Y_{(j-1)/n}) = \int_0^t A_sC_sds
+$$
+we have
+$$
+    dX_tY_t = X_tdY_t + Y_tdX_t + d\left\langle X, Y\right\rangle_t.
+$$
+
+Let $B_t = (B_t^1, \dots, B_t^d)$ be a Brownian motion. Then,
+$$
+    \left\langle B^j, B^k \right\rangle_t = 0
+$$
+for $k \neq j$. You can then write multidimensional stochastic integrals as stochastic integrals in each of the different dimensions; that is,
+$$
+    dX_t^{i} = R_t^{i}dt + \sum_{j=1}^d A_t^{(i,j)} dB_t^j.
+$$
+The covariation is then
+$$
+    \left\langle X^{(j)}, X^{(k)} \right\rangle_t = \sum_{i=1}^d A^{(j, i)}_tA^{(k, i)}_t.
+$$
+
+**Theorem (Multivariate Itö)**: Suppose $f(t, x)$ is a map from $\R^{n + 1} \to \R$, and is $C^1$ in $t$ and $C^2$ in $x$. Then,
+$$
+    X_t = (X_1^{(1)}, \dots, X_t^{(n)})
+$$
+satisfies 
+$$
+    df(t, X_t) = \partial_t f(t, X_t)dt + \sum_{j=1}^{n} \partial_{x_j}f(t, X_t)dX_t^{(j)} + \frac{1}{2}\sum_{j=1}^n\sum_{k=1}^n \partial_{x_j x_k}f(t, X_t)d \left\langle X^{(j)}, X^{(k)} \right\rangle_t.
+$$
+
+If $Z_t = \int_0^t A_sdB_s$, then $Z_t$ is not necessarily a martingale, but it is a local martingale.
+
+_Def_: A process $Z_t$ is a **continuous local martingale** on $[0, \tau)$ (where $\tau$ could be $\infty$) if there is a sequence of stopping times $\tau_1 \leq \tau_2 \leq \cdots$ such that a.s. $\lim_{n \to \infty} \tau_n = \tau$ and for each $n$, $Z_{t \land \tau_n}$ is a continuous martingale.
+
+**Prop**: Stochastic integrals are local martingales.
+
+_Proof_: Take hitting times as stopping times.
+
+### Feynman-Kac
+
+Let $X_t$ be a geometric Brownian motion
+$$
+    dX_t = mX_tdt + \sigma X_t dB_t.
+$$
+
+Suppose we have a European option, such that at some fixed time $T > 0$ and fixed price $S$, we can exercise the option to buy some asset at $T$ for $S$. Then the value of an option at time $T$ is $F(X_t)$, where
+$$
+    F(x) = (x - s)_+ = \max \{x - s, 0\}.
+$$
+
+Let $\phi(t, x)$ be the value of this option at time $t < T$; that is,
+$$
+    \phi(t, x) = E[e^{-r(T - t)}F(X_T) \mid X_t = x].
+$$
+What PDE does $\phi(t, x)$ satisfy?
+
+More generally, let
+$$
+\begin{gather*}
+    dX_t = m(t, X_t)dt + \sigma(t, X_t)dB_t \\
+    dR_t = r(t, X_t)R_tdt \\
+    R_t = R_0 \exp\left( \int_0^t r(s, X_s)ds \right) \\
+    \phi(t, x) = E \left[ \exp\left(-\int_{t}^Tr(s, X_s)ds\right) F(X_T) \mid X_t = x \right]
+\end{gather*}
+$$
+Now define
+$$
+    M_t = E[R_T^{-1}F(X_T) \mid \mathcal F_t] = R_t^{-1}E \left[ \exp \left(-\int_t^T r(s,X_s)ds\right) F(X_T) \mid \mathcal F_t\right]
+$$
+so
+$$
+    M_t = R_t^{-1}\phi(t, X_t).
+$$
+is a martingale.
+
+Assume for now that $\phi$ is sufficiently regular to apply Ito; then
+$$
+\begin{align*}
+    d\phi(t, X_t) &= \partial_t \phi dt + \partial_x \phi dX_t + \frac{1}{2}\partial_{xx} \phi d \left\langle X \right\rangle_t \\
+    &= \partial_t \phi dt + \partial_x \phi (mdt + \sigma dB_t) + \frac{1}{2}\partial_{xx} \phi \sigma^2 dt
+\end{align*}
+$$
+and if you compute you get the following.
+
+**Theorem**: Let $X_t$ be a geometric Brownian motion as above. Then, if $\phi$ is as above and is $C^1$ in $t$ and $C^2$ in $x$, then $\phi$ satisfies the PDE
+$$
+    \partial_t \phi(t, x) = -m(t,x) \partial_x \phi(t,x) - \frac{1}{2}\sigma(t,x)^2 \partial_{xx} \phi(t,x) + r(t,x) \phi(t,x)
+$$
+with terminal condition $\phi(T,x) = F(x)$.
+
+Suppose that we have some SDE
+$$
+    dX_t = m(X_t)dt + \sigma(X_t)dB_t
+$$
+with $m, \sigma$ Lipschitz. Then the generator is
+$$
+    Lf(x) = m(x)f'(x) + \frac{\sigma^2(x)}{2}f''(x)
+$$
+and, if we have initial condition $F(x)$, then
+$$
+    u(t, x) = E^x[F(X_t)]
+$$
+and
+$$
+    \partial_t u(t,x) = L_x u(t,x), \ \ u(0, x) = F(x).
+$$
+On the other hand, if we have a terminal condition at $t = T$, we have
+$$
+    \partial_t\phi(t, x) = L_x(x, t), \ \ \phi(T, x) = F(X)
+$$
+and
+$$
+    \phi(t, x) = u(T - t, x), \ \  \partial_t \phi(t, x) = -L_x \phi(t, x).
+$$
+
+_Example_: Suppose we have a geometric Brownian motion with $m(x) = mx, \sigma(x) = \sigma x$, alongside some interest rate $r$. Then,
+$$
+    \phi(t, x) = E[e^{-r(T - t)}F(X_T)]
+$$
+and
+$$
+    \partial_t \phi(t, x) = r\phi(t, x) - mx\phi'(t,x) - \frac{\sigma^2}{2}x^2 \phi''(t, x).
+$$
+
+## Integrals Against Continuous Martingales
+
+_Def_: If we have $f:[0, 1] \to \R$, its **variation** is
+$$
+    V_f = \sup_{0 = t_0 < \dots < t_n = 1} \sum_{j=1}^n |f(t_j) - f(t_{j-1})|.
+$$
+We say that $f$ has **bounded variation** if $V_f < \infty$.
+
+**Prop**: Let $M_t$ be a continuous martingale with respect to the filtration $\{ \mathcal F_t \}$ and $M_0  = 0$. If $M_t$ has paths of bounded variation, then $M_t = 0$ for all $t$ with probability 1.
+
+_Proof_: We will show that $E[M_1^2] = 0$. Then, in the case $V_M(1) \leq K < \infty$, 
+$$
+    E[M_1^2] = E \left[ \sum_{j=1}^n (M_{j/n} - M_{(j-1)/n})^2 \right].
+$$
+Bound the inner sum by $\delta_n \sum_{j=1}^n |M_{j/n} - M_{(j-1)/n}| \leq \delta_n K$ where $\delta_n$ is the maximal increment. Since $M_t$ is continuous, $\delta_n K \to 0$.
+If we do not have that uniform bound, set $\tau_K = \min \{ t:  V_M(t) = K \}$. Then we have $E[M_{1 \land \tau_K}^2] = 0$ and we conclude by monotone convergence.
+
+_Def_: The quadratic variation $\left\langle M \right\rangle_t$ is the unique increasing process such that $M_t^2 - \left\langle M \right\rangle_t$ is a martingale.
+
+**Theorem**: If $M_t$ is a continuous martingale with respect to $\mathcal F_t$ with quadratic variation $\left\langle M \right\rangle_t$, then $M_t$ is a standard Brownian motion ith respect to $\mathcal F_t$.
+
+_Proof_: Certainly $M_0 = 0$ and we have continuous paths. We only need to show that $E[e^{i\lambda (M_t - M_s)} \mid \mathcal F_s] = e^{-\frac{\lambda^2(t-s)}{2}}$. Since the definitions of the Ito integral and Ito's formula go through with only the quadratic variation assumption, we apply the Ito formula to $f(x) = e^{i\lambda x}$, so
+$$
+    f(M_t) - f(M_0) = \int_0^t f'(M_s)dB_s + \frac{1}{2} \int_0^t f''(M_s)ds
+$$
+and in expectation
+$$
+    E[f(M_t) - f(M_0)] = -\frac{\lambda^2}{2} \int_0^t E[f(M_s)]ds
+$$
+since $f'' = -\lambda^2f$. Then just solve the differential equation.
+
+Take a standard Brownian motion $B_s, 0 \leq s \leq 1$; the Wiener measure $\mathcal W$ is a measure on the Borel $\sigma$-algebra of $C[0,1]$, the space of continuous functions with the $\sup$ norm. Let $B(f, \epsilon) = \{ g \mid |f - g| < \epsilon\}$. Then,
+$$
+    \mathcal W[B(f, \epsilon)] = P(|f(t) - B_t| < \epsilon).
+$$
+Put $\mathcal W_{m, \sigma^2}$ if we have a drift/variance term.
+
+**Prop**: $\mathcal W_{0, 1} \perp \mathcal W_{0, \sigma^2}$ for $\sigma^2 \neq 1$. On the other hand, $\mathcal W_{0, 1}$  is mutually absolutely continuous with $\mathcal W_{m, 1}$.
+
+_Proof_: The first part is easy. Look at $A$, the functions with quadratic variation 1; then $\mathcal W_{0, 1}(A) = 1$, $\mathcal W_{0, \sigma^2}(A) = 0$. In the second case, we go to a weak version of the Girsanov theorem.
+
+**Theorem**: $\mathcal W$ and $\mathcal W_{m, 1}$ are mutually absolutely continuous and
+$$
+    \frac{d\mathcal W_{m,1}}{d \mathcal W} = \exp\left(mB_1(\omega) - \frac{1}{2}m^2\right).
+$$
+
+_Proof_: Let $B_t$ be a standard Brownian motion, and define $M_t = \exp(mB_t - \frac{m^2t}{2})$ so that $dM_t = mM_t dB_t$. On $\mathcal F_t$, define a probability measure $Q_t$ such that
+$$
+    Q_t[V] = E[1_V M_t]
+$$
+for all $V \in \mathcal F_t$; by conditioning on $\mathcal F_s$, we can see that if $s < t$ and $V \in \mathcal F_s$, then $Q_s(V) = Q_t(V)$. It is clear that the Radon-Nikodym derivatives are just given by $M_t$ and $1/M_t$.
+
+Now define $Q$ a probability measure on $\mathcal F_\infty$ such that if $\mathcal F_{t}$, $Q(V) = E[1_V M_t]$, which is well defined because of the above. Moreover, if $X$ is $\mathcal F_t$ measurable, this gives that
+$$
+    E_Q[X] = E[X M_t].
+$$
+Now we claim that $B_t$ is a Brownian motion under $Q$ with variance parameter 1 and drift $m$. Certainly it holds that $B_0 = 0$ and $t \mapsto B_t$ is continuous with probability 1 under $Q$ and $P$ (since they are mutually absolutely continuous), and if $s, t > 0$ then the conditional distribution of $B_{t + s} - B_s$ given $\mathcal F_s$ is $N(mt, t)$. In fact, all we need to show then is that
+$$
+    E_Q[\exp(\lambda(B_{t+s} - B_s)) \mid \mathcal F_s] = \exp\left(\lambda mt + \frac{\lambda^2 m^2 t }{2}\right).
+$$
+This essentially boils down to the definition of the conditional expectation: write it down and unwrap in terms of $P$-expectations and win. 
+
+In the above omitted computation, we essentially do a simple version of the following theorem.
+
+**Theorem**: Let $B_t$ be a Brownian motion on a probability space $(\Omega, \mathcal F, P)$. Suppose we have a nonnegative martingale $M_t, M_0 = 1$ satisfying 
+$$
+    dM_t = A_tM_t dB_t.
+$$
+Then, $M_t = M_0e^{Y_t}$ where
+$$
+    Y_t = \int_0^t A_sdB_s - \frac{1}{2} \int_0^t A_s^2 ds.
+$$
+This follows by a simple application of Ito.
+Define a measure $Q_t$ on $\mathcal F_t$, given by
+$$
+    Q_t[V] = E[M_t 1_V]
+$$
+so that $\frac{dQ_t}{dP} = M_t$ and if $s < t$ and $V \in \mathcal F_s$, $Q_s[V] = Q_t[V]$. Then, we define $Q$ as before. Let $X_t = B_t - \int_0^t A_sds$; then $X_t$ is a standard Brownian motion on $(\Omega, \mathcal F, Q)$.
+
+_Proof_: We just do a heuristic argument. As an approximation,
+$$
+    B_{t + \Delta t} - B_t = \begin{cases}
+        \sqrt{\Delta t} & \text{probability } 1/2 \\
+        -\sqrt{\Delta t} & \text{probability } 1/2 \\
+    \end{cases}
+$$
+and similarly $M_{t + \Delta t} = M_t(1 \pm A_t \sqrt{\Delta t})$ equiprobably as well. In the new measure, this is essentially tilting the probabilities by $1 \pm A_t \sqrt{\Delta t}$ and so $E_Q[B_{t + \Delta t} - B_t] = A_t \Delta t$.
+
+Check that $X_t$ is a $Q$-martingale and conclude by noting that it has quadratic variation $t$.
+
+## Conformal Invariance
+
+Let $B_t = (B_t^1, B_t^2)$ be a two dimensional Brownian motion; identify it to $B_t^1 + iB_t^2$.
+
+Let $f(B_t) = u(B_t) + iv(B_t)$. Then
+$$
+    du(B_t) = \nabla u \cdot dB_t + \frac{1}{2} (\Delta u) dt
+$$
+and
+$$
+    dv(B_t) = \nabla v \cdot dB_t + \frac{1}{2} (\Delta v) dt
+$$
+but if $f$ is holomorphic, then the Laplacians vanish and we use the Cauchy-Riemann equations to simplify to
+$$
+    du(B_t) = u_x(B_t)dB_t^{1} + u_y(B_t)dB_t^2
+$$
+and
+$$
+    dv(B_t) = v_x(B_t)dB_t^{1} + v_y(B_t)dB_t^2
+$$
+which have quadratic variations
+$$
+   d\langle u(B_t) \rangle_t = d\langle v(B_t) \rangle = (u_x^2 + u_y^2)dt = |f'(B_t)|^2  dt.
+$$
+
+Define $T(t) = \int_0^T |f'(B_s)|^2ds = T$. Then $Y_t = f(B_{T(t)})$ is a standard complex Brownian motion.
+
+## Levy Processes
+
+_Def_: A *Levy process* is a stochastic process that satisfies
+
+- $X_0 = 0$ almost surely;
+- stationary increments: $X_t - X_s \sim X_{t - s}$;
+- independent increments;
+- continuity in probability: $X_t \to 0$ in probability as $t \to 0$.
+
+_Def_: A *compound Poisson process* is composed of a Poisson process $N_t$ with some rate $\lambda > 0$, alongside $Y_1, Y_2, \dots$ mutually independent of themselves and $N_t$ and identically distributed random variables with distribution $\mu^\sharp$. Then,
+$$
+    X_t = \sum_{i=1}^{N_t} Y_i
+$$
+is the compound Poisson process.
+
+_Def_: A random variable $X$ has an *infinitely divisible* distribution if for each $n$ we may find $Y_1, \dots Y_n$ iid such that $X \sim \sum_{i=1}^n Y_i$.
+
+**Prop**: Levy processes are infinitely divisible at any time.
+
+Now look at the characteristic functions of a Levy process. In particular define the characteristic exponent $\Psi(s)$ where
+$$
+    \phi_{X_1}(s) = \exp(\Psi(s))
+$$
+and note that
+$$
+    \phi_{X_t}(s) = (\phi_{X_1}(s))^t.
+$$
+
+Let $X_t, Y_1, \dots$ be as in a compound Poisson process. Then, if we set
+$$
+    \phi(s) = \phi_{Y_j}(s) = \int_{-\infty}^\infty \exp(isx)\mu^\sharp (dx)
+$$
+we have
+$$
+    \phi_{X_1}(s) = \sum_{n=0}^\infty P(N_1 = n) E[e^{sX_1} \mid N_1 = n] = \sum_{n=0}^\infty \frac{\lambda^n}{n!} e^{-\lambda} (\phi(s))^n = \exp(\lambda(\phi(s) - 1))
+$$
+or equivalently,
+$$
+    \Psi(s) = \int_{-\infty}^\infty (e^{isx} - 1)\mu(dx)
+$$
+where $\mu = \lambda \mu^\sharp$. We call $\mu$ the Levy measure for $X_t$.
+
+**Prop**: There are a few properties that we can say: as $t \to 0$,
+
+- $P(N_t = 0) = 1 - \lambda t + o(t)$;
+- $P(N_t \geq 2) = o(t)$;
+- $P(X_t \in (a, b)) = \mu(a,b)t + o(t)$ for $0 \notin (a, b)$.
+
+_Def_: We define the generator of a Levy process as
+$$
+    Lf(x) = \lim_{t \to 0}\frac{E^x[f(X_t) - f(x)]}{t} =  \int_{-\infty}^\infty (f(x + y) - f(x)) \mu(dy).
+$$
+
+**Prop**: If $X_t, Y_t$ are independent Levy processes, then $X_t + Y_t$ is a Levy process with characteristic exponent $\Psi_X + \Psi_Y$ and generator $L_x + L_y$.
+
+_Def_: Let $X_t$ be a Levy process with measure $\mu$, and put
+$$
+    m = \int_{-\infty}^\infty x\mu(dx), \ \sigma^2 = \int_{-\infty}^\infty x^2 \mu(dx).
+$$
+Then $E[X_t] = mt$ and $\Var(X_t) = \sigma^2 t$.
+
+_Def_: A function $f:[0, \infty) \to \R$ is called cadlad (continue a droite, limite a gauche) if the paths are right-continuous and for all $t$, $f(t-)$ exists.
+
+_Def_: If $X_t$ is compound Poisson, then
+$$
+    \int_0^t A_s dX_s = \sum A_s (X_s - X_{s-})
+$$
+where the sum is over jump times.
+
+The issue is that if $A_t$ is adapted, then $A_t = X_t$ shows that $\int A_s dX_s = 1$ at the first jump, and is not a martingale; in fact we need $A_t$ adapted to $\mathcal F_{t-}$ instead.

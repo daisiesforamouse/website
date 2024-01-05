@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Generalized Linear Models</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <link rel="stylesheet" href="wiki.css" />
+  <link rel="stylesheet" href="/wiki.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Generalized Linear Models</h1>
+<h2 class="subtitle">UChicago STAT 34700, Winter 2024</h2>
+</header>
+<hr>
+<nav id="TOC" role="doc-toc">
+<ul class="incremental">
+<li><a href="#generalized-linear-models"
+id="toc-generalized-linear-models">Generalized Linear Models</a></li>
+</ul>
+</nav>
+<hr>
+<h3 id="generalized-linear-models">Generalized Linear Models</h3>
+<hr />
+<p>Suppose that we have data points <span class="math inline">(X_1,
+y_1), \dots, (X_n, y_n)</span>; we operate under the framework that
+<span class="math inline">X_i</span> are always implicitly conditioned
+on. The generalized linear model will allow us to generalize from
+continuous real values to more diverse outputs. Particularly common is
+<span class="math inline">y_i</span> arising from an exponential
+family.</p>
+<p><em>Def</em>: A <strong>link function</strong> is how <span
+class="math inline">E[y_i]</span> (or <span class="math inline">E[y_i
+\mid X_i]</span>) depends on <span class="math inline">X_i</span>. In
+particular, we will have <span class="math display">
+    g(E[y_i]) = g(\mu_i) = X_i^T \beta.
+</span></p>
+</body>
+</html>

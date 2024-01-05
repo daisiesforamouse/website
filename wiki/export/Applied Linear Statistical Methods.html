@@ -59,6 +59,24 @@ id="toc-distributions">Distributions</a></li>
 <li><a href="#inference-in-the-homoskedastic-normal-linear-model"
 id="toc-inference-in-the-homoskedastic-normal-linear-model">Inference in
 the Homoskedastic Normal Linear Model</a></li>
+<li><a href="#diagnostics" id="toc-diagnostics">Diagnostics</a></li>
+<li><a href="#inference-in-the-presence-of-heteroskedasticity"
+id="toc-inference-in-the-presence-of-heteroskedasticity">Inference in
+the Presence of Heteroskedasticity</a></li>
+<li><a href="#assumption-lean-regression"
+id="toc-assumption-lean-regression">Assumption-Lean Regression</a></li>
+<li><a href="#bootstrapping"
+id="toc-bootstrapping">Bootstrapping</a></li>
+<li><a href="#cross-validation" id="toc-cross-validation">Cross
+Validation</a></li>
+<li><a href="#discovery-rates" id="toc-discovery-rates">Discovery
+Rates</a></li>
+<li><a href="#robust-regression" id="toc-robust-regression">Robust
+Regression</a></li>
+<li><a href="#ols-modifications" id="toc-ols-modifications">OLS
+Modifications</a></li>
+<li><a href="#causal-inference" id="toc-causal-inference">Causal
+Inference</a></li>
 </ul>
 </nav>
 <hr>
@@ -420,5 +438,451 @@ that is, <span class="math display">
 t_{n - p}
 </span> so we can get a concrete handle on the sampling distributions
 from only our observations.</p>
+<p>We can also form a confidence set for <span
+class="math inline">\beta</span>: since <span class="math inline">\hat y
+\sim N(X \beta, \sigma^2 P_X)</span>, <span class="math display">
+  \|X(\beta - \hat\beta)\|_2^2 \sim \sigma^2\chi_p^2
+</span> and so <span class="math display">
+  \frac{p^{-1}\|X(\beta - \hat\beta)\|_2^2}{\hat \sigma^2} \sim F_{p,
+n-p}.
+</span> Then, we can take the confidence set to be the set of <span
+class="math inline">\beta</span> that falls below some quantile of the
+<span class="math inline">F</span> distribution.</p>
+<p>For predictions, if we have some extra data point <span
+class="math inline">x_{n+1}</span>, <span class="math display">
+  x_{n+1}^T \hat \beta \sim N(x_{n+1}^T\beta, \sigma^2
+x_{n+1}^T(X^TX)^{-1}x_{n+1})
+</span> so we have a pivot <span class="math display">
+  \frac{x_{n+1}^T\beta}{\sigma \sqrt{x_{n+1}^T(X^TX)^{-1}x_{n+1}}} \sim
+t_{n-p}.
+</span></p>
+<p>Then, since <span class="math display">
+  y_{n+1} - x_{n+1}^T \hat \beta = x_{n+1}^T(\beta - \hat \beta) +
+\epsilon_{n+1} \sim N(0, \sigma^2(x_{n+1}^T(X^TX)^{-1}x_{n+1} + 1)
+</span> we can form a confidence interval.</p>
+<h4 id="nested-model-comparisons">Nested Model Comparisons</h4>
+<p>For example, consider the subspace <span class="math inline">U</span>
+of <span class="math inline">X</span> spanned by <span
+class="math inline">(1, 1, \dots, 1)</span>. Then, <span
+class="math display">
+  \|(I - P_U)y^2\|^2 = \|(P_X - P_U)y\| + \|(I - P_X)y\|^2
+</span> so <span class="math display">
+  \|y - \bar y\|^2 = \|\hat y - \bar y\|^2 + \|\hat y - y\|^2
+</span> and we label the above equation as <span
+class="math inline">\operatorname{SST} = \operatorname{SSReg} +
+\operatorname{RSS}</span> (the total sum of squares, the regression sum
+of squares, and the residual sum of squares); further <span
+class="math display">
+  R^2 = \frac{\operatorname{SSReg}}{\operatorname{SST}} = 1 -
+\frac{\operatorname{RSS}}{\operatorname{SSReg}}.
+</span> Sometimes one sees adjusted <span
+class="math inline">R^2</span>, e.g. <span class="math display">
+  R^2 = \frac{\operatorname{SSReg}}{\operatorname{SST}} = 1 -
+\frac{\operatorname{RSS} / (n-p)}{\operatorname{SSReg}/(n-1)}.
+</span> which includes an adjustment for degrees of freedom. Note that
+the above assumes that we fit a model with an intercept term; if there
+is no intercept term, <span class="math inline">R^2</span> becomes
+mostly useless (though in reality it’s a hard statistic to interpret
+anyway).</p>
+<p>Now suppose that we have two models, <span class="math display">
+  \text{Model A: } y = Z\beta + \epsilon
+</span> and <span class="math display">
+  \text{Model B: } y = X\gamma + \epsilon.
+</span> where the columns of <span class="math inline">Z \in
+\mathbb{R}^{n \times k}</span> span a subspace of the column space of
+<span class="math inline">X</span>. Then, <span class="math display">
+  \|(I - P_Z)y\|^2 = \|(P_X - P_Z)y\|^2 + \|(I - P_X)y \|^2  
+</span> which gives <span class="math inline">\mathop{\mathrm{RSS}}_A
+\geq \mathop{\mathrm{RSS}}_B</span>, so taking a larger model always
+reduces <span class="math inline">R^2</span>. But if model A was the
+“true” model, then <span class="math display">
+  \|(P_X - P_Z)y\|^2 \sim \sigma^2 \chi^2_{p-k}
+</span> and <span class="math display">
+  \frac{\|(P_X - P_Z)y\|^2/(p-k)}{\hat \sigma^2} =
+\frac{(\mathop{\mathrm{RSS}}_A - \mathop{\mathrm{RSS}}_B)/(p-k)}{\hat
+\sigma^2} \sim F_{p-k, n-p}.
+</span></p>
+<h4 id="dropping-the-normality-assumption">Dropping the Normality
+Assumption</h4>
+<p>In the above, we have taken <span class="math inline">y \sim
+N(X\beta, \sigma^2 I_n)</span>. But in general, we might only know the
+first two moments of <span class="math inline">y</span> without knowing
+a distribution. However, if we have some weaker assumptions, e.g. <span
+class="math inline">y</span> has reasonable tails and each <span
+class="math inline">x_i</span> is reasonably close to the average, then
+the central limit theorem still yields that <span
+class="math inline">\hat \beta</span> is asymptotically <span
+class="math inline">N(\beta, (X^TX)^{-1} \sigma^2)</span>.</p>
+<p>However, in practice we still compare to the <span
+class="math inline">t_{n-p}</span> distribution, since it gives more
+conservative results, even though all we have is asymptotic
+normality.</p>
+<h3 id="diagnostics">Diagnostics</h3>
+<p>Let <span class="math inline">Y \sim N(X \beta,\sigma^2 I_n)</span>,
+and in this case consider <span class="math inline">X</span> a random
+matrix.</p>
+<p>If the model is correct, then <span class="math inline">E[\hat
+\epsilon_i \mid \hat y_i] = 0</span>, so if we look and this is not the
+case, the linearity assumption is usually wrong.</p>
+<p>Moreover, if we look at the distribution of the residuals, we see
+that they are not necessarily of identical variance, since they have
+variance <span class="math inline">\sigma^2(I - P_X)</span>, so if we
+take <span class="math display">
+    \epsilon^{m}_i = \frac{\epsilon^m_i}{\hat \sigma \sqrt{1 - h_{i}}}
+</span> where <span class="math inline">h_i</span> is the <span
+class="math inline">i</span>-th diagonal entry of <span
+class="math inline">I - P_X</span>.</p>
+<p>TODO (missed lecture)</p>
+<h3 id="inference-in-the-presence-of-heteroskedasticity">Inference in
+the Presence of Heteroskedasticity</h3>
+<p>Let <span class="math inline">X \in \mathbb{R}^{n \times p}</span> be
+fixed, and <span class="math inline">Y \sim (X\beta, \Sigma)</span>.
+Then, we still have that <span class="math inline">\hat \beta^{OLS} =
+(X^TX)^{-1}X^TY</span>, which still is <span
+class="math inline">\beta</span> in expectation, but the variance is not
+as nice; in particular <span class="math display">
+    \mathop{\mathrm{Var}}(\hat \beta^{OLS}) = (X^TX)^{-1}X^T\Sigma
+X(X^TX)^{-1}.
+</span> Thus, if you do inference assuming that homoskedasticity holds,
+we can get very misleading results.</p>
+<p>So there are a couple of things that we could do: - come up with a
+new estimator, - or still work with the OLS estimate and come up with
+new inference conditions.</p>
+<p>For a new estimator, suppose that <span class="math inline">\Sigma =
+\sigma^2 \Gamma &gt; 0</span> (one might know this from weaker
+assumptions). Then, <span class="math display">
+    \Gamma^{-1/2}Y = \Gamma^{-1/2}X\beta + \Gamma^{-1/2}\epsilon
+</span> is a homoskedastic model. Now we can do OLS with <span
+class="math inline">\tilde Y = \Gamma^{-1/2}Y</span> and <span
+class="math inline">\tilde X = \Gamma^{-1/2}X</span>; this is called the
+GLS, or generalized least squares. In fact, <span class="math display">
+    \hat \beta^{GLS} = (X^T\Gamma^{-1}X)^{-1}X^T\Gamma^{-1}Y
+</span> which has first moment <span class="math inline">\beta</span>
+and variance <span
+class="math inline">\sigma^2X^T\Gamma^{-1}X^{-1}</span>. In fact, <span
+class="math inline">\mathop{\mathrm{Var}}(c^T\hat \beta^{GLS}) \leq
+\mathop{\mathrm{Var}}(c^T\hat\beta^{OLS})</span> for any <span
+class="math inline">c \in \mathbb{R}^p</span> (this is just
+Gauss-Markov). In the case that <span class="math inline">\Gamma</span>
+is diagonal, this is just the weighted least squares.</p>
+<p>If we choose to work with the OLS estimator, then we need to be very
+careful when computing. Surprisingly, if <span
+class="math inline">\Sigma</span> is diagonal, we can still estimate the
+variance; in particular we need to know <span class="math display">
+    X^T\Sigma X = \sum_{i=1}^n x_ix_i^T \sigma_i^2
+</span> and we can take a bad temporary estimate, <span
+class="math inline">\hat \sigma_i^2 = \hat \epsilon_i^2</span>. However,
+this gives <span class="math display">
+    \frac{\widehat{X^T \Sigma X}}{X^T \Sigma X} \to I
+</span> in probability. So the estimated variance is <span
+class="math display">
+    \widehat{\mathop{\mathrm{Var}}(\hat \beta^{OLS})} = (X^TX)^{-1}
+\left( \sum_{i=1}^n x_ix_i^T\hat \epsilon_i^2 \right)(X^TX)^{-1}
+</span> which gives what is called the (heteroskedasticity) robust
+standard error.</p>
+<h3 id="assumption-lean-regression">Assumption-Lean Regression</h3>
+<p>If we let <span class="math inline">(x_i, y_i) \sim P</span> be
+i.i.d. draws from <span class="math inline">\mathbb{R}^{p} \times
+\mathbb{R}</span>; we do not require that <span
+class="math inline">E[y_i \mid x_i] = \beta^T x_i</span>, nor that <span
+class="math inline">\mathop{\mathrm{Var}}(y_i \mid x_i) = \sigma^2
+I</span>.</p>
+<p>Before, <span class="math inline">\hat \beta^{OLS} \in
+\mathop{\mathrm{argmin}}_{\beta \in \mathbb{R}^p} \{
+n^{-1}\sum_{i=1}^n(y_i - \beta^T x_i)^2 \}</span>, and now we consider
+<span class="math display">
+    \beta^*(P) = \mathop{\mathrm{argmin}}\{ E[(y_i - \beta^T x_i] \}.
+</span> If <span class="math inline">E[x_ix_i^T] &gt; 0</span>, then
+<span class="math display">
+    \beta^*(P)  = E[x_ix_i^T]^{-1}E[x_i^Ty_i].
+</span></p>
+<p>We can do a computation to see that <span class="math display">
+\begin{align*}
+    \hat \beta_{OLS} - \beta^*(P) &amp;= (X^TX)^{-1}X^T(Y- X\beta^*(P))
+\\
+    &amp;= \left( \frac{X^TX}{n}\right)^{-1} \cdot \frac{1}{n}
+\sum_{i=1}^n x_i(y_i - x_i^T\beta^*(P)).
+\end{align*}
+</span> But <span class="math inline">\frac{X^TX}{n} \to
+E[x_ix_i^T]</span> by the law of large numbers, and <span
+class="math display">
+    \frac{1}{n}\sum_{i=1}^n x_i(y_i - x_i^T\beta^*(P) \to E[x_i(y_i -
+x_i^T\beta^*{P})] = 0
+</span> so in probability, <span class="math inline">\hat \beta_{OLS}
+\to \beta^*(P)</span>. Furthermore, the central limit theorem gives that
+<span class="math display">
+    \frac{1}{\sqrt{n}} \sum_{i=1}^n x_i(y_i - x_i^T \beta^*(P)) \to N(0,
+E[x_ix_i^T(y_i - x_i^T\beta^*(P))^2])
+</span> in distribution, so we know that <span class="math display">
+    \sqrt{n}(\hat \beta_{OLS} - \beta^*(P)) \to N(0, E[x_ix_i^T]
+E[x_ix_i^T(y_i - x_i^T\beta^*(P))^2]E[x_ix_i^T]^{-1}).
+</span></p>
+<p>The associated finite estimator is called the Eicker-Huber-White
+standard error, and it looks like the heteroskedastic robust standard
+error; in fact this shows that it is also non-linearity robust.</p>
+<p>Now, the conditional expectation (put here as <span
+class="math inline">\mu^*(X)</span>) is the minimizer of the <span
+class="math inline">L2</span> distance among all functions measurable
+w.r.t. <span class="math inline">X</span>; then if you define <span
+class="math inline">\ell^*(X) = X^T\beta^*(p)</span>, then <span
+class="math inline">\ell^*</span> is the minimize of the <span
+class="math inline">L2</span> distance among all linear functions. Then,
+writing <span class="math display">
+    y_i = \ell^*(x_i) + \mu^*(x_i) - \ell^*(x_i) + y_i - \mu^*(x_i)
+</span> we see that the first difference is some non-linearity error,
+and the last difference is some unexplainable error.</p>
+<h3 id="bootstrapping">Bootstrapping</h3>
+<p>Bootstrapping is about inference by simulation.</p>
+<p>Set <span class="math inline">y_1, \dots, y_n \sim P</span> as i.i.d.
+draws on <span class="math inline">\mathbb{R}</span>, with mean <span
+class="math inline">\mu</span> and variance <span
+class="math inline">\sigma^2</span>. Set <span class="math display">
+    \bar y = \frac{1}{y}\sum y_i, \hat \sigma^2 = \frac{1}{n} \sum (y_i
+- \bar y)^2.
+</span></p>
+<p>Then for specific distribution we can figure things out analytically,
+but we may or may not know <span class="math inline">P</span> in
+reality. In this case, what one could do is draw <span
+class="math display">
+    y_1^{(1)}, \dots, y_n^{(1)}
+</span> to <span class="math display">
+    y_1^{(B)}, \dots, y_n^{(B)}
+</span> from <span class="math inline">P</span> so we can figure out the
+distribution of <span class="math inline">\bar y</span>; but since we
+know <span class="math inline">P</span> approximately by the original
+distribution of <span class="math inline">y_1, \dots, y_n</span>, we can
+just simulate by estimating <span class="math inline">P</span> by <span
+class="math inline">\hat P</span>, e.g. taking repeated draws by
+sampling with replacement.</p>
+<p>This is equivalent to the distribution <span class="math display">
+    \hat P = \frac{1}{n} \sum \delta(y_i)
+</span> which gives rise to the so-called empirical distribution
+function. In fact this might seem crude, but over large sample sizes in
+low dimensions, this can be quite good.</p>
+<p>Then, this lets you get the above statistics in obvious ways. You can
+also get confidence intervals by, say, using asymptotic normality, or by
+using the <span class="math inline">1 - \alpha/2</span> and <span
+class="math inline">\alpha/2</span> quantiles, or by using the
+“bootstrap <span class="math inline">t</span>”. This last one is
+slightly more subtle: since we approximate <span class="math display">
+    \frac{\bar y - \mu}{\sigma^2 / \sqrt{n}} \text{ by } \frac{\bar
+y^{(B)} - \bar y}{\hat \sigma^{(B)} / \sqrt{n}}
+</span> we can set the interval to be <span class="math inline">[\bar y
+- \frac{\hat \sigma}{\sqrt{n}} u,\bar y + \frac{\hat \sigma^2}{\sqrt{n}}
+l]</span> where <span class="math inline">u, v</span> are the <span
+class="math inline">1 - \alpha/2, \alpha/2</span> quantiles of the <span
+class="math inline">\frac{\bar y^{(B)} - \bar y}{\hat \sigma^{(B)} /
+\sqrt{n}}</span> distribution.</p>
+<h4 id="bootstrapping-for-linear-regression">Bootstrapping for Linear
+Regression</h4>
+<p>Take again the general setup of <span class="math inline">(x_i, y_i)
+\sim P</span> i.i.d. Then, the pairs bootstrap is done by taking the
+empirical distribution of <span class="math inline">(x_i,
+y_i)</span></p>
+<p>If we need <span class="math inline">x_i</span> to be fixed, then we
+can do the residual bootstrap, which just means fitting least squares
+and then bootstrapping over the residuals. But note that this assumes
+both linearity and homoskedasticity.</p>
+<p>The wild bootstrap allows us to drop homoskedasticity; to perform it
+you fix <span class="math inline">x_i^{(b)} = x_i</span>, and <span
+class="math inline">y_i^{(b)} = \hat \beta^T x_i + \hat \epsilon_i \cdot
+\eta_i^{(\beta)}</span> where <span
+class="math inline">\eta_i^{(b)}</span> are i.i.d. (often Rademacher);
+alternatively, <span class="math display">
+    \eta_i^{(b)} = \begin{cases}
+        \varphi&amp; \text{ w.p. } \frac{\varphi^{-1}}{\varphi+
+\varphi^{-1}} \\
+        \varphi^{-1} &amp; \text{ w.p. } \frac{\varphi}{\varphi+
+\varphi^{-1}} \\
+    \end{cases}
+</span> where <span class="math inline">\varphi</span> is the golden
+ratio fixes the third moment as well.</p>
+<p>If we want to dodge the issue in the pairs bootstrap (where the new
+design matrix is not of full rank) we can do the Bayesian bootstrap.</p>
+<p>Suppose that we had dependence in some structured way, such as time
+dependence; then we can discretize the observations corresponding to
+some blocks that isolate the dependence (for example, so blocks
+corresponding to time intervals). This is called the “box
+bootstrap”.</p>
+<h4 id="permutation">Permutation</h4>
+<p>If we permute the responses, e.g. create some new dataset <span
+class="math inline">(x_{1}, y_{\sigma(1)}), \dots, (x_n,
+y_{\sigma(n)})</span> (labeled as <span class="math inline">x_i^{(b)},
+y_i^{(b)}</span>), we can test the null hypothesis that <span
+class="math inline">\beta_1 = 0</span> in <span class="math inline">y_i
+= \beta_0 + \beta_1 x_i + \epsilon_i</span> by computing the <span
+class="math inline">p</span>-value <span class="math display">
+    \frac{1 + \sum_{b=1}^B 1_{|\hat \beta_1^{(b)}| \geq |\hat
+\beta_1|}}{1 + B}
+</span> which gives us something valid in finite samples.</p>
+<p>If you want to test one specific predictor, you can first bootstrap
+the residuals with the model with that predictor removed, and then
+compute as above.</p>
+<h3 id="cross-validation">Cross Validation</h3>
+<p>As before, assume we have some dataset <span class="math inline">D =
+\{(x_1, y_1), \dots, (x_n, y_n)\}</span>, to which we fit some <span
+class="math inline">\hat \mu</span> that takes new predictors to an
+estimated response.</p>
+<p>Then if we have some test dataset <span class="math inline">(x_{n +
+1}, y_{n + 1}), \dots, (x_{n + k}, y_{n + k})</span>, then we can
+compute the external error <span class="math display">
+    \frac{1}{k} \sum_{i=1}^k (y_{n+i} - \hat \mu(x_{n+i})).
+</span></p>
+<p>If we don’t have external testing data, then we can cross-validate,
+e.g. by creating some hold-out blocks <span class="math inline">I_1,
+\dots, I_k</span> we don’t train on, and taking the cross-validated
+error <span class="math display">
+    \frac{1}{n} \sum_{i=1}^k \sum_{j \in I_l} (y_i - \hat
+\mu^{(i)}(x_j))
+</span> where each <span class="math inline">\mu^{(i)}</span> is fit on
+everything but <span class="math inline">I_i</span>. This is called
+<span class="math inline">k</span>-fold CV; if we have <span
+class="math inline">n</span> folds, this is called leave one out CV.</p>
+<p>This is very cheap in OLS, since <span class="math display">
+    \hat y_i = h_i y_i + (1 - h_i)\hat y_{i,-i}
+</span> where <span class="math inline">\hat y_{i, -i}</span> is the
+predicted value when not fit with <span class="math inline">(x_i,
+y_i)</span> and <span class="math inline">h_i = (P_X)_{ii}</span> is the
+leverage. So we can compute the leave out out error quickly. In fact,
+the total CV error is just <span class="math display">
+    \frac{1}{n} \sum_{i=1}^n \frac{\hat \epsilon_i^2}{(1 - h_i)^2}.
+</span></p>
+<p>We can use this to select a model with good performance, and then we
+often refit on the whole dataset after selecting our model.</p>
+<p>Alternatively, if we assume homoskedasticity, then we can redraw
+responses <span class="math inline">y_i&#39;\sim (\hat \mu(x_i),
+\sigma^2)</span> and compute the error <span class="math display">
+    \frac{1}{n}E \left[ \sum_{i=1}^n (y_i&#39; - \hat
+\mu(x_i))^2\right].
+</span> But <span class="math display">
+    E[(y_i&#39; - \hat \mu(x_i))^2] = 2\sigma^2 +  E[(y_i - \hat y_i)^2]
++ 2E[(\hat \mu(x_i) - y_i)(y_i - \hat y_i)]
+</span> but <span class="math inline">E[(\hat \mu(x_i) - y_i)(y_i - \hat
+y_i)] = -2\sigma^2 -2\mathop{\mathrm{Cov}}(y_i, \hat y_i)</span>, so
+this is just <span class="math display">
+    E[(y_i&#39; - \hat y_i)^2] = E[(y_i - \hat y_i)^2] + 2
+\mathop{\mathrm{Cov}}(y_i, \hat y_i).
+</span> If we put <span class="math inline">df(\hat y) = \sum_{i=1}^n
+\frac{\mathop{\mathrm{Cov}}(y_i, \hat y_i)}{\sigma^2}</span> (this is
+called the degrees of freedom of our model), then the error above is
+just <span class="math display">
+    \frac{1}{n}E \left[\sum_{i=1}^n (y_i - \hat y_i)^2\right] +
+\frac{2\sigma^2}{n}df(\hat y).
+</span></p>
+<p>To see that degrees of freedom is a reasonable name, note that if we
+were doing a OLS model, then <span class="math inline">df(\hat y) =
+\mathop{\mathrm{rank}}(X)</span> if <span class="math inline">X</span>
+is full column rank. This gives a way to choose between models with
+different amounts of predictors.</p>
+<h3 id="discovery-rates">Discovery Rates</h3>
+<p>Suppose you have a family of <span class="math inline">n</span>
+hypotheses, and you want the probability of a false discovery to be less
+than some predefined value <span class="math inline">p</span>.</p>
+<p><em>Def</em>: The <strong>Bonferroni correction</strong> is when you
+require every single hypothesis to have error rate bounded by <span
+class="math inline">p / n</span>.</p>
+<p>Popularized by Benjamini and Hochberg, we define <span
+class="math display">
+    FDR = E \left[ \frac{\text{number of false
+discoveries}}{\max\{\text{number of all discoveries}, 1\}} \right].
+</span> Then, let <span class="math inline">k^* = \max_{k = 11, \dots,
+n}\{p_{k} \leq \frac{\alpha k}{n}\}</span> where <span
+class="math inline">p_1 \leq \dots \leq p_n</span>. Then we reject <span
+class="math inline">p_1, \dots, p_{k^*}</span>, where <span
+class="math inline">\alpha</span> is the desired false discovery
+rate.</p>
+<p><strong>Theorem</strong>: Up to non-pathological distributions, the
+FDR is bounded by <span class="math inline">\alpha</span>; in
+pathological cases we still have an upper bound of <span
+class="math inline">\alpha \log(n)</span>.</p>
+<h3 id="robust-regression">Robust Regression</h3>
+<p>OLS is very sensitive to outliers, which is something that we
+sometimes want to fix. There are a few options.</p>
+<ul class="incremental">
+<li>Least Absolute Deviation: minimize <span class="math inline">|Y -
+X\beta|_1</span> instead of <span class="math inline">|Y -
+X\beta|_2</span>. Under Gaussian linear models, these things converge to
+the same thing and in fact OLS goes a little faster; under
+misspecification, this is not true. This is a convex optimization
+problem.</li>
+<li>Quantile Regression: Let <span class="math display">
+  q_\alpha(u) = \begin{cases}
+      \alpha |u| &amp; u &gt; 0\\
+      (1 - \alpha)|u| &amp; \text{otherwise}
+  \end{cases}
+</span> and minimize <span class="math inline">\sum_{i=1}^n q_\alpha(y_i
+- x_i^T\beta)</span>.</li>
+<li>Least trimmed squares.</li>
+<li>Huber regression.</li>
+</ul>
+<p>We don’t have closed forms for the estimators, and asymptotics are
+unwieldy for these options, so we do inference via bootstrap and get
+estimators via iterative optimization.</p>
+<h3 id="ols-modifications">OLS Modifications</h3>
+<h4 id="regression-with-intercept">Regression With Intercept</h4>
+<p>As usual, set <span class="math inline">y_i \in \mathbb{R}</span>,
+<span class="math inline">x_i \in \mathbb{R}^n</span> with the model
+<span class="math display">
+    y_i = \beta_0 + x_i^T\beta + \epsilon_o
+</span> so that we can, by rescaling <span class="math inline">\tilde
+y_i = y - \bar y, \tilde x_ = x_i - \bar x</span>, force the OLS line
+through the origin.</p>
+<h4 id="multivariate-analysis">Multivariate Analysis</h4>
+<p>Suppose we have <span class="math inline">x_1, \dots, x_n \sim
+P</span>, and <span class="math inline">\Sigma =
+\mathop{\mathrm{Var}}(x_i)</span>. Suppose that we wish to create new
+features <span class="math inline">z_i = c^Tx_i</span> for some unit
+vector <span class="math inline">c</span> so that we maximize the
+variance of <span class="math inline">z_i</span>. Since <span
+class="math inline">\mathop{\mathrm{Var}}(z_i) = c^T \Sigma c</span>,
+the maximal choice is the top eigenvector of <span
+class="math inline">\Sigma</span>; going down the list of eigenvectors
+gives us the principal components.</p>
+<p>In practice, <span class="math inline">\Sigma</span> is estimated by
+<span class="math inline">X^TX</span> for a design matrix <span
+class="math inline">X</span>, so this reduces to taking the SVD.
+Principal component regression is just dropping the bottom components.
+Since PCA is sensitive to the scale of the predictors, we often
+normalize the centered predictors to have norm 1.</p>
+<h4 id="ridgelasso-regression">Ridge/Lasso Regression</h4>
+<p>We can add a <span class="math inline">L^2</span> penalty by
+minimizing <span class="math display">
+    \|Y  - X\beta\|_2^2 + \lambda \|\beta\|_2^2.
+</span> Sometimes we drop the intercept coefficient in the penalty so
+that we do not force the model to pass through the origin at large <span
+class="math inline">\lambda</span>; this is the same as centered first.
+An <span class="math inline">L^1</span> penalty is given by minimizing
+<span class="math display">
+    \|Y  - X\beta\|_2^2 + \lambda \|\beta\|_1
+</span> which gives us sparser models. Lastly, we might impose an <span
+class="math inline">L^0</span> penalty <span class="math display">
+    \|Y  - X\beta\|_2^2 + \lambda 1_{\beta \neq 0}.
+</span> This is nonconvex, but we can do a greedy search (which is not
+guaranteed to be optimal).</p>
+<h3 id="causal-inference">Causal Inference</h3>
+<p>As usual, let <span class="math inline">y_i, x_i</span> be the
+response and predictors. We introduce the notation <span
+class="math inline">y_i(0)</span> for the response without treatment and
+<span class="math inline">y_i(1)</span> for the response with treatment,
+and the individual fit effect is defined as <span
+class="math inline">ITE_i = y_i(1) - y_i(0)</span>. Now by assumption
+<span class="math inline">y_i = y_i(w_i)</span>, and we cannot observe
+both <span class="math inline">y_i(0)</span> and <span
+class="math inline">y_i(1)</span>, so of course <span
+class="math inline">ITE_i</span> is unknowable. But we might want to
+control the moments of <span class="math inline">ITE_i</span> if we let
+<span class="math inline">(w_i, y_i(0), y_i(1)) \sim P</span>.</p>
+<p>In a randomized control trial (RCT), <span class="math inline">E[w_i]
+= p</span> and is independent of everything else. Even without RCT <span
+class="math display">
+    \widehat{TDM} \to E[y_i \mid w_i = 1] - E[y_i \mid w_i = 0]
+</span> in probability. With RCT, <span class="math display">
+    \widehat{TDM} \to E[y_i(1)] - E[y_i(0)].
+</span></p>
+<p>We can show two central limit theorems, where <span
+class="math display">
+    \sqrt{n}(\widehat{TDM} - ITE) \to N(0, \sigma^2)
+</span> for some variance depending on <span
+class="math inline">P</span>.</p>
 </body>
 </html>

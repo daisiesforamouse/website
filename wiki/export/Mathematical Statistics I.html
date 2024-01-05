@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Mathematical Statistics I</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <link rel="stylesheet" href="wiki.css" />
+  <link rel="stylesheet" href="/wiki.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Mathematical Statistics I</h1>
+<h2 class="subtitle">UChicago STAT 30100, Winter 2024</h2>
+</header>
+<hr>
+<nav id="TOC" role="doc-toc">
+<ul class="incremental">
+<li><a href="#basic-statistics" id="toc-basic-statistics">Basic
+Statistics</a></li>
+</ul>
+</nav>
+<hr>
+<h3 id="basic-statistics">Basic Statistics</h3>
+<hr />
+<p>We model the outcome of a statistical experiment by some <span
+class="math inline">P_\theta</span>, where <span
+class="math inline">\theta \in \Theta</span> is a parameter space; we
+take some <span class="math inline">X_1, \dots, X_n \sim
+P_\theta</span>, and we ask: can we summarize <span
+class="math inline">X_1, \dots, X_n</span> by some statistic <span
+class="math inline">T = T(X_1, \dots, X_n)</span> without losing
+information?</p>
+<p><em>Def</em>: <a
+href="https://en.wikipedia.org/wiki/Sufficient_statistic">Link</a> A
+<strong>sufficient statistic</strong> is a statistic <span
+class="math inline">T = T(X_1, \dots, X_n)</span> whose conditional
+distribution <span class="math inline">X \mid T</span> does not depend
+on <span class="math inline">\theta</span>.</p>
+<p>The intuition is that a sufficient statistic recovers all information
+about <span class="math inline">\theta</span>. In fact, if we sample
+<span class="math inline">Y_1 \mid T, \dots, Y_n \mid T</span>, then
+<span class="math inline">Y_1, \dots, Y_n</span> has the same joint
+distribution as <span class="math inline">X_1, \dots, X_n</span>.</p>
+<p><em>Def</em>: Let <span class="math inline">X_1, \dots, X_n \sim
+N(\theta, 1)</span>; then <span class="math inline">T = n^{-1}
+\sum_{i=1}^n X_i = \bar X</span> is a sufficient statistic. In fact,
+<span class="math display">
+    \left[\begin{matrix}X_1 \\ \vdots \\ X_n\end{matrix}\right] \mid T
+\sim N \left( \left[\begin{matrix} \bar X \\ \vdots \\ \bar
+X\end{matrix}\right], I - n^{-1} U \right)
+</span> where <span class="math inline">U</span> is a matrix with ones
+on upper triangular entries.</p>
+<p><em>Def</em>: Let <span class="math inline">X_1, \dots, X_n \sim
+P_\theta</span> for some <span class="math inline">\theta \in
+\Theta</span>; the <strong>order statistic</strong> is just <span
+class="math inline">T = (X_{(1)}, \dots, X_{(n)})</span> where <span
+class="math inline">X_{(1)} \leq \dots \leq X_{(n)}</span> is the
+ordered list of observations. This is a sufficient statistic when <span
+class="math inline">X_1, \dots, X_n</span> are exchangeable.</p>
+<p><strong>Theorem (Factorization)</strong>: Suppose <span
+class="math inline">P_\theta</span> is either discrete or continuous;
+then <span class="math inline">T = T(X)</span> is sufficient if and only
+if <span class="math inline">p(X \mid \theta) = g_\theta(T(x))
+h(x)</span> where <span class="math inline">p</span> is the density
+function corresponding to <span class="math inline">P_\theta</span>.</p>
+<p><em>Proof</em>: The continuous case is similar to the discrete one.
+The backwards direction is just computation. The forwards direction is
+just noting that <span class="math display">
+P(X = x) = P(X = x, T(X) = T(x)) = P(X = x \mid T(X) = T(x)) P(T(X) =
+T(x)).
+</span></p>
+</body>
+</html>
