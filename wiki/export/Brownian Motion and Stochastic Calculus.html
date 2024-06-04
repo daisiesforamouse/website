@@ -11,8 +11,11 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -245,7 +248,7 @@ class="math inline">Z_n \leq Mn^{-1}</span> for all <span
 class="math inline">n</span>. Now set <span
 class="math inline">E_M</span> to be the event that <span
 class="math inline">Z_n \leq Mn^{-1}</span> for all sufficiently large;
-our theorem reduces to showing that <span class="math inline">P(E_M) =
+our theorem reduces to showing that <span class="math inline">P(E_M)  =
 0</span> for all <span class="math inline">M</span>. In fact, we will
 show that <span class="math display">
   \lim_{n \to \infty} P(Z_n \leq Mn^{-1}) = 0.
@@ -594,7 +597,7 @@ class="math inline">Z_1</span> is homeomorphic to the Cantor set.</p>
 <p>With probability 1, the sets of left and right isolated points are
 countable, and there are no isolated points.</p>
 <p>We can show that if <span class="math inline">q \in \mathbb{Q}_{\geq
-0}</span>, <span class="math inline">P(B_q = 0) = 0</span>, and <span
+0}</span>, <span class="math inline">P(B_q  = 0) = 0</span>, and <span
 class="math inline">\tau_q = \min \{ t \geq q \mid B_t = 0\}</span> is a
 stopping time; further, the left-isolated points are just <span
 class="math inline">\{ \tau_q \mid q \in \mathbb{Q}_{\geq 0}\}</span>.
@@ -1405,7 +1408,7 @@ f(t_{j-1})|.
 <p><strong>Prop</strong>: Let <span class="math inline">M_t</span> be a
 continuous martingale with respect to the filtration <span
 class="math inline">\{ \mathcal F_t \}</span> and <span
-class="math inline">M_0 = 0</span>. If <span
+class="math inline">M_0  = 0</span>. If <span
 class="math inline">M_t</span> has paths of bounded variation, then
 <span class="math inline">M_t = 0</span> for all <span
 class="math inline">t</span> with probability 1.</p>
@@ -1418,7 +1421,7 @@ class="math inline">t</span> with probability 1.</p>
 class="math inline">\delta_n</span> is the maximal increment. Since
 <span class="math inline">M_t</span> is continuous, <span
 class="math inline">\delta_n K \to 0</span>. If we do not have that
-uniform bound, set <span class="math inline">\tau_K = \min \{ t: V_M(t)
+uniform bound, set <span class="math inline">\tau_K = \min \{ t:  V_M(t)
 = K \}</span>. Then we have <span class="math inline">E[M_{1 \land
 \tau_K}^2] = 0</span> and we conclude by monotone convergence.</p>
 <p><em>Def</em>: The quadratic variation <span

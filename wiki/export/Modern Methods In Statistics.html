@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Modern Methods in Applied Statistics</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <link rel="stylesheet" href="wiki.css" />
+  <link rel="stylesheet" href="/wiki.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Modern Methods in Applied Statistics</h1>
+<h2 class="subtitle">UChicago STAT 34800, Spring 2024</h2>
+</header>
+<hr>
+<nav id="TOC" role="doc-toc">
+<ul class="incremental">
+<li><a href="#supervised-learning-and-decision-theory"
+id="toc-supervised-learning-and-decision-theory">Supervised Learning and
+Decision Theory</a></li>
+</ul>
+</nav>
+<hr>
+<h3 id="supervised-learning-and-decision-theory">Supervised Learning and
+Decision Theory</h3>
+<hr />
+<h4 id="binary-classification">Binary Classification</h4>
+<p>Suppose that we have i.i.d. input-output pairs <span
+class="math inline">(X_1, Y_1), \dots, (X_n, Y_n) \sim
+\mathop{\mathrm{Pr}}(X, Y)</span>, where <span
+class="math inline">\mathop{\mathrm{Pr}}</span> is some (unknown)
+distribution from the population and <span class="math inline">Y \in \{
+0, 1 \}</span>. We will then use <span class="math inline">P(X,
+Y)</span> to denote properties estimated from the sample.</p>
+<p>If a new patient has (discrete-valued) symptoms <span
+class="math inline">X = x</span>, we can compute the conditional
+estimates <span class="math inline">P(X = x \mid Y = 0)</span> and <span
+class="math inline">P(X = x \mid Y = 1)</span>.</p>
+<p><em>Def</em>: In this case we define the <strong>likelihood
+ratio</strong> as <span class="math display">
+LR = \frac{P(X = x \mid Y = 0)}{P(X = x \mid Y = 1)}.
+</span></p>
+<p>Moreover, we interpret this as how much more likely the observed
+symptoms are under <span class="math inline">Y = 0</span> than <span
+class="math inline">Y = 1</span>.</p>
+<p>In the case of continuous covariates, the idea remains the same, but
+now we assume that the continuous covariate is a member of some
+parametric family, e.g. <span class="math display">
+\mathop{\mathrm{Pr}}(X \mid Y = y) = P_{\theta_y}(X)
+</span> where <span class="math inline">\theta_y</span> is some
+parameter depending on <span class="math inline">y</span>.</p>
+<p>Of course, the base rate is also important; this is <span
+class="math inline">\mathop{\mathrm{Pr}}(Y = 1)</span> which is the
+distribution of <span class="math inline">Y</span> before seeing any
+other data.</p>
+<p><strong>Theorem (Bayes)</strong>: The prior and the posterior is
+related by the base rates: <span class="math display">
+\mathop{\mathrm{Pr}}(Y\mid X) = \frac{\mathop{\mathrm{Pr}}(X\mid
+Y)\mathop{\mathrm{Pr}}(Y)}{\mathop{\mathrm{Pr}}(X)}
+</span> where we call the denominator a normalizing constant (as it is
+constant in <span class="math inline">Y</span>).</p>
+<p>We can apply this to the likelihood ratio to get <span
+class="math display">
+\text{posterior odds} = \frac{P(Y = 1 \mid X = x)}{P(Y = 0 \mid X = x)}
+= LR \cdot \frac{P(Y = 1)}{P(Y = 0)} = LR \cdot \text{prior odds}.
+</span></p>
+<p><em>Def</em>. We say a function <span
+class="math inline">\delta(x)</span> is a <strong>decision rule</strong>
+when it maps input data to some label in <span class="math inline">\{ 0,
+1\}</span>. To formulate a decision rule, we utilize a <strong>loss
+function</strong>, which is any map <span class="math inline">\ell(y,
+\hat y)</span> sending a ground truth and a prediction to some real
+value. The <strong>integrated risk</strong> of a decision rule is then
+<span class="math display">
+r(\delta) = E_{X,Y} \left[ \ell(Y, \delta(Y))\right].
+</span></p>
+<p><strong>Lemma</strong>: The best possible rule is <span
+class="math display">
+\delta^*(x) = \mathop{\mathrm{argmin}}_a E_{Y \mid X = x}[\ell(Y, a)]
+</span> and we call this the <strong>Bayes decision rule</strong> and
+the corresponding risk the <strong>Bayes risk</strong>. Everything
+pretty clearly extends to the case of continuous <span
+class="math inline">Y</span>.</p>
+<h4 id="generativediscriminative">Generative/Discriminative</h4>
+<p>In general, we need to estimate <span
+class="math inline">\mathop{\mathrm{Pr}}(Y \mid X)</span>.</p>
+<ol class="incremental" type="1">
+<li>The <strong>generative</strong> approach is to model <span
+class="math inline">P(Y)</span> and <span class="math inline">P(X \mid
+Y)</span> and then do Bayesian inference.</li>
+<li>The <strong>discriminative</strong> approach is to model <span
+class="math inline">P(Y \mid X)</span> directly.</li>
+</ol>
+<h5 id="naive-bayes">Naive Bayes</h5>
+<p>From before, if we have <span class="math inline">X</span>
+high-dimensional, then we need some sort of structural assumption to
+estimate <span class="math inline">P(X = x \mid Y)</span> efficiently,
+since otherwise we would have to estimate the full conditional joint
+distribution, which can be quite bad.</p>
+<p><em>Def</em>: Let us make the assumption of conditional independence,
+i.e. <span class="math display">
+P(X_1 = x_1, \dots, X_p = x_p \mid Y = y) = \prod_{i=1}^p P(X_i = x_i
+\mid Y_i).
+</span> We call this approach <strong>naive</strong> Bayes.</p>
+<h5 id="logistic-regression">Logistic Regression</h5>
+<p>Here, the assumption is that <span class="math display">
+\log \left(\frac{\mathop{\mathrm{Pr}}(Y = 1 \mid
+X)}{\mathop{\mathrm{Pr}}(Y = 0 \mid X)} \right) = \beta^\top X
+</span> for some coefficient vector <span
+class="math inline">\beta</span>.</p>
+<h5 id="knns">KNNs</h5>
+<p>Here, the assumption is that <span
+class="math inline">\mathop{\mathrm{Pr}}(Y = 1 \mid X)</span> is the
+proportion of the nearest neighbors in the training data which have
+<span class="math inline">Y = 1</span>.</p>
+</body>
+</html>

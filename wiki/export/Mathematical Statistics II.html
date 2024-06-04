@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Mathematical Statistics II</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <link rel="stylesheet" href="wiki.css" />
+  <link rel="stylesheet" href="/wiki.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Mathematical Statistics II</h1>
+<h2 class="subtitle">UChicago STAT 30200, Spring 2024</h2>
+</header>
+<hr>
+<nav id="TOC" role="doc-toc">
+<ul class="incremental">
+<li><a href="#statistics-in-high-dimensions"
+id="toc-statistics-in-high-dimensions">Statistics In High Dimensions</a>
+<ul class="incremental">
+<li><a href="#concentration-inequalities"
+id="toc-concentration-inequalities">Concentration Inequalities</a></li>
+<li><a href="#linear-regression" id="toc-linear-regression">Linear
+Regression</a></li>
+<li><a href="#regularized-m-estimators"
+id="toc-regularized-m-estimators">Regularized M-Estimators</a></li>
+<li><a href="#matrix-estimation" id="toc-matrix-estimation">Matrix
+Estimation</a></li>
+<li><a href="#covariance-estimation"
+id="toc-covariance-estimation">Covariance Estimation</a></li>
+</ul></li>
+<li><a href="#classification"
+id="toc-classification">Classification</a></li>
+<li><a href="#multiple-hypothesis-testing"
+id="toc-multiple-hypothesis-testing">Multiple Hypothesis Testing</a>
+<ul class="incremental">
+<li><a href="#the-global-null" id="toc-the-global-null">The Global
+Null</a></li>
+<li><a href="#the-family-wise-error-rate"
+id="toc-the-family-wise-error-rate">The Family Wise Error Rate</a></li>
+</ul></li>
+</ul>
+</nav>
+<hr>
+<h2 id="statistics-in-high-dimensions">Statistics In High
+Dimensions</h2>
+<hr />
+<h3 id="concentration-inequalities">Concentration Inequalities</h3>
+<p>In general, a <strong>concentration inequality</strong> is just
+something that looks like <span class="math display"> P[|X - E[X]| &gt;
+t] \leq \varphi(t) </span> for some function <span
+class="math inline">\varphi</span> that hopefully decays quickly.</p>
+<p><strong>Theorem (Markov)</strong>: If <span class="math inline">X
+\geq 0</span>, then <span class="math display"> P(X \geq t) \leq
+\frac{E[X]}{t} </span></p>
+<p><em>Proof</em>: Condition on <span class="math inline">X &gt;
+t</span>.</p>
+<p><strong>Theorem (Chebyshev)</strong>: For square integrable <span
+class="math inline">X</span>, <span class="math display"> P((X - E[X])^2
+\geq t) \leq \frac{\mathop{\mathrm{Var}}(X)}{t^2}. </span></p>
+<p><em>Proof</em>: Apply Markov.</p>
+<p><strong>Theorem (Chernoff)</strong>: For centered <span
+class="math inline">X</span> which the following is defined, <span
+class="math display">
+  P(X \geq \lambda) \leq E[e^{tX}]e^{-t\lambda}.
+</span></p>
+<p><em>Proof</em>: Apply Markov.</p>
+<h4 id="sub-gaussian-random-variables">Sub-Gaussian Random
+Variables</h4>
+<p><em>Def</em>: A random variable <span class="math inline">X</span> is
+said to be <span
+class="math inline">\sigma^2</span>-<strong>sub-Gaussian</strong> if
+<span class="math display">
+  E[e^{\lambda(X - E[X])}] \leq e^{\frac{\lambda^2 \sigma^2}{2}}
+</span> for all <span class="math inline">\lambda</span>. We put <span
+class="math inline">X \sim \mathop{\mathrm{subG}}(\sigma^2)</span>.</p>
+<p><em>Example</em>: Gaussians, clearly; also any bounded random
+variable.</p>
+<p><strong>Prop:</strong> For <span class="math inline">X \sim
+\mathop{\mathrm{subG}}(\sigma^2)</span>, <span class="math display">
+P(|X - \mu| \geq t) \leq 2e^{-\frac{t^2}{2\sigma^2}}.
+</span></p>
+<p><strong>Lemma</strong>: For <span class="math inline">X_1, \dots,
+X_n</span> independent and <span
+class="math inline">\sigma_i^2</span>-sub-Gaussian, <span
+class="math inline">\sum_{i=1}^n X_i</span> is <span
+class="math inline">\sum_{i=1}^n \sigma_i^2</span>-sub-Gaussian.</p>
+<p><strong>Theorem</strong>: Given any centered random variable <span
+class="math inline">X</span>, the following are equivalent.</p>
+<ol class="incremental" type="1">
+<li><span class="math inline">X</span> is <span
+class="math inline">\sigma^2</span>-sub-Gaussian.</li>
+<li>There is a constant <span class="math inline">c</span> and a
+centered Gaussian <span class="math inline">Z</span> such that <span
+class="math display">
+P(|X| &gt; s) \leq cP(|Z| &gt; s).
+</span></li>
+<li>There is a constant <span class="math inline">\theta</span> such
+that <span class="math display">
+  E[X^{2k}] \leq \frac{(2k)!\theta^{2k}}{2^k k!}.
+</span></li>
+<li>There is a constant <span class="math inline">\sigma</span> such
+that <span class="math display">
+  E[e^{-\frac{sX^2}{2\sigma^2}}] \leq \frac{1}{\sqrt{1 - s}}, \ \
+\forall s \in (0, 1).
+</span></li>
+</ol>
+<p><em>Proof</em>:</p>
+<ul class="incremental">
+<li><p><span class="math inline">(1) \implies (3)</span>. We will have
+for <span class="math inline">Z \sim N(0, 2\sigma^2)</span> that <span
+class="math display">
+\frac{P(X &gt; t)}{P(Z &gt; t)} \leq 4\sqrt{\pi} e.
+</span> Now apply Chernoff to <span class="math inline">X</span>, and
+use Mill’s ratio for <span class="math inline">Z</span>, which yields
+<span class="math display">
+P(Z &gt; t) \geq \left( \frac{\sqrt{2} \sigma}{t} - \left(
+\frac{\sqrt{2}\sigma}{t} \right)^3 \right)
+\frac{e^{\frac{-t^2}{4\sigma^2}}}{\sqrt{2\pi}}.
+</span> Now simplify with <span class="math inline">t =
+\sqrt{2}\sigma</span> so that <span class="math display">
+\frac{P(X &gt; t)}{P(Z &gt; t)} \leq 4\sqrt{\pi}e
+</span> holds for all <span class="math inline">t \in [0,
+\sqrt{2}\sigma]</span>. Similar for <span class="math inline">t &gt;
+2\sigma</span>.</p></li>
+<li><p><span class="math inline">(2) \implies (3)</span>. Here we simply
+compute <span class="math display">
+E[X^{2k}] = \int_0^\infty P(X^{2k} &gt; s)ds  \leq \int_0^\infty cP(|Z|
+&gt; s^{1/2k}) ds = cE[|Z^{2k}|] = c\frac{(2k)!\tau^{2k}}{2^k k!}
+</span> as desired.</p></li>
+<li><p><span class="math inline">(3) \implies (1)</span>. Taylor expand
+the MGF if <span class="math inline">X</span> is symmetric. Otherwise,
+you can apply Cauchy-Schwarz to get very crude bounds on the odd moments
+from the even moments.</p></li>
+<li><p><span class="math inline">(1) \implies (4)</span>. Just compute
+the integrals.</p></li>
+<li><p><span class="math inline">(4) \implies (1)</span>. We have a
+bound <span class="math display">
+e^u \leq u + e^{gu^2/16}
+</span> that we apply to <span class="math inline">e^{\lambda X}</span>.
+Apply this and do a bunch of miscellanous bounds to get what you want
+(briefly, split into cases depending on <span
+class="math inline">\lambda</span>, and use <span
+class="math inline">\frac{1}{\sqrt{1 - s}} \leq e^s</span> for one half;
+for the other half, simply use <span class="math inline">2ab \leq c a^2
++ c^{-1}b^2</span>).</p></li>
+</ul>
+<p><strong>Theorem (Hoeffding)</strong>: Let <span
+class="math inline">X_i</span> be independent <span
+class="math inline">\sigma^2_i</span>-sub-Gaussian random variables.
+Then <span class="math display">
+\bar X = \frac{1}{n}\sum_{i=1}^n (X_i - E[X_i])
+</span> is sub-Gaussian with parameter <span
+class="math inline">\frac{1}{n^2} \sum_{i=1}^n \sigma_i^2</span>.</p>
+<p><em>Def</em>: A <span class="math inline">X \in \mathbb{R}^d</span>
+is sub-Gaussian with parameter <span class="math inline">\sigma^2</span>
+if <span class="math display">
+u^\top (X - E[X])
+</span> is <span class="math inline">\sigma^2</span> sub-Gaussian for
+all <span class="math inline">u \in S^{d-1}</span>. Similarly, for <span
+class="math inline">X \in \mathbb{R}^{d \times T}</span>, <span
+class="math inline">X</span> is sub-Gaussian with parameter <span
+class="math inline">\sigma^2</span> if <span class="math inline">u^\top
+(X - E[X])\sigma</span> is <span class="math inline">\sigma^2</span>
+sub-Gaussain. In these cases, we use the notation <span
+class="math inline">X \sim \mathop{\mathrm{subG}}_{d \times
+T}(\sigma^2)</span>.</p>
+<h4 id="sub-exponential-random-variables">Sub-Exponential Random
+Variables</h4>
+<p>Let <span class="math inline">X \sim \mathop{\mathrm{Lap}}(1)</span>.
+Then <span class="math inline">P(|X| &gt; t) \leq e^{-t}</span>, and
+<span class="math display">
+E[e^{\lambda X}] = \frac{1}{1 - \lambda^2}
+</span> is well-defined for <span class="math inline">\lambda \in [0,
+1)</span>; in fact for <span class="math inline">|\lambda| &lt;
+1/2</span>, <span class="math display">
+E[e^{\lambda X}] \leq e^{2\lambda^2}.
+</span></p>
+<p>In fact, something more general is true.</p>
+<p><strong>Theorem</strong>: Suppose that for some random variable <span
+class="math inline">X</span> and positive constant <span
+class="math inline">b</span>, <span class="math display">
+P(|X| &gt; t) \leq 2e^{-2t/b}.
+</span> Then,</p>
+<ol class="incremental" type="1">
+<li><span class="math inline">E[|X|^k] \leq b^k k!</span>;</li>
+<li><span class="math inline">E[|X|^k]^{1/k} \leq 2bk</span>;</li>
+<li><span class="math inline">E[e^{\lambda X}] \leq
+e^{2\lambda^2b^2}</span> for <span class="math inline">|\lambda| \leq
+1/2b</span>.</li>
+</ol>
+<p><em>Proof</em>:</p>
+<ul class="incremental">
+<li><span class="math inline">(1)</span>. Use the fact that <span
+class="math display">
+E[|X|^k] = \int P(|X|^k &gt; t)dt
+</span></li>
+<li><span class="math inline">(2)</span>. <span class="math inline">k!
+\leq k^k</span>.</li>
+<li><span class="math inline">(3)</span>. Taylor expand the
+exponential.</li>
+</ul>
+<p><em>Def</em>: <span class="math inline">X</span> is said to be
+<strong>sub-Exponential</strong> with parameters <span
+class="math inline">(\tau^2, b)</span> if <span class="math display">
+    E[e^{\lambda (X - E[X])}] \leq e^{\tau^2\lambda^2 / 2}
+</span> for all <span class="math inline">|\lambda| \leq 1/b</span>. We
+also say <span class="math inline">X \sim \mathop{\mathrm{subE}}(\tau^2,
+b)</span>.</p>
+<p><strong>Prop</strong>: If <span class="math inline">X \sim
+\mathop{\mathrm{subE}}(\tau^2, b)</span>, then <span
+class="math display">
+P(X - E[X] &gt; t) \leq \exp\left(-\frac{1}{2} \min\left(\frac{t^2}{2b},
+\frac{t}{b}\right) \right) \leq \begin{cases}e^{-t^2/2\tau^2} &amp; t
+\in [0, \tau^2/b] \\ e^{-t/2\tau^2} &amp; t &gt; \tau^2/b\end{cases}.
+</span></p>
+<p><em>Proof</em>: Just apply Chernoff.</p>
+<p><strong>Lemma (Bernstein’s Condition)</strong>: Let <span
+class="math inline">b &gt; 0</span>; if <span class="math display">
+  E[(X - E[X])^k] \leq \frac{1}{2} k! b^{k-2} \sigma^2,
+</span> then <span class="math inline">X</span> is sub-Exponential.</p>
+<p><em>Proof</em>: Taylor expand the MGF.</p>
+<p>In fact, if <span class="math inline">X</span> satisfies Bernstein’s
+condition, we have <span class="math display">
+E[e^{\lambda (X - E[X])}] \leq \exp \left(\frac{\lambda^2 \sigma^2}{2(1
+- b|\lambda|)} \right)
+</span> for all <span class="math inline">|\lambda| &lt; 1/b</span> and
+<span class="math display">
+P(|X - E[X]| &gt; t)\leq 2\exp \left( -\frac{t^2}{2(\sigma^2 + bt)}
+\right)
+</span> for all <span class="math inline">t &gt; 0</span>.</p>
+<p><strong>Theorem:</strong> If <span class="math inline">X</span> is a
+centered random variable, the following are equivalent.</p>
+<ol class="incremental" type="1">
+<li><span class="math inline">X \sim \mathop{\mathrm{subE}}(u^2,
+\alpha)</span>.</li>
+<li>There is some <span class="math inline">c_0 &gt; 0</span> such that
+<span class="math inline">E[e^{\lambda X}] &lt; \infty</span> for all
+<span class="math inline">|\lambda| \leq c_0</span>.</li>
+<li>There are <span class="math inline">c_1, c_2 &gt; 0</span> such that
+<span class="math display">
+P(|X| \geq t) \leq c_1e^{-c_2t}, \ \ \forall t &gt; 0.
+</span></li>
+<li><span class="math display">
+\gamma = \sup_{k} \left[ \frac{E[|X|^k]}{k!} \right]^{1/k} &lt; \infty.
+</span></li>
+</ol>
+<p><strong>Lemma (One-sided Berstein’s Inequality)</strong>: If <span
+class="math inline">X \leq b</span> almost surely, <span
+class="math display">
+E[e^{\lambda(X - E[X])}] \leq \exp \left( \frac{\lambda^2E[X^2]}{2(1 -
+b\lambda / 3)} \right).
+</span></p>
+<p><strong>Corollary</strong>: <span class="math display">
+P \left(\frac{1}{n} \sum_{i=1}^n (X_i -E[X_i]) &gt; \delta \right) \leq
+\exp \left(\frac{-n\delta}{2(n^{-1}\sum E[X_i^2] + b\delta/3)} \right).
+</span></p>
+<h4 id="maximal-inequalities">Maximal Inequalities</h4>
+<p>We first start by think about maximums over finite sets.</p>
+<p><strong>Theorem</strong>: Let <span class="math inline">X_1, \dots,
+X_n</span> be a set of <span class="math inline">n</span> random
+variables such that <span class="math inline">X_i \sim
+\mathop{\mathrm{subG}}(\sigma^2)</span>. Then <span
+class="math display">
+  E[\max X_i] \leq \sigma \sqrt{2 \log(n)}, \ \ E[\max |X_i|] \leq
+\sigma \sqrt{2 \log(2n)}.
+</span></p>
+<p><em>Proof</em>: For <span class="math inline">s &gt; 0</span>,
+consider <span class="math inline">s^{-1}E[\max sX_i]</span> and use a
+Chernoff bound alongside a judicious choice of <span
+class="math inline">s</span>.</p>
+<p>Another realtively simple case is maxima over convex polytopes.</p>
+<p><em>Def</em>: A convex polytope is a compact set with a finite set of
+vertices <span class="math inline">V</span> such that <span
+class="math display">
+P = \left\{ X \mid X = \sum_{i=1}^{|V|} \lambda_i v_i \right\}.
+</span></p>
+<p><strong>Lemma</strong>: The minima/maxima of a linear form over a
+polytope is achieved at a vertex.</p>
+<p><em>Proof</em>: Remember 8th grade.</p>
+<p><strong>Theorem</strong>: Let <span class="math inline">P</span> be a
+polytope with <span class="math inline">n</span> vertices <span
+class="math inline">v_i</span>, and <span class="math inline">X \in
+\mathbb{R}^d</span> a random variable such that <span
+class="math inline">v_i^\top X \sim
+\mathop{\mathrm{subG}}(\sigma^2)</span>. Then the earlier bound holds
+again.</p>
+<p><em>Proof</em>: Apply the last lemma.</p>
+<p>We can now talk about more general bodies.</p>
+<p><em>Def</em>: Fix a set <span class="math inline">T \subset
+\mathbb{R}^d</span>, and <span class="math inline">\epsilon &gt;
+0</span>. A set <span class="math inline">N(\epsilon, T, d)</span> is
+said to be an <span
+class="math inline">\epsilon</span>-<strong>net</strong> with respect to
+a distance <span class="math inline">d</span> if there are <span
+class="math inline">\theta_i \in N(\epsilon)</span> such that <span
+class="math inline">d(\theta_i, z) &lt; \epsilon</span> or any <span
+class="math inline">z \in T</span>. The <span
+class="math inline">\epsilon</span>-<strong>covering number</strong> is
+the minimal cardinality of such a set.</p>
+<p><em>Def</em>: A <span
+class="math inline">\delta</span><strong>-packing</strong> of a set
+<span class="math inline">T</span> with a distance <span
+class="math inline">d</span> is a set <span
+class="math inline">P(\delta, T, d)</span> is a set such that <span
+class="math display">
+  d(\theta_i, \theta_j) &gt; \delta \ \ \forall \theta_i, \theta_j \in
+P(\delta, T, d).
+</span> The <span class="math inline">\delta</span>-packing number is
+the maximal cardinality of such a set.</p>
+<p><strong>Lemma</strong>: The <span class="math inline">L^2</span> unit
+ball <span class="math inline">B_2</span> has a <span
+class="math inline">\epsilon</span> net of cardinality <span
+class="math display">
+N \leq \left(\frac{3}{\epsilon} \right)^d.
+</span></p>
+<p><em>Proof</em>: Compute a loose bound on the packing number and note
+that a packing is also a covering.</p>
+<p><strong>Theorem</strong>: Let <span class="math inline">X \in
+\mathbb{R}^d</span> be <span
+class="math inline">\mathop{\mathrm{subG}}(\sigma^2)</span>. Then, <span
+class="math display">
+E[\max_{\theta \in B_2} \theta^\top X] = E[\max_{\theta \in B_2}
+|\theta^T X|] \leq 4\sigma \sqrt{d}
+</span> and with probability at least <span class="math inline">1 -
+\delta</span>, <span class="math display">
+\max_{\theta \in B_2} \theta^\top X  \leq 4\sigma\sqrt{d} + 2\sigma
+\sqrt{2 \log(1/\delta)}.
+</span></p>
+<p><em>Proof</em> Let <span class="math inline">N</span> be a <span
+class="math inline">\epsilon = 1/2</span> net for <span
+class="math inline">B_2</span>. Then <span class="math inline">|N| \leq
+6^d</span> and for <span class="math inline">\theta \in B_2</span>,
+<span class="math inline">\theta = z + x</span> for some <span
+class="math inline">z \in N</span>, <span class="math inline">x</span>
+of size <span class="math inline">1/2</span>. Then bound <span
+class="math display">
+\max \theta^\top X \leq \max z^\top X + \max x^\top X = \max z^\top X +
+\frac{1}{2} \max \theta^\top X.
+</span> Now use the finite set bound.</p>
+<h3 id="linear-regression">Linear Regression</h3>
+<p>The setup is as follows: set <span class="math inline">Y = X \beta +
+\epsilon</span> for some <strong>fixed</strong> design matrix <span
+class="math inline">X</span> and <span class="math inline">\epsilon \sim
+\mathop{\mathrm{subG}}(\sigma^2)</span> with independent components. We
+abbreviate this model by <span class="math inline">M</span>.</p>
+<h4 id="unconstrained-ols">Unconstrained OLS</h4>
+<p>In this case, we define <span class="math display">
+    \hat \theta^{LS} \in \mathop{\mathrm{argmin}}_{\theta} \|Y - X
+\theta\|^2
+</span> and <span class="math display">
+    \hat \mu = X\hat \theta^{LS}.
+</span> <strong>Prop</strong>: It must be that <span
+class="math display">
+X^\top \hat \mu^{LS} = X^\top y
+</span> and so we may take <span class="math display">
+\hat \theta^{LS} = (X^\top X)^\dagger X^\top Y.
+</span></p>
+<p><em>Proof</em>: I mean, just look.</p>
+<p><strong>Theorem</strong>: Assume that <span
+class="math inline">M</span> holds. The least squares estimate <span
+class="math inline">\hat \theta^{LS}</span> satisfies <span
+class="math display">
+E[MSE(\hat \theta^{LS})] = E \left[ \frac{1}{n} \|X (\theta^* - \hat
+\theta^{LS}) \|^2 \right] \leq \sigma^2 \cdot \frac{r}{n}
+</span> where <span class="math inline">r</span> is the rank of <span
+class="math inline">X^\top X</span>. Similarly, <span
+class="math display">
+MSE(\hat \theta^{LS}) \leq \frac{\sigma^2(r + \log(1 / \delta))}{n}
+</span> with probability at least <span class="math inline">1 -
+\delta</span>.</p>
+<p><em>Proof</em>: We have <span class="math display">
+\|Y - X\hat \theta^{LS}\|^2 \leq \|Y - X\theta^* \|^2 \leq
+\|\epsilon\|^2
+</span> so <span class="math display">
+\|X(\theta^* - \hat \theta^{LS}) \|^2 \leq 2\epsilon^\top X(\hat
+\theta^{LS} - \theta^*).
+</span> Divide by <span class="math inline">\|X(\theta^* - \hat
+\theta^{LS})\|</span>, so that we have the bound <span
+class="math display">
+\|X(\theta^* - \hat \theta^{LS}) \|^2 \leq 4\sup_{u \in B_2}
+(\epsilon^\top u)^2.
+</span> But we need to be a little more careful: reduce to the column
+space of <span class="math inline">X</span> (by mapping <span
+class="math inline">\epsilon</span> into the column space) and apply the
+bounds in the previous sections.</p>
+<h4 id="sparsity-constraints">Sparsity Constraints</h4>
+<p><em>Def</em>: Define the <strong>support</strong> of a vector <span
+class="math inline">\theta</span> as the number of nonzero entries.</p>
+<p>In this case, let <span class="math inline">\theta^* \in K</span> and
+<span class="math display">
+\hat \theta^{LS}_K = \mathop{\mathrm{argmin}}_{\theta \in K} \|Y -
+X\theta\|^2.
+</span> As before, we have <span class="math display">
+\|X(\hat \theta - \theta^*)\|_2^2 \leq 2\epsilon^\top X(\hat \theta -
+\theta^*).
+</span></p>
+<p><strong>Theorem</strong>: Let <span class="math inline">K =
+B_1</span>; if <span class="math inline">\theta^* \in K</span> and <span
+class="math inline">\max_{j \leq d}\|X_j\| \leq \sqrt{n}</span>, then
+<span class="math display">
+E[MSE(\hat \theta^{LS}_K)] \leq \sigma \sqrt{\frac{\log d}{n}}
+</span></p>
+<h4 id="the-gaussian-sequence-model">The Gaussian Sequence Model</h4>
+<p>In the model <span class="math inline">Y = X\theta + \epsilon</span>,
+we take an orthogonality condition on <span class="math inline">X</span>
+for simplicity and thus reduce to <span class="math inline">Z = \theta +
+\epsilon</span> for <span class="math inline">\epsilon \sim N(0,
+\sigma^2/n)</span>.</p>
+<p>In the most basic case, we can just use a threshholding estimator,
+e.g.  <span class="math display">
+\hat \theta_j^2 = \begin{cases}
+    Z_j &amp; |Z_j| &gt; \tau \\
+    0 &amp; \text{otherwise}
+\end{cases}.
+</span></p>
+<p><strong>Theorem</strong>: Let <span class="math inline">\tau^2 =
+4\sigma^2 \log(n / k)</span>. Then <span class="math display">
+E[\|\hat \theta^2 - \theta^*\|^2] \leq C\frac{k\sigma^2}{n}(1 + \log(n /
+k)).
+</span></p>
+<p>We can prove similar results for soft thresholding estimators as
+well.</p>
+<p>To drop the orthogonality constraint on <span
+class="math inline">X</span> is more difficult. Consider first the
+noiseless setting; again <span class="math inline">Y = X\theta</span>,
+where <span class="math inline">X \in \mathbb{R}^{n \times d}</span> for
+<span class="math inline">d \gg n</span>. In this case, we can consider
+this as an optimization problem of minimizing <span
+class="math inline">\|\theta\|_1</span> such that <span
+class="math inline">Y = X\theta</span>.</p>
+<p><em>Def</em>: For a set <span class="math inline">S \subset \{1,
+\dots, d\}</span>, <strong>the critical cone</strong> is the set <span
+class="math display">
+\mathbb{C}(S) = \{ \Delta \in \mathbb{R}^d \mid \|\Delta_{S^c}\| \leq
+\|\Delta_S\| \}
+</span></p>
+<p><em>Def</em>: A matrix <span class="math inline">X</span> is said to
+satisfy the <strong>restricted null space</strong> property with respect
+to <span class="math inline">S</span>, if <span class="math display">
+\ker(X) \cap \mathbb{C}(S) = \{ 0 \}.
+</span></p>
+<p><strong>Theorem</strong>: The following are equivalent.</p>
+<ul class="incremental">
+<li><span class="math inline">X</span> satisfies the restricted null
+space property with respect to <span class="math inline">S</span>.</li>
+<li>For any <span class="math inline">\theta^*</span> with nonzero
+entries on only <span class="math inline">S</span>, then <span
+class="math inline">\theta^*</span> is the unique solution to the
+earlier optimization problem.</li>
+</ul>
+<p><em>Proof</em>: Draw a picture.</p>
+<p>We can give a few examples of matrices which obey the restricted null
+property (RNP).</p>
+<p><em>Def</em>: The <strong>pairwise incoherence</strong> is <span
+class="math display">
+\delta_{PW}(X) = \max_{j, k} \left| \frac{\left\langle X_j, X_j
+\right\rangle}{n} - \delta_{jk}\right|.
+</span></p>
+<p><strong>Theorem</strong>: If <span class="math inline">\delta_{PW}(X)
+&lt; \frac{1}{3s}</span>, the RNP holds for all subsets of cardinality
+less than <span class="math inline">s</span>.</p>
+<p><em>Def</em>: <span class="math inline">X</span> satisfiesthe
+<strong>restricted isometry property</strong> with parameter <span
+class="math inline">\delta_S(X)</span> if <span class="math display">
+    \left\| \frac{(X^\top X)_{S, S}}{n} - I_S \right\|_2 \leq
+\delta_S(X).
+</span></p>
+<p><strong>Theorem</strong>: <span class="math display">
+\delta_{PW}(X) \leq \delta_s(X) \leq s \delta_{PW}(X).
+</span></p>
+<p><strong>Theorem</strong>: If the RIP constant of order <span
+class="math inline">2s</span> is bounded as <span
+class="math inline">\delta_{2s}(X) \leq \frac{1}{3}</span> the uniform
+RNP holds for any <span class="math inline">|S| \leq s</span>.</p>
+<p><em>Proof</em>: Take a vector in <span class="math inline">\mathbb
+C(S) \cap \ker(X)</span> and split it into blocks of length <span
+class="math inline">s</span>.</p>
+<h4 id="relaxed-basis-pursuit">Relaxed Basis Pursuit</h4>
+<p>Consider the problem of <span class="math display">
+\mathop{\mathrm{argmin}}\|X\theta - Y\|^2 \text{ subject to }
+\|\theta\|_1 \leq b
+</span> where <span class="math inline">Y = X\theta +
+\epsilon</span>.</p>
+<p>If <span class="math inline">\|\theta^*\|_1 = b</span>, then <span
+class="math inline">\Delta = \theta^* - \hat \theta \in
+\mathbb{C}(S)</span>. In fact, if the noise is <span
+class="math inline">\mathop{\mathrm{subG}}(\sigma^2)</span>, we can get
+that <span class="math display">
+\|\Delta\|^2 \leq \frac{32}{\kappa_{min}}\frac{k\sigma^2}{n}
+\left(\log(2d) + t^2\right)
+</span> with probability at least <span class="math inline">1 -
+e^{-t^2}</span>. Here <span class="math display">
+\frac{\|X\Delta\|^2_2}{n} \geq \kappa_{min} \|\Delta\|^2_2.
+</span></p>
+<p>Of course, this is equivalent to the LASSO. The proof looks roughly
+the same: you 1) localize the error and then 2) show that the error is
+controllable on that localization with high probability.</p>
+<p><strong>Theorem</strong>: Suppose <span class="math inline">\hat
+\theta</span> is the solution of the LASSO problem with <span
+class="math inline">\lambda_n \geq 2\frac{\|X^\top
+\epsilon\|_\infty}{m}</span> <span class="math display">
+\mathop{\mathrm{argmin}}\frac{1}{n}\|Y - X\theta\| +
+\lambda\|\theta\|_1.
+</span> Then,</p>
+<ol class="incremental" type="1">
+<li>any optimal solution <span class="math inline">\hat \theta</span> is
+such that <span class="math display">
+\frac{\|X(\hat \theta - \theta^*)\|}{n} \leq 12\|\theta^*\|_1 \lambda_n
+</span></li>
+<li>and if <span class="math inline">\theta^*</span> is supported on a
+subset <span class="math inline">S</span> of cardinality <span
+class="math inline">s</span>, and <span class="math inline">X</span>
+satisfies the <span class="math inline">\mu</span>-restricted convexity
+property on <span class="math inline">\mathbb C_3(S)</span>, then <span
+class="math display">
+\frac{\|X(\hat \theta - \theta^*)\|_2^2}{n}  \leq \frac{9}{\mu}
+s\lambda_n^2.
+</span></li>
+</ol>
+<p>If you have random designs, then you need to use a theorem that
+implies the usage of the strong convexity codition; for example, with
+Gaussian matrices, this works out with a suitable high probability
+result.</p>
+<h3 id="regularized-m-estimators">Regularized M-Estimators</h3>
+<p><span class="math inline">M</span> is for minimization.</p>
+<p>Consider a sequence of random variables <span class="math inline">Z_i
+\sim P_\theta</span>, as well as</p>
+<ol class="incremental" type="1">
+<li>some loss function <span class="math inline">L</span>, so that we
+may take <span class="math display">
+\hat \theta = \mathop{\mathrm{argmin}}_{\theta \in \Theta}
+E[L_\theta(Z)]
+</span></li>
+<li>and some regularizer <span class="math inline">\Phi</span>, so that
+we may enforce a certain type of structure <span class="math display">
+\hat \theta = \mathop{\mathrm{argmin}}_{\theta \in \Theta}
+E[L_\theta(Z)] + \lambda \Phi(\theta). </span></li>
+</ol>
+<p>The regularizer admits many forms depending on the type of problem
+you are considering. If you have blocking stucture in <span
+class="math inline">\theta</span>, for example, you can take norms of
+blocks in <span class="math inline">\theta</span>, or if you want some
+sort of smoothness represented by a graph <span
+class="math inline">G</span>, you can consider <span
+class="math inline">\theta^\top L_G \theta</span> where <span
+class="math inline">L_G</span> is the graph Laplacian.</p>
+<p>We need a things to get well-controlled behavior.</p>
+<p><em>Def</em>: Take some subset <span class="math inline">\mathbb
+M</span>; we need that for <span class="math inline">( \alpha, \beta )
+\in ( \mathbb M, \overline{\overline{M}^\perp} )</span>, <span
+class="math display"> \Phi(\alpha + \beta) = \Phi(\alpha) + \Phi(\beta).
+</span> We then say that <span class="math inline">\Phi</span> is
+<strong>decomposable</strong>.</p>
+<p><em>Def</em>: We consider the <strong>dual norm</strong>, which is
+given as <span class="math display"> \Phi^*(v) = \sup_{\Phi(u) \leq 1}
+\left\langle u, v \right\rangle. </span></p>
+<p>We now need a few different key pieces.</p>
+<p>First, the corresponding “good event” that we need (analagous to
+<span class="math inline">\lambda &gt; \|X^\top
+\epsilon\|_\infty</span>) is <span class="math display"> \mathbb
+G(\lambda_n) = \left\{ \Phi^*(\nabla L_n(\theta)) \leq
+\frac{\lambda_n}{2} \right\}. </span></p>
+<p><strong>Prop</strong>: If <span class="math inline">L_n</span> is a
+convex function and <span class="math inline">\Phi</span> is a
+decomposable norm over <span class="math inline">\mathbb M,
+\overline{\mathbb{M}}^\perp</span>, then on <span
+class="math inline">\mathbb G(\lambda_n)</span>, we have <span
+class="math display"> \Delta \in C_{\theta^*}(\mathbb M,
+\overline{\mathbb{M}}^\perp) = \left\{
+\Phi(\delta_{\overline{\mathbb{M}}^\perp}) \leq 3\Phi(\Delta_{\mathbb
+M}) + 4\Phi(\theta^*_{\overline{\mathbb{M}}^\perp}) \right\}.
+</span></p>
+<p><em>Proof</em>: The basic inequality becomes <span
+class="math display"> L_n(\theta^* + \Delta) + \lambda \Phi(\theta^* +
+\Delta) \leq L(\theta^*) + \lambda \Phi(\theta^*). </span> Then, by
+decomposition, <span class="math display"> \Phi(\theta^* + \Delta) -
+\Phi(\theta^*) \geq \Phi(\Delta_{\overline{\mathbb{M}}^\perp}) -
+\Phi(\Delta_{\mathbb M}) - 2\Phi(\theta^*_{\overline{\mathbb{M}}^\perp})
+</span> and on the good event, by convexity, <span class="math display">
+L_n(\theta^* + \Delta) - L_n(\theta^*) \geq - \frac{\lambda_n}{2} \left(
+\Phi(\Delta_{\overline{}^\perp}) + \Phi(\Delta_{\mathbb{M}}) \right)
+</span> and we can get <span class="math display"> \lambda_n
+\Phi(\Delta_{\overline{}^\perp}) \leq 3\Phi(\Delta_{\mathbb{M}}) +
+4\Phi(\theta^*_{\overline{}^\perp}). </span></p>
+<p>We also need a well-behaved cost function <span class="math display">
+\epsilon_n(\Delta) = L_n(\theta^* + \Delta) - L(\theta^*) - \left\langle
+\nabla L_n(\theta^*),\Delta \right\rangle </span> which satisfies a
+strong convexity condition.</p>
+<p>For a given norm and regularizer denoted as above, the cost function
+must satisfy with some positive radius <span class="math display">
+\epsilon(\Delta) \geq \frac{\kappa}{2} \|\Delta\|^2 - \tau^2_n
+\Phi^2(\Delta)</span></p>
+<p>We also need a subspace Lipschitz constant.</p>
+<p><em>Def</em>: For any subspace <span class="math inline">S</span>,
+the subspace Lipchitz constant is <span class="math display"> \Psi(S) =
+\sup_{u \neq 0}\frac{\Phi(u)}{\|u\|} </span></p>
+<p>Then, we can finally prove a result that we like.</p>
+<p><strong>Theorem</strong>: Conditional on the good event, 1. any
+optimal solution satisfies the bound <span class="math display">
+\Phi(\theta^* - \hat \theta) \leq C \Phi(\mathbb{M})(\|\theta^* - \hat
+\theta\| +  \Phi(\theta^*_{\overline{\mathbb{M}}^\perp}))</span> and</p>
+<ol class="incremental" start="2" type="1">
+<li>if <span class="math inline">\tau^2_n \leq \frac{\kappa}{C_0}</span>
+and <span class="math inline">\epsilon_n(\mathbb{M},
+\overline{\mathbb{M}}^\perp) \leq R</span> then <span
+class="math display"> \|\theta^* - \hat \theta\|_2^2 \leq C_1
+\frac{\lambda_n^2}{\kappa^2} \Phi^2(\overline{\mathbb{M}}) +
+\frac{C_2}{\kappa}(\lambda_n \Phi(\theta^*_{\mathbb{M}^\perp}) + 16
+\tau_n^2 \Phi^2(\theta^*_{\mathbb{M}}))</span></li>
+</ol>
+<h3 id="matrix-estimation">Matrix Estimation</h3>
+<p>The key problem here is generally something of the form <span
+class="math display"> \|Y - \theta\|_F + \lambda \|\theta\|_{n}.
+</span></p>
+<p>First, a few key lemmas.</p>
+<p><strong>Lemma (Weyl)</strong>: Let <span class="math inline">A,
+B</span> with singular values <span class="math inline">\sigma_i(A),
+\sigma_i(B)</span>. Then, <span class="math display"> \max |\sigma_k(A)
+- \sigma_k(B)| \leq \|A - B\|_{op} </span>.</p>
+<p><strong>Lemma (Hoffman-Wielandt)</strong>: <span
+class="math display"> \sum_{k=1}^n |\sigma_k(A) - \sigma_k(B)|^2 \leq
+\|A - B\|_F^2 </span></p>
+<p><strong>Lemma (Holder’s Inequality)</strong>: <span
+class="math display"> \left\langle A, B \right\rangle \leq \|A\|_p
+\|B\|_q</span> where the relevant norms are Schatten norms.</p>
+<p><strong>Theorem (Eckart–Young–Mirsky)</strong>: Let <span
+class="math inline">A = \sum_{i=1}^R \lambda_i u_i v^\top_i</span>.
+Then, the best rank <span class="math inline">r</span> approximation is
+<span class="math inline">\sum_{i=1}^r \lambda_i u_i
+v^\top_i</span>.</p>
+<p>We start with the following.</p>
+<p><strong>Theorem</strong>: Let <span class="math inline">Y \in
+\mathbb{R}^d</span> be a random vector with <span
+class="math inline">E[YY^\top] = I</span>. Then, if <span
+class="math inline">X = \Sigma_X^{1/2} Y</span> and <span
+class="math inline">\hat \Sigma = \frac{1}{n}X^\top X</span>m then <span
+class="math display"> \|\hat \Sigma  - \Sigma \|_{op} \leq \|\Sigma
+\|  \left( \sqrt{\frac{d + \log(1/\delta)}{n}}  \lor \frac{d + \log(1 /
+\delta)}{n}\right) </span> with probability at least <span
+class="math inline">1 - \delta</span>.</p>
+<h3 id="covariance-estimation">Covariance Estimation</h3>
+<p>The above bound is not particularly interesting if <span
+class="math inline">d &gt; n</span>, since it involves <span
+class="math inline">\frac{d}{n}</span>. We can do better in the case of
+sparsity.</p>
+<p>Suppose that <span class="math inline">\Sigma</span> is sparse; then
+we may consider something like <span class="math display"> \hat \Sigma =
+T_\lambda(S) = T_\lambda \left( \frac{X^\top X}{n} \right) </span>
+wherer <span class="math inline">T_\lambda</span> is some thresholding
+operator, e.g. <span class="math inline">T_\lambda(u) = 1_{|u| \geq
+\lambda}</span>.</p>
+<p>Then <span class="math inline">\|T_\lambda(S)\|_{op} \leq s</span>,
+where <span class="math inline">s</span> is the maximal number of
+nonzero entries in a row.</p>
+<p><strong>Theorem</strong>: If <span class="math inline">X_i</span> is
+a sequence of <span
+class="math inline">\mathop{\mathrm{subG}}(\sigma^2)</span> i.i.d.
+random variables with covariance matrix <span
+class="math inline">\Sigma</span>, then if <span class="math inline">n
+&gt; \log(d)</span>, for all <span class="math inline">\delta &gt;
+0</span>, if <span class="math display"> \lambda_n = 8\sigma^2
+\sqrt{\frac{\log d}{n}}  + \sigma^2 \delta</span> then the probability
+of <span class="math inline">\|T_\lambda(\hat \Sigma) - \Sigma\|_{op}
+\geq 2 \|\Sigma\|_{op}\lambda_n</span> is small.</p>
+<p>Consider now a simple model. A spiked covariance matrix is <span
+class="math display"> \Sigma = \theta v v^\top + I</span> which
+represents the data generating mechanism <span class="math display"> X_i
+= \sqrt{\theta}uv + \epsilon </span> where <span class="math inline">u,
+\epsilon</span> are normal.</p>
+<p><em>Def</em>: The cosine distance between two unit vector <span
+class="math inline">u, v</span> is <span class="math inline">\angle(u,
+v) = \arccos(|u^\top v|)</span>.</p>
+<p><strong>Theorem (Davis-Kahan)</strong>: Let <span
+class="math inline">A, B</span> be 2 PSD matrices, and <span
+class="math inline">(\lambda_i, u_i)</span> be eigenvalue/vector pairs
+of <span class="math inline">A</span> and <span
+class="math inline">(\mu_i, v_i)</span> eigenvalue/vector pairs for
+<span class="math inline">B</span>. Then, <span
+class="math display">\sin(\angle(u_i, v_i)) \leq \frac{2}{\max(\lambda_1
+- \lambda_2, \mu_1 - \mu_2)} \|A - B\|_{op}</span> and moreover <span
+class="math display">\min_{\epsilon \in \{\pm 1\}} |\epsilon u_i -
+v_i|_2^2 \leq 2 \sin^2(\angle(u ,v)).</span></p>
+<p>In the case of the spiked covariance matrix, the eigengap is exactly
+<span class="math inline">\theta</span>. So with high probability <span
+class="math display">\sin(\angle(\hat v_1, v_1)) \leq \frac{2\|S - \hat
+\Sigma\|_{op}}{\theta} \leq
+\frac{2(\theta+1)}{\theta}\sqrt{\frac{d+\log(1/\delta)}{n}}.</span></p>
+<p><strong>Theorem</strong>: Under the spiked covariance model, if <span
+class="math inline">\|v_1\|_0 \leq s</span>, then the <span
+class="math inline">k</span>-sparse largest eigenvector of <span
+class="math inline">\hat \Sigma</span> satisfies <span
+class="math display"> \min_{\epsilon \in \{-1, 1\}}\|\epsilon \hat v_1 -
+v_1\|_2 \leq \frac{\theta + 1}{\theta} \sqrt{\frac{s\log(ed/s) +
+\log(1/\delta)}{n}} \lor 1.</span></p>
+<p>Of course, this is not necessarily tractable (it’s not a convex
+optimization problem); instead we can bound the 1-norm <span
+class="math inline">\|v\|_1 \leq \lambda</span> instead.</p>
+<p>Alternatively, when we extend to more spikes, (and in some sense more
+principal components), we get some issues as eigenvectors are not
+uniquely determined: in that case you have to consider different losses,
+say.</p>
+<h2 id="classification">Classification</h2>
+<hr />
+<p>Consider <span class="math inline">(X, y)</span> for <span
+class="math inline">y \in \{0, 1\}</span>. The goal is to find an
+estimator <span class="math inline">h: \mathcal X \to \{0, 1\}</span>
+which minimizes the risk <span class="math display"> R(h) = P[y \neq
+h(X)]. </span></p>
+<p>Note that the optimal one is clearly just the Bayes classifier <span
+class="math inline">h^*</span>; however, we often don’t have access to
+the joint or conditional law of <span class="math inline">(X,
+y)</span>.</p>
+<p><strong>Theorem</strong>: For any classifier <span
+class="math inline">h</span>, <span class="math display">R(h) - R(h^*) =
+E[|2\eta(x) - 1| \cdot 1_{h(X) \neq h^*(X)}]</span> where <span
+class="math display">\eta(X) = E[y \mid X].</span></p>
+<p><em>Def</em>: The excess risk is <span class="math display">\epsilon
+= E[R(\hat h) - R^*]</span> and the empirical risk is <span
+class="math display">R_n(h) = \frac{1}{n} \sum_{i=1}^n 1_{y_i \neq
+h(X_i)}.</span></p>
+<p><em>Def</em>: Let <span class="math inline">\mathcal H</span> be a
+set of classifiesr. The empirical risk of the classifier is <span
+class="math display">R_n(\hat h_n) = \mathop{\mathrm{argmin}}_{h \in
+\mathcal H} R_n(h).</span> Also, under the split <span
+class="math display">R(\hat h_n)  - R^* = [ R(\hat h_n) - \min_{h \in
+\mathcal H}R(h) ] + [ \min_{h \in \mathcal H}R(h) - R^* ]</span> the
+first term is the stochastic error and the latter the approximation
+error.</p>
+<p>The goal is then to show that <span class="math display">E[R(\hat
+h_n)] \leq \min_{h \in \mathcal H} R(h) + \Delta_n(\mathcal H)</span>
+for some <span class="math inline">\Delta_n \to 0</span>.</p>
+<p>Alternatively, sometimes we wish for thing with high probability,
+i.e. <span class="math display">R(\hat h_n) \leq \min_{h \in \mathcal
+H}R(h) + \Delta_n(\mathcal H, \delta).</span></p>
+<p><strong>Lemma</strong>: Let <span class="math inline">\mathcal
+H</span> be a set of classifiers; the stochastic error of <span
+class="math inline">\hat h_n</span> satisfies that <span
+class="math display">R(\hat h_n) - R(h_{\mathcal H}) \leq 2\sup_{h \in
+\mathcal H} |R_n(h) - R(h)|</span></p>
+<p><em>Proof</em>: Consider <span class="math inline">\epsilon &gt;
+0</span> and <span class="math inline">h_\epsilon</span> such that <span
+class="math inline">R(h_\epsilon) \leq \inf_{h \in \mathcal H} R(h) +
+\epsilon</span>; then we get that <span class="math display">R(\hat h_n)
+- R(h_{\mathcal H}) =R(\hat h_n) - R_n(\hat h_n) + R_n(\hat h_n) -
+R(h_{\mathcal H} \leq R(\hat h_n) - R_n(\hat h_n) + R_n(h_\epsilon) -
+R(h_\epsilon) + \epsilon.</span> The result follows.</p>
+<p><strong>Theorem</strong>: Suppose <span class="math inline">|\mathcal
+H| &lt; \infty</span>. Then, with probability <span
+class="math inline">1 - \delta</span>, <span class="math display">R(\hat
+h_n) \leq \min_{j} R(h_j) + \sqrt{\frac{2}{n}
+\log(2m\delta^{-1})}.</span></p>
+<p>To do more than finite families of classifiers, it will be simpler to
+consider a classifier as simply a class of sets, e.g. <span
+class="math inline">h(x) = 1_{x \in A}</span>; to this extent, write
+<span class="math inline">\bar \mu(A) = P(y \neq 1_{X \in A})</span> and
+<span class="math inline">\bar \mu_n(A) = \frac{1}{n} \sum_{i=1}^n
+1_{Y_i \neq 1_{X \in A}}</span> and <span class="math inline">\mu(A) =
+P(X \in A)</span> and <span class="math inline">\mu_n(A) = \frac{1}{n}
+\sum 1_{X_i \in A}</span>.</p>
+<p>Now, we can more easily control <span class="math display">\xi =
+\sup_{A \in \mathcal A}|\mu(A) - \mu_n(A)|</span> via a symmetrization
+argument. That is, if <span class="math inline">X_1&#39;, \dots,
+X_n&#39;</span> are independent of observations <span
+class="math inline">X_1, \dots, X_n</span> with the same distribution,
+<span class="math display">E[\xi] = E[\sup |\mu_n(A) - \mu(A)|] = E[\sup
+|E[\mu_n(A) - \mu&#39;_n(A) \mid X_1, \dots, X_n]|] \leq E[\sup
+|\mu_n(A) - \mu&#39;_n(A)|].</span></p>
+<p><em>Def</em>: Let <span class="math inline">B</span> be a finite set
+of vectors; the Rademacher complexity of <span
+class="math inline">B</span> is given by <span
+class="math display">R_n(B) = \frac{1}{n} E_\sigma \left[ \sup_{b \in B}
+\sum_{i=1}^n \sigma_i b_i\right]</span> where <span
+class="math inline">\sigma_i</span> are i.i.d. Rademacher.</p>
+<p><em>Def</em>: Let <span class="math inline">\mathcal A</span> be a
+class of measurable sets <span class="math inline">A</span>, the binary
+fingerprint of <span class="math inline">X_1^n</span> on <span
+class="math inline">\mathcal A</span> is the set of vectors defined as
+<span class="math display">\mathcal A(X_1^n) = \{b = (b_1, \dots, b_n)
+\in \{0, 1\}^n, b_i = 1_{X_i \in A}\}.</span> Then clearly <span
+class="math display">E[\sup |\mu_n(A) - \mu(A)|] \leq 2E[R_n(\mathcal
+A(X_1^n))]</span></p>
+<p><strong>Lemma</strong>: Let <span class="math inline">B = (b^{(1)},
+\dots, b^{(n)})</span> be as above; then <span
+class="math display">R_n(B) \leq \max_{j=1, \dots, n} \|b^{(j)}\|_2
+\frac{2\log(n)}{n}.</span> Moreover, the maximum over the simplex
+spanned by <span class="math inline">B</span> is the same as the maximum
+over <span class="math inline">B</span>.</p>
+<p><em>Def</em>: We call the <strong>shattering coefficient</strong> the
+function <span class="math display">S_{\mathcal A}(n) = \max_{X_1^n}
+|\mathcal A(X_1^n)|.</span></p>
+<p><strong>Theorem</strong>: For any class of sets <span
+class="math inline">\mathcal A</span>, <span
+class="math display">E[\sup_{A \in \mathcal A} |\mu_n(A) - \mu(A)|] \leq
+2 \sqrt{\frac{2 \log(2S_{\mathcal A}(n))}{n}}.</span></p>
+<p><em>Def</em>: The <strong>VC dimension</strong> of <span
+class="math inline">\mathcal A</span> is <span
+class="math display">VC(\mathcal A) = \sup \{ v \in \mathcal N \mid
+S(\mathcal A) = 2^v\}.</span></p>
+<p><strong>Lemma</strong>: Let <span class="math inline">\mathcal
+A</span> be a class of sets of finite dimension <span
+class="math inline">v</span>; then for any <span class="math inline">n
+\geq v</span>. Then for <span class="math inline">n \geq v</span>, <span
+class="math display">S_{\mathcal A}(n) = \sum_{j=1}^v \binom{n}{j} \leq
+(n+1)^v</span>.</p>
+<p><strong>Theorem (McDiarmid)</strong>: Suppose <span
+class="math inline">X_1, \dots, X_n</span> are indepdendent RVs; put
+<span class="math inline">Z = g(X_1, \dots, X_n)</span>. Then, if <span
+class="math inline">g</span> satisfies <span
+class="math display">\sup|g(X_1, \dots, X_i&#39;, \dots, X_n) - g(X_1,
+\dots, X_n)| \leq c_i</span> for some constants <span
+class="math inline">c_i</span>, then <span class="math display">P(Z -
+E[Z] &gt; t) \leq e^{-2t^2 / \sum c_i^2}.</span></p>
+<p>Applying this to the earlier result, we get that</p>
+<p>Overall, <span class="math display">P(\mu(A) - \mu(A) &gt; t) \leq
+e^{-2nt^2}.</span></p>
+<p>Putting everything together gives us the bound <span
+class="math display">|\hat R_n(\hat h) - R(\hat h)| \leq 2
+\sqrt{\frac{2V \log(n + 1) + \log 2}{n}} +
+\sqrt{\frac{\log(1/\delta)}{n}}</span> where <span
+class="math inline">V</span> is the VC-dimension.</p>
+<p>But in practice, we need some sort of optimization procedure - and so
+we have to consider convex versions of the above. So we consider
+functions <span class="math inline">f \in \mathcal F</span> where <span
+class="math inline">f: \mathcal X \to \mathbb{R}</span> and a convex
+loss <span class="math inline">\varphi(Y_if(x_i))</span>.</p>
+<p><strong>Lemma (Zhang)</strong>: If <span
+class="math inline">\varphi</span> is a convex function such that <span
+class="math inline">\varphi(0) = 1</span> and <span
+class="math inline">\varphi(x) \geq \varphi(-x)</span> for <span
+class="math inline">x \geq 0</span>, and <span
+class="math display">H_\eta(\alpha) = \eta \varphi(-\alpha) +
+(1-\eta)\varphi(\alpha)</span> then for <span class="math inline">\tau:
+[0, 1] \to \mathbb{R}</span> satisfying <span
+class="math inline">\tau(\eta) = \inf_\alpha H_\eta(\alpha)</span>, and
+<span class="math inline">|0.5 - \eta| \leq c(1 -
+\tau(\eta))^\gamma</span> for <span class="math inline">\gamma \in
+(0,1)</span>, then <span class="math display">R(\text{sgn}(f)) - R^*
+\leq 2c(R_\varphi(f) - R_\varphi(f^*))</span> for all <span
+class="math inline">f</span>.</p>
+<p><strong>Theorem (Ledeux-Talagrand)</strong>: If <span
+class="math inline">\Psi: [-1, 1] \to \mathbb{R}</span> is a contraction
+and satisfies <span class="math inline">\Psi(0) = 0</span>, then for
+<span class="math display">\mathcal G = \{ \Psi \circ f, f \in \mathcal
+F \}</span> then <span class="math display">R_n(\mathcal G(z_i^n)) \leq
+2R(\mathcal F(z_i^n))</span></p>
+<p>Moreover, if <span class="math inline">\psi</span> is Lipschitz, then
+in fact we can use the above to see that <span
+class="math display">\begin{align*}
+E[\sup_f |R_{n, \varphi}(f) - R_{\varphi}(f)|] &amp;\leq E \left[ \sup_f
+\frac{1}{n} \sum_{i=1}^n \sigma_i(\varphi(-Y_i f(x_i)) -
+\varphi(-Y_i&#39;f(x_i&#39;))) \right]
+\end{align*}</span></p>
+<p>We finally arrive at <span class="math display">E[R(\text{sgn}(\hat
+f)) - R^*] \leq 2c\left(8L \sqrt{\frac{2\log(2n)}{n}}\right)^\gamma +
+2c\left(\inf_{\mathcal F} R_\psi(f) - R^*_\psi\right)^\gamma</span>
+where <span class="math inline">L</span> is the Lipschitz constant on
+<span class="math inline">\psi</span>, <span
+class="math inline">\gamma</span> is as in the Zhang lemma, and the
+root-log factor depends on the Rademacher complexity of the family of
+functions under consideration.</p>
+<h2 id="multiple-hypothesis-testing">Multiple Hypothesis Testing</h2>
+<hr />
+<p>For ease, remember that a type I error is a false positive and a type
+II error is a false negative.</p>
+<p>There are many possible approaches here. We give a few.</p>
+<h3 id="the-global-null">The Global Null</h3>
+<p>Here we test the global null <span class="math display">H_0 =
+\bigcap_{j=1}^n H_{0, j}</span> where we just do some <span
+class="math inline">p</span>-value adjustment.</p>
+<ol class="incremental" type="1">
+<li>The most obvious is Bonferonni, which proceeds simply by a union
+bound <span class="math display">P_{H_0}(\text{Type I Error}) =
+P_{H_0}\left(\min_{i=1,\dots,n} p_i \leq \frac{\alpha}{n}\right) \leq
+\sum_{i=1}^n P_{H_0}\left(p_i \leq \frac{\alpha}{n}\right) =
+\alpha.</span> Note that this bound isn’t actually that conservative
+under independence: <span class="math display">P_{H_0}(\text{Type I
+Error}) = 1 - \left( 1 - \frac{\alpha}{n} \right)^n = 1 - e^{-\alpha +
+o(1)} \approx \alpha</span> for reasonably small <span
+class="math inline">\alpha</span>. Note that this only cares about large
+deviations from then null.</li>
+<li>We can also use the Fischer combination test, which rejects for
+large values of <span class="math display">T = -2 \sum_{i=1}^n
+\log(p_i).</span> This test requires independence between <span
+class="math inline">p</span>-values, in which case <span
+class="math inline">T \sim \chi^2_{2n}</span>.</li>
+</ol>
+<p>The next thing to think about is the optimality of Boneferonni under
+sparse alternatives. Consider a Gaussian sequence model <span
+class="math display">Y_i \sim N(\mu_i, 1)</span> for <span
+class="math inline">i \in [n]</span> with the null <span
+class="math inline">H_0: \mu_i = 0</span> for all <span
+class="math inline">i</span> and alternative <span
+class="math inline">\mu_i \neq 0</span> for some <span
+class="math inline">i</span>. Then, we consider the Bonferonni test
+<span class="math display">\max_{i \in [n]} y_i &gt; |z(\alpha /
+n)|.</span></p>
+<p>To examine the power, we have the result <span
+class="math display">|z(\alpha / n)| = \sqrt{2\log(n)}(1 + o(1)) \simeq
+\sqrt{2 \log(n)} \left( 1 + \frac{\log(\log(n))}{4n} \right)</span> and
+an approximation <span class="math display">|z(\alpha / n)| = \sqrt{B(1
+- \log(B)/B)}</span> where <span class="math inline">B = 2\log(n /
+\alpha) - \log(2\pi)</span>.</p>
+<p>WLOG, suppose that <span class="math inline">\mu_1 \neq 0</span>.</p>
+<ol class="incremental" type="1">
+<li>If <span class="math inline">\mu_1 = (1 + \epsilon)\sqrt{2
+\log(n)}</span>, then <span class="math display">P(\max Y_i &gt;
+|z(\alpha / n)|) \geq P(Y_i &gt; |z(\alpha / n)|) = P(z + (1 +
+\epsilon)\sqrt{2\log(n)} &gt; |z(\alpha / n)|) \to 1</span> as <span
+class="math inline">n \to \infty</span>.</li>
+<li>On the other hand, by a similar argument we see that the power goes
+to <span class="math inline">1 - \alpha</span> with <span
+class="math inline">\mu_1 = (1 - \epsilon)\sqrt{2\log(n)}</span>.</li>
+</ol>
+<p>We can do the same analysis for the Fischer test. In this case, the
+test statistic <span class="math inline">T_n = \sum_{i=1}^n Y_i^2</span>
+is non-central <span class="math inline">\chi^2_{n}(\|\mu\|^2)</span>.
+The CLT yields that asymptotically <span class="math display">\frac{T_n
+- (n + \|\mu\|^2)}{\sqrt{2n + 4\|\mu\|^2}} \sim N(0, 1).</span></p>
+<p>Sime’s modification of the Bonferonni is given by rejecting when
+there is some <span class="math inline">i</span> such that <span
+class="math display">p_{(i)} \leq \frac{\alpha \cdot i}{n}</span> rather
+than <span class="math display">p_{(1)} \leq \frac{\alpha}{n}</span>
+where <span class="math inline">p_{(i)}</span> are the ordered <span
+class="math inline">p</span>-values.</p>
+<p>Now under <span class="math inline">H_0</span> and independence of
+the <span class="math inline">p</span>-values, then we have that <span
+class="math display">T_n = \min \frac{p_{(i)} n}{i} \sim U([0,
+1])</span> which can be easily shown via induction.</p>
+<p>We can test based on the empirical CDF as well.</p>
+<p><em>Def</em>: The <strong>empirical CDF</strong> is given by <span
+class="math display">\hat F_n(t) = \frac{|\{i \mid p_i \leq t\}|}{n}
+\sim_{H_0} \frac{1}{n}\text{Bin}(n, t).</span></p>
+<p>We can consider the Kolmogorov Smirnov statistics <span
+class="math display">KS = \sup_{t \in [0, 1]} |\hat F_n(t) - t| \text{
+and } KS^+ = \sup_{t \in [0, 1]} (\hat F_n(t) - t)</span> which, under
+independence, has distribution under the null satisfying <span
+class="math display">P(KS^+ \geq u) \leq e^{-2nu^2}.</span>
+Alternatively, just bootstrap the distribution of the KS-statistics
+under the null or something.</p>
+<p>Alternatively, we consider the Anderson-Darling test, which computes
+<span class="math display">A^2 = n\int w(t)(\hat F_n(t) - t)^2 dt</span>
+for some weight function <span class="math inline">w(t)</span>; common
+choices are <span class="math inline">w(t) = 1</span> (called the Cramer
+Von-Mises statistic) and <span class="math inline">w(t) =
+t^{-1}(1-t)^{-1}</span>, which correponds to the expectation of <span
+class="math inline">(\hat F_n(t) - t)^2</span> under the null. Note that
+for this particular <span class="math inline">w</span>, you get <span
+class="math display">A^2 = -n + \sum_{k=1}^n \frac{2k-1}{n}
+[\log(p_{(k)}) + \log(1 - p_{(k)})]</span></p>
+<p>Lastly, we have the Tukey higher criticism test, which is given by
+the statistics <span class="math display">HC^* = \max_{0 \leq \alpha
+\leq \alpha_0} \frac{\hat F_n(\alpha) -
+\alpha}{\sqrt{\frac{\alpha(1-\alpha))}{n}}}</span></p>
+<p>To understand the properties of these tests, often people will use a
+setup that looks something like <span
+class="math display">\begin{align*}
+H_{0}&amp;: x \sim N(0, 1) \\
+H_{1}&amp;: x \sim N(\mu, 1) \\
+\end{align*}</span> for some proportion <span
+class="math inline">\epsilon</span> of non null results; in fact the
+higher criticism test (for unknown <span class="math inline">\epsilon,
+\mu</span> almost as good as the likelihood ratio test (for known <span
+class="math inline">\epsilon, \mu</span>).</p>
+<h3 id="the-family-wise-error-rate">The Family Wise Error Rate</h3>
+<p>For convenience, adopt the notation <span
+class="math display">\begin{align*}
+  U &amp;= |\{\text{true negatives}\}| \\
+  V &amp;= |\{\text{false positive}\}| \\
+  T &amp;= |\{\text{false negatives}\}| \\
+  S &amp;= |\{\text{true negatives}\}| \\
+  R &amp;= V + S \\
+  n_0 &amp;= U + V \\
+  n &amp;=  U + V + T + S
+\end{align*}</span></p>
+<p><em>Def</em>: The <span class="math inline">k</span><strong>-family
+wise error rate</strong> is the probability of <span
+class="math inline">k</span> type I errors.</p>
+<p>As before, the simpliest possible thing is Bonferonni, e.g. reject if
+<span class="math inline">p_i \leq \frac{\alpha}{n}</span>. Of course,
+this is very conservative. Under independence of the null <span
+class="math inline">p</span>-values, you can get a bound of <span
+class="math inline">p_i \leq \frac{\alpha}{n(1 - \alpha / 2)}</span>
+which is very close to Bonferonni.</p>
+<p><em>Def</em> A testing procedure controls the FWER
+<strong>weakly</strong> if it controls it under the global null.</p>
+<p>Consider the following LSD procedure from Fisher: test first the
+global null and then test each hypothesis at level <span
+class="math inline">\alpha</span>.</p>
+<p>Consider now Holm’s procedure, which sorts the <span
+class="math inline">p</span>-values <span class="math inline">p_{(1)},
+\dots, p_{(n)}</span>; then, you do a step-down where you reject if
+<span class="math inline">p_{(i)} \leq \frac{\alpha}{n - i + 1}</span>
+for all <span class="math inline">i</span> up to some bound and accept
+otherwise. This in fact controls the FWER strongly.</p>
+<p>The closure principle is the following: suppose you have <span
+class="math inline">\{H_1, \dots, H_n\}</span>; then the closure of
+these sets is <span class="math inline">\{H_I \mid I \in
+P([n])\}</span>, where for any subset <span
+class="math inline">I</span>, <span class="math inline">H_I = \bigcap_{i
+\in I}H_i</span>. Now if you have some procedures <span
+class="math inline">\varphi_i</span> that satisfy <span
+class="math inline">P(\varphi_I = 1 \mid H_I) \leq \alpha</span>, then
+we should reject <span class="math inline">H_I</span> if and only if for
+all <span class="math inline">J</span> such that <span
+class="math inline">I \subset J</span>, <span
+class="math inline">H_J</span> is rejected at level <span
+class="math inline">\alpha</span> by <span
+class="math inline">\varphi_J</span>.</p>
+<p>In fact, Holm is simply the closure of Bonferonni.</p>
+</body>
+</html>

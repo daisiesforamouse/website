@@ -2,10 +2,9 @@
 title: 'Welcome!'
 ...
 
-This is a (nominally organized) collection of notes and other bits of stuff.
+This is a (nominally organized) collection of notes.
 
-
-### Courses taken at the University of Chicago:
+### Theoretical Statistics
 
 ---------------
 
@@ -15,13 +14,13 @@ This is a (nominally organized) collection of notes and other bits of stuff.
 - [Mathematical Statistics I](Mathematical Statistics I.md) (Winter 2024)
 - [Generalized Linear Models](Generalized Linear Models.md) (Winter 2024)
 
-### Old scribbles from undergrad:
+### Old miscellanous scribbles from undergrad:
 
 ---------------
 
-- [Algebraic Geometry](/notes/old/alggeo.html)
+<!-- - [Algebraic Geometry](/notes/old/alggeo.html) -->
 - [Probability](/notes/old/probability.html)
 - [Analytic Number Theory](/notes/old/ant.html)
-- [CMUSRP](/notes/old/paris.html)
+<!-- - [CMUSRP](/notes/old/paris.html) -->
 - [Honors Math A](/files/MATH 1207.pdf)
 - [Honors Math B](/files/MATH 1208.pdf)

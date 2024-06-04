@@ -11,8 +11,11 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -29,10 +32,8 @@
 <h1 class="title">Welcome!</h1>
 </header>
 <hr>
-<p>This is a (nominally organized) collection of notes and other bits of
-stuff.</p>
-<h4 id="courses-taken-at-the-university-of-chicago">Courses taken at the
-University of Chicago:</h4>
+<p>This is a (nominally organized) collection of notes.</p>
+<h4 id="theoretical-statistics">Theoretical Statistics</h4>
 <hr />
 <ul class="incremental">
 <li><a
@@ -47,13 +48,14 @@ I</a> (Winter 2024)</li>
 <li><a href="Generalized%20Linear%20Models.html">Generalized Linear
 Models</a> (Winter 2024)</li>
 </ul>
-<h4 id="old-scribbles-from-undergrad">Old scribbles from undergrad:</h4>
+<h4 id="old-miscellanous-scribbles-from-undergrad">Old miscellanous
+scribbles from undergrad:</h4>
 <hr />
+<!-- - [Algebraic Geometry](/notes/old/alggeo.html) -->
 <ul class="incremental">
-<li><a href="/notes/old/alggeo.html">Algebraic Geometry</a></li>
 <li><a href="/notes/old/probability.html">Probability</a></li>
-<li><a href="/notes/old/ant.html">Analytic Number Theory</a></li>
-<li><a href="/notes/old/paris.html">CMUSRP</a></li>
+<li><a href="/notes/old/ant.html">Analytic Number Theory</a>
+<!-- - [CMUSRP](/notes/old/paris.html) --></li>
 <li><a href="/files/MATH%201207.pdf">Honors Math A</a></li>
 <li><a href="/files/MATH%201208.pdf">Honors Math B</a></li>
 </ul>

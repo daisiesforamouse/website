@@ -11,8 +11,11 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -50,12 +53,19 @@
 <hr>
 <nav id="TOC" role="doc-toc">
 <ul class="incremental">
-<li><a href="#basic-statistics" id="toc-basic-statistics">Basic
-Statistics</a></li>
+<li><a href="#sufficient-statistics"
+id="toc-sufficient-statistics">Sufficient Statistics</a></li>
+<li><a href="#decision-theory" id="toc-decision-theory">Decision
+Theory</a></li>
+<li><a href="#estimation-under-constraints"
+id="toc-estimation-under-constraints">Estimation Under
+Constraints</a></li>
+<li><a href="#maximum-likelihood-theory"
+id="toc-maximum-likelihood-theory">Maximum Likelihood Theory</a></li>
 </ul>
 </nav>
 <hr>
-<h3 id="basic-statistics">Basic Statistics</h3>
+<h3 id="sufficient-statistics">Sufficient Statistics</h3>
 <hr />
 <p>We model the outcome of a statistical experiment by some <span
 class="math inline">P_\theta</span>, where <span
@@ -100,9 +110,619 @@ h(x)</span> where <span class="math inline">p</span> is the density
 function corresponding to <span class="math inline">P_\theta</span>.</p>
 <p><em>Proof</em>: The continuous case is similar to the discrete one.
 The backwards direction is just computation. The forwards direction is
-just noting that <span class="math display">
-P(X = x) = P(X = x, T(X) = T(x)) = P(X = x \mid T(X) = T(x)) P(T(X) =
-T(x)).
+just noting that <span class="math display"> P(X = x) = P(X = x, T(X) =
+T(x)) = P(X = x \mid T(X) = T(x)) P(T(X) = T(x)). </span></p>
+<p><em>Corollary</em>: <span class="math inline">T = T(X)</span> is
+sufficient iff <span class="math inline">\theta \to T \to X</span> is a
+Markov chain, e.g. <span class="math inline">\theta \perp X \mid
+T</span>.</p>
+<p><em>Def</em>: An <strong>exponential family</strong> is given by the
+distribution <span class="math display">
+P(X \mid \theta) = \exp \left( \sum_{j=1}^d \eta_j(\theta)T_j(x) -
+B(\theta) \right)h(x).
+</span> Moreover,</p>
+<ul class="incremental">
+<li><span class="math inline">\eta_j</span> is the natural
+parameter,</li>
+<li><span class="math inline">T_j</span> is the sufficient
+statistic,</li>
+<li><span class="math inline">d</span> is the dimension,</li>
+<li><span class="math inline">h</span> is the base measure,</li>
+<li>and <span class="math display">
+B(\theta) = \log \left( \int \exp\left(\sum_{j=1}^d \eta_j(\theta)
+T_j(x)\right) h(x) d\mu \right)
+</span> is the log partition function (though here it is merely a
+normalizing constant).</li>
+</ul>
+<p><em>Def</em>: <span class="math inline">P_\eta, \eta \in H</span> is
+an <strong>exponential family of canonical form</strong> if <span
+class="math display">
+p(x \mid \eta) = \exp \left( \sum_{j=1}^d \eta_j T_j(x) - A(\eta)
+\right)h(x)
 </span></p>
+<p><em>Def</em>: <span class="math inline">P_\eta, \eta \in H</span> is
+a <strong>minimal</strong> exponential family (of canonical form) if the
+dimension cannot be further reduced.</p>
+<p><em>Def</em>: A minimal canonical exponential family <span
+class="math inline">P_\eta, \eta \in H</span> is <strong>curved</strong>
+if the natural parameters are nonlinearly related.</p>
+<p><em>Def</em>: A statistic <span class="math inline">S</span> is
+minimal sufficient if it is sufficient and for any sufficient <span
+class="math inline">T</span>, <span class="math inline">S</span> is a
+function of <span class="math inline">T</span>.</p>
+<h4 id="subfamily-methods">Subfamily Methods</h4>
+<p><strong>Lemma</strong>: Suppose <span class="math inline">\Theta_0
+\subset \Theta</span>. If <span class="math inline">T</span> is
+sufficient for <span class="math inline">\theta \in \Theta</span> and it
+is minimal sufficient for <span class="math inline">\theta \in
+\Theta_0</span>, then <span class="math inline">T</span> is minimal
+sufficient for all <span class="math inline">\theta \in
+\Theta</span>.</p>
+<p><em>Proof</em>: That <span class="math inline">T</span> is sufficient
+comes by assumption. Minimality holds since on <span
+class="math inline">\Theta_0</span>, <span class="math inline">S(x) =
+f(T(x))</span> for some function <span class="math inline">f</span>, and
+this automatically extends to <span
+class="math inline">\Theta</span>.</p>
+<p><strong>Theorem</strong>: Let <span class="math inline">P_\theta,
+\theta \in \{ \theta_0, \dots, \theta_d \}</span> have the same support.
+Then <span class="math display">
+T = \left(  \frac{p(x \mid \theta_1)}{p(x \mid \theta_0)}, \dots,
+\frac{p(x \mid \theta_d)}{p(x \mid \theta_0)} \right)
+</span> is minimal sufficient for <span
+class="math inline">\theta</span>.</p>
+<p><em>Proof</em>: We have that <span class="math display">
+    p(x \mid \theta_j) = T_j(x) p(x \mid \theta_0)
+</span> so we are done by factorization.</p>
+<p><strong>Theorem</strong>: Let <span class="math inline">(P_\eta, \eta
+\in H)</span> be a minimal exponential family, i.e. <span
+class="math display">
+    p(x \mid \eta) = \exp \left( \langle \eta, T(x) \rangle - A(\eta)
+\right)h(x).
+</span> Then <span class="math inline">T(x) \in \mathbb{R}^d</span> is
+minimal sufficient.</p>
+<p><em>Proof</em>: We wish to find <span class="math inline">\eta_0,
+\dots, \eta_d \in H</span> such that the matrix <span
+class="math inline">A = \left[\begin{matrix}(\eta_i -
+\eta_{i-1})^T\end{matrix}\right] \in \mathbb{R}^{d \times d}</span> is
+full rank. This possible in both the full rank and curved cases (draw a
+picture!). But we know that the likelihood ratios are minimal sufficient
+for the subfamily and since <span class="math display">
+    \frac{p(x \mid \eta_j)}{p(x \mid \eta_0)} = \exp \left(\langle
+\eta_j - \eta_0, T(x) \rangle - (A(\eta_j) - A(\eta_0))\right)
+</span> is just a function of <span class="math inline">\langle \eta_j -
+\eta_0, T \rangle</span>. Then, <span class="math inline">AT</span> is
+minimal sufficient, and since <span class="math inline">A</span> is
+invertible, <span class="math inline">T</span> is minimal
+sufficient.</p>
+<h4 id="completeness-methods">Completeness Methods</h4>
+<p>Let <span class="math inline">X_1, X_2</span> be i.i.d. <span
+class="math inline">N(\mu, 1)</span>. Then <span
+class="math inline">(X_1 - X_2, X_1 + X_2)</span> is a one-to-one
+transform, but <span class="math inline">X_1 - X_2 \sim N(0, 2)</span>
+is unrelated to <span class="math inline">\mu</span>, so <span
+class="math inline">X_1 + X_2</span> is the only one that matters.</p>
+<p><em>Def</em>: <span class="math inline">A = A(x)</span> is
+<strong>ancillary</strong> if its distribution does not depend on <span
+class="math inline">\theta \in \Theta</span>. <span
+class="math inline">A</span> is <strong>first-order ancillary</strong>
+if <span class="math inline">E_\theta[A(x)]</span> does not depend on
+<span class="math inline">\theta \in \Theta</span>.</p>
+<p><em>Def</em>: <span class="math inline">T = T(x)</span> is a complete
+statistic if the following holds: <span class="math display">
+    E_\theta[f(T(X))] = 0, \forall \theta \in \Theta \implies f(T(X)) =
+0, a.s. \ \forall \theta \in \Theta.
+</span> Morally, this means that there is no nontrivial transform that
+makes <span class="math inline">T</span> first-order ancillary.</p>
+<p><strong>Theorem (Bahadur)</strong>: If <span
+class="math inline">T</span> is sufficient and complete, then <span
+class="math inline">T</span> is minimal sufficient.</p>
+<p><em>Proof</em>: Suppose some minimal sufficient statistic <span
+class="math inline">U = U(x)</span> exists. Since <span
+class="math inline">U</span> is minimal, there is <span
+class="math inline">h</span> such that <span class="math inline">U =
+h(T)</span>. Define <span class="math inline">g(u) = E_\theta[T \mid U =
+u]</span>, which by sufficiency does not depend on <span
+class="math inline">\theta</span>. Then, <span class="math display">
+E_\theta[g(h(T))] = E_\theta[g(U)] = E_\theta[T]
+</span> so <span class="math inline">E_\theta[g(h(T)) - T] = 0</span>
+for all <span class="math inline">\theta</span>. Since <span
+class="math inline">T</span> is complete, then <span
+class="math inline">g(h(T)) = g(U) = T</span> almost surely.</p>
+<p><strong>Theorem (Basu)</strong>: If <span
+class="math inline">T</span> is sufficient and complete, and <span
+class="math inline">A</span> is ancillary, then <span
+class="math inline">T \perp A</span>.</p>
+<p><em>Proof</em>: We want to show that <span
+class="math inline">P_\theta(A \in B \mid T) = P_\theta(A \in B)</span>.
+Let <span class="math display">
+g(t) = P_\theta(A \in B \mid T = t)
+</span> which does not depend on <span class="math inline">\theta</span>
+by sufficiency, and similarly <span class="math inline">P_\theta(A \in B
+\mid T = t)</span> is also just a constant, now abbreviated to <span
+class="math inline">c</span>. Then, <span class="math inline">E[g(t) -
+c] = 0</span>, and by completeness <span class="math inline">g(t) =
+c</span> so we win.</p>
+<p><strong>Theorem</strong>: If <span class="math inline">P_\eta(x) =
+\exp(\eta^\top T(x) - A(\eta))</span> is a full-rank exponential family,
+then <span class="math inline">T</span> is complete.</p>
+<p><em>Proof</em>: Compare moment generating functions.</p>
+<h3 id="decision-theory">Decision Theory</h3>
+<hr />
+<p><em>Def</em>: If we have some family <span
+class="math inline">(P_\theta, \theta \in \Theta)</span>, and some
+observations <span class="math inline">X \sim P_\theta</span>, then we
+may call any <span class="math inline">\hat \theta = \hat
+\theta(X)</span> a <strong>decision/procedure/estimator</strong>. We
+measure how good the estimator is using a <strong>loss function</strong>
+<span class="math inline">L(\theta, \hat \theta)</span>; we also call
+the expectation <span class="math inline">E_\theta[L(\theta, \hat
+\theta)]</span> the <strong>risk</strong>.</p>
+<p><em>Def</em>: An estimator <span class="math inline">\hat
+\theta</span> is <strong>minimax</strong> if for any <span
+class="math inline">\tilde \theta</span>, <span class="math display">
+    \sup_{\theta \in \Theta} R(\hat \theta, \theta) \leq \sup_{\theta
+\in \Theta} R(\tilde \theta, \theta).
+</span></p>
+<p><em>Def</em>: An estimator <span class="math inline">\hat
+\theta</span> is <strong>Bayes</strong> with respect to a prior
+distribution <span class="math inline">\pi</span> on <span
+class="math inline">\Theta</span> if for any <span
+class="math inline">\tilde \theta</span>, <span class="math display">
+    \int R(\hat \theta, \theta)\pi(\theta)d\theta \leq \int R(\tilde
+\theta, \theta)\pi(\theta)d\theta.
+</span></p>
+<p><strong>Theorem</strong>: For any <span class="math inline">\hat
+\theta</span> and any sufficient statistic T, if <span
+class="math inline">L(\hat \theta, \theta)</span> is convex in <span
+class="math inline">\hat \theta</span>, then <span
+class="math inline">\tilde \theta = E_\theta[\hat \theta \mid T]</span>
+must have no greater risk.</p>
+<p><em>Proof</em>: Apply Jensen to <span class="math inline">L(\tilde
+\theta, \theta)</span>, and take a second expectation.</p>
+<p>For the Bayes estimator, we can also frame it in terms of the
+marginal distribution of <span class="math inline">x</span>, e.g. <span
+class="math display">
+    \int R(\hat \theta, \theta) \pi(\theta) d\theta = \iint L(\hat
+\theta(x), \theta) p(x \mid \theta)\pi(\theta) dxd\theta = \iint L(\hat
+\theta(x), \theta), \pi(\theta \mid x) m(x)d\theta dx
+</span> where <span class="math inline">\pi(\theta \mid x), m(x)</span>
+are determined by Bayes.</p>
+<p><strong>Lemma</strong>: Define <span class="math display">
+\hat \theta_\pi(x) = \mathop{\mathrm{argmin}}_a \int L(a, \theta)
+\pi(\theta \mid x)d\theta.
+</span> Then <span class="math inline">\hat \theta_\pi</span> is
+Bayes.</p>
+<p><em>Example</em>: If <span class="math inline">L(\hat \theta, \theta)
+= (\hat \theta - \theta)^2</span>, then the Bayes optimizer is just the
+posterior mean <span class="math inline">E[\theta \mid X]</span>.</p>
+<p><strong>Theorem</strong>: Suppose that there is some prior <span
+class="math inline">\pi</span> such that the Bayes estimator satisfies
+<span class="math display">
+    \sup_{\theta \in \Theta} R(\hat \theta, \theta) = \inf_{\tilde
+\theta} \int R(\hat \theta, \theta) \pi(\theta) d\theta.
+</span> Then, <span class="math inline">\hat \theta</span> is
+minimax.</p>
+<p><em>Proof</em>: For all <span class="math inline">\hat \theta</span>,
+<span class="math display">
+\sup_{\theta \in \Theta} R(\tilde \theta, \theta) \geq \int R(\tilde
+\theta, \theta) \pi(\theta) d\theta \geq \inf_{\hat \theta} \int
+R(\tilde \theta, \theta)\pi (\theta)d\theta = \sup_{\theta \in \Theta}
+R(\hat \theta, \theta).
+</span></p>
+<p><strong>Corollary</strong>: Suppose <span class="math inline">\hat
+\theta</span> is Bayes with risk independent of <span
+class="math inline">\theta</span>. Then it is also minimax.</p>
+<p><strong>Theorem</strong>: Suppose there exists some sequence of prior
+distributions <span class="math inline">\pi_n</span> such that <span
+class="math display">
+    \sup_{\theta \in \Theta} R(\hat \theta, \theta) = \lim_{n \to
+\infty} \inf_{\tilde \theta} \int R(\tilde \theta, \theta) \pi_n(\theta)
+d\theta.
+</span></p>
+<p><em>Proof</em>: Exactly the same as above.</p>
+<h4 id="admissible-estimators">Admissible Estimators</h4>
+<p><em>Def</em>: We say <span class="math inline">\hat \theta</span> is
+<strong>inadmissible</strong> if there exists some other estimator <span
+class="math inline">\tilde \theta</span> such that <span
+class="math display">
+    R(\tilde \theta, \theta) \leq R(\hat \theta, \theta), \ \ \forall
+\theta \in \Theta
+</span> and there is some <span class="math inline">\theta_0 \in
+\Theta</span> such that <span class="math display">
+    R(\tilde \theta, \theta_0) \leq R(\hat \theta, \theta_0).
+</span> Otherwise, <span class="math inline">\hat \theta</span> is
+called <strong>admissible</strong>.</p>
+<p><strong>Theorem</strong>: If <span class="math inline">\hat
+\theta</span> is Bayes, then it is also admissible.</p>
+<p><em>Proof</em>: If <span class="math inline">\hat \theta</span> was
+inadmissible, then there is some <span class="math inline">\tilde
+\theta</span> satisfying the above conditions. Then, put <span
+class="math inline">\tilde \theta</span> in the condition for Bayes
+optimality and win (as long as <span class="math inline">R(\tilde
+\theta, \theta_0) \leq R(\hat \theta, \theta_0)</span> holds on a set of
+positive measure w.r.t. the prior distribution).</p>
+<p><strong>Theorem (Complete Class, Brown)</strong>: If <span
+class="math inline">\hat \theta</span> is admissible, then <span
+class="math inline">\hat \theta_{\pi_n} \to \hat \theta</span>.</p>
+<h4 id="nonparametric-density-estimation">Nonparametric Density
+Estimation</h4>
+<p>Suppose we have <span class="math inline">X_1, \dots, X_n \sim
+f</span>, where <span class="math inline">f \in S_\alpha(R) \subset
+L^2[0, 1]</span> and <span class="math inline">S_\alpha(R)</span> is the
+Sobolev ball <span class="math display">
+    S_\alpha(R) = \left\{ f \in L^2[0, 1] \mid f \geq 0, \int f = 1, f =
+\sum_{i=1}^\infty \theta_j \varphi_j(x), \sum_{i=1}^\infty
+j^{2\alpha}\theta_j^2 \leq R^2\right\}.
+</span> We will consider the loss function <span class="math display">
+L(\hat f, f) = \|\hat f-f\|^2 = \int_0^1 ( \hat f - f)^2
+</span> and proceed with Fourier analysis, e.g. expressing <span
+class="math display">
+    f(x) = a_0 + \sum_{j=1}^\infty \left(a_i \sin(2\pi j x) + b_j
+\cos(2\pi jx)\right) = \sum_{j=1}^\infty \theta_j \varphi_j(x).
+</span></p>
+<p>The natural choice for estimating <span
+class="math inline">\theta_j</span> is the empirical coefficient <span
+class="math display">
+    \hat \theta_j = \frac{1}{n} \sum_{i=1}^n \varphi_j(X_i) \to
+E[\varphi_j] = \int_0^1 f(x)\varphi_j(x)dx = \theta_j.
+</span> which has approximate distribution <span
+class="math inline">N\left(\theta_j,
+\frac{\mathop{\mathrm{Var}}(\varphi_j(X_i))}{n}\right)</span>.</p>
+<h4 id="gaussian-sequence-model">Gaussian Sequence Model</h4>
+<p>Suppose that we observe the following sequence <span
+class="math inline">X_j = \theta + \frac{1}{\sqrt{n}} Z_j</span>, where
+<span class="math inline">j \in \mathbb{N}</span>; set a loss function
+<span class="math display">
+L(\hat \theta, \theta) = \|\hat \theta - \theta\|^2 = \sum_{j=1}^\infty
+(\hat \theta_j - \theta_j)^2.
+</span></p>
+<p>This is the same as before (for details, look for asymptotic
+equivalence); in fact this is asymptotically equivalent to white noise
+models and nonparametric regression.</p>
+<p>In this case, we may take <span class="math inline">\hat \theta_j =
+X_j</span> if <span class="math inline">j \leq k</span> and <span
+class="math inline">0</span> otherwise; this gives an optimal loss rate
+of <span class="math inline">n^{-\frac{2\alpha}{2\alpha + 1}}</span>. We
+can do better however, since this relies on setting <span
+class="math inline">k = n^{\frac{1}{2\alpha+1}}</span>, which relies on
+the smoothness parameter.</p>
+<p>We can overcome this by an adaptive nonparametric estimation; we
+perform a blockwise James-Stein estimator for blocks of size <span
+class="math inline">\frac{2}{3} 3^j</span>, up to <span
+class="math inline">\log_3(n)</span> blocks.</p>
+<p>In fact this is rate-optimal: in general <span class="math display">
+    \inf_{\hat \theta} \sup_{\theta \in \Theta_{\alpha}(R)} E_{\theta}
+\|\hat \theta - \theta\|^2 = (1 + o(1)) C_{\alpha,
+R}n^{-\frac{2\alpha}{2\alpha + 1}}
+</span> for some Pinsker constant <span class="math inline">C(\alpha,
+R)</span>. In fact the blockwise James-Stein achieves this constant as
+well.</p>
+<p>We will prove a weaker version of this.</p>
+<p><em>Def</em>: In general, for any hypothesis test with <span
+class="math display">
+\begin{align*}
+    H_0: X \sim P \\
+    H_1: X \sim Q \\
+\end{align*}
+</span> a <strong>test</strong> is a measurable <span
+class="math inline">\varphi: X \to \{ 0, 1 \}</span>; a type-1 error
+happens with probability <span class="math inline">E_P[\varphi] =
+P[\varphi]</span> and a type-2 with <span class="math inline">E_Q[1 -
+\varphi] = Q[1 - \varphi]</span> (we will generally use this shorthand
+for the expectation). The testing error is their sum, and the
+<strong>optimal testing error</strong> is <span class="math display">
+    \inf_\varphi P[\varphi] + Q[1 - \varphi].
+</span> Moreover, the <strong>total variation</strong> is <span
+class="math display">
+    TV(P, Q) = \sup_{B} |P[B] - Q[B]|
+</span> where the supremum is over all events.</p>
+<p><strong>Theorem</strong>: <span class="math display">
+    TV(P, Q) = \frac{1}{2} \int |p  - q| = 1 - \int p \land q
+</span> where the integral is w.r.t. a dominating measure, and <span
+class="math inline">p, q</span> are their densities w.r.t. that
+dominating measure.</p>
+<p><em>Proof</em>: Just look with <span class="math inline">B = \{p(x)
+&gt; q(x)\}</span>.</p>
+<p><em>Def</em>: We call <span class="math inline">\int p \land q</span>
+the affinity.</p>
+<p><strong>Theorem (Neyman-Pearson)</strong>: The optimal testing error
+is <span class="math display">
+    \inf_{\varphi} (P[\varphi] - Q[1 - \varphi]) = 1 - TV(P, Q) = \int p
+\land q.
+</span> Note that this is a maximum likelihood estimator.</p>
+<p><em>Proof</em>: Same as above, but use the earlier theorem.</p>
+<p><strong>Theorem (LeCam)</strong>: For all <span
+class="math inline">\theta_0, \theta_1 \in \Theta</span>, <span
+class="math display">
+    \inf_{\theta} \sup_{\theta \in \Theta} E_{\theta}[(\hat \theta -
+\theta)^2] \geq \frac{1}{4}(\theta_0 - \theta_1)^2 \int p_{\theta_0}
+\land p_{\theta_1}.
+</span></p>
+<p><em>Proof</em>: Bound by the average. <span class="math display">
+    \inf_{\hat \theta} \sup_{\theta \in \Theta} E_{\theta}[(\hat \theta
+- \theta)^2] \geq \frac{1}{2} \inf_{\hat \theta} \left(
+E_{\theta_0}[(\hat \theta - \theta_0)^2] + E_{\theta_1}[(\hat \theta -
+\theta_1)^2] \right).
+</span> It is not difficult to finish from here.</p>
+<!-- To know that the blockwise JS estimator is rate-optimal, apply LeCam to $\theta_0 = 0, \theta-1 = \frac{1}{\sqrt{n}}$. -->
+<h3 id="estimation-under-constraints">Estimation Under Constraints</h3>
+<hr />
+<p><em>Def</em>: We say <span class="math inline">\delta(X)</span> is
+<strong>UMVUE (uniformly minimum-variance unbiased estimator)</strong>
+for <span class="math inline">g(\theta)</span> if it is</p>
+<ul class="incremental">
+<li>unbiased;</li>
+<li>has lower variance than any other unbiased estimator.</li>
+</ul>
+<p><strong>Theorem (Lehmann-Scheffe)</strong>: Let <span
+class="math inline">T = T(X)</span> be a sufficient and complete
+statistic. Then, <span class="math inline">\delta(X) = h(T(X))</span> is
+the only function of <span class="math inline">T</span> that is unbiased
+and is also the unique UMVUE, so long as <span
+class="math inline">E_\theta[\delta(X)] = g(\theta)</span>.</p>
+<p><em>Proof</em>: If <span class="math inline">\tilde h(T(X))</span> is
+also unbiased, <span class="math display">
+    E[h(T(X)) - \tilde h(T(X))] = g(\theta) - g(\theta) = 0
+</span> and by completeness <span class="math inline">h = \tilde
+h</span> almost surely. Suppose <span class="math inline">\tilde \delta
+(X)</span> is unbiased; then <span class="math display">
+  \delta(X) = E_\theta[\tilde \delta(X) \mid T(X)]
+</span> is also unbiased, but is a function of <span
+class="math inline">T</span> and has a lower variance than <span
+class="math inline">\tilde \delta(X)</span>. By uniqueness from the
+first part, it must be that <span class="math inline">\delta(X) =
+h(T(X))</span> and is thus UMVUE. For uniqueness, look at <span
+class="math inline">\mathop{\mathrm{Var}}_\theta(\tilde \delta)</span>,
+and note that it is strictly larger than the variance of <span
+class="math inline">\delta(X)</span>, unless <span
+class="math inline">\tilde \delta = \delta</span> almost surely.</p>
+<p><strong>Theorem (SURE)</strong>: For <span class="math inline">X \sim
+N(\theta, \sigma^2 I_p)</span>, <span class="math display">
+    \|\hat \theta - X\|^2 - \sigma^2 p + 2\sigma^2 \sum_{j=1}^p
+\frac{\partial \hat \theta_j}{ \partial X_j}
+</span> is an unbiased estimator of <span
+class="math inline">E_\theta[(\hat \theta - \theta)^2]</span>. We also
+call <span class="math display">
+\sum_{j=1}^p \frac{\partial \hat \theta_j}{\partial X_j}
+</span> the <strong>degrees of freedom</strong>.</p>
+<p><em>Proof</em>: Apply Stein’s lemma after introducing a <span
+class="math inline">X - X</span> term in the square.</p>
+<h3 id="maximum-likelihood-theory">Maximum Likelihood Theory</h3>
+<hr />
+<p>In this section, <span class="math inline">\theta^*</span> always
+denotes the “true” parameter.</p>
+<p><em>Def</em>: Given a likelihood <span
+class="math inline">p_\theta(x)</span> and <span
+class="math inline">x_1, \dots, x_n</span>, the <strong>maximum
+likelihood estimator (MLE)</strong> is given by <span
+class="math display">
+\hat \theta = \mathop{\mathrm{argmin}}_{\theta \in \Theta} \sum_{i=1}^n
+\log p_\theta(x_i).
+</span></p>
+<p>We wish to establish some sort of consistency (consider the case of
+<span class="math inline">X_1, \dots, X_n</span> Cauchy variables for
+instance). We have that <span class="math display">
+\hat \theta = \mathop{\mathrm{argmin}}\frac{1}{n} \sum_{i=1}^n
+\log\left(\frac{p_{\theta^*}(x_i)}{p_\theta(x_i)}\right)
+</span> but by the LLN we have <span class="math display">
+\frac{1}{n} \sum_{i=1}^n \log
+\left(\frac{p_{\theta^*}(x_i)}{p_\theta(x_i)}\right) \to \int
+p_{\theta^*} \log \left( \frac{p_{\theta^*}}{p_\theta} \right).
+</span></p>
+<p><em>Def</em>: We call <span class="math display">
+D(P \| Q) = \int p \log\left(\frac{p}{q}\right) = \int p \log(1/q) -
+\int p \log(1/p)
+</span> the <strong>Kullback-Leibler divergence</strong> and <span
+class="math inline">\int p \log(1/p)</span> is the (relative)
+<strong>entropy</strong>.</p>
+<p><strong>Prop</strong>: The KL divergence is always positive and is in
+fact bounded below by the square Hellinger ditance <span
+class="math display">
+D(P \| Q) \geq \frac{1}{2} \int (\sqrt{p} - \sqrt{q})^2.
+</span></p>
+<p>Then, the above gives the intuition that <span class="math display">
+\hat \theta = \mathop{\mathrm{argmin}}_{\theta} D(P_{\theta^*} \|
+P_\theta).
+</span></p>
+<p>More formally, we require a constraint.</p>
+<ul class="incremental">
+<li><strong>Identifiability</strong>: If <span
+class="math inline">\theta \neq \theta^*</span>, then <span
+class="math inline">D(P_{\theta^*} \| P_\theta) &gt; 0</span>. In fact,
+we must have that <span class="math inline">\forall \epsilon &gt;
+0</span>, there is <span class="math inline">\delta &gt; 0</span> such
+that <span class="math inline">|\theta - \theta^*| &gt; \epsilon</span>
+<span class="math inline">D(P_{\theta^*} \| P_\theta) &gt;
+\delta</span>.</li>
+</ul>
+<p><strong>Theorem</strong>: In this case, <span
+class="math inline">\hat \theta \to \theta^*</span> in probability.</p>
+<p><em>Proof</em>: We first compute that <span class="math display">
+P_{\theta^*}(|\hat \theta - \theta^*| &gt; \epsilon) \leq
+P_{\theta^*}(D(P_{\theta^*} \| P_{\hat \theta}) &gt; \delta) =
+P_{\theta^*} \left(\int p_{\theta^*}\log(p_{\theta^*}) - \int
+p_{\theta^*}\log(p_{\hat \theta}) &gt; 0\right).
+</span> Then, we need a uniform LLN, e.g. <span class="math display">
+\sup_{\theta} \left| \frac{1}{n} \sum_{i=1}^n \log(p_\theta(x_i)) - \int
+p_{\theta^*}\log(p_\theta) \right| \to 0
+</span> in probability under <span
+class="math inline">p_{\theta^*}</span>. Then approximate the two
+integrals by the suitable LLN and win.</p>
+<p>A proof of the ULLN is omitted, but it holds when the log-densities
+are low-complexity, e.g. <span class="math display">
+\sup_{f \in \mathcal F} \left|\frac{1}{n} \sum_{i=1}^n f(x_i) - E[f(X)]
+\right| \to 0
+</span> holds given a condition on the VC dimension/covering
+number/Dudley integral/Rademacher complexity etc.</p>
+<p><em>Def</em>: We define the <strong>score</strong> as <span
+class="math display">
+S_\theta(x) = \frac{\partial}{\partial \theta}\log(p_\theta(x))
+</span> and the <strong>Fisher information</strong> as <span
+class="math display">
+I_\theta = E_\theta[(S(X))^2].
+</span></p>
+<p><strong>Theorem</strong>: Suppose that</p>
+<ul class="incremental">
+<li><span class="math inline">\hat \theta \to \theta^*</span> in
+probability;</li>
+<li>we have <span class="math display">
+\log(p_{\theta^* + t}(x)) = \log(p_{\theta^*}(x)) + tS_{\theta^*}(x) +
+|t|r(x,t)
+</span> where <span class="math display">
+\sup_{t \in U_n} \frac{|\nu_n r(\cdot, t)|}{1 + \sqrt{n}|t|} \to 0
+</span> in probability and <span class="math inline">\nu_n f =
+\frac{1}{\sqrt{n}} \sum_{i=1}^n(f(X_i) - E[f(X_i)])</span> is
+stochastically bounded;</li>
+<li>and finally <span class="math display">
+\mathcal L(\theta^* + t) = E_{\theta^*}[L_n(\theta^* + t)] = \mathcal
+L(\theta^*) - \frac{1}{2}I_{\theta^*}t^2 + o(t^2)
+</span> where <span class="math inline">I_{\theta^*} =
+\mathop{\mathrm{Var}}_{\theta^*}(S_{\theta^*}(X))</span>.</li>
+</ul>
+<p>Then the MLE <span class="math inline">\hat \theta</span> is
+asymtotically normal: <span class="math display">
+  \sqrt{n}(\hat \theta - \theta^*) \to N(0, I^{-1}_{\theta^*}).
+</span></p>
+<p><em>Proof</em>: We first establish a quadratic expansion for <span
+class="math inline">\mathcal L_n(\theta) = \frac{1}{n} \sum_{i=1}^n
+\log(p_\theta(X_i))</span>. In particular, <span class="math display">
+\mathcal L_n(\theta^* + t) = \mathcal L(\theta^* + t) + \frac{1}{n}
+\nu_n \log(p_{\theta^*}) = L_n(\theta^*) + \frac{t}{\sqrt{n}}\nu_n
+S_{\theta^*} - \frac{1}{2}I_{\theta^*}t^2 + o(t^2) +
+\frac{|t|}{\sqrt{n}}r(\cdot, t).
+</span> Now we want that <span class="math inline">|\hat \theta -
+\theta^*| = O_P(n^{-1/2})</span>. Set <span class="math inline">\hat t =
+\hat \theta - \theta^*</span>; by definition of the MLE, it must be that
+<span class="math display">
+\mathcal L_n(\theta^* + \hat t) \geq \mathcal L_n(\theta^*)
+</span> and by the previous expansion, we get that <span
+class="math display">
+\frac{1}{2}I_{\theta^*} \hat t^2 - o(\hat t^2) \leq O_p(|\hat
+t|n^{-1/2}) +|\hat t|n^{-1/2}o_P(1 + \sqrt{n}|\hat t|) = O_p(|\hat
+t|n^{-1/2})
+</span> so <span class="math inline">|\hat \theta - \theta^*| =
+O_P(n^{-1/2})</span> holds. Then we may control the remainder to be on
+the order of <span class="math inline">n^{-1}</span>, and use <span
+class="math display">
+\mathcal L_n(\theta^* + \hat t) \geq \mathcal L_n\left(\theta^* +
+n^{-1/2}\nu_n \frac{S_{\theta^*}}{I_{\theta^*}}\right)
+</span> to finally get <span class="math display">
+\frac{1}{2}I_{\theta^*} \left|\sqrt{n}\hat t - \nu_n
+\frac{S_{\theta^*}}{I_{\theta^*}}\right| = o_P(1)
+</span> and so <span class="math display">
+\sqrt{n} \hat t = \nu_n \frac{S_{\theta^*}}{I_{\theta^*}} + o_P(1) \to
+N(0, I^{-1}_{\theta^*})
+</span> by the CLT.</p>
+<p><em>Def</em>: We say a distribution <span
+class="math inline">P_\theta</span> is <strong>LAN (local asymptotically
+normal)</strong> if <span class="math display">
+\log \left(\prod_{i=1}^n
+\frac{p_{\theta^*+hn^{-1/2}}(X_i)}{p_{\theta^*}(X_i)}\right) =
+hn^{-1/2}\sum_{i=1}^n S_{\theta^*}(X_i) - h^2I_{\theta^*} + o_P(1)
+</span> for all nonrandom constant <span
+class="math inline">h</span>.</p>
+<p><em>Def</em>: We say that a function <span
+class="math inline">p_{\theta}</span> is <strong>DQM (differentiable
+under quadratic mean)</strong> if <span class="math display">
+\int \left(\frac{\sqrt{p_{\theta+t}(X)} - \sqrt{p_\theta(X)}}{t} -
+\frac{1}{2}\sqrt{p_{\theta}} S_\theta \right)^2 \to 0
+</span></p>
+<p><strong>Theorem (LeCam)</strong>: DQM implies LAN.</p>
+<p><strong>Corollary</strong>: The second condition above implies the
+third.</p>
+<h4 id="optimality-of-the-mle">Optimality of the MLE</h4>
+<p><strong>Theorem (Cramer-Rao)</strong>: Suppose we have an unbiased
+estimator <span class="math inline">\hat \theta</span> for <span
+class="math inline">X_1, \dots, X_n \sim P_{\theta^*}</span>; then <span
+class="math inline">\mathop{\mathrm{Var}}_\theta(\hat \theta) \geq
+(nI_\theta)^{-1}</span>.</p>
+<p><em>Proof</em>: We have by definition <span class="math display">
+\mathop{\mathrm{Var}}_\theta(\hat \theta) I_\theta = E_\theta[(\hat
+\theta - \theta)^2]E_\theta[S_\theta^2] \geq \left(\int (\hat \theta -
+\theta) \cdot p_\theta\frac{\partial}{\partial \theta}
+\log(p_\theta)\right)^2 \geq 1.
+</span></p>
+<p>Note that the above bound is true in finite sample sizes only; see
+Hodge’s estimator for an example of super-efficiency. Note that
+James-Stein is actually another example.</p>
+<p><em>Def</em>: A <strong>randomized statistic</strong> of <span
+class="math inline">X</span> is some random variable <span
+class="math inline">T(X, U)</span> where <span
+class="math inline">U</span> is independent of <span
+class="math inline">X</span>.</p>
+<p><strong>Theorem (Hajek &amp; LeCam)</strong>: Suppose <span
+class="math inline">(P_\theta \mid \theta \in \Theta)</span> is DQM at
+<span class="math inline">\theta</span>, and <span
+class="math inline">T_n</span> is some statistic for <span
+class="math inline">(P_{\theta + h/\sqrt{n}} \mid h \in
+\mathbb{R})</span> satisfying <span class="math display">
+  \sqrt{n} \left(T_n - (\theta + h/\sqrt{n})\right) \to L_{\theta, h}.
+</span> Then there is some randomized statistic <span
+class="math inline">T</span> for <span class="math inline">(N(h,
+I_\theta^{-1}) \mid h \in R)</span> such that <span
+class="math display">
+T - h \sim L_{\theta, h}.
+</span></p>
+<p><em>Def</em>: A randomized statistic <span
+class="math inline">T</span> is <strong>equivariant-in-law</strong> if
+<span class="math display">
+T -  h \sim L_\theta.
+</span></p>
+<p><strong>Theorem:</strong> If <span class="math inline">T</span> is a
+randomized statistic for <span class="math inline">(N(h, I_\theta^{-1})
+\mid h \in \mathbb{R})</span> and is equivariant-in-law then there is a
+distribution <span class="math inline">M_\theta</span> such that <span
+class="math display">
+T - h \sim N(0, I_\theta^{-1}) * M_\theta
+</span> where the above is a convolution.</p>
+<p><strong>Corollary</strong>: Then we may always write such a statistic
+as <span class="math inline">T = T(X, U) = X + U</span>.</p>
+<p><strong>Corollary</strong>: In the theorem of Hajek &amp; LeCam, if
+we have <span class="math display">
+  \sqrt{n} \left(T_n - (\theta + h/\sqrt{n})\right) \to L_{\theta}
+</span> then the Cramer-Rao lower bound holds asymptotically as
+well.</p>
+<p>But we can remove even the requirement of asymptotic
+equivalence-in-law.</p>
+<p><strong>Lemma</strong>: Suppose <span
+class="math inline">P_\theta</span> is DQM for all <span
+class="math inline">\theta \in \Theta</span> and <span
+class="math inline">T_n</span> is some statistic for <span
+class="math inline">P_\theta^n</span> such that <span
+class="math display">
+\sqrt{n}(T_n - \theta) \to L_\theta.
+</span> Then there is a subsequence such that Lebesgue almost everywhere
+<span class="math inline">(\theta, h)</span>, <span
+class="math display">
+\sqrt{n}(T_n - (\theta + h/\sqrt{n})) \to L_\theta.
+</span></p>
+<p><strong>Theorem (Almost Everywhere Convolution Theorem)</strong>:
+Suppose <span class="math inline">P_\theta</span> is DQM for all <span
+class="math inline">\theta \in \Theta</span>, <span
+class="math inline">T_n</span> is some statistic for <span
+class="math inline">(P_\theta^n \mid \theta \in \Theta)</span> such that
+for all <span class="math inline">\theta</span>, <span
+class="math display">
+\sqrt{n}( T_n - \theta) \to L_\theta;
+</span> then <span class="math inline">L_\theta = N(0, I_{\theta^*}) *
+M_\theta</span> almost everywhere.</p>
+<p><strong>Corollary</strong>: Superefficiency can only hold on a set of
+measure zero.</p>
+<p><strong>Theorem (Local Asymptotic Minimaxity)</strong>: Suppose <span
+class="math inline">(P_\theta \mid \theta \in \Theta)</span> is DQM at
+<span class="math inline">\theta \in \Theta</span>, <span
+class="math inline">T_n</span> is some statistic for <span
+class="math inline">(P_{\theta + h/\sqrt{n}} \mid h \in
+\mathbb{R})</span>, and <span class="math inline">\ell(\cdot)</span> is
+convex. Then <span class="math display">
+\liminf_{n \to \infty} \sup_{h \in [-\delta_n, \delta_n]}  E^n_{\theta +
+h/\sqrt{n}} \left[ \ell(\sqrt{n}(T_n - (\theta + h/\sqrt{n}))) \right]
+\geq \int \ell d N(0, I_\theta^{-1}).
+</span> for some <span class="math inline">\delta_n \to 0</span>.</p>
+<p>Can we achieve both lower bounds? Yes: assuming DQM, LeCam showed
+that there is a one-step improvement of the MLE that works. If we assume
+DQM and some empirical process conditions (as seen before) then the MLE
+works.</p>
 </body>
 </html>
