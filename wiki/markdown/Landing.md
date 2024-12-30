@@ -2,25 +2,60 @@
 title: 'Welcome!'
 ...
 
-This is a (nominally organized) collection of notes.
+### Probability 
+
+---------------
+
+- [Basic Probability](basicprob.md)
+- [Measure Theory](measuretheory.md)
+- [Brownian Motion](brownianmotion.md)
+- [Stochastic Calculus](stochcalc.md)
 
 ### Theoretical Statistics
 
 ---------------
 
-- [Brownian Motion and Stochastic Calculus](Brownian Motion and Stochastic Calculus.md) (Autumn 2023)
-- [Applied Linear Statistical Methods](Applied Linear Statistical Methods.md) (Autumn 2023)
-- [Mathematical Computation I](Mathematical Computation I.md) (Autumn 2023)
-- [Mathematical Statistics I](Mathematical Statistics I.md) (Winter 2024)
-- [Generalized Linear Models](Generalized Linear Models.md) (Winter 2024)
+- [Basic Statistics](basicstats.md)
+- [Decision Theory](decisions.md)
+- [Maximum Likelihood](maxlhd.md)
+- [Concentration Inequalities](concentration.md)
+- [Results in High Dimensions](highdim.md)
+- [Classification](classification.md)
+- [Multiple Hypothesis Testing](mht.md)
 
-### Old miscellanous scribbles from undergrad:
+### Applied Statistics
+
+---------------
+
+- [Ordinary Least Squares](ols.md)
+- [Regularized Least Squares](regularization.md)
+- [The Bootstrap](bootstrap.md)
+- [Generalized Linear Models](glm.md)
+
+### Linear Algebra
+
+---------------
+
+- [Vector Spaces](vectors.md)
+- [Eigenvalues and Eigenvectors](eigenvalues.md)
+- [Singular Values](svd.md)
+- [Matrix Factorizations](matrixfactors.md)
+
+### Computational Mathematics
+
+---------------
+
+- [Floating Point](fp.md)
+- [Computing Matrix Factorizations](compmat.md)
+- [The Condition Number](conditionno.md)
+
+### Miscellaneous Notes From Undergrad
 
 ---------------
 
 <!-- - [Algebraic Geometry](/notes/old/alggeo.html) -->
 - [Probability](/notes/old/probability.html)
 - [Analytic Number Theory](/notes/old/ant.html)
-<!-- - [CMUSRP](/notes/old/paris.html) -->
+- [CMUSRP](/notes/old/paris.html)
 - [Honors Math A](/files/MATH 1207.pdf)
 - [Honors Math B](/files/MATH 1208.pdf)

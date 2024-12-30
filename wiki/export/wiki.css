@@ -122,12 +122,6 @@ del {
   margin-right: auto;
 }
 
-.tag {
-  background-color: #eeeeee;
-  font-family: monospace;
-  padding: 2px;
-}
-
 .header a {
   text-decoration: none;
   color: inherit;

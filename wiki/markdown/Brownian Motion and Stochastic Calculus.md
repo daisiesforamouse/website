@@ -32,28 +32,12 @@ subtitle: 'UChicago STAT 38510, Autumn 2023'
 \newcommand{\psfrac}[2]{\pa{\sfrac{#1}{#2}}}
 \newcommand{\bsfrac}[2]{\bra{\sfrac{#1}{#2}}}
 
-##  Brownian Motion 
+## Brownian Motion 
 
 -------
 
 As a style preference, I'm going to drop all the arguments that are from the probability space.
 
-Fix a probability space $(\Omega, \mathcal F, P)$; we characterize the Brownian motion $\{B_t\}_{t \geq 0}$ via the following properties:
-
-- **Independent Increments**: If $s < t$, the random variable $B_t - B_s$ is independent of $\sigma\{B_r: r \leq s\}$
-- **Stationary Increments**: If $s < t$, then $B_t - B_s$ has the same distribution as $B_{t-s} - B_0$.
-- **Continuity**: The map $t \mapsto B_t$ is almost surely continuous. 
-
-**Theorem**: If a process satisfies the above, then there are $\mu, \sigma^2$ (respectively called the drift and the variance parameter, and $\sigma$ is named the volatility) such that there exist $B_t \sim N(\mu t, \sigma^2 t)$.
-
-_Def_: A stochastic process $\{B_t\}_{t \geq 0}$ is called a (one dimensional) **Brownian motion** (or Wiener process) starting from the origin with drift $\mu$ and variance parameter $\sigma^2$ if $B_t = 0$ and the above three conditions are satisfied, with the imposition that 
-$$
-B_t - B_s \sim N(\mu (t-s), \sigma^2 (t-s)).
-$$
-
-**Prop**: If $B_t$ is a Brownian motion with $\mu = 0, \sigma^2 = 1$ (a so-called **standard Brownian motion**), then $Y_t = \sigma B_t + \mu t$ is a Brownian motion with parameters $\mu, \sigma^2$.
-
-_Proof_: Obvious.
 
 ###  Construction 
 

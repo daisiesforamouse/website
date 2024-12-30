@@ -77,44 +77,6 @@ Processes</a></li>
 <hr />
 <p>As a style preference, I’m going to drop all the arguments that are
 from the probability space.</p>
-<p>Fix a probability space <span class="math inline">(\Omega, \mathcal
-F, P)</span>; we characterize the Brownian motion <span
-class="math inline">\{B_t\}_{t \geq 0}</span> via the following
-properties:</p>
-<ul class="incremental">
-<li><strong>Independent Increments</strong>: If <span
-class="math inline">s &lt; t</span>, the random variable <span
-class="math inline">B_t - B_s</span> is independent of <span
-class="math inline">\sigma\{B_r: r \leq s\}</span></li>
-<li><strong>Stationary Increments</strong>: If <span
-class="math inline">s &lt; t</span>, then <span class="math inline">B_t
-- B_s</span> has the same distribution as <span
-class="math inline">B_{t-s} - B_0</span>.</li>
-<li><strong>Continuity</strong>: The map <span class="math inline">t
-\mapsto B_t</span> is almost surely continuous.</li>
-</ul>
-<p><strong>Theorem</strong>: If a process satisfies the above, then
-there are <span class="math inline">\mu, \sigma^2</span> (respectively
-called the drift and the variance parameter, and <span
-class="math inline">\sigma</span> is named the volatility) such that
-there exist <span class="math inline">B_t \sim N(\mu t, \sigma^2
-t)</span>.</p>
-<p><em>Def</em>: A stochastic process <span
-class="math inline">\{B_t\}_{t \geq 0}</span> is called a (one
-dimensional) <strong>Brownian motion</strong> (or Wiener process)
-starting from the origin with drift <span class="math inline">\mu</span>
-and variance parameter <span class="math inline">\sigma^2</span> if
-<span class="math inline">B_t = 0</span> and the above three conditions
-are satisfied, with the imposition that <span class="math display">
-B_t - B_s \sim N(\mu (t-s), \sigma^2 (t-s)).
-</span></p>
-<p><strong>Prop</strong>: If <span class="math inline">B_t</span> is a
-Brownian motion with <span class="math inline">\mu = 0, \sigma^2 =
-1</span> (a so-called <strong>standard Brownian motion</strong>), then
-<span class="math inline">Y_t = \sigma B_t + \mu t</span> is a Brownian
-motion with parameters <span class="math inline">\mu,
-\sigma^2</span>.</p>
-<p><em>Proof</em>: Obvious.</p>
 <h4 id="construction">Construction</h4>
 <p>Pick a probability space <span class="math inline">(\Omega, \mathcal
 F, P)</span> that is rich enough to support a countable collection of

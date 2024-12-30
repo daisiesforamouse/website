@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Topics in Random Matrix Theory</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <link rel="stylesheet" href="wiki.css" />
+  <link rel="stylesheet" href="/wiki.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Topics in Random Matrix Theory</h1>
+<h2 class="subtitle">UChicago STAT 38520, Autumn 2024</h2>
+</header>
+<hr>
+<nav id="TOC" role="doc-toc">
+<ul class="incremental">
+<li><a href="#wigners-semicircle-law"
+id="toc-wigners-semicircle-law">Wigner’s Semicircle Law</a></li>
+<li><a href="#universality" id="toc-universality">Universality</a></li>
+<li><a href="#the-gaussian-orthogonal-ensemble"
+id="toc-the-gaussian-orthogonal-ensemble">The Gaussian Orthogonal
+Ensemble</a></li>
+</ul>
+</nav>
+<hr>
+<h3 id="wigners-semicircle-law">Wigner’s Semicircle Law</h3>
+<hr />
+<p>Given a symmetric matrix <span class="math inline">M</span>, we will
+always denote its eigenvalues in increasing order, i.e. as <span
+class="math display">
+\lambda_1(M) \leq \lambda_2(M) \leq \cdots \leq \lambda_n(M)
+</span> and the associated orthonormal eigenvectors <span
+class="math display">
+M\psi_{\lambda_k(M)} = \lambda_k(M) \psi_{\lambda_k(M)}.
+</span></p>
+<p><em>Def</em>: We say a matrix is <strong>Rademacher</strong> if is
+symmetric and has Rademacher entries on all off-diagonal entries and
+vanshes on the diagonal, e.g. of the form <span class="math display">
+\left[\begin{matrix}
+    0 &amp; R_{12} &amp; \cdots &amp; R_{1n} \\
+    R_{12} &amp; 0 &amp; \cdots &amp; R_{2n} \\
+    \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+    R_{1n} &amp; R_{2n} &amp; \cdots &amp; 0 \\
+\end{matrix}\right]
+</span> where <span class="math inline">R_{ij} = \pm 1</span> with equal
+probability. If the diagonals are also Rademacher, we call it
+<strong>fully</strong> Rademacher.</p>
+<p>The diagonals are zero to simplify computations - we will see later
+that due to universality, it does not really matter.</p>
+<p><em>Def</em>: The <strong>empirical spectral distribution</strong>
+(ESD) of a symmetric matrix <span class="math inline">M</span> is given
+as <span class="math display">
+L_M(A) = \frac{1}{n} \sum_{k=1}^n 1\{\lambda_k(M) \in A\}.
+</span> For over, in a single component <span class="math inline">1 \leq
+i \leq n</span>, we say that the <strong>ESD at <span
+class="math inline">i</span></strong> is <span class="math display">
+L_M^i(A) = \sum_{k=1}^n |\psi_{\lambda_k(M)}(i)|^2 1\{\lambda_k(M) \in
+A\}.
+</span></p>
+<p><strong>Prop</strong>: The above are both probability measures.</p>
+<p><em>Proof</em>: Look at it.</p>
+<p><em>Def</em>: The <strong>semicircle measure</strong> is denoted as
+<span class="math inline">\mu_{sc}</span> and is given as <span
+class="math display">
+\mu_{sc}(A) = \int_A \frac{\sqrt{4-x^2}}{2\pi} 1\{|x| \leq 2\}dx.
+</span></p>
+<p><strong>Theorem (Wigner’s Semicircle Law)</strong>: For any interval
+<span class="math inline">I \subset \mathbb{R}</span> and <span
+class="math inline">\widetilde R_n = \frac{R_n}{\sqrt{n}}</span> where
+<span class="math inline">R_n</span> are Rademacher, <span
+class="math display">
+\lim_{n \to \infty} E[L_{\widetilde R_n}(I)] = \mu_{sc}(I)
+</span> and for any sequence <span class="math inline">i_1, i_2, \dots,
+i_n</span> satisfying <span class="math inline">1 \leq i_n \leq
+n</span>, <span class="math display">
+\lim_{n \to \infty} E[L_{\widetilde R_n}^{i_n}(I)] = \mu_{sc}(I).
+</span></p>
+<p><strong>Lemma (The Method of Moments)</strong>: Let <span
+class="math inline">\mu_n</span> and <span
+class="math inline">\mu</span> be probability measures on <span
+class="math inline">\mathbb R</span> such that <span
+class="math display">
+\int_{\mathbb{R}} x^p d\mu_n = \int_{\mathbb{R}} x^p d\mu,
+</span> and let <span class="math inline">\mu</span> be determined by
+its moments. Then <span class="math inline">\mu_n \to \mu</span> weakly.
+Moreover, <span class="math inline">\mu</span> having bounded support is
+sufficient for it to be determined by its moments.</p>
+<p><strong>Lemma</strong>: For any symmetric <span class="math inline">M
+\in \mathbb{R}^{n \times n}</span> and integer <span
+class="math inline">p \in \mathbb N</span>, we have that <span
+class="math display">
+\int_{\mathbb{R}} x^p dL_M = \frac{1}{n} \mathop{\mathrm{Tr}}(M^p) =
+\frac{1}{n} \sum_{i_1, \dots, i_p = 1}^n M_{i_1, i_2}M_{i_2, i_3}\cdots
+M_{i_p, i_1}.
+</span> Similarly, <span class="math display">
+\int_{\mathbb{R}} x^p dL^i_M = \frac{1}{n} \mathop{\mathrm{Tr}}(M^p) =
+\frac{1}{n} \sum_{i_2, \dots, i_p = 1}^n M_{i, i_2}M_{i_2, i_3}\cdots
+M_{i_p, i}.
+</span></p>
+<p><em>Proof (Semicircle Law)</em>: From the above lemmas, we simply
+need to show that <span class="math display">
+\lim_{n \to \infty} n^{- \left(\frac{p}{2} + 1\right)} \sum_{i_1, \dots,
+i_p = 1}^n E \left[R_{i_1, i_2}R_{i_2, i_3}\cdots R_{i_p, i_1}\right]
+\to \int x^p d\mu_{sc}
+</span> and similarly for the individual components.</p>
+<p>In fact, it will be easier to define the complete graph of order
+<span class="math inline">n</span>, denoted as <span
+class="math inline">K_n</span>, as the graph of <span
+class="math inline">n</span> vertices and every possible edge. Then, let
+<span class="math inline">W_p^{i,j}(K_n)</span> be the set of all length
+<span class="math inline">p</span> walks starting from <span
+class="math inline">i</span> and ending at <span
+class="math inline">j</span>. Then, the above reduces to <span
+class="math display">
+\lim_{n \to \infty} n^{- \left(\frac{p}{2} + 1\right)} \sum_{i=1}^n
+\sum_{\nu \in W_p^{i,i}(K_n)}^n E \left[R_n(\nu_1, \nu_2)\cdots
+R_n(\nu_{p}, \nu_{p+1})\right] \to \int x^p d\mu_{sc}
+</span></p>
+<p>By independence, we see that the summand is <span
+class="math inline">1</span> if every edge is crossed an even amount of
+times, and <span class="math inline">0</span> otherwise, so this
+question reduces to counting the number of walks that cross each edge an
+odd amout of times. To count this, introduce <span
+class="math inline">SW^{i,j}_p(K_n)</span> as the set of standard walks,
+which visit nodes in increasing vertex order (e.g. you cannot visit
+vertex <span class="math inline">1</span>, then <span
+class="math inline">2</span>, and so forth); clearly each walk is
+equivalent to a standard walk by permuting the verticies, so we just
+need to compute <span class="math display">
+\lim_{n \to \infty} n^{-\frac{p}{2}} \sum_{\nu \in SW_{p}(K_n)} P_{n-1,
+w(\nu) - 1} = \lim_{n \to \infty} n^{-\frac{p}{2}} \sum_{\ell = 2}^{p+1}
+P_{n-1, \ell - 1} \cdot |\{\nu \in SW_p(K_n), w(\nu) = \ell\}|
+</span> where <span class="math inline">w(\nu)</span>, the weight of
+<span class="math inline">\nu</span>, is the total amount of vertices
+visited and <span class="math inline">P_{a,b}</span> is the number of
+ways of picking <span class="math inline">b</span> elements from a set
+of size <span class="math inline">a</span> with replacement.</p>
+<p>Since we require walks to visit each edge twice, we can reduce this
+to <span class="math display">
+\lim_{n \to \infty} n^{-\frac{p}{2}} \sum_{\ell = 2}^{\frac{p}{2}+1}
+P_{n-1, \ell - 1} \cdot |\{\nu \in SW_p(K_{\frac{p}{2} + 1}), w(\nu) =
+\ell\}| = \left|\left\{\nu \in SW_p(K_{\frac{p}{2}+1}), w(\nu) =
+\frac{p}{2} + 1 \right\}\right| = C_{\frac{p}{2}}
+</span> which is the <span class="math inline">\frac{p}{2}</span>-th
+Catalan number; one can check by straightfoward computation that this
+matches the moments of the semi-circle distribution.</p>
+<p>We can say more as well. The convergence can be strengthened to
+almost sure convergence (which can be shown by looking at the variance
+of the above sums. Additionally, we have the following.</p>
+<p><strong>Theorem (Bai-Silverstein)</strong>: With the same notation as
+above, <span class="math display">
+\sup_{x \in \mathbb{R}} |E[\mathcal L_{\widetilde R_n}((-\infty, x])] -
+\mu_{sc}((-\infty, x])| \lesssim n^{-\frac{1}{2}}.
+</span></p>
+<h4 id="covariance-matrices">Covariance Matrices</h4>
+<p>Consider a random vector <span class="math inline">X \in
+\mathbb{R}^d</span> with covariance matrix <span
+class="math inline">\Sigma</span>. Then, given a random sample of i.i.d.
+copies <span class="math inline">X_1, \dots, X_n</span>, we can naively
+estimate the covariance as <span class="math display">
+\Sigma_n = \frac{1}{n} \sum_{k=1}^n X_k X_k^\top.
+</span> We are interested in how well the spectrum of <span
+class="math inline">\Sigma_n</span> approximates the spectrum of <span
+class="math inline">\Sigma</span>.</p>
+<p>For fixed <span class="math inline">d</span>, it is immediate from
+the law of large numbers that the spectra converge. However, this is not
+the case when <span class="math inline">d</span> is comprable to <span
+class="math inline">n</span>.</p>
+<p><em>Def</em>: Let <span class="math inline">\gamma \in (0,
+\infty)</span>, and let <span class="math display">
+a_\gamma = (1 - \sqrt{\gamma})^2 \ \text{ and } \ b_\gamma = (1 +
+\sqrt{\gamma})^2.
+</span> The <strong>Marchenko-Pastur measure</strong> with parameter
+<span class="math inline">\gamma</span> is the measure which satisfies,
+for any <span class="math inline">A \subset \mathbb{R}</span>, <span
+class="math display">
+\mu^\gamma_{mp} (A) =
+\begin{cases}
+    \int_A \frac{\sqrt{(x - a_\gamma)(b_\gamma - x)}}{2\pi \gamma
+x}1\{a_\gamma \leq x \leq b_\gamma\}dx &amp; 0 &lt; \gamma \leq 1 \\
+    \left(1 - \frac{1}{\gamma} \right)1\{0 \in A\} + \int_A
+\frac{\sqrt{(x - a_\gamma)(b_\gamma - x)}}{2\pi \gamma x}1\{a_\gamma
+\leq x \leq b_\gamma\}dx &amp; \gamma &gt; 1
+\end{cases}
+</span></p>
+<p><strong>Theorem</strong>: Let the entries of <span
+class="math inline">R \in \mathbb{R}^d</span> be Rademacher; moreover
+let <span class="math inline">R_1, \dots, R_n</span> be i.i.d. copies of
+<span class="math inline">R</span> and let <span class="math display">
+R_{d,n} = \frac{1}{n} \sum_{k=1}^n R_k R_k^\top
+</span> be the covariance estimator. Then, if <span
+class="math inline">\lim_{n \to \infty}\frac{d}{n} = \gamma</span>,
+<span class="math display">
+\lim_{n \to \infty} E[L_{R_{d,n}}] \to \mu_{mp}^\gamma.
+</span></p>
+<p><em>Proof</em>: The proof proceeds via the method of moments, but we
+now have walks on bipartite graphs of order <span
+class="math inline">(d, n)</span> instead.</p>
+<p>As before, this convergence can be made almost sure.</p>
+<h4 id="a-microscopic-result">A Microscopic Result</h4>
+<p>Recall that the spectral norm <span
+class="math inline">\|M\|_2</span> of a symmetric matrix is just its top
+eigenvalue.</p>
+<p><strong>Theorem</strong>: For <span class="math inline">\tilde
+R_n</span> as in the semicircle law, we have <span class="math display">
+\lim_{n \to \infty} \|\widetilde R_n\|_2 = 2
+</span> almost surely.</p>
+<p><em>Proof</em>: The lower bound is clear: if <span
+class="math inline">\liminf_{n \to \infty} \|\widetilde R_n\|_2 &lt;
+2</span>, then the strong semicircular law would be violated. The upper
+bound is much harder, and proceeds by the bound <span
+class="math display">
+\|\widetilde R_n\|_2 = \max_{k} |\lambda_k(\widetilde R_n)| \leq
+\left(\sum_{k}\lambda_k(\widetilde R_n)^{2p}\right)^{1/2p} =
+\mathop{\mathrm{Tr}}(\widetilde R_n^{2p})^{1/2p}
+</span> where you pick <span class="math inline">p \asymp
+n^\alpha</span> for some <span class="math inline">0 &lt; \alpha &lt;
+1/6</span>.</p>
+<h3 id="universality">Universality</h3>
+<hr />
+<p>To prove a more general result, we have the following strategy.</p>
+<ol class="incremental" type="1">
+<li>Identify a canidate for a universal limit by checking a simple
+example.</li>
+<li>Identify a set of functions which characterizes convergence in
+distribution to that universal limit, which is relatively easy to
+control, and which places minimal assumptions on our sequence of random
+variables.</li>
+<li>Combine the first two by showing that the behaviour of a general
+sequence is close to the simple sequence.</li>
+</ol>
+<p><em>Def</em>: A matrix is of <strong>Wigner-type</strong> if it is
+symmetric with independent entries.</p>
+<p><strong>Theorem (Wigner’s Universality)</strong>: Let <span
+class="math inline">X_n \in \mathbb{R}^{n \times n}</span> be a sequence
+of Wigner-type matrices. Then, if for any <span class="math inline">n
+\in \mathbb N, 1 \leq i,j, \leq n</span>,</p>
+<ol class="incremental" type="1">
+<li><span class="math inline">X_{i,j}</span> is symmetric with unit
+variance,</li>
+<li>and for any <span class="math inline">p \geq 3</span>, <span
+class="math inline">\sup_{n} \sup_{i,j} E[|X^p_{i,j}|] &lt;
+\infty</span>,</li>
+</ol>
+<p>then <span class="math inline">E[\mathcal L_{X_n / \sqrt{n}}] \to
+\mu_{sc}</span> as <span class="math inline">n \to \infty</span>.</p>
+<p>The previous result on Rademacher matrices has provided a canidate
+for universality, under the usual heuristic that functions of
+independent random variables do not really depend on the distributions
+of those variables when the amount is large. To give an explicit bound
+on this heuristic (oft called the Lindeberg universality principle), we
+have the following bound.</p>
+<p><strong>Theorem</strong>: Let <span class="math inline">X, Y \in
+\mathbb{R}^n</span> be random vectors with independent entries, and let
+<span class="math inline">f: \mathbb{R}^n \to \mathbb{C}</span> be
+continuous. If there is some <span class="math inline">p\in \mathbb
+N</span> such that the following hold:</p>
+<ol class="incremental" type="1">
+<li>for every <span class="math inline">1 \leq i \leq n</span> and <span
+class="math inline">1 \leq \ell \leq p - 1</span>, <span
+class="math display">
+E[X_i^\ell] = E[Y_i^\ell];
+</span></li>
+<li>there is a constant <span class="math inline">M &lt; \infty</span>
+such that <span class="math display">
+\sup_{1 \leq i \leq n} (E[|X_i|^p] + E[|Y_i|^p]) \leq M;
+</span></li>
+<li><span class="math inline">f</span> is <span
+class="math inline">p</span>-times differentiable in every
+coordinate;</li>
+</ol>
+<p>then we have the estimate <span class="math display">
+  \left|E[f(X) - E[f(Y)]] \right| \leq \frac{M}{p!} \sum_{i=1}^n
+\left\|\frac{\partial^p f}{\partial x_i^p}\right\|_\infty.
+</span></p>
+<p><em>Proof</em>: Induct on <span class="math inline">n</span>, take a
+Taylor expansion, and it falls out.</p>
+<h4 id="the-stieltjes-transform">The Stieltjes Transform</h4>
+<p><em>Def</em>: For a finite measure <span
+class="math inline">\mu</span> on <span
+class="math inline">\mathbb{R}</span>, the Stieltjes transform of <span
+class="math inline">\mu</span> is <span class="math display">
+S_\mu(z) = \int_\mathbb{R}\frac{1}{x-z}d \mu
+</span> for <span class="math inline">z \in \mathbb{C}\setminus
+\mathbb{R}</span>.</p>
+<p><strong>Prop</strong>: We have that:</p>
+<ol class="incremental" type="1">
+<li>for any <span class="math inline">\mu</span> and finite <span
+class="math inline">z</span>, <span class="math inline">|S_\mu(z)| &lt;
+\infty</span>;</li>
+<li>for any two <span class="math inline">\mu, \nu</span> which satisfy
+that <span class="math inline">S_\mu(z) = S_\nu(z)</span> for all <span
+class="math inline">z \in \mathbb{C}\setminus \mathbb{R}</span>, we have
+<span class="math inline">\mu = \nu</span>;</li>
+<li>for any two reals <span class="math inline">a &lt; b</span>, <span
+class="math display">
+\lim_{\epsilon \to 0} \frac{1}{\pi} \int_a^b \text{Im}(S_\mu(t +
+i\epsilon))dt = \mu((a,b)) + \frac{1}{2}\left(\mu(\{a\}) +
+\mu(\{b\})\right).
+</span></li>
+</ol>
+<p>This third fact is called the <strong>Stieltjes inversion
+formula</strong>.</p>
+<p><em>Proof</em>: Propositions 1 and 3 are immediate from direct
+computation, and proposition 2 follows from 3 since 3 implies that <span
+class="math inline">\nu, \eta</span> assign identical mass to all
+intervals and atoms.</p>
+<p><em>Def</em>: We say that a measure <span
+class="math inline">\nu</span> on <span
+class="math inline">\mathbb{R}</span> is a
+<strong>sub-probability</strong> measure if <span
+class="math inline">\nu(\mathbb{R}) \leq 1</span>; moreover, we say that
+a sequence of sub-probability measures <span
+class="math inline">\nu_n</span> <strong>converges vaguely</strong> to
+<span class="math inline">\nu</span> if one of the two equivalent
+conditions hold.</p>
+<ol class="incremental" type="1">
+<li><span class="math display">
+\lim_{n \to \infty} \nu_n((x, y]) = \nu((x, y])
+</span> for every <span class="math inline">x &lt; y</span> amd <span
+class="math inline">\nu(\{x\}) = \nu(\{y\}) = 0</span>.</li>
+<li><span class="math display">
+\lim_{n \to \infty} \int_\mathbb{R}f(x) d\nu_n(x) = \int_\mathbb{R}f(x)
+d\nu(x)
+</span> for every continuous function with <span
+class="math inline">\lim_{x \to \pm \infty} f(x) = 0</span>.</li>
+</ol>
+<p><strong>Theorem (Helly Selection)</strong>: For every infinite
+sequence of probability measures <span class="math inline">\mu_n</span>,
+there exists a sub-probability measure <span
+class="math inline">\nu</span> and a subsequence <span
+class="math inline">n_i</span> along which <span
+class="math inline">\mu_{n_i}</span> converges vaguely to <span
+class="math inline">\nu</span> as <span class="math inline">i \to
+\infty</span>.</p>
+<p><em>Proof</em>: Look at the corresponding CDFs: you can find a
+subsequence along which they converge on a countable dense subset of
+<span class="math inline">\mathbb{R}</span>.</p>
+<p><strong>Theorem</strong>: Let <span class="math inline">\mu_n</span>
+be a sequence of probability measures and <span
+class="math inline">\mu</span> be a probability measure; then <span
+class="math inline">\mu_n \to \mu</span> weakly if and only if <span
+class="math inline">\lim_{n \to \infty} S_{\mu_n}(z) = S_\mu(z)</span>
+for all <span class="math inline">z \in \mathbb{C}\setminus
+\mathbb{R}</span>.</p>
+<p><em>Proof</em> Forward direction is clear. In the other dirction, use
+Helly selection and uniqueness of the Stieltjes transform to show
+convergence of subsequences of subsequences.</p>
+<p><strong>Prop</strong>: Let <span class="math inline">\mu</span> be a
+compactly supported measure, with support contained in <span
+class="math inline">[-R , R]</span>. Then <span
+class="math inline">S_\mu</span> satisfies the expansion <span
+class="math display">
+S_\mu(z) = - \sum_{n=0}^\infty \frac{m_n}{z^{n+1}}
+</span> where <span class="math inline">m_n</span> is the <span
+class="math inline">n</span>-th moment of <span
+class="math inline">\mu</span>.</p>
+<p><em>Proof</em>: Take a Taylor expansion after using the fact that
+<span class="math display">
+\frac{1}{x - z} = -\frac{1}{z} \cdot \frac{1}{1 - \frac{x}{z}}.
+</span></p>
+<p><strong>Prop</strong>: <span class="math inline">S_{\mu_{sc}}(z) =
+\frac{-z + \sqrt{z^2 - 4}}{2}</span>.</p>
+<p><em>Proof</em>: Check that <span
+class="math inline">S_{\mu_{sc}}(z)</span> satisfies that <span
+class="math inline">S_{\mu_{sc}}(z)^2 + zS_{\mu_{sc}}(z) + 1 =
+0</span>.</p>
+<h4 id="proof-of-universality">Proof of Universality</h4>
+<p><strong>Theorem (Wigner’s Universality)</strong>: Let <span
+class="math inline">X_n \in \mathbb{R}^{n \times n}</span> be a sequence
+of Wigner-type matrices. Then, if for any <span class="math inline">n
+\in \mathbb N, 1 \leq i,j, \leq n</span>,</p>
+<ol class="incremental" type="1">
+<li><span class="math inline">X_{i,j}</span> is symmetric with unit
+variance,</li>
+<li>and for any <span class="math inline">p \geq 3</span>, <span
+class="math inline">\sup_{n} \sup_{i,j} E[|X^p_{i,j}|] &lt;
+\infty</span>,</li>
+</ol>
+<p>then <span class="math inline">E[\mathcal L_{X_n / \sqrt{n}}] \to
+\mu_{sc}</span> as <span class="math inline">n \to \infty</span>.</p>
+<p><em>Proof</em>: We only need to show that <span class="math display">
+\lim_{n \to \infty} |S_{E[\mathcal L_{X_n / \sqrt{n}}]}(z) -
+S_{E[\mathcal L_{R_n / \sqrt{n}}]}(z)| = 0.
+</span></p>
+<p>We can check that <span class="math display">
+S_{E[\mathcal L_{X_n / \sqrt{n}}]} = E[f(X_n(i, j), 1 \leq i, j \leq n)]
+</span> where <span class="math display">
+f(X_n(i, j), 1 \leq i, j \leq n) = \frac{1}{n}
+\mathop{\mathrm{Tr}}\left[\left( \frac{X_n}{\sqrt{n}} - z I_n
+\right)^{-1} \right]
+</span></p>
+<p>Applying the Lindeberg universality principle, combined with careful
+derivative bounds, gives us what we want.</p>
+<h3 id="the-gaussian-orthogonal-ensemble">The Gaussian Orthogonal
+Ensemble</h3>
+<p><em>Def</em>: Let <span class="math inline">g_{ij}</span> for <span
+class="math inline">1 \leq i \leq j \leq n</span> be independent
+centered Gaussians with variance <span class="math inline">1 +
+\delta_{ij}</span>. Then, any <span class="math inline">A_n =
+[g_{ij}]</span> with <span class="math inline">g_{ij} = g_{ji}</span> is
+called a <strong>Gaussian orthogonal ensemble</strong>.</p>
+<p>Sometimes we will write <span class="math inline">A_n / \sqrt{n} =
+\tilde A_n</span>.</p>
+<p><em>Def</em>: For any matrix <span class="math inline">A \in
+\mathbb{R}^{n \times n}</span>, the resolvent of <span
+class="math inline">A</span> is <span class="math display">
+R_A(z) = (A - zI)^{-1}.
+</span></p>
+<p><strong>Prop</strong>: The Stieltjes transform of <span
+class="math inline">\mu_n = E[\mathcal L_{A_n / \sqrt{n}}]</span> is
+given by <span class="math display">
+S_{\mu_n}(z) = -\frac{1}{z}\left( 1 - \frac{1}{n}
+E[\mathop{\mathrm{Tr}}(\tilde A_n R_{\tilde A_n}(z)] \right)
+</span></p>
+<p><strong>Theorem</strong>: Denote the eignevalues of a GOE <span
+class="math inline">A_n</span> by <span class="math inline">\lambda_1,
+\dots, \lambda_n</span>. Then their joint eigenvalue density is given by
+<span class="math display">
+\frac{1}{z_n} \cdot 1\{\lambda_1 \leq \cdots \leq \lambda_n\} \cdot
+\prod_{i &lt; j} |\lambda_i - \lambda_j|e^{-\frac{1}{4}\sum_{i=1}^n
+\lambda_i^2}
+</span> where <span class="math inline">z_n = (2\pi)^{-\frac{n}{2}}
+\cdot 2^{-\frac{n(n+1)}{4}} \cdot \prod_{i=1}^n
+\frac{\Gamma(1/2)}{\Gamma(i / 2)}</span> is a normalizing constant.</p>
+</body>
+</html>

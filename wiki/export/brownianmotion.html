@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Brownian Motion</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <link rel="stylesheet" href="wiki.css" />
+  <link rel="stylesheet" href="/wiki.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Brownian Motion</h1>
+</header>
+<hr>
+<nav id="TOC" role="doc-toc">
+<ul class="incremental">
+<li><a href="#definition" id="toc-definition">Definition</a></li>
+<li><a href="#construction" id="toc-construction">Construction</a></li>
+</ul>
+</nav>
+<hr>
+<h3 id="definition">Definition</h3>
+<hr />
+<p>Fix a probability space <span class="math inline">(\Omega, \mathcal
+F, P)</span>; we characterize the Brownian motion <span
+class="math inline">\{B_t\}_{t \geq 0}</span> via the following
+properties:</p>
+<ul class="incremental">
+<li><strong>Independent Increments</strong>: If <span
+class="math inline">s &lt; t</span>, the random variable <span
+class="math inline">B_t - B_s</span> is independent of <span
+class="math inline">\sigma\{B_r: r \leq s\}</span></li>
+<li><strong>Stationary Increments</strong>: If <span
+class="math inline">s &lt; t</span>, then <span class="math inline">B_t
+- B_s</span> has the same distribution as <span
+class="math inline">B_{t-s} - B_0</span>.</li>
+<li><strong>Continuity</strong>: The map <span class="math inline">t
+\mapsto B_t</span> is almost surely continuous.</li>
+</ul>
+<p><strong>Theorem</strong>: If a process satisfies the above, then
+there are <span class="math inline">\mu, \sigma^2</span> (respectively
+called the drift and the variance parameter, and <span
+class="math inline">\sigma</span> is named the volatility) such that
+there exist <span class="math inline">B_t \sim N(\mu t, \sigma^2
+t)</span>.</p>
+<p><em>Def</em>: A stochastic process <span
+class="math inline">\{B_t\}_{t \geq 0}</span> is called a (one
+dimensional) <strong>Brownian motion</strong> (or Wiener process)
+starting from the origin with drift <span class="math inline">\mu</span>
+and variance parameter <span class="math inline">\sigma^2</span> if
+<span class="math inline">B_t = 0</span> and the above three conditions
+are satisfied, with the imposition that <span class="math display">
+B_t - B_s \sim N(\mu (t-s), \sigma^2 (t-s)).
+</span></p>
+<p><strong>Prop</strong>: If <span class="math inline">B_t</span> is a
+Brownian motion with <span class="math inline">\mu = 0, \sigma^2 =
+1</span> (a so-called <strong>standard Brownian motion</strong>), then
+<span class="math inline">Y_t = \sigma B_t + \mu t</span> is a Brownian
+motion with parameters <span class="math inline">\mu,
+\sigma^2</span>.</p>
+<p><em>Proof</em>: Obvious.</p>
+<h3 id="construction">Construction</h3>
+<hr />
+<p>Pick a probability space <span class="math inline">(\Omega, \mathcal
+F, P)</span> that is rich enough to support a countable collection of
+independent standard normal variables. If you are particular, the unit
+interval with Lesbegue measure is sufficient here.</p>
+<p>The strategy is as follows: we define <span
+class="math inline">B_t</span> for a countable dense set (in particular
+the dyadic rationals) of times using our precession of standard normals.
+then, we find some <span class="math inline">t \mapsto B_t</span> that
+agrees on the dense set and is uniformly continuous and then extend by
+continuity.</p>
+<p>Set <span class="math inline">D_n = \left\{ \frac{k}{2^n}, k = 0, 1,
+\dots, 2^n \right\}</span> and <span class="math inline">D =
+\bigcup_{n=0}^\infty D_n</span>; index our standard normals by <span
+class="math inline">\{N_{q}\}_{q \in D}</span>, and set <span
+class="math inline">B_0 = 0, B_1 = N_1</span>, and <span
+class="math inline">B_{1/2} = \frac{B_1 - B_0}{2} +
+\frac{1}{2}N_{1/2}</span>. Just continue the same thing for every such
+dyadic, such that <span class="math display">
+\{B_{1/2^n} - B_0, B_{2/2^n} - B_{1/2^n}, \dots, B_1- B_{(2^n-1) / 2^n}
+\}
+</span> are all independent <span class="math inline">N\left(0,
+2^{-n}\right)</span>.</p>
+</body>
+</html>

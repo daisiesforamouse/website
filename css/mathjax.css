@@ -1,28 +1,31 @@
 body { margin:0; }
+
 .container {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: row;
-    align-content: stretch;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-content: stretch;
 }
+
 .left {
-    padding-top: 0.6%;
-    padding-bottom: 0.6%;
-    padding-right: 0.3%;
-    padding-left: 0.6%;
-    font-family: monospace;
-    width: 100%;
-    flex-grow: 1;
-    outline: 0px solid transparent;
+  padding-top: 0.6%;
+  padding-bottom: 0.6%;
+  padding-right: 0.3%;
+  padding-left: 0.6%;
+  font-family: monospace;
+  width: 100%;
+  flex-grow: 1;
+  outline: 0px solid transparent;
 }
+
 .right {
-    padding-top: 0.6%;
-    padding-bottom: 0.6%;
-    padding-right: 0.6%;
-    padding-left: 0.3%;
-    width: 100%;
-    flex-grow: 1;
-    border-left: solid 1px black;
-    outline: 0px solid transparent;
+  padding-top: 0.6%;
+  padding-bottom: 0.6%;
+  padding-right: 0.6%;
+  padding-left: 0.3%;
+  width: 100%;
+  flex-grow: 1;
+  border-left: solid 1px black;
+  outline: 0px solid transparent;
 }

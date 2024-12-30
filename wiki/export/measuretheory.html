@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Measure Theory</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <link rel="stylesheet" href="wiki.css" />
+  <link rel="stylesheet" href="/wiki.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Measure Theory</h1>
+</header>
+<hr>
+<nav id="TOC" role="doc-toc">
+<ul class="incremental">
+<li><a href="#definitions" id="toc-definitions">Definitions</a></li>
+<li><a href="#basic-properties-of-measures"
+id="toc-basic-properties-of-measures">Basic Properties of
+Measures</a></li>
+<li><a href="#lebesgue-integration"
+id="toc-lebesgue-integration">Lebesgue Integration</a></li>
+</ul>
+</nav>
+<hr>
+<h3 id="definitions">Definitions</h3>
+<hr />
+<p><em>Def</em>: A collection <span class="math inline">\mathcal
+M</span> of a set <span class="math inline">X</span> is said to be a
+<span class="math inline">\sigma</span><strong>-algebra</strong> in
+<span class="math inline">X</span> if <span class="math inline">\mathcal
+X</span> satisfies the following properties:</p>
+<ol class="incremental" type="1">
+<li><span class="math inline">X \in \mathcal M</span>;</li>
+<li>if <span class="math inline">E \in \mathcal M</span>, then <span
+class="math inline">X \setminus E = E^c = \in \mathcal M</span>;</li>
+<li>if <span class="math inline">E = \bigcup_{n=1}^\infty E_n</span> and
+<span class="math inline">E_n \in \mathcal M</span> for each <span
+class="math inline">n</span>, then <span class="math inline">E \in
+\mathcal M</span>.</li>
+</ol>
+<p>Then, we call <span class="math inline">X</span> a <strong>measurable
+space</strong> and elements of <span class="math inline">\mathcal
+M</span> <strong>measurable sets</strong>.</p>
+<p><em>Def</em>: Take two measurable spaces <span
+class="math inline">X</span> and <span class="math inline">Y</span> with
+<span class="math inline">\sigma</span>-algebras <span
+class="math inline">\mathcal M_X, \mathcal M_Y</span>. Then, <span
+class="math inline">f: X \to Y</span> is said to be
+<strong>measurable</strong> if <span class="math inline">f^{-1}(E) \in
+\mathcal M_X</span> for all <span class="math inline">E \in \mathcal
+M_Y</span>.</p>
+<p><em>Def</em>: Take a <span class="math inline">\sigma</span>-algebra
+<span class="math inline">\mathcal M</span> on <span
+class="math inline">X</span>. A <strong>positive measure</strong> (or
+simply a measure) is a function <span class="math inline">\mu: \mathcal
+M \to [0, \infty]</span> which is countably additive, i.e. satisfies
+<span class="math display">\mu \left( \bigcup_{n=1}^\infty E_n \right) =
+\sum_{n=1}^\infty \mu(E_n)</span> for disjoint sets <span
+class="math inline">\{E_n\}_{n=1}^\infty</span>. Then, we say that a
+<strong>measure space</strong> is a measurable space with a
+corresponding positive measure, and we write it often as a triple <span
+class="math inline">(X, \mathcal M, \mu)</span>. Moreover, if the
+codomain of <span class="math inline">\mu</span> is <span
+class="math inline">\mathbb{R}</span> or <span
+class="math inline">\mathbb{C}</span>, we say that it is a
+<strong>signed</strong> measure or a <strong>complex</strong> measure
+respectively. Finally, if <span class="math inline">\mu(X) = 1</span>,
+then we say that <span class="math inline">\mu</span> is a
+<strong>probability</strong> measure.</p>
+<p><em>Def</em>: A simple function is a function whose image has only
+finitely many points.</p>
+<p><em>Def</em>: For a measurable function <span class="math inline">f:
+X \to Y</span> between measurable spaces <span class="math inline">(X,
+\mathcal M_X)</span> and <span class="math inline">(Y, \mathcal
+M_Y)</span>, we say that the <span
+class="math inline">\sigma</span><strong>-algebra generated by</strong>
+<span class="math inline">f</span> is <span
+class="math display">\sigma(f) = \{f^{-1}(S) \mid S \in \mathcal
+M_Y\}.</span></p>
+<p><em>Def</em>: For a measure space <span class="math inline">(X,
+\mathcal M, \mu)</span>, define <span
+class="math inline">L^p(\mu)</span> to be all measurable functions <span
+class="math inline">f</span> on <span class="math inline">X</span> for
+which <span class="math display">\left(\int_X |f|^p d\mu\right)^{1/p}
+&lt; \infty.</span></p>
+<h3 id="basic-properties-of-measures">Basic Properties of Measures</h3>
+<hr />
+<p><strong>Prop (Continuity of Measure)</strong>: Let <span
+class="math inline">\{E_n\}_{n=1}^\infty</span> be an ascending sequence
+of sets, i.e. <span class="math inline">E_1 \subset E_2 \subset
+\dots</span>. Then, we have that <span class="math display">\mu \left(
+\bigcup_{n=1}^\infty E_n \right) = \lim_{n \to \infty} \mu(E_n).</span>
+Similarly, if <span class="math inline">\{E_n\}_{n=1}^\infty</span> is a
+descending sequence of sets, i.e. <span class="math inline">E_1 \supset
+E_2 \supset \dots</span>. Then, <span class="math display">\mu \left(
+\bigcap_{n=1}^\infty E_n \right) = \lim_{n \to \infty} \mu(E_n)</span>
+as well.</p>
+<p><em>Proof</em>: For the ascending sequence, put <span
+class="math inline">A_1 = E_1</span> and <span class="math inline">A_n =
+E_n \setminus E_{n-1}</span> for <span class="math inline">n \geq
+2</span>; then we have that <span class="math display">\mu(E_n) =
+\sum_{i=1}^n \mu(A_i) \text{ and } \mu(E) = \sum_{i=1}^\infty
+\mu(A_n)</span> which immediately gives us what we want.</p>
+<p><strong>Corollary (Subadditivity of Measure)</strong>: For <span
+class="math inline">\{E_n\}_{n=1}^\infty</span>, we have that <span
+class="math display">\mu \left( \bigcup_{n=1}^\infty E_n \right) \leq
+\sum_{n=1}^\infty \mu(E_n).</span></p>
+<p>In the other case, simply put <span class="math inline">A_n = E_1
+\setminus E_n</span>, so that the previous part gives us <span
+class="math display">\mu(E_1) - \mu \left( \bigcap_{n=1}^\infty E_n
+\right) = \mu \left( E_1 - \bigcap_{n=1}^\infty E_n \right) = \lim_{n
+\to \infty} \mu(A_n) = \mu(E_1) - \lim_{n \to \infty} \mu(E_n) </span>
+which then gives us what we want as well. <span
+class="math inline">\square</span></p>
+<p><strong>Prop</strong>: Let <span class="math inline">(X, \mathcal
+M)</span> be a measurable space. If <span class="math inline">f: X \to
+[-\infty, \infty]</span> satisfies that <span
+class="math inline">f^{-1}((\alpha, \infty]) \in \mathcal M</span> for
+every real <span class="math inline">\alpha</span>, then <span
+class="math inline">f</span> is measurable.</p>
+<p><em>Proof</em>: TODO</p>
+<p><strong>Lemma</strong>: If <span class="math inline">f_n: X \to
+[-\infty, \infty]</span> is measurable for <span class="math inline">n
+\geq 1</span>, and <span class="math display">g = \sup_n f_n \text{ and
+} h = \limsup_{n \to \infty} f_n,</span> then <span
+class="math inline">g, h</span> are measurable.</p>
+<p><em>Proof</em>: We have that <span
+class="math display">g^{-1}((\alpha, \infty]) = \bigcup_{n=1}^\infty
+f_n^{-1}((\alpha, \infty])</span> so <span class="math inline">g</span>
+is measurable, and <span class="math display">h = \inf_{m \geq 1}
+\left\{ \sup_{n \geq m} f_n \right\}</span> as therefore also
+measurable.</p>
+<h3 id="lebesgue-integration">Lebesgue Integration</h3>
+<hr />
+<p><strong>Prop</strong>: Let <span class="math inline">f: X \to [0,
+\infty]</span> be measurable. Then there are simple measurable functions
+<span class="math inline">s_n</span> on <span
+class="math inline">X</span> such that</p>
+<ol class="incremental" type="1">
+<li><span class="math inline">0 \leq s_1 \leq s_2 \leq \cdots \leq
+f</span> and</li>
+<li><span class="math inline">s_n(x) \to f(x)</span> as <span
+class="math inline">n \to \infty</span> pointwise on <span
+class="math inline">X</span>.</li>
+</ol>
+<p><em>Proof</em>: Take <span class="math inline">\delta_n =
+2^{-n}</span>; for each positive integer <span
+class="math inline">n</span> and real number <span
+class="math inline">t</span>, we can find integer <span
+class="math inline">k_{n,t}</span> such that <span
+class="math inline">k_{n,t}\delta_n &lt; (k+1)\delta_n</span>. Then,
+define <span class="math display">\varphi_n(t) = \begin{cases}
+k_{n,t}\delta_n &amp; 0\leq t &lt; n \\ n &amp; n \leq t \leq \infty
+\end{cases}</span> so that we have</p>
+<ol class="incremental" type="1">
+<li><span class="math inline">t - \delta_n &lt; \varphi_n(t) \leq
+t</span> for all <span class="math inline">0 \leq t \leq n</span>,</li>
+<li><span class="math inline">0 \leq \varphi_1 \leq \varphi_2 \leq
+\cdots \leq t</span>,</li>
+<li>and <span class="math inline">\varphi_n(t) \to t</span> as <span
+class="math inline">n \to \infty</span>.</li>
+</ol>
+<p>Then, letting <span class="math inline">s_n = \varphi_n \circ
+f</span> clearly does the job. <span
+class="math inline">\square</span></p>
+<p><em>Def</em>: If <span class="math inline">s: X \to [0,
+\infty)</span> is a measurable simple function, given by <span
+class="math display">s = \sum_{i=1}^n \alpha_i 1_{A_i}</span> and if
+<span class="math inline">E \in \mathcal M</span>, we set <span
+class="math display">\int_E s d\mu = \sum_{i=1}^n \alpha_i \mu(A_i \cap
+E).</span> Then, for any measurable <span class="math inline">f: X \to
+[0, \infty]</span>, we have <span class="math display">\int_E f d\mu =
+\sup_s \int_E s d\mu</span> where the supremum is overall simple
+measurable functions less than <span class="math inline">f</span>.
+Finally, for <span class="math inline">f: X \to [-\infty,
+\infty]</span>, we let <span class="math display">f^+(x) = \max\{f(x),
+0\} \text{ and } f^-(x) = \max\{-f(x), 0\}</span> and define <span
+class="math display">\int_E f d\mu = \int_E f^+ d\mu - \int_E f^-
+d\mu.</span> Integration of complex valued functions is simply done by
+integrating over the real and the imaginary parts separately.</p>
+<p><em>Def</em>: We say that <span class="math inline">f</span> is
+<strong>integrable</strong> if <span class="math inline">\int |f| d\mu
+&lt; \infty</span>, and we also put <span class="math inline">f \in
+L^1(\mu)</span>.</p>
+<h4 id="the-three-big-guns">The Three Big Guns</h4>
+<p>Of course, we are referring to monotone convergence, Fatou’s lemma,
+and dominated convergence.</p>
+<p><strong>Theorem (Monotone Convergence)</strong>: Let <span
+class="math inline">\{f_n\}_{n=1}^\infty</span> be a sequence of
+measurable functions on <span class="math inline">X</span>, and suppose
+that</p>
+<ol class="incremental" type="1">
+<li><span class="math inline">0 \leq f_1(x) \leq f_2(x) \leq \cdots \leq
+\infty</span> for all <span class="math inline">x \in X</span>;</li>
+<li><span class="math inline">f_n(x) \to f(x)</span> as <span
+class="math inline">n \to \infty</span> pointwise on <span
+class="math inline">X</span>.</li>
+</ol>
+<p>Then <span class="math inline">f</span> is measurable and <span
+class="math display">\int_X f_n d\mu \to \int_X f d\mu \text{ as } n \to
+\infty.</span></p>
+<p><em>Proof</em>: Let <span class="math inline">\alpha = \lim_{n \to
+\infty} \int_X f_n d\mu</span>; clearly by construction <span
+class="math inline">\alpha \leq \int_X f d\mu</span>. Then, for any
+<span class="math inline">0 &lt; c &lt; 1</span> and simple function
+<span class="math inline">0 \leq s \leq f</span>, we define <span
+class="math display">E_n = \{x \mid f_n(x) \geq c s(x) \}</span> which
+is ascending and has <span class="math inline">\bigcup_{n=1}^\infty E_n
+= X</span>. Thus, we get <span class="math display">\int_X f_n d\mu \geq
+\int_{E_n} f_n d\mu \geq c \int_{E_n} s d\mu</span> and sending <span
+class="math inline">n \to \infty</span> and <span class="math inline">c
+\to 1</span> gives <span class="math display">\alpha \geq \sup_s \int_X
+s d\mu = \int_X f d\mu</span> which gives us what we want. <span
+class="math inline">\square</span></p>
+<p><strong>Theorem (Fatou’s Lemma)</strong>: If <span
+class="math inline">f_n: X \to [0, \infty]</span> is measurable for
+<span class="math inline">n \geq 1</span>, then <span
+class="math display">\int_X \left(\liminf_{n \to \infty} f_n\right) d\mu
+\leq \liminf_{n \to \infty} \int_X f_n d\mu.</span></p>
+<p><em>Proof</em>: Put <span class="math inline">g_n(x) = \inf_{m \geq
+n} f_m(x)</span>, such that <span class="math inline">\liminf_{n \to
+\infty} f_n = \lim_{n \to \infty} g_n</span>. Then, we clearly have that
+by monotone convergence <span class="math display">\int_X
+\left(\liminf_{n \to \infty} f_n\right) d\mu = \lim_{n \to \infty}
+\int_X g_n d\mu \leq \lim_{n \to \infty} \int_X f_n d\mu = \liminf_{n
+\to \infty} \int_X f_n d\mu. \ \square</span></p>
+<p><strong>Theorem (Dominated Convergence)</strong>: Suppose <span
+class="math inline">\{f_n\}_{n=1}^\infty</span> is a sequence of
+measurable functions on <span class="math inline">X</span>, and <span
+class="math inline">f</span> satisfies that <span
+class="math inline">f_n \to f</span> pointwise on <span
+class="math inline">X</span>. Then, if there is <span
+class="math inline">g \in L^1(\mu)</span> with <span
+class="math inline">|f_n(x)| \leq g(x)</span> for all <span
+class="math inline">n</span>, then <span class="math inline">f \in
+L^1(\mu)</span>, <span class="math display">\int_X |f_n - f| d\mu =
+0,</span> and <span class="math display">\int_X f_n d\mu \to \int_X f
+d\mu.</span></p>
+<p><em>Proof</em>: Clearly <span class="math inline">f \in
+L^1(\mu)</span> since <span class="math inline">|f| \leq g</span>.
+Moreover, we have that <span class="math inline">|f_n - f| \leq
+2g</span>, so Fatou applied to <span class="math inline">2g - |f_n -
+f|</span> gives <span class="math display">\int_X 2g d\mu \leq
+\liminf_{n \to \infty} \int_X (2g - |f_n - f|)d\mu = \int_X 2g d\mu -
+\limsup_{n \to \infty} \int_X |f_n - f|d\mu</span> which gives us that
+<span class="math inline">\int_X |f_n - f| d\mu = 0</span>. Jensen’s
+inequality then gives <span class="math display">\lim_{n \to
+\infty}\left|\int_X f_n - \inf_X f\right| \leq \lim_{n \to \infty}
+\int_X |f_n - f|d\mu = 0. \ \square</span></p>
+</body>
+</html>

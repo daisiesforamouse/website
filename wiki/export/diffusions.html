@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Diffusion Models</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <link rel="stylesheet" href="wiki.css" />
+  <link rel="stylesheet" href="/wiki.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Diffusion Models</h1>
+</header>
+<hr>
+<nav id="TOC" role="doc-toc">
+<ul class="incremental">
+<li><a href="#basics-of-diffusion-models"
+id="toc-basics-of-diffusion-models">Basics of Diffusion Models</a></li>
+<li><a href="#the-score" id="toc-the-score">The Score</a></li>
+</ul>
+</nav>
+<hr>
+<h3 id="basics-of-diffusion-models">Basics of Diffusion Models</h3>
+<hr />
+<p>We are considering the problem of sampling from some unknown
+distribution <span class="math inline">P_0</span>, potentially of very
+high dimension (such as images).</p>
+<p>A diffusion model is composed of a forwards and a backwards process.
+In the forwards case, a clean sample from the data distribution is
+progressively contaminated by Gaussian noise, while in the backwards
+case we sequentially remove noise in hopes of restoring <span
+class="math inline">P_{\text{data}}</span>. That is, we run two
+stochastic processes: the forwards process <span class="math display">
+    \text{Data} \to \text{Data + Noise} \to \text{Noise}
+</span> and the backwards process <span class="math display">
+    \text{Noise} \to \text{New Data + Noise} \to \text{New Data}
+</span> where we learn the backwards process during the forwards
+pass.</p>
+<h4 id="forwards-processes">Forwards Processes</h4>
+<p><em>Def</em>: For some <span class="math inline">X_0 \sim
+P_{0}</span>, the <strong>forwards process</strong> is given by an
+Ornstein-Ulhenbeck process <span class="math display">\begin{equation*}
+    dX_t = -\frac{1}{2} g(t)X_t dt + \sqrt{g(t)} dW_t
+\end{equation*}</span> where <span class="math inline">W_t</span> is a
+standard Brownian motion and <span class="math inline">g(t)</span> is a
+positive nondecreasing weighting function called the <strong>variance
+schedule</strong>.</p>
+<p>While the marginal distribution of <span
+class="math inline">X_t</span>, (written as <span
+class="math inline">P_t</span>) is generally intractible, we do know the
+conditional distribution <span class="math inline">X_t \mid
+X_0</span>.</p>
+<p><em>Lemma</em>: We have that <span class="math display">
+    X_t \mid X_0 \sim N \left(\alpha(t) X_0, h(t) I\right)
+</span> where <span class="math display">
+    \alpha(t) = \exp \left(-\frac{1}{2}\int_0^t g(s)ds \right) \text{
+and } h(t) = 1 - \alpha(t)^2.
+</span></p>
+<p><em>Proof</em>: Consider Ito’s lemma with <span
+class="math inline">f(t, x) = \frac{X_t}{\alpha(t)}</span> applied to
+<span class="math inline">X_t</span>, which gives that <span
+class="math display">
+    d\left(\frac{X_t}{\alpha(t)}\right) = \sqrt{g(t)} \alpha(t)dW_s
+</span> which gives that <span class="math display">
+    X_t = \alpha(t) \left(X_0 + \int_0^t \sqrt{g(s)} \alpha(s)dW_s
+\right).
+</span> The above has the required distribution. <span
+class="math inline">\square</span></p>
+<p>This means that if <span class="math inline">\alpha(t) \to 0</span>
+as <span class="math inline">t \to \infty</span> (under regularity
+conditions such that the above stochastic calculus goes through - for
+example, Lipschitz and bounded is sufficient), then the limiting
+distribution is <span class="math inline">N(0, I)</span>.</p>
+<h4 id="backwards-processes">Backwards Processes</h4>
+<p><em>Def</em>: Take a general diffusion <span class="math display">
+    dX_t = \mu(t, X_t)dt + \sigma(t, X_t)dW_t.
+</span> Then, the corresponding <strong>backwards SDE</strong> is <span
+class="math display">
+    d\widetilde X_t = \widetilde \mu(t, X_t)dt + \widetilde \sigma(t,
+X_t) d\widetilde W_t
+</span> for suitable <span class="math inline">\widetilde \mu,
+\widetilde \sigma</span> and Brownian <span
+class="math inline">\widetilde W_t</span> such that <span
+class="math inline">\widetilde X_{t} = X_{T - t}</span> holds in
+distribution for some later time <span class="math inline">T</span>,
+start time <span class="math inline">t_0</span>, and all <span
+class="math inline">t_0 \leq t \leq T</span>.</p>
+<p><strong>Theorem (Anderson 1982)</strong>: For a general diffusion as
+above, let <span class="math inline">\mu, \sigma</span> be such that
+they guarantee the existence of the probability density of <span
+class="math inline">X_t</span>, denoted <span
+class="math inline">p_t(x)</span>, as a smooth and unique solution to
+the associated Kolmogorov forwards/backwards equations for <span
+class="math inline">t_0 \leq t \leq T</span>, where <span
+class="math inline">t_0, T</span> are starting and end times. Then, we
+have that the backwards equation governed by <span class="math display">
+    d\widetilde X_t = \widetilde \mu(T - t, \widetilde X_t)dt + \sigma(T
+- t, \widetilde X_t) d\widetilde W_t
+</span> where <span class="math display">
+    \widetilde \mu^i(t, x) = -\mu^i(t, x) + \frac{1}{p_{t}(x)} \sum_{j,
+k} \frac{\partial}{\partial x^j} \left[p_{t}(x)\sigma^{ik}(t,
+x)\sigma^{jk}(t, x)\right].
+</span> Here, superscripts denote the relevant indices for vector/matrix
+valued functions (e.g. <span class="math inline">\mu^{1}</span> is the
+first coordinate of <span class="math inline">\mu</span>).</p>
+<p><em>Proof</em>: See Anderson 1982 for the proof and sufficient
+conditions on <span class="math inline">\mu, \sigma</span>; note that he
+uses a slightly different convention so that there is a difference in
+sign. Essentially, consider the joint density and use Kolmogorov
+forwards/backwards equations. <span
+class="math inline">\square</span></p>
+<p>Note that Anderson actually gives <span
+class="math inline">d\widetilde W_t</span> explicitly from <span
+class="math inline">dW_t</span>, which we do not use here, as well more
+sophisticated regularity conditions on <span class="math inline">\mu,
+\sigma</span>.</p>
+<p><strong>Corollary</strong>: In the case of the OU diffusion above, we
+get that the reverse time model is simply <span class="math display">
+    d\widetilde X_t = \left(\frac{1}{2} g(T-t) X_t + g(T-t) \nabla
+\log(p_{T-t}(X_t)) \right)dt + \sqrt{g(T-t)}d\widetilde W_t.
+</span></p>
+<p><em>Def</em>: We call <span class="math inline">\nabla
+\log(p_t(x))</span> the <strong>score</strong> of <span
+class="math inline">p_t</span>. Note that this is different from the
+usual meaning of “score” in statistics, where the derivative is with
+respect to the parameters and not the data.</p>
+<h4 id="conditional-models">Conditional Models</h4>
+<p>These are very similar in spirit to the unconditional models above;
+here, however, instead of trying to sample from the unknown <span
+class="math inline">P_0</span>, we wish to general samples from a
+conditional data distribution <span class="math inline">P_0(\cdot \mid
+y)</span>. The conditional forward process is exactly the same: <span
+class="math display">
+    dX_t^y = -\frac{1}{2} g(t) X^y_t dt + \sqrt{g(t)}dW_t
+</span> with <span class="math inline">X_0^y \sim P_0(\cdot \mid
+y)</span>. However, the backwards process differs insofaras the score is
+replaced by the conditional score, i.e. <span class="math display">
+    d\widetilde X_t^y = \left(\frac{1}{2} g(T-t) X_t^y + g(T-t) \nabla
+\log(p_{T-t}(X_t^y \mid y)) \right)dt + \sqrt{g(T-t)}d\widetilde W_t.
+</span></p>
+<h3 id="the-score">The Score</h3>
+<hr />
+<p>Of course, we don’t have access to the score <span
+class="math inline">\nabla \log(p_t(x))</span>, so we need to estimate
+it from the forwards process.</p>
+<h4 id="score-matching">Score Matching</h4>
+<p>The most prominent method for score estimation is score matching,
+introduced in Hyvarinen 2005 for a different problem, i.e. estimating
+parameters for nonnormalized statistical models where the partition
+function is intractible.</p>
+<p>The procedure is as follows: for some distribution <span
+class="math inline">P_0</span> with corresponding density <span
+class="math inline">p_0(x)</span>, we wish to solve the minimization
+problem <span class="math display">
+    \arg\min_{s \in \mathcal S} E \left[ \| s(x) - \nabla \log(p_{0}(x))
+\|_{2}^2 \right]
+</span> for some suitable class <span class="math inline">\mathcal
+S</span>. Of course, this objective is intractible since <span
+class="math inline">p_0</span> is generally unknown. However, it turns
+out to be equivalent to a tractible loss.</p>
+<p><strong>Theorem</strong> (Hyvarinen 2005): Suppose that everything in
+sight is differentiable and has finite second moment. Then, we have the
+equivalence <span class="math display">
+    \frac{1}{2} E_{x \sim P_0} \left[ \| s(x) - \nabla \log(p_{0}(x))
+\|_{2}^2 \right] = E_{x \sim P_0} \left[ \mathop{\mathrm{tr}}(\nabla
+s(x)) + \frac{1}{2} \|s(x)\|_2^2 \right] + C
+</span> for some constant <span class="math inline">C</span>.</p>
+<p>However, the computation of <span
+class="math inline">\mathop{\mathrm{tr}}(\nabla s(x))</span> does not
+lend itself to high dimensional problems nor deep networks; thus we have
+to turn to a slightly different approach.</p>
+</body>
+</html>
